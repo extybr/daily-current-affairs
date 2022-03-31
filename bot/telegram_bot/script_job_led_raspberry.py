@@ -5,7 +5,8 @@ from time import sleep, localtime
 from gpiozero import LED
 
 
-def lamp():
+def lamp() -> None:
+    """ Включение светодиода (реле) с пина 25 RaspberryPi """
     led = LED(25)
     temp = localtime().tm_min
     while temp + 1 != localtime().tm_min:
@@ -15,10 +16,14 @@ def lamp():
         sleep(1)
 
 
-def extract_jobs():
-    professional_role = '&professional_role=96'
+def extract_jobs() -> None:
+    """
+    Парсер вакансий с сайта hh.ru
+    :return: None
+    """
+    professional_role = '&professional_role=96'  # специализация '96': программист
     text_profession = ''
-    area = '22'
+    area = '22'  # регион '22': Владивосток
     publication_time = 'order_by=publication_time&'
     period = '1'
     url = (f'https://api.hh.ru/vacancies?clusters=true&st=searchVacancy&enable_snippets=true&'
@@ -27,13 +32,13 @@ def extract_jobs():
 
     headers = {
         'Host': 'api.hh.ru',
-        'User-Agent': 'Safari',
+        'User-Agent': 'Mozilla/5.0',
         'Accept': '*/*',
         'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive'
     }
 
-    print('Headhunter: парсинг страницы')
+    print('Headhunter: парсинг вакансий')
     result = requests.get(url, headers)
     results = result.json()
     count_vacancies = results.get('found')
@@ -77,7 +82,9 @@ def extract_jobs():
             text.close()
 
 
-try:
-    extract_jobs()
-except OSError as error:
-    print(f'Статус: проблемы с доступом в интернет\n{error}')
+# если убрать условие ниже, то вакансии парсятся при старте бота
+if __name__ == '__main__':
+    try:
+        extract_jobs()
+    except OSError as error:
+        print(f'Статус: проблемы с доступом в интернет\n{error}')
