@@ -1,16 +1,19 @@
-import telebot
+﻿import os
+from time import sleep, localtime
 import requests
-from telebot import types
+import telebot
 from loguru import logger
-from time import sleep
+from telebot import types
+from script_job_led_raspberry import extract_jobs, lamp
 
 URL = 'https://www.cbr-xml-daily.ru/latest.js'
 HEADERS = {'Host': 'https://www.cbr-xml-daily.ru', 'User-Agent': 'Mozilla/5.0', 'Accept': '*/*',
            'Accept-Encoding': 'gzip, deflate, br', 'Connection': 'keep-alive'}
 
-token = 'blablabla'
+token = 'bla-bla-bla'
 bot = telebot.TeleBot(token)
 bot.remove_webhook()
+# (332458533, 558054155) id telegram ниже в коде изменены
 
 
 @bot.message_handler(commands=['start'])
@@ -22,7 +25,11 @@ def start(message):
     button_2 = types.KeyboardButton('🐷 Жеребцу 🐷')
     button_3 = types.KeyboardButton('🙏 работа 🙏')
     button_4 = types.KeyboardButton('🚷 stop 🚷')
-    markup.row(button_1, button_2, button_3, button_4)
+    button_5 = types.KeyboardButton('🌼 read file 🌼')
+    button_6 = types.KeyboardButton('🌼 led 🌼')
+    button_7 = types.KeyboardButton('🌼 id 🌼')
+    markup.row(button_1, button_2, button_3, button_7)
+    markup.row(button_5, button_6, button_4)
     bot.send_message(message.chat.id, 'Ну что готов к поиску работы?', reply_markup=markup)
     url = 'https://skyteach.ru/wp-content/cache/thumb/d7/81a695a40a5dfd7_730x420.jpg'
     bot.send_photo(message.chat.id, photo=url, reply_markup=markup)
@@ -44,28 +51,82 @@ def message_reply(message):
         url_img = "https://bestwine24.ru/image/cache/catalog/vodka/" \
                   "eef2e315f762519e75aba64a800b63e9-540x720.jpg"
         bot.send_photo(message.chat.id, photo=url_img)
+    if message.text == "🌼 read file 🌼":
+        if message.chat.id in (332458533, 558054155):
+            send_vacancies()
+        else:
+            bot.send_message(message.chat.id, 'Вам запрещено читать локальный файл 😄')
+    if message.text == "🌼 led 🌼":
+        if message.chat.id == 558054155:
+            lamp()
+        else:
+            bot.send_message(message.chat.id, 'Вам запрещено включать чайник 😄')
+    if message.text == "🌼 id 🌼":
+        bot.send_message(message.chat.id, f'{message.chat.id}')
     if message.text == "🚷 stop 🚷":
-        try:
-            # bot.stop_polling()
-            bot.stop_bot()
-        except RuntimeError:
-            print('finish')
+        if message.chat.id == 332458533:
+            try:
+                # bot.stop_polling()
+                bot.stop_bot()
+            except RuntimeError:
+                print('finish')
+        else:
+            bot.send_message(message.chat.id, 'Вам запрещено выключать бота 😄')
+    text = os.path.abspath(os.path.join('_vacancies.txt'))
     if message.text == "🙏 работа 🙏":
-        text = "C:\\Users\\Professional\\Desktop\\_vacancies.txt"
+        extract_jobs()
+        # sleep(5)
         with open(text, 'r', encoding='utf-8') as txt:
-            for line in txt.readlines():
-                if len(line) < 3:
-                    bot.send_message(message.chat.id, '-----')
+            marker = False
+            for i, line in enumerate(txt.readlines()):
+                if i == 0 and not line.endswith(': 0\n'):
+                    marker = True
+                if marker:
+                    if len(line) < 3:
+                        # bot.send_message(message.chat.id, '-----')
+                        continue
+                    else:
+                        bot.send_message(message.chat.id, line.strip())
+                    if line.startswith('🚘'):
+                        sleep(5)
                 else:
-                    bot.send_message(message.chat.id, line.strip())
-                if line.startswith('🚘'):
-                    sleep(5)
+                    bot.send_message(message.chat.id, 'Нет вакансий')
+                    break
+
+
+def send_vacancies():
+    text = os.path.abspath(os.path.join('_vacancies.txt'))
+    count = 0
+    with open(text, 'r', encoding='utf-8') as txt:
+        for i, line in enumerate(txt.readlines()):
+            if i == 0 and not line.endswith(': 0\n'):
+                count += int(line.strip()[-3:])
+    bot.send_message(558054155, f'Число вакансий в локальном файле: {count}')
+    bot.send_message(332458533, f'Число вакансий в локальном файле: {count}')
+    if count > 0:
+        with open(text, 'r', encoding='utf-8') as txt:
+            marker = False
+            for i, line in enumerate(txt.readlines()):
+                if i == 0 and not line.endswith(': 0\n'):
+                    marker = True
+                if marker:
+                    if len(line) < 3:
+                        continue
+                    if line.count('*') > 5:
+                        bot.send_message(332458533, line.strip())
+                    if line.find('https://') != -1:
+                        bot.send_message(332458533, line.strip())
+                    # else:
+                        # bot.send_message(332458533, line.strip())
+                    if line.startswith('🚘'):
+                        sleep(5)
+    else:
+        bot.send_message(332458533, 'Нет вакансий')
 
 
 while True:
     try:
         bot.polling()
-    except BaseException as e:
-        print(e)
+    except BaseException as error:
+        print(error)
         sleep(60)
-
