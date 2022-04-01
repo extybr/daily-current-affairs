@@ -109,7 +109,7 @@ def send_vacancies() -> None:
     with open(text, 'r', encoding='utf-8') as txt:
         for i, line in enumerate(txt.readlines()):
             if i == 0 and not line.endswith(': 0\n'):
-                count += int(line.strip()[-3:])
+                count += int(line.strip()[20:])
     bot.send_message(USER_2, f'Число вакансий в локальном файле: {count}')
     bot.send_message(USER_1, f'Число вакансий в локальном файле: {count}')
     if count > 0:

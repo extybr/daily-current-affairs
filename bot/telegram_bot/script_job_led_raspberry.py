@@ -22,7 +22,7 @@ def extract_jobs() -> None:
     :return: None
     """
     professional_role = '&professional_role=96'  # специализация '96': программист
-    text_profession = ''
+    text_profession = '&text='
     area = '22'  # регион '22': Владивосток
     publication_time = 'order_by=publication_time&'
     period = '1'
