@@ -88,20 +88,17 @@ def message_reply(message) -> None:
         extract_jobs()
         # sleep(5)
         with open(text, 'r', encoding='utf-8') as txt:
-            marker = False
             for i, line in enumerate(txt.readlines()):
-                if i == 0 and not line.endswith(': 0\n'):
-                    marker = True
-                if marker:
+                if i == 0 and line.endswith(': 0\n'):
+                    bot.send_message(message.chat.id, 'Нет вакансий')
+                    break
+                else:
                     if len(line) < 3:
                         continue
                     else:
                         bot.send_message(message.chat.id, line.strip())
                     if line.startswith('🚘'):
                         sleep(5)
-                else:
-                    bot.send_message(message.chat.id, 'Нет вакансий')
-                    break
 
 
 def send_vacancies() -> None:
@@ -117,23 +114,15 @@ def send_vacancies() -> None:
     bot.send_message(USER_1, f'Число вакансий в локальном файле: {count}')
     if count > 0:
         with open(text, 'r', encoding='utf-8') as txt:
-            marker = False
             for i, line in enumerate(txt.readlines()):
-                if i == 0 and not line.endswith(': 0\n'):
-                    marker = True
-                if marker:
-                    if len(line) < 3:
-                        continue
-                    if line.count('*') > 5:
-                        bot.send_message(USER_1, line.strip())
-                    if line.find('https://') != -1:
-                        bot.send_message(USER_1, line.strip())
-                    # else:
-                        # bot.send_message(USER_1, line.strip())
-                    if line.startswith('🚘'):
-                        sleep(5)
-    else:
-        bot.send_message(USER_1, 'Нет вакансий')
+                if len(line) < 3:
+                    continue
+                elif line.count('*') > 5:
+                    bot.send_message(USER_1, line.strip())
+                elif line.find('https://') != -1:
+                    bot.send_message(USER_1, line.strip())
+                elif line.startswith('🚘'):
+                    sleep(5)
 
 
 if __name__ == '__main__':
