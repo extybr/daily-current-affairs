@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import requests
 from time import sleep, localtime
 from gpiozero import LED
@@ -70,19 +68,18 @@ def extract_jobs() -> None:
                 output = (f'  {company}  '.center(50, '*') + f'\n\n🚮   Профессия: {name}\n😍   '
                           f'Зарплата: {from_salary} - {to_salary}\n⚜   Ссылка: {link}\n🐯   '
                           f'/{types}/   -🌼-   дата публикации: {date}   -🌻-   график работы: '
-                          f'{schedule.lower()}\n🚘   Адрес: {address}')
+                          f'{schedule.lower()}\n🚘   Адрес: {address}\n')
                 text.write(output.center(50, '*') + '\n')
             else:
                 output = (f'  {company}  '.center(50, '*') + f'\n\n🚮   Профессия: {name}\n😍'
                           f'   Зарплата: не указана\n⚜   Ссылка: {link}\n🐯   /{types}/'
                           f'   -🌼-   дата публикации: {date}   -🌻-   график работы: '
                           f'{schedule.lower()}\n🚦   Количество откликов для вакансии: '
-                          f'\n🚘   Адрес: {address}')
+                          f'\n🚘   Адрес: {address}\n')
                 text.write(output.center(50, '*') + '\n')
             text.close()
 
 
-# если убрать условие ниже, то вакансии парсятся при старте бота
 if __name__ == '__main__':
     try:
         extract_jobs()
