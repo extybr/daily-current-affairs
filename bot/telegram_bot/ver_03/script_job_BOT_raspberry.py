@@ -73,11 +73,13 @@ def message_reply(message) -> None:
     if message.text == "🌼 led on 🌼":
         if message.chat.id == USER_2:
             GPIO.output(25, GPIO.HIGH)
+            bot.send_message(USER_2, 'Включаю чайник 😄')
         else:
             bot.send_message(message.chat.id, 'Вам запрещено включать чайник 😄')
     if message.text == "🌼 led off 🌼":
         if message.chat.id == USER_2:
             GPIO.output(25, GPIO.LOW)
+            bot.send_message(USER_2, 'Выключаю чайник 😄')
         else:
             bot.send_message(message.chat.id, 'Вам запрещено выключать чайник 😄')
     if message.text == "🌼 id 🌼":
@@ -112,12 +114,16 @@ def send_vacancies(message) -> None:
     """ Читает локальный файл с вакансиями """
     text = '_vacancies.txt'  # путь к файлу и имя файла
     count = 0
+    count_local = 0
     with open(text, 'r', encoding='utf-8') as txt:
         count += int(txt.readline().strip()[20:])
+        count_local += int(txt.read().strip().count('🚘'))
+        count_spam = count - count_local
     if message.chat.id in (USER_1, USER_2):
-        bot.send_message(message.chat.id, f'Число вакансий за сутки: {count}')
+        bot.send_message(message.chat.id, f'Всего вакансий за сутки: {count}. В локальной базе: {count_local}. Удаленных вакансий-спама: {count_spam}.')
     else:
-        bot.send_message(message.chat.id, f'Число вакансий за сутки: {count}\nБудут показаны вакансии опубликованные за сутки с зарплатой не менее 70тыс.рублей\nПовторы и спам будут проигнорированы')
+        bot.send_message(message.chat.id, f'Число вакансий за сутки: {count_local}\nБудут показаны вакансии опубликованные за сутки с зарплатой не менее 70тыс.рублей\nПовторы и спам ({count_spam}шт.) будут проигнорированы.')
+    sleep(3)
     if count > 0:
         with open(text, 'r', encoding='utf-8') as txt:
             for i, line in enumerate(txt.readlines()):
