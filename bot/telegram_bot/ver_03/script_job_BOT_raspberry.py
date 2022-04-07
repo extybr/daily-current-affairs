@@ -62,29 +62,30 @@ def message_reply(message) -> None:
         except OSError:
             print('Сервер недоступен')
             bot.send_message(message.chat.id, 'Сервер недоступен')
-    if message.text == "🐷 Жеребцу 🐷":
-        url_img = ("https://bestwine24.ru/image/cache/catalog/vodka/eef2e315f762519e75aba64a800b63e9-540x720.jpg")
+    elif message.text == "🐷 Жеребцу 🐷":
+        url_img = ("https://bestwine24.ru/image/cache/catalog/vodka"
+                   "/eef2e315f762519e75aba64a800b63e9-540x720.jpg")
         bot.send_photo(message.chat.id, photo=url_img)
-    if message.text == "🌼 read file 🌼":
+    elif message.text == "🌼 read file 🌼":
         if message.chat.id in (USER_1, USER_2):
             send_vacancies(message)
         else:
             bot.send_message(message.chat.id, 'Вам запрещено читать локальный файл 😄')
-    if message.text == "🌼 led on 🌼":
+    elif message.text == "🌼 led on 🌼":
         if message.chat.id == USER_2:
             GPIO.output(25, GPIO.HIGH)
             bot.send_message(USER_2, 'Включаю чайник 😄')
         else:
             bot.send_message(message.chat.id, 'Вам запрещено включать чайник 😄')
-    if message.text == "🌼 led off 🌼":
+    elif message.text == "🌼 led off 🌼":
         if message.chat.id == USER_2:
             GPIO.output(25, GPIO.LOW)
             bot.send_message(USER_2, 'Выключаю чайник 😄')
         else:
             bot.send_message(message.chat.id, 'Вам запрещено выключать чайник 😄')
-    if message.text == "🌼 id 🌼":
+    elif message.text == "🌼 id 🌼":
         bot.send_message(message.chat.id, f'{message.chat.id}')
-    if message.text == "🚷 stop 🚷":
+    elif message.text == "🚷 stop 🚷":
         if message.chat.id == USER_1:
             try:
                 # bot.stop_polling()
@@ -93,13 +94,12 @@ def message_reply(message) -> None:
                 print('finish')
         else:
             bot.send_message(message.chat.id, 'Вам запрещено выключать бота 😄')
-    text = '_vacancies.txt'  # путь к файлу и имя файла
-    if message.text == "🙏 работа 🙏":
+    elif message.text == "🙏 работа 🙏":
+        text = '_vacancies.txt'  # путь к файлу и имя файла
         if message.chat.id in (USER_1, USER_2):
-            extract_jobs()
+            extract_jobs('96', '', '22')
         else:
-            from script_job_another import jobs
-            jobs()
+            extract_jobs('', '', '1979')
         count = 0
         with open(text, 'r', encoding='utf-8') as txt:
             count += int(txt.readline().strip()[20:])
@@ -108,6 +108,8 @@ def message_reply(message) -> None:
         else:
             with open(text, 'r', encoding='utf-8') as txt:
                 bot.send_message(message.chat.id, f'{txt.read()}')
+    else:
+        bot.send_message(message.chat.id, f'Не надо баловаться 🙏')
 
 
 def send_vacancies(message) -> None:
@@ -118,11 +120,15 @@ def send_vacancies(message) -> None:
     with open(text, 'r', encoding='utf-8') as txt:
         count += int(txt.readline().strip()[20:])
         count_local += int(txt.read().strip().count('🚘'))
-        count_spam = count - count_local
+    count_spam = count - count_local
     if message.chat.id in (USER_1, USER_2):
-        bot.send_message(message.chat.id, f'Всего вакансий за сутки: {count}. В локальной базе: {count_local}. Удаленных вакансий-спама: {count_spam}.')
+        bot.send_message(message.chat.id, f'Всего вакансий за сутки: {count}. В локальной базе: '
+                                          f'{count_local}. Удаленных вакансий-спама: {count_spam}.')
     else:
-        bot.send_message(message.chat.id, f'Число вакансий за сутки: {count_local}\nБудут показаны вакансии опубликованные за сутки с зарплатой не менее 70тыс.рублей\nПовторы и спам ({count_spam}шт.) будут проигнорированы.')
+        bot.send_message(message.chat.id, f'Число вакансий за сутки: {count_local}\nБудут показаны'
+                                          f' вакансии опубликованные за сутки с зарплатой не менее '
+                                          f'70тыс.рублей\nПовторы и спам ({count_spam}шт.) будут '
+                                          f'проигнорированы.')
     sleep(3)
     if count > 0:
         with open(text, 'r', encoding='utf-8') as txt:
