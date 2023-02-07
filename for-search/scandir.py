@@ -1,18 +1,15 @@
 import os
 
 
-def f(b):
+def scan(path):
     try:
-        for j in os.scandir(b):
-            d = os.path.abspath(os.path.join(b, j))
-            print(d)
-            if os.path.isdir(d):
-                f(d)
-        return j
-    except BaseException:
-        print()
+        for items in os.scandir(path):
+            fullpath = os.path.abspath(os.path.join(path, items))
+            print(fullpath)
+            if os.path.isdir(items):
+                scan(items)
+    except BaseException as error:
+        print(error)
 
 
-a = os.sep
-for i in f(a):
-    print(i)
+scan(os.sep)
