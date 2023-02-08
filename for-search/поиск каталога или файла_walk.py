@@ -25,4 +25,3 @@ for item in gen_files_path(search, mother_path):
     print(item)
     with open('file.txt', 'a', encoding='utf-8') as file:
         file.write(item + '\n')
-		
