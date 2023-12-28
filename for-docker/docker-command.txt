@@ -1,0 +1,63 @@
+docker login
+
+docker pull andreyshulaev1/test_app
+
+docker push latem/test_app
+
+docker ps
+docker ps -a
+docker images
+docker image ls
+
+docker run -p 80:80 -v /var/www/html/:/usr/share/nginx/html/ nginx
+docker run -p 5050:5000 andreyshulaev1/test_app
+docker run -p 5050:5000 -d latem/new_year_application:latest
+docker run -it ubuntu
+docker run -it --rm ubuntu:latest
+docker run -v C:\Users\my-folder:/usr/share/nginx/html -d -p 80:80 nginx
+docker run -d -p 8080:80 nginx
+docker run -d -p 8080:80 --rm nginx
+docker run -d -p 8080:80 --name my_nginx nginx
+docker run -e MY_ENV_VARIABLE=secret -d python:alpine
+docker run --restart=always redis
+
+docker run \
+--name my_nginx \
+-v C:\Users\my-folder:/usr/share/nginx/html \
+-p 80:80 \
+-d \
+--rm \
+nginx
+
+docker stop bf2c
+docker stop my_nginx
+docker kill bf2c
+
+docker start bf2c
+docker restart bf2c
+
+docker rm 5e
+docker system prune -a  # удалить все образы, за исключением тех, у которых есть работающие контейнеры
+docker container prune
+
+docker exec -it 6779 bash
+docker stats 6779
+docker port 160e1
+docker logs 160e1
+docker diff 160e1
+docker top 160e1
+docker inspect 160e1
+docker container inspect f3f7 > info.json
+docker inspect 7ebc101d32e8 | grep Mounts
+docker volume ls
+
+docker build -t wifi_hack .
+docker build -t latem/wifi_hack .
+
+docker-compose up
+docker-compose up -d
+docker-compose up --build
+docker-compose -f docker-compose.pub.yml up -d
+docker-compose down
+docker-compose -f docker-compose.pub.yml down
+

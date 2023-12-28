@@ -1,0 +1,33 @@
+FROM nginx:latest
+COPY . /usr/share/nginx/html
+WORKDIR /site
+CMD [ "bash" ]
+
+*******************
+
+FROM python:3.12-alpine
+RUN mkdir /server
+COPY . /server/
+WORKDIR /server
+ENTRYPOINT ["python", "-m", "http.server", "80"]
+
+*******************
+
+FROM python:3.12-alpine
+
+COPY requirements.txt /app/
+RUN pip install -r /app/requirements.txt
+
+RUN mkdir /app
+COPY . /app/
+WORKDIR /app
+ENTRYPOINT ["python", "app.py"]
+
+*******************
+
+FROM python:alpine
+WORKDIR /app
+COPY . .
+CMD [ "python", "app.py" ]
+
+*******************
