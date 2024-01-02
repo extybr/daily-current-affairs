@@ -1,0 +1,17 @@
+https://docs.docker.com/desktop/install/debian/
+
+sudo apt-get install ./docker-desktop-<version>-<arch>.deb
+
+/usr/local/bin/com.docker.cli to /usr/bin/docker
+
+systemctl --user start docker-desktop
+systemctl --user enable docker-desktop
+systemctl --user stop docker-desktop
+
+
+
+
+
+
+
+

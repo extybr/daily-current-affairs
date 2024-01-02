@@ -1,0 +1,26 @@
+sudo apt-get install prometheus prometheus-alertmanager prometheus-node-exporter prometheus-nginx-exporter
+
+sudo systemctl status prometheus
+sudo systemctl start prometheus
+
+sudo systemctl status prometheus-nginx-exporter
+sudo systemctl start prometheus-nginx-exporter
+
+sudo systemctl status prometheus-alertmanager
+sudo systemctl start prometheus-alertmanager
+
+sudo systemctl status nginx
+sudo systemctl start nginx
+
+
+nginx -V 2>&1 | grep -o with-http_stub_status_modules
+nginx -V 2>&1 | grep -o with-http_stub_status_module
+sudo ls /etc/nginx/sites-available/
+sudo cat /etc/nginx/sites-available/
+sudo cat /etc/nginx/sites-available/default
+sudo vim /etc/nginx/sites-available/default
+sudo nginx -t
+ls /etc/prometheus/prometheus.yml
+cat /etc/prometheus/prometheus.yml
+
+
