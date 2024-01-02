@@ -1,8 +1,10 @@
-docker login
+docker login  # для hub.docker.com
+docker login registry.gitlab.com  # для registry.gitlab.com
 
 docker pull andreyshulaev1/test_app
 
 docker push latem/test_app
+docker push registry.gitlab.com/extybr/wifi_hack
 
 docker ps
 docker ps -a
@@ -14,16 +16,18 @@ docker run -p 5050:5000 andreyshulaev1/test_app
 docker run -p 5050:5000 -d latem/new_year_application:latest
 docker run -it ubuntu
 docker run -it --rm ubuntu:latest
-docker run -v C:\Users\my-folder:/usr/share/nginx/html -d -p 80:80 nginx
+docker run -v C:\Users\Professional\Desktop\000:/usr/share/nginx/html -d -p 80:80 nginx
 docker run -d -p 8080:80 nginx
 docker run -d -p 8080:80 --rm nginx
 docker run -d -p 8080:80 --name my_nginx nginx
 docker run -e MY_ENV_VARIABLE=secret -d python:alpine
+docker run -e MY1=my1 -e MY2=my2 -e MY3=my3 --rm -it ubuntu
+docker run -e MY1="What your name?" -e MY2="My name is Alice" -e MY3="2023 12 12" --rm -it ubuntu
 docker run --restart=always redis
 
 docker run \
 --name my_nginx \
--v C:\Users\my-folder:/usr/share/nginx/html \
+-v C:\Users\Professional\Desktop\000:/usr/share/nginx/html \
 -p 80:80 \
 -d \
 --rm \
@@ -53,6 +57,7 @@ docker volume ls
 
 docker build -t wifi_hack .
 docker build -t latem/wifi_hack .
+docker build -t registry.gitlab.com/extybr/wifi_hack .
 
 docker-compose up
 docker-compose up -d
@@ -60,4 +65,3 @@ docker-compose up --build
 docker-compose -f docker-compose.pub.yml up -d
 docker-compose down
 docker-compose -f docker-compose.pub.yml down
-
