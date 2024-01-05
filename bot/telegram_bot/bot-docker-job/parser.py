@@ -6,7 +6,7 @@ def search_job(telegram_role: str, telegram_profession: str,
                telegram_area: str, telegram_period: str) -> None:
     """  Парсер вакансий с сайта hh.ru """
     print(f'Переданы параметры: {telegram_role}, {telegram_profession}, '
-                f'{telegram_area}, {telegram_period}')
+          f'{telegram_area}, {telegram_period}')
     try:
         professional_role = f'&professional_role={telegram_role}' if len(
             telegram_role) > 1 else ''

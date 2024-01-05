@@ -8,6 +8,7 @@ from bot import bot
 
 USER = os.environ.get('TG_USER')
 VACANCY = os.environ.get('VACANCY')
+TIMER = os.environ.get('TIMER')
 
 
 def run_task() -> None:
@@ -32,8 +33,10 @@ def run_task() -> None:
         print('\n\n' + '  База Данных отсутствует  '.center(107, '*'))
 
 
-schedule.every().hour.do(run_task)
-# schedule.every(5).minutes.do(run_task)
+if int(TIMER) > 1:
+    schedule.every(int(TIMER)).hours.do(run_task)
+elif int(TIMER) == 1:
+    schedule.every().hour.do(run_task)
 
 
 def start() -> None:
