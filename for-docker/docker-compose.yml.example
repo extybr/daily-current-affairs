@@ -11,6 +11,15 @@ services:
 version: '3'
 
 services:
+  linux:
+    image: ubuntu:latest
+    command: "sleep 50"
+	
+************************
+
+version: '3'
+
+services:
   scheduler:
     build: ./scheduler
     restart: always

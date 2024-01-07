@@ -1,10 +1,11 @@
 docker login  # для hub.docker.com
 docker login registry.gitlab.com  # для registry.gitlab.com
+docker login registry.gitlab.com --username "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
 
 docker pull andreyshulaev1/test_app
 
 docker push latem/test_app
-docker push registry.gitlab.com/extybr/wifi_hack
+docker push registry.gitlab.com/extybr/hh-scheduler-tgbot
 
 docker ps
 docker ps -a
@@ -24,6 +25,8 @@ docker run -e MY_ENV_VARIABLE=secret -d python:alpine
 docker run -e MY1=my1 -e MY2=my2 -e MY3=my3 --rm -it ubuntu
 docker run -e MY1="What your name?" -e MY2="My name is Alice" -e MY3="2023 12 12" --rm -it ubuntu
 docker run --restart=always redis
+docker run --restart=on-failure:10 redis  # перезапускать при ошибках, не более 10 раз
+docker run --net my_net -dit ubuntu:latest
 
 docker run \
 --name my_nginx \
@@ -53,11 +56,14 @@ docker top 160e1
 docker inspect 160e1
 docker container inspect f3f7 > info.json
 docker inspect 7ebc101d32e8 | grep Mounts
+docker inspect -f "{{ .RestartCount }}" my-container  # кличество раз перезапуска контейнера
+docker inspect -f "{{ .State.StartedAt }}" my-container  # время последнего запуска контейнера
 docker volume ls
+docker network ls
 
 docker build -t wifi_hack .
 docker build -t latem/wifi_hack .
-docker build -t registry.gitlab.com/extybr/wifi_hack .
+docker build -t registry.gitlab.com/extybr/hh-scheduler-tgbot .
 
 docker-compose up
 docker-compose up -d
@@ -65,3 +71,4 @@ docker-compose up --build
 docker-compose -f docker-compose.pub.yml up -d
 docker-compose down
 docker-compose -f docker-compose.pub.yml down
+docker-compose restart
