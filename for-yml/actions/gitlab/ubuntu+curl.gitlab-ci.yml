@@ -1,0 +1,11 @@
+# для gitlab-runner
+
+image: ubuntu:latest
+
+test:
+  script:
+    - apt-get update
+    - apt-get install -y curl
+    - curl "https://api.telegram.org/bot'$TG_TOKEN'/sendMessage?chat_id='$TG_USER'&text=%D0%9A%D0%B0%D0%BA%20%D0%B4%D0%B5%D0%BB%D0%B0"
+  tags:
+    - stage-test

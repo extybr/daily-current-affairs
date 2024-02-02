@@ -1,11 +1,18 @@
 docker login  # для hub.docker.com
 docker login registry.gitlab.com  # для registry.gitlab.com
-docker login registry.gitlab.com --username "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+docker login ghcr.io  # для github
+docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_REPOSITORY}
+echo <OAuth-токен> | docker login --username oauth --password-stdin cr.yandex
+echo <Personal Access Tokens> | docker login -u extybr --password-stdin registry.gitlab.com
+echo "$CI_REGISTRY" | docker login registry.gitlab.com --username "$CI_REGISTRY_USER" --password-stdin
+echo $PAT | docker login ghcr.io --username extybr --password-stdin
+cat TOKEN_GITHUB_REGISTRY | docker login https://ghcr.io --username extybr --password-stdin
 
 docker pull andreyshulaev1/test_app
 
 docker push latem/test_app
 docker push registry.gitlab.com/extybr/hh-scheduler-tgbot
+docker push latem/k8s-web-hello --all-tags
 
 docker ps
 docker ps -a
@@ -17,7 +24,10 @@ docker run -p 5050:5000 andreyshulaev1/test_app
 docker run -p 5050:5000 -d latem/new_year_application:latest
 docker run -it ubuntu
 docker run -it --rm ubuntu:latest
+docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:7.4-cli php your-script.php  # создание и запуск контейнера без dockerfile
 docker run -v C:\Users\Professional\Desktop\000:/usr/share/nginx/html -d -p 80:80 nginx
+docker run -it type=tmpfs, --mount source=my_volume, target=/usr/share/nginx/html nginx:latest
+docker run -d type=bind, --mount source=my_volume, destination=/usr/share/nginx/html, readonly nginx:latest
 docker run -d -p 8080:80 nginx
 docker run -d -p 8080:80 --rm nginx
 docker run -d -p 8080:80 --name my_nginx nginx
@@ -43,7 +53,13 @@ docker kill bf2c
 docker start bf2c
 docker restart bf2c
 
+docker create --name nginx_base -p 80:80 nginx:alpine
+
 docker rm 5e
+docker rm my_container
+docker image rm localhost:5000/my_image
+docker rmi localhost:5000/my_image
+docker system prune
 docker system prune -a  # удалить все образы, за исключением тех, у которых есть работающие контейнеры
 docker container prune
 
@@ -58,12 +74,26 @@ docker container inspect f3f7 > info.json
 docker inspect 7ebc101d32e8 | grep Mounts
 docker inspect -f "{{ .RestartCount }}" my-container  # кличество раз перезапуска контейнера
 docker inspect -f "{{ .State.StartedAt }}" my-container  # время последнего запуска контейнера
-docker volume ls
+docker volume ls  # список томов
+docker volume create --name my_volume  # создание тома
+docker volume rm my_volume  # удаление тома
+docker volume inspect my_volume  # информация о томе
+docker volume prune  # удалить все тома
 docker network ls
+docker image history latem/k8s-web-to-nginx:1.0.0
+docker cp index.html nginx_base:/usr/share/nginx/html/index.html
+docker search new_year_application  # поиск образа в hub.docker.com
+docker search --no-trunc new_year_application
+docker save ac300088b3 > image_backup.tar  # бэкап образа в архив
+docker save latem/new_year_application > image_backup.zip
+docker load < image_backup.zip  # восстановление бэкапа образа (потом $> docker tag ac300088b3 my_image:latest)
+
+docker commit nginx_base nginx_hi  # создание images из контейнера
 
 docker build -t wifi_hack .
 docker build -t latem/wifi_hack .
 docker build -t registry.gitlab.com/extybr/hh-scheduler-tgbot .
+docker build . -t latem/k8s-web-hello:latest -t latem/k8s-web-hello:1.0.0
 
 docker-compose up
 docker-compose up -d
@@ -72,3 +102,50 @@ docker-compose -f docker-compose.pub.yml up -d
 docker-compose down
 docker-compose -f docker-compose.pub.yml down
 docker-compose restart
+docker-compose build  # только сборка
+docker-compose pull
+
+# для github: https://github.com/settings/tokens?type=beta
+# для hub.docker.com и gitlab.com: логин и пароль от сайта ресурса
+
+
+*****************************************************************************
+
+┌──(tux㉿wpad)-[~]
+└─$ PAT=github_pat_11ARSH**********************************************
+                                                                                                                                                  
+┌──(tux㉿wpad)-[~]
+└─$ echo $PAT | docker login ghcr.io --username extybr --password-stdin
+
+
+path: /home/tux/.docker/config.json
+example:
+
+
+{
+	"auths": {
+		"ghcr.io": {
+			"auth": "ZXh0e*******************************************FRMw=="
+		},
+		"https://index.docker.io/v1/": {
+			"auth": "bGF*********************mRi"
+		},
+		"registry.gitlab.com": {
+			"auth": "ZXh*******************oNWg="
+		}
+	}
+}
+
+*****************************************************************************
+
+***deploy docker image in github registry***
+docker tag latem/new_year_application:latest ghcr.io/extybr/git_action:latest
+https://github.com/settings/tokens -> Personal access tokens (classic) -> $ echo "secret-token" > TOKEN_GITHUB_REGISTRY_TEMP
+cat TOKEN_GITHUB_REGISTRY_TEMP | docker login https://ghcr.io --username extybr --password-stdin
+docker push ghcr.io/extybr/git_action:latest
+https://github.com/users/extybr/packages/container/package/git_action
+docker pull ghcr.io/extybr/git_action
+
+*****************************************************************************
+
+
