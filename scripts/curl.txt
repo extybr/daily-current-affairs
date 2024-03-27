@@ -1,0 +1,70 @@
+
+curl l2.io/ip
+curl https://echoip.de
+curl ifconfig.me
+curl ipecho.net/plain
+curl -L ident.me
+curl -L canihazip.com/s
+curl -s tnx.nl/ip | sed "s/[<>]//g"  (curl -s tnx.nl/ip | tr "<>" " ")
+curl wgetip.com
+curl whatismyip.akamai.com
+curl ip.tyk.nu
+curl curlmyip.net
+curl api.ipify.org
+curl ipcalf.com
+
+curl ipaddy.net
+curl eth0.me
+curl ipaddr.site
+curl ifconfig.co
+curl ifconfig.pro
+curl -s ifconfig.me
+curl curlmyip.net
+curl ipinfo.io/ip
+curl icanhazip.com
+curl checkip.amazonaws.com
+curl smart-ip.net/myip
+curl ifconfig.io/ip
+curl -s ip.liquidweb.com
+curl ifconfig.es
+curl ipaddress.sh
+curl 2ip.ru
+
+dig @1.1.1.1 whoami.cloudflare ch txt +short (IPv4)
+dig @2606:4700:4700::1111 whoami.cloudflare ch txt -6 +short (IPv6)
+dig @ns1.google.com o-o.myaddr.l.google.com TXT -6 +short (IPv6)
+dig @ns1.google.com o-o.myaddr.l.google.com TXT -4 +short (IPv4)
+dig resolver.dnscrypt.info TXT +short
+curl https://dnsjson.com/resolver.dnscrypt.info/TXT.json
+curl -L https://edns.ip-api.com/json
+curl 'api.hackertarget.com/zonetransfer/?q=zonetransfer.me' - DNS Zone Transfer
+
+curl httpbin.org/ip
+curl ip-api.com (curl -s ip-api.com/json | jq -r ".query")
+curl wtfismyip.com/json (https://wtfismyip.com/text, https://wtfismyip.com/xml)
+curl myip.wtf/yaml
+curl -L iphorse.com/json
+curl geoplugin.net/json.gp (curl -s geoplugin.net/json.gp | jq -r ".geoplugin_request")
+curl https://ipapi.co/json
+curl -L jsonip.com
+curl gd.geobytes.com/GetCityDetails
+curl -s ip.jsontest.com | jq -r ".ip"
+
+curl ipinfo.io/8.8.8.8 or curl ipinfo.io/8.8.8.8/loc or curl -s https://ipinfo.io | jq -r ".ip"
+curl ip-api.com or curl ip-api.com/8.8.8.8
+curl ifconfig.co/country or curl ifconfig.co/city or curl ifconfig.co/country-iso or curl ifconfig.co/json
+curl ifconfig.es/geo or curl ifconfig.es/json or curl ifconfig.es/city or curl ifconfig.es/all
+curl -s --connect-timeout 2 "https://api.myip.com" | jq -r ".ip"
+
+ssh chat.shazow.net — chat over SSH (shazow/ssh-chat)
+ssh chat@ascii.town — SSH chat client (source)
+curl parrot.live — display an animated party parrot (hugomd/parrot.live)
+curl byemck.atulr.com — display animated goodbye message for colleagues (master-atul/byemck)
+nc rya.nc 1987 — get Rick Rolled (also works with telnet)
+curl node-web-console.glitch.me — watch an emoji race (source)
+curl ascii.live/forrest - run Forrest, run!
+curl ascii.live/nyan - watch Nyan Cat
+curl https://poptart.spinda.net — fullscreen colorized Nyan Cat
+
+
+
