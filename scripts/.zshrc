@@ -13,6 +13,9 @@ if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
   source /usr/share/zsh/manjaro-zsh-prompt
 fi
 
+#https://www.geeksforgeeks.org/histcontrol-command-in-linux-with-examples/
+#HISTCONTROL=ignoreboth:erasedups
+
 alias reqrypt='~/my_programs/./reqrypt-1.3.1-linux64.sh'
 alias sampler='sampler -c ~/my_programs/config.yml'
 alias cm='cmatrix -r'
@@ -37,24 +40,17 @@ alias mpeg='~/PycharmProjects/mpeg.sh'
 alias gitu='git add . && git commit -m'
 alias fm='/home/tux/my_programs/fmedia-1/./fmedia'
 alias anti='~/my_programs/./antizapret.sh'
-alias ipp='~/my_programs/./my-ip-addr.sh'
+alias ip/='~/my_programs/./my-ip-addr.sh'
 alias ip='ip --color'
 alias c/='~/my_programs/./cheat.sh'
+alias usd='~/my_programs/./usd-btc.sh'
+alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e'
 alias tel='telnet mapscii.me'
+alias w/='~/my_programs/./which-program.sh'
 
 # Disable autocorrect
 # unsetopt correct_all
 unsetopt correct
-
-howto () {
-	LYELLOW='\033[1;33m'; N='\033[0m'
-  if [ $# -eq 0 ]
-	then
-	  echo -e "${LYELLOW} А что искать то?${N}"
-  else
-	curl cheat.sh/$1
-  fi
-}
 
 btc () {
 	LWHITE='\033[1;37m'; N='\033[0m'
