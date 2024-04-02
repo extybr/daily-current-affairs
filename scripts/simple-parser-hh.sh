@@ -24,18 +24,21 @@ fi
 request=$(curl -s "https://api.hh.ru/vacancies?clusters=true&enable_snippets=true&st=searchVacancy$time$salary$vacancy$pages$period$area")
 if [ ${#request} -gt 0 ]
   then
-  for page in $(seq 1 100)
+  for page in $(seq 0 100)
   do
   name=$(printf "%s" "$request" | jq -r ".items.[$page].name")
   found=$(printf "%s" "$request" | jq -r ".found")
-  echo -e "${WHITE}$name${NORMAL}" | sed "s/null/--- найдено $found вакансий ---/g"
-  if [ "$name" = "null" ]; then break; fi
+  if [ "$name" = "null" ] || [ "$page" -eq 100 ]
+    then echo -e "${WHITE}$name${NORMAL}" | sed "s/null/--- найдено $found вакансий ---/g"; break
+  fi
+  echo -e "${WHITE}$name${NORMAL}"
   company=$(printf "%s" "$request" | jq -r ".items.[$page].employer.name"); echo -e "фирма: ${VIOLET}$company${NORMAL}"
   date=$(printf "%s" "$request" | jq -r ".items.[$page].published_at" | sed "s/+.*//g" | tr "T" " ")
   echo -e "дата: ${DBLUE}$date${NORMAL}"
   from=$(printf "%s" "$request" | jq -r ".items.[$page].salary.from")
   to=$(printf "%s" "$request" | jq -r ".items.[$page].salary.to")
   echo -e "зарплата: ${BLUE}$from${NORMAL} - ${BLUE}$to${NORMAL}"
+  schedule=$(printf "%s" "$request" | jq -r ".items.[$page].schedule.name" 2>/dev/null); echo -e "график работы: ${DBLUE}$schedule${NORMAL}"
   alternate_url=$(printf "%s" "$request" | jq -r ".items.[$page].alternate_url"); echo -e "ссылка: ${YELLOW}$alternate_url${NORMAL}"
   echo 
   done
