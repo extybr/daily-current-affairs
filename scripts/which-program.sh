@@ -1,4 +1,7 @@
 #!/bin/sh
+WHITE="\033[37m"
+NORMAL="\033[0m"
+if [ $# -ne 1 ]; then echo -e "${WHITE}ожидался 1 параметр, а передано $#${NORMAL}"; exit 1; fi
 if grep --color -E "^alias $1=" ~/.zshrc
   then
     echo

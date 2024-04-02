@@ -6,13 +6,21 @@ DBLUE="\033[34m"
 YELLOW="\033[1;33m"
 NORMAL="\033[0m"
 time="&order_by=publication_time"
-salary="&only_with_salary=true&salary=$1"
 vacancy="&text=инженер%20асу"
 pages="&per_page=100"
 period="&period=1"
 area="&area=113"
-if [ $# -ne 1 ]; then echo -e "${WHITE}ожидался 1 параметр, а передано $#${NORMAL}"; exit 1; fi
-if ! [ $1 -ge 0 ] 2>/dev/null; then echo -e "${WHITE}ожидалось число${NORMAL}"; exit 1; fi
+if [ $# -gt 1 ]
+  then echo -e "${WHITE}ожидался 1 параметр, а передано $#${NORMAL}"; exit 1
+elif [ $# -eq 0 ]
+  then salary="&only_with_salary=true&salary=250000"
+elif [ $# -eq 1 ]
+  then
+    if ! [ $1 -ge 0 ] 2>/dev/null
+      then echo -e "${WHITE}ожидалось число${NORMAL}"; exit 1
+    fi
+    salary="&only_with_salary=true&salary=$1"
+fi
 request=$(curl -s "https://api.hh.ru/vacancies?clusters=true&enable_snippets=true&st=searchVacancy$time$salary$vacancy$pages$period$area")
 if [ ${#request} -gt 0 ]
   then
