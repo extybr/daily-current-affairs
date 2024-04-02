@@ -1,2 +1,2 @@
 #!/bin/sh
-curl cheat.sh/"$1"
+curl --max-time 10 cheat.sh/"$1"
