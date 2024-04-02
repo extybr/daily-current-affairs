@@ -28,9 +28,9 @@ alias pspy='~/my_programs/./pspy64'
 alias pac='sudo pacman -S'
 alias pacs='~/my_programs/./pacs.sh'
 # /usr/share/cows
-alias tux='cowsay -f tux LINUX Good !!!'
-alias bsd='echo "\e[31m$(cowsay -f daemon HELP ME, PLEASE !!!)"'
-alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Hello !)"'
+alias tux='cowsay -f tux LINUX - Good !!!'
+alias bsd='echo "\e[31m$(cowsay -f daemon Отдавай все свои биткоины !!!)"'
+alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Тебя поджарить\?)"'
 alias wf='sudo ~/PycharmProjects/wifi_start.sh'
 #alias chat='cd ~/PycharmProjects/temp/NeuroGPT; venv/bin/python webui_ru.py'
 alias map='~/PycharmProjects/./map.sh'
@@ -47,6 +47,7 @@ alias usd='~/my_programs/./usd-btc.sh'
 alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e'
 alias tel='telnet mapscii.me'
 alias w/='~/my_programs/./which-program.sh'
+alias j/='~/my_programs/./simple-parser-hh.sh'
 
 # Disable autocorrect
 # unsetopt correct_all
@@ -61,7 +62,7 @@ btc () {
 	then
 	  curl rate.sx/$1
   else
-	echo -e "${LWHITE} Неправильный параметр${N}"
+	echo -e "${LWHITE} Ожидалось не более 1 параметра${N}"
   fi
 }
 

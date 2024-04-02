@@ -26,7 +26,9 @@ if [ ${#request} -gt 0 ]
   then
   for page in $(seq 1 100)
   do
-  name=$(printf "%s" "$request" | jq -r ".items.[$page].name"); echo -e "${WHITE}$name${NORMAL}" | sed "s/null/--- конец ---/g"
+  name=$(printf "%s" "$request" | jq -r ".items.[$page].name")
+  found=$(printf "%s" "$request" | jq -r ".found")
+  echo -e "${WHITE}$name${NORMAL}" | sed "s/null/--- найдено $found вакансий ---/g"
   if [ "$name" = "null" ]; then break; fi
   company=$(printf "%s" "$request" | jq -r ".items.[$page].employer.name"); echo -e "фирма: ${VIOLET}$company${NORMAL}"
   date=$(printf "%s" "$request" | jq -r ".items.[$page].published_at" | sed "s/+.*//g" | tr "T" " ")
