@@ -16,38 +16,38 @@ fi
 #https://www.geeksforgeeks.org/histcontrol-command-in-linux-with-examples/
 #HISTCONTROL=ignoreboth:erasedups
 
-alias reqrypt='~/my_programs/./reqrypt-1.3.1-linux64.sh'
+export SCRIPTS_DIRECTORY='~/PycharmProjects/github/daily-current-affairs/scripts'
+alias reqrypt=${SCRIPTS_DIRECTORY}'/./reqrypt-1.3.1-linux64.sh'
 alias sampler='sampler -c ~/my_programs/config.yml'
 alias cm='cmatrix -r'
-alias wr='~/my_programs/weather.sh'
-alias slsl='~/my_programs/sl.sh'
-alias os='~/my_programs/os.sh'
+alias wr=${SCRIPTS_DIRECTORY}'/weather.sh'
+alias slsl=${SCRIPTS_DIRECTORY}'/sl.sh'
+alias os=${SCRIPTS_DIRECTORY}'/os.sh'
 alias gpgd='gpg -d /run/media/tux/Samsung-1TB/mail.txt.gpg'
 alias mocp='mocp -T /usr/share/moc/themes/darkdot_theme'
 alias pspy='~/my_programs/./pspy64'
 alias pac='sudo pacman -S'
-alias pacs='~/my_programs/./pacs.sh'
+alias pacs=${SCRIPTS_DIRECTORY}'/pacs.sh'
 # /usr/share/cows
 alias tux='cowsay -f tux LINUX - Good !!!'
 alias bsd='echo "\e[31m$(cowsay -f daemon Отдавай все свои биткоины !!!)"'
 alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Тебя поджарить\?)"'
-alias wf='sudo ~/PycharmProjects/wifi_start.sh'
-#alias chat='cd ~/PycharmProjects/temp/NeuroGPT; venv/bin/python webui_ru.py'
-alias map='~/PycharmProjects/./map.sh'
-alias check='~/PycharmProjects/./check.sh'
-alias myssh='sudo ~/PycharmProjects/ssh_start.sh'
-alias mpeg='~/PycharmProjects/mpeg.sh'
+alias wf="sudo ${SCRIPTS_DIRECTORY}/wifi_start.sh"
+alias map=${SCRIPTS_DIRECTORY}'/map.sh'
+alias check=${SCRIPTS_DIRECTORY}'/check.sh'
+alias myssh="sudo ${SCRIPTS_DIRECTORY}/ssh_start.sh"
+alias mpeg=${SCRIPTS_DIRECTORY}'/mpeg.sh'
 alias gitu='git add . && git commit -m'
-alias fm='/home/tux/my_programs/fmedia-1/./fmedia'
-alias anti='~/my_programs/./antizapret.sh'
-alias ip/='~/my_programs/./my-ip-addr.sh'
+alias fm='~/my_programs/fmedia-1/./fmedia'
+alias anti=${SCRIPTS_DIRECTORY}'/antizapret.sh'
+alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
 alias ip='ip --color'
-alias c/='~/my_programs/./cheat.sh'
-alias usd='~/my_programs/./usd-btc.sh'
+alias c/=${SCRIPTS_DIRECTORY}'/cheat.sh'
+alias usd=${SCRIPTS_DIRECTORY}'/usd-btc.sh'
 alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e'
 alias tel='telnet mapscii.me'
-alias w/='~/my_programs/./which-program.sh'
-alias j/='~/my_programs/./simple-parser-hh.sh'
+alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'
+alias j/=${SCRIPTS_DIRECTORY}'/simple-parser-hh.sh'
 
 # Disable autocorrect
 # unsetopt correct_all
@@ -56,11 +56,9 @@ unsetopt correct
 btc () {
 	LWHITE='\033[1;37m'; N='\033[0m'
   if [ $# -eq 0 ]
-	then
-	  curl rate.sx
+	then curl rate.sx
   elif [ $# -eq 1 ]
-	then
-	  curl rate.sx/$1
+	then curl rate.sx/"$1"
   else
 	echo -e "${LWHITE} Ожидалось не более 1 параметра${N}"
   fi
