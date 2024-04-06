@@ -1,0 +1,509 @@
+https://habr.com/ru/companies/lanit/articles/683638/
+https://ru.wikipedia.org/wiki/GNU_Coreutils
+https://ru.wikipedia.org/wiki/Util-linux
+________
+alias:
+pspy, slsl, cm, tux, bsd, dragon, gpgd, gitu,
+os, hh, wr, wf, myssh, pac, pacs, check, ip/,
+c/, w/, j/, jj/, y/, usd, usd/, btc, anti, fm, 
+map, mpeg, reqrypt, tel, sampler, mocp
+________
+
+sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
+cowsay  (configurable speaking/thinking cow (and a bit more))
+cmatrix
+wireshark  (Interactively dump and analyze network traffic)
+tshark  (Dump and analyze network traffic)
+curl  (transfer a URL)
+curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e
+tcpdump  (dump traffic on a network)
+dd
+virtualbox
+vlc  (the VLC media player)
+gedit  (a general-purpose text editor)
+wget  (The non-interactive network downloader)
+gqrx
+hashcat
+rtl_sdr -h  (an I/Q recorder for RTL2832 based DVB-T receivers)
+rtl_sdr -f 433000000
+rtl_sdr 433
+sha1sum  (compute and check SHA1 message digest)
+echo -n "Hello World" | sha1sum
+sha256sum  (compute and check SHA256 message digest)
+echo -n "Hello World" | sha256sum
+echo -n "Hello World" | shasum -a 256
+md5sum  (compute and check MD5 message digest)
+echo -n "Hello World" | md5sum
+base64  (base64 encode/decode data and print to standard output)
+echo -n "Hello World" | base64
+echo $(echo "SGVsbG8gV29ybGQ=" | base64 -d)
+mocp  (Console audio player)
+bat  (a cat(1) clone with syntax highlighting and Git integration)
+neofetch  (A fast, highly customizable system info script)
+ncdu  (консольный NCurses Disk Usage)
+ranger  (консольный visual file manager)
+cmus  (консольный C* Music Player)
+ffmpeg  (ffmpeg media converter)
+ffplay  (консольный FFplay media player)
+ffplay ./Audio/'Bad Boys Blue - My Star.flac' -nodisp -autoexit
+fmedia  (cli and gui audio player)
+./fmedia ./Audio/'Bad Boys Blue - My Star.flac'
+./fmedia http://ep256.hostingradio.ru:8052/europaplus256.mp3 -o radio.mp3 --stream-copy --out-cop
+./fmedia './Audio/Tim McGraw/2 Compilations' -o music.m3u8
+sampler
+zenith
+gpg  (OpenPGP encryption and signing tool)
+gpg -e text.txt
+gpg -d crypto_text.txt.gpg
+pstree  (показывает дерево процессов)
+pstree -p 5552
+pslog  (выводит текущие пути журнала процесса)
+pgrep telegram | xargs pslog
+ps  (report a snapshot of the current processes)
+ps auxf
+top  (display Linux processes)
+htop  (interactive process viewer)
+htop --filter=python
+atop  (sudo atop)  (Advanced System & Process Monitor)
+iftop  (display bandwidth usage on an interface by host)
+sudo iftop -i enp4s0f1 
+sudo iotop  (simple top-like I/O monitor)
+bluetoothctl  (Bluetooth Control Command Line Tool)
+bluetoothctl  (help, scan on)
+fdisk  (manipulate disk partition table)
+sudo fdisk -l
+fsck --help  (check and repair a Linux filesystem)
+gnome-disks  (the GNOME Disks application)
+gparted  (GNOME Partition Editor for manipulating disk partitions)
+history 0  (man history)
+iptables  (administration tool for IPv4/IPv6 packet filtering and NAT)
+sudo iptables -L -n --line-numbers
+sudo iptables -L -n -v
+sudo iptables --list-rules
+sudo iptables-nft -L --line-numbers
+nft  (Administration tool of the nftables framework for packet filtering and classification)
+sudo nft -v  (nftables)
+getent  (get entries from Name Service Switch libraries)
+getent passwd
+getent group
+env  (run a program in a modified environment)
+printenv  (print all or part of environment)
+sed  (stream editor for filtering and transforming text)
+seq  (print a sequence of numbers)
+tr  (translate or delete characters)
+tr A-Z a-z
+uniq  (report or omit repeated lines)
+sort  (sort lines of text files)
+ls -liah | tail +4 | tr -s " " | cut -d " " -f 10 | sort -r
+cat  (concatenate files and print on the standard output)
+cat .bash_history | nl
+cat -b ~/.zshrc ~/.bashrc
+cat -n ~/.zhistory
+nl  (number lines of files)
+nl ~/.zhistory
+touch  (change file timestamps)
+touch file.txt
+touch -a file.txt  (touch -m file.txt, touch -c file.txt)
+touch -r file.txt file.timestamp  (touch -r file.timestamp file.txt)
+tree  (list contents of directories in a tree-like format)
+sudo tree -L 4 /var/lib/docker
+wc  (print newline, word, and byte counts for each file)
+wc -l ~/.zsh_history
+du  (estimate file space usage)
+du -h
+du -hs
+df  (report file system space usage)
+df -hT
+ls -liah .bash_history > info.txt | tee 
+tee  (read from standard input and write to standard output and files)
+find  (search for files in a directory hierarchy)
+find *.txt
+free  (Display amount of free and used memory in the system)
+free -h
+head  (output the first part of files)
+head -n 1000 .zhistory
+tail  (output the last part of files)
+tail -100 .zhistory
+tail -f .zhistory
+less  (opposite of more)
+less prometheus-command.txt
+more  (display the contents of a file in a terminal)
+more prometheus-command.txt
+zmore  (file perusal filter for crt viewing of compressed text)
+diff  (compare files line by line)
+diff webui_en.py webui_ru.py
+watch  (execute a program periodically, showing output fullscreen)
+which  (shows the full path of (shell) commands)
+which zsh bash bat
+whatis  (показывает однострочные описания справочных страниц)
+whatis bat
+whatis -r "" | grep "([18])" | nl
+whatis -s1:8 -r "." | nl
+whereis  (locate the binary, source, and manual page files for a command)
+whereis bat
+id  (print real and effective user and group IDs)
+w  (Show who is logged on and what they are doing)
+who  (show who is logged on)
+whoami  (print effective user name)
+stat  (display file or file system status)
+file  (determine file type)
+file myfile.txt
+file my_directory
+file -ih mylink.txt
+rg  (ripgrep: recursively search the current directory for lines matching a pattern)
+rga  (ripgrep-all, ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.)
+grep (egrep, fgrep, bzgrep)  (grep: print lines that match patterns)
+zgrep  (search possibly compressed files for a regular expression)
+pgrep  (look up, signal, or wait for processes based on name and other attributes)
+pgrep telegram
+pgrep telegram | xargs lsof -p 2>/dev/null | rg TCP
+pgrep -a firefox
+pgrep htop | xargs kill
+pgrep -u username
+xargs  (build and execute command lines from standard input)
+pidof  (find the process ID of a running program)
+pidof telegram-desktop
+lsof  (list open files)
+lsof -i :443
+lsof /tmp
+lsof -i -n -P | grep firefox
+lsof -p 1995
+lsof -c firefox
+lsof -u username
+ifconfig  (configure a network interface)
+iwconfig  (configure a wireless network interface)
+nm-connection-editor  (network connection editor for NetworkManager)
+nmcli  (command-line tool for controlling NetworkManager)
+nmcli connection
+nmcli dev wifi
+systemctl is-active NetworkManager
+systemctl status NetworkManager  (service NetworkManager status)
+ufw  (program for managing a netfilter firewall)
+sudo ufw status
+sqlite3  (A command line interface for SQLite version 3)
+sqlite3 _hh-trudvsem_.db
+psql --help  (PostgreSQL interactive terminal)
+sqlitebrowser --version  (DB Browser for SQLite)
+nginx  (HTTP and reverse proxy server, mail proxy server)
+nginx -V 2>&1 | grep -o with-http_stub_status_module
+scapy  (Interactive packet manipulation tool)
+python  (an interpreted, interactive, object-oriented programming language)
+if ! command -v python &>/dev/null; then echo "Python not installed"; else echo "Python installed"; fi
+pip  (package manager for Python packages)
+pip list
+pip freeze
+git clone git@github.com:extybr/ytdl.git
+git log --pretty=oneline
+git remote set-url origin git@github.com:extybr/connect_to_databases
+npm  (javascript package manager)
+node  (server-side JavaScript runtime)
+kubectl  (kubectl controls the Kubernetes cluster manager)
+docker  (Docker image and container command line interface)
+docker-compose -v  (Docker Compose)
+ssh 192.168.1.199 sudo netstat -ntuop
+ssh -v 199 w  (connect to server, print verbouse info connection, output command w)
+ssh-add -L  (print all ssh public key)
+ssh -T git@github.com
+ssh -T git@gitlab.com
+ulimit -a
+prlimit  (get and set process resource limits)
+visudo  (edit the sudoers file)
+sudo visudo  (nano /etc/sudoers)
+pr  (convert text files for printing)
+man pr
+shutdown  (Halt, power off or reboot the machine)
+shutdown -r now
+poweroff  (Power off, reboot, or halt the machine)
+reboot  (Power off, reboot, or halt the machine)
+ionice  (set or get process I/O scheduling class and priority)
+nice  (run a program with modified scheduling priority)
+glxinfo | grep -i "direct rendering"
+getfacl  (get file access control lists)
+getfacl prometheus-command.txt  (getfacl *)
+journalctl  (Print log entries from the systemd journal)
+journalctl -u docker
+dmesg  (print or control the kernel ring buffer)
+sudo dmesg | rg usb
+last -h  (last -a, last -i)  (show a listing of last logged in users)
+lastlog  (reports the most recent login of all users or of a given user)
+https://wiki.manjaro.org/index.php/Pacman_Overview
+pacman  (package manager utility)
+pacman -Ql | more
+pacman -Q | more
+pacman -Qe > my_programs.txt
+pacman -Qo /usr/bin/smplayer
+sudo pacman -Sc
+https://wiki.manjaro.org/index.php/Pamac/ru
+https://wiki.manjaro.org/index.php/Arch_User_Repository/ru
+pamac -h  (package manager utility)
+pamac search virtualbox
+pamac install base-devel git
+makepkg -si  (package build utility)
+ls /etc/xdg/autostart
+ls ~/.config/autostart
+crontab  (maintains crontab files for individual users)
+crontab -l
+crontab -e
+ip  (show / manipulate routing, network devices, interfaces and tunnels)
+ip -c -d link
+ip -c -o link
+ip -c -j -p -d link
+ip -c -o addr
+ip -c -o -j addr
+ip -c -j -p addr
+ip -c -o token
+ip -c -o neighbor
+ip -c -o ntbl
+ip -c -o monitor
+ip -s addr
+ip -c route
+ip -c ntable
+ip -c -o netconf
+ip -c tcpmetrics
+ip -c -d -r tcpmetrics
+ip a
+ip link
+ip addr
+sudo ip link set grelan up
+iw  (show / manipulate wireless devices and their configuration)
+iw dev
+iw list
+iwlist  (Get more detailed wireless information from a wireless interface)
+iwlist scan
+mhwd-kernel -li  (The following kernels are installed in your system)
+users  (print the user names of users currently logged in to the current host)
+groups  (показывает имена групп запустившего программу пользователя)
+groups root
+cat /etc/group
+chfn  (Изменение информации finger для пользователя)
+chsh  (Изменение шелла для пользователя)
+useradd -D
+sudo passwd newuser
+su newuser
+nroff  (format documents with groff for TTY (terminal) devices)
+groff  (front end to the GNU roff document formatting system)
+troff  (GNU roff typesetter and document formatter)
+mv -i file.txt  (cp -i, rm -i)
+source ~/.zshrc
+. ~/.zshrc
+!!  (last command in history)
+!703  (number command in history)
+usermod -aG sudo tux
+sudo usermod -L myuser  (заблокировать пользователя)
+sudo usermod -U myuser  (разблокировать пользователя myuser)
+sudo groupadd newgroup
+sudo usermod -aG newgroup myuser
+getent group newgroup
+gpasswd  (administer /etc/group and /etc/gshadow)
+sudo gpasswd --delete myuser newgroup
+bootctl  (Control EFI firmware boot settings and manage boot loader)
+sudo bootctl
+alsamixer  (soundcard mixer for ALSA soundcard driver, with ncurses interface)
+cal  (display a calendar)
+date  (print or set the system date and time)
+timedatectl  (Control the system time and date)
+shellcheck  (Shell script analysis tool)
+shellcheck ~/my_programs/os.sh
+hwinfo  (probe for hardware)
+hwinfo --short
+iconv  (convert text from one character encoding to another)
+iconv --help
+ifstat  (handy utility to read network interface statistics)
+watch -n1 ifstat
+netstat  (Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships)
+watch -n1 netstat -ntuop
+sudo  (execute a command as another user)
+sudo  (15min)
+sudo -l
+sudo -k
+sudo -s
+sudo su root
+lsmod  (Show the status of modules in the Linux Kernel)
+lshw  (list hardware)
+sudo lshw -C network
+lsblk  (list block devices)
+lscpu  (display information about the CPU architecture)
+lsns  (list namespaces)
+nc  (ncat, netcat)  (Concatenate and redirect sockets)
+net  (Tool for administration of Samba and remote CIFS servers)
+net status sessions
+networkctl  (Query or modify the status of network links)
+networkctl status
+sudo networkctl down enp4s0f1
+nproc  (print the number of processing units available)
+pwgen  (generate pronounceable passwords)
+rev  (reverse lines characterwise)
+echo "Hello World" | rev
+smartctl  (Control and Monitor Utility for SMART Disks)
+sudo smartctl --all /dev/sda
+sudo smartctl -i /dev/sda
+xdg-open  (opens a file or URL in the user's preferred application)
+xdg-open img.jpg
+xdg-open https://www.site.com/img.jpg
+qrencode  (Encode input data in a QR Code and save as a PNG or EPS image)
+qrencode -o 000.jpg -s 100 https://google.com
+realpath  (print the resolved path)
+realpath -PLm *
+rename  (rename files)
+rename 'Empty File' 'Not Empty File' *
+renice -h  (alter priority of running processes)
+reset  (terminal initialization)
+resolvconf -h  (a framework for managing multiple DNS configurations)
+script  (start)
+script -q  (stop)
+script -h
+shred  (overwrite a file to hide its contents, and optionally delete it)
+shred --help
+strings  (print the sequences of printable characters in files)
+strings ~/.bashrc
+swapon  (swapoff)  (enable/disable devices and files for paging and swapping)
+size bin/yt-dlp
+echo "first\nsecond" | tac
+xclip  (command line interface to X selections (clipboard))
+xclip -sel clip < file.txt
+jobs -l
+fg
+bg
+kill %1
+kill  (terminate a process)
+killall  (завершает процессы с указанным именем)
+pkill  (look up, signal, or wait for processes based on name and other attributes)
+nohup  (run a command immune to hangups, with output to a non-tty)
+nohup sleep 50 &
+mycmd 1> output.txt 2> error.txt
+ls nodirectory &>> output_and_errors.txt
+mynocmd &> /dev/null
+./Outline-Client.AppImage --appimage-mount
+cd folder && ls
+cd folder && ls | wc
+cd folder || ls
+mkdir  (make directories)
+mkdir test1 && mkdir test2/test3 && cd test2 && echo Hello >> text.txt
+rmdir  (remove empty directories)
+rm  (remove files or directories)
+Ctrl+R  (search pattern command in terminal)
+echo  (display a line of text)
+echo $HISTSIZE
+A=$HISTSIZE; B=$(cat ~/.zhistory | wc -l); if [ $A != $B ]; then echo $(($A-$B)); fi
+dirname  (strip last component from file name)
+dirname ~/PycharmProjects/my_other_projects  (/home/tux/PycharmProjects)
+basename  (strip directory and suffix from filenames)
+basename ~/PycharmProjects/my_other_projects   (my_other_projects)
+brctl  (ethernet bridge administration)
+brctl show
+sleep  (delay for a specified amount of time)
+timeout  (run a command with a time limit)
+timeout 5s sleep 10
+timeout --signal INT 5s sleep 10
+tput  (initialize a terminal or query terminfo database)
+type ls pwd who
+command -V echo
+typeset -i variable=100
+trap
+alias
+unalias  (unalias is a shell builtin)
+set
+export
+exec bash
+return 127
+exit 0
+exec  (exec is a shell builtin)
+true  (do nothing, successfully)
+false  (do nothing, unsuccessfully)
+shift  (shift is a shell builtin)
+hash  (hash is a shell builtin)
+truncate  (shrink or extend the size of a file to the specified size)
+truncate --size +50M filename
+tty  (print the file name of the terminal connected to standard input)
+udevadm -h  (udev management tool)
+link  (call the link function to create a link to a file)
+unlink  (call the unlink function to remove the specified file)
+unlink example.txt
+vgs  (Display information about volume groups)
+view  (screen oriented (visual) display editor based on ex)
+view .bash_history  (vi, vim, nvim)
+sudo vipw  (edit the password or group file)
+virsh  (management user interface)
+vmstat  (Report virtual memory statistics)
+vmstat -d
+winecfg  (Wine Configuration Editor)
+winetricks  (manage virtual Windows environments using Wine)
+xz  (Compress or decompress .xz and .lzma files)
+xzcat (Compress or decompress .xz and .lzma files)
+xzdiff (compare compressed files)
+xzegrep (search possibly-compressed files for patterns)
+xzfgrep (search possibly-compressed files for patterns)
+xzgrep (search possibly-compressed files for patterns)
+xzless (view xz or lzma compressed (text) files)
+xzmore (view xz or lzma compressed (text) files)
+zcat  (compress or expand files)
+zcat file.txt.gz
+tar  (an archiving utility)
+zip  (package and compress (archive) files)
+zgrep  (search possibly compressed files for a regular expression)
+zless  (file perusal filter for crt viewing of compressed text)
+zstdcat  (zstd, zstdmt, unzstd, zstdcat - Compress or decompress .zst files)
+jq  (Command-line JSON processor)
+yq  (Command-line YAML processor)
+cat .gitlab-ci.yml | yq
+zenity --help  (manual page for zenity)
+zenity --calendar
+stty -a  (change and print terminal line settings)
+dircolors  (color setup for ls)
+exiftool  (Read and write meta information in files)
+exiftool 'Bad Boys Blue - My Star.flac'
+chattr  (change file attributes on a Linux file system)
+lsattr  (list file attributes on a Linux second extended file system)
+lsattr .bash_history
+blkid  (locate/print block device attributes)
+blkid -k
+mountpoint  (see if a directory or file is a mountpoint)
+mountpoint /path/directory
+mount  (mount a filesystem)
+findmnt  (find a filesystem)
+hostname  (show or set system host name)
+hostnamectl  (Control the system hostname)
+host  (DNS lookup utility)
+host vk.com
+host rutracker.org 1.1.1.1
+nslookup  (query Internet name servers interactively)
+nslookup google.com
+nslookup rutracker.org
+nslookup -type=NS vk.com
+nslookup -vc -type=ANY vk.com
+nslookup -type=MX -debug google.com
+nslookup -type=PTR 188.43.20.67
+ping -c 5 google.com
+traceroute  (print the route packets trace to network host)
+traceroute google.com
+traceroute google.com 42
+traceroute -n google.com
+traceroute -g 5 google.com
+tracepath  (traces path to a network host discovering MTU along this path)
+tracepath google.com
+drill  (get (debug) information out of DNS(SEC))
+drill rutor.info @8.8.8.8 -T
+dig  (DNS lookup utility)
+dig +trace rutor.info @8.8.8.8
+whois  (client for the whois directory service)
+sysctl  (configure kernel parameters at runtime)
+sysctl -a
+sysctl -p
+lsmod (depmod, insmod, rmmod, modprobe)
+nmtui  (Text User Interface for controlling NetworkManager)
+eject  (eject removable media)
+badblocks  (search a device for bad blocks)
+tune2fs  (adjust tunable file system parameters on ext2/ext3/ext4 file systems)
+e2fsck  (check a Linux ext2/ext3/ext4 file system)
+man e2label  (Change the label on an ext2/ext3/ext4 file system)
+sync  (Synchronize cached writes to persistent storage)
+rsync  (a fast, versatile, remote (and local) file-copying tool)
+info  (read Info documents)
+readlink  (print resolved symbolic links or canonical file names)
+dmidecode  (DMI table decoder)
+sudo dmidecode -q
+
+
+
+
+

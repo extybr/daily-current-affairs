@@ -16,6 +16,14 @@ fi
 #https://www.geeksforgeeks.org/histcontrol-command-in-linux-with-examples/
 #HISTCONTROL=ignoreboth:erasedups
 
+#/usr/share/zsh/manjaro-zsh-config
+HISTSIZE=20000
+SAVEHIST=20000
+
+# Disable autocorrect
+# unsetopt correct_all
+unsetopt correct
+
 export SCRIPTS_DIRECTORY='~/PycharmProjects/github/daily-current-affairs/scripts'
 alias reqrypt=${SCRIPTS_DIRECTORY}'/./reqrypt-1.3.1-linux64.sh'
 alias sampler='sampler -c ~/my_programs/config.yml'
@@ -48,10 +56,9 @@ alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affai
 alias tel='telnet mapscii.me'
 alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'
 alias j/=${SCRIPTS_DIRECTORY}'/simple-parser-hh.sh'
-
-# Disable autocorrect
-# unsetopt correct_all
-unsetopt correct
+alias jj/='~/PycharmProjects/github/script-parser-HH-led/terminal/job.sh'
+# https://github.com/yt-dlp/yt-dlp#readme
+alias y/="~/bin/yt-dlp -S 'res:720,fps' $1"
 
 btc () {
 	LWHITE='\033[1;37m'; N='\033[0m'

@@ -1,0 +1,24 @@
+https://github.com/br101/horst
+
+
+
+iw wlan0 set type monitor
+ifconfig wlan0 up
+iw wlan0 set channel 6
+
+Usually you have to start horst as root:
+
+horst -i wlan0
+
+To do remote monitoring over the network you can start a server (-q without a user interface), usually on your AP or device with
+
+horst -i wlan0 -N -q
+
+and connect a client (only one client is allowed at a time), usually from your PC with
+
+horst -n IP
+
+Please read the man page for more details about the options, output and abbreviations. It should be be part of your distribution package, but you can read it in the source code locally with:
+
+man -l horst.8
+man -l horst.conf.5

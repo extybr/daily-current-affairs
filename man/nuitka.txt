@@ -1,0 +1,12 @@
+python -m nuitka --windows-disable-console --follow-imports --windows-icon-from-ico=favicon.ico main.py
+
+python -m nuitka --windows-disable-console --onefile --follow-imports --enable-plugin=pyqt5 --windows-icon-from-ico=img/favicon.ico main.py
+
+C:\Users\Professional\AppData\Local\Nuitka
+
+https://nuitka.net/doc/user-manual.html
+
+
+
+это: 
+python -m nuitka --windows-disable-console --onefile --follow-imports --enable-plugin=pyqt5 --windows-icon-from-ico=img/favicon.ico main.py
