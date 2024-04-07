@@ -11,6 +11,7 @@ ________
 
 sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
 cowsay  (configurable speaking/thinking cow (and a bit more))
+mc   (Визуальная оболочка для Unix-подобных систем)
 cmatrix
 wireshark  (Interactively dump and analyze network traffic)
 tshark  (Dump and analyze network traffic)
@@ -126,6 +127,7 @@ free  (Display amount of free and used memory in the system)
 free -h
 head  (output the first part of files)
 head -n 1000 .zhistory
+head /var/log/syslog
 tail  (output the last part of files)
 tail -100 .zhistory
 tail -f .zhistory
