@@ -62,6 +62,9 @@ pgrep telegram | xargs pslog
 ps  (report a snapshot of the current processes)
 ps auxf
 top  (display Linux processes)
+top -o %CPU 
+top -o -PID
+top -o COMMAND  (Shift + v)
 htop  (interactive process viewer)
 htop --filter=python
 atop  (sudo atop)  (Advanced System & Process Monitor)
@@ -99,6 +102,7 @@ cat  (concatenate files and print on the standard output)
 cat .bash_history | nl
 cat -b ~/.zshrc ~/.bashrc
 cat -n ~/.zhistory
+cat file1 file2 file3 > file4
 nl  (number lines of files)
 nl ~/.zhistory
 touch  (change file timestamps)
@@ -156,6 +160,7 @@ grep (egrep, fgrep, bzgrep)  (grep: print lines that match patterns)
 zgrep  (search possibly compressed files for a regular expression)
 pgrep  (look up, signal, or wait for processes based on name and other attributes)
 pgrep telegram
+pgrep telegram | xargs ps
 pgrep telegram | xargs lsof -p 2>/dev/null | rg TCP
 pgrep -a firefox
 pgrep htop | xargs kill
@@ -176,8 +181,19 @@ nm-connection-editor  (network connection editor for NetworkManager)
 nmcli  (command-line tool for controlling NetworkManager)
 nmcli connection
 nmcli dev wifi
+systemctl  (Control the systemd system and service manager)
+systemctl status
+systemctl | wc -l
+sudo systemctl list-unit-files
+sudo systemctl list-unit-files --type=service "ssh*"
+sudo systemctl list-unit-files --state=enabled
 systemctl is-active NetworkManager
+systemctl is-enabled NetworkManager
 systemctl status NetworkManager  (service NetworkManager status)
+sudo systemctl start nginx
+sudo systemctl reload nginx
+sudo systemctl restart sshd
+sudo systemctl enable gitlab-runner
 ufw  (program for managing a netfilter firewall)
 sudo ufw status
 sqlite3  (A command line interface for SQLite version 3)
@@ -288,6 +304,7 @@ source ~/.zshrc
 . ~/.zshrc
 !!  (last command in history)
 !703  (number command in history)
+umask  (права = 777 - umask)
 usermod -aG sudo tux
 sudo usermod -L myuser  (заблокировать пользователя)
 sudo usermod -U myuser  (разблокировать пользователя myuser)
@@ -318,12 +335,6 @@ sudo -l
 sudo -k
 sudo -s
 sudo su root
-lsmod  (Show the status of modules in the Linux Kernel)
-lshw  (list hardware)
-sudo lshw -C network
-lsblk  (list block devices)
-lscpu  (display information about the CPU architecture)
-lsns  (list namespaces)
 nc  (ncat, netcat)  (Concatenate and redirect sockets)
 net  (Tool for administration of Samba and remote CIFS servers)
 net status sessions
@@ -366,6 +377,7 @@ fg
 bg
 kill %1
 kill  (terminate a process)
+kill 5233 -s 9
 killall  (завершает процессы с указанным именем)
 pkill  (look up, signal, or wait for processes based on name and other attributes)
 nohup  (run a command immune to hangups, with output to a non-tty)
@@ -502,6 +514,26 @@ info  (read Info documents)
 readlink  (print resolved symbolic links or canonical file names)
 dmidecode  (DMI table decoder)
 sudo dmidecode -q
+ln  (make links between files)
+lnstat  (unified linux network statistics)
+lnstat -d
+lnstat -j
+lstopo  (lstopo-no-graphics)  (Show the topology of the system)
+lsattr  (list file attributes on a Linux second extended file system)
+lsfd  (list file descriptors)
+lsmem  (list the ranges of available memory with their online status)
+lsmod  (Show the status of modules in the Linux Kernel)
+lslogins  (display information about known users in the system)
+lsmod  (Show the status of modules in the Linux Kernel)
+lshw  (list hardware)
+sudo lshw -C network
+lsblk  (list block devices)
+lscpu  (display information about the CPU architecture)
+lsns  (list namespaces)
+
+
+
+
 
 
 
