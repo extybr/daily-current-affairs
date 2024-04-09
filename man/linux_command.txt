@@ -533,7 +533,13 @@ lsblk  (list block devices)
 lscpu  (display information about the CPU architecture)
 lsns  (list namespaces)
 
-
+cat /proc/version
+cat /etc/os-release
+cat /etc/*-release
+uname -a
+cat /etc/issue
+cat /etc/lsb-release
+sudo dmesg | grep Linux
 
 
 
