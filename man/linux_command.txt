@@ -53,6 +53,7 @@ fmedia  (cli and gui audio player)
 ./fmedia './Audio/Tim McGraw/2 Compilations' -o music.m3u8
 sampler
 zenith
+nvitop  (https://github.com/XuehaiPan/nvitop)
 gpg  (OpenPGP encryption and signing tool)
 gpg -e text.txt
 gpg -d crypto_text.txt.gpg
@@ -325,6 +326,7 @@ shellcheck  (Shell script analysis tool)
 shellcheck ~/my_programs/os.sh
 hwinfo  (probe for hardware)
 hwinfo --short
+hwinfo --short --cpu
 iconv  (convert text from one character encoding to another)
 iconv --help
 ifstat  (handy utility to read network interface statistics)
@@ -503,7 +505,6 @@ whois  (client for the whois directory service)
 sysctl  (configure kernel parameters at runtime)
 sysctl -a
 sysctl -p
-lsmod (depmod, insmod, rmmod, modprobe)
 nmtui  (Text User Interface for controlling NetworkManager)
 eject  (eject removable media)
 badblocks  (search a device for bad blocks)
@@ -516,6 +517,7 @@ info  (read Info documents)
 readlink  (print resolved symbolic links or canonical file names)
 dmidecode  (DMI table decoder)
 sudo dmidecode -q
+sudo dmidecode -t 4
 ln  (make links between files)
 lnstat  (unified linux network statistics)
 lnstat -d
@@ -524,14 +526,40 @@ lstopo  (lstopo-no-graphics)  (Show the topology of the system)
 lsattr  (list file attributes on a Linux second extended file system)
 lsfd  (list file descriptors)
 lsmem  (list the ranges of available memory with their online status)
+lsmod  (depmod, insmod, rmmod, modprobe)
 lsmod  (Show the status of modules in the Linux Kernel)
 lslogins  (display information about known users in the system)
 lsmod  (Show the status of modules in the Linux Kernel)
 lshw  (list hardware)
+lshw -class processor
+sudo lshw -C display
 sudo lshw -C network
 lsblk  (list block devices)
 lscpu  (display information about the CPU architecture)
+lscpu | grep -i mhz
 lsns  (list namespaces)
+sensors
+sensors -u
+sensors -j
+sudo sensors-detect
+cat /sys/class/thermal/thermal_zone*/temp
+cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input
+paste <(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_label) <(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input) | column -s $'\t' -t | sed 's/\(.\)..$/.\1°C/'
+cat /proc/cpuinfo
+cat /proc/cpuinfo | grep -i mhz | uniq
+head -n 5 /proc/stat
+nvidia-smi
+nvidia-smi -L
+nvidia-smi -q
+nvidia-smi stats -h
+nvidia-smi -q -d SUPPORTED_CLOCKS
+inxi  (Command line system information script for console and IRC)
+inxi -C
+inxi -s
+inxi -r
+inxi -w
+inxi -F
+{ head -n1 /proc/stat;sleep 5;head -n1 /proc/stat; } | awk '/^cpu /{u=$2-u;s=$4-s;i=$5-i;w=$6-w}END{print int(0.5+100*(u+s+w)/(u+s+i+w))}'  (средняя загрузка процессора за период)
 
 cat /proc/version
 cat /etc/os-release
