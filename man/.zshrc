@@ -60,17 +60,7 @@ alias jj/='~/PycharmProjects/github/script-parser-HH-led/terminal/job.sh'
 # https://github.com/yt-dlp/yt-dlp#readme
 alias y/="~/bin/yt-dlp -S 'res:720,fps' $1"
 alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
-
-btc () {
-	WHITE='\033[1;37m'; NORMAL='\033[0m'
-  if [ $# -eq 0 ]
-	then curl rate.sx
-  elif [ $# -eq 1 ]
-	then curl rate.sx/"$1"
-  else
-	echo -e "${WHITE} Ожидалось не более 1 параметра${NORMAL}"
-  fi
-}
+. $HOME/${${SCRIPTS_DIRECTORY}#*~}/ratesx.sh
 
 temp () {
 watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh
