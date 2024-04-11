@@ -428,6 +428,8 @@ true  (do nothing, successfully)
 false  (do nothing, unsuccessfully)
 shift  (shift is a shell builtin)
 hash  (hash is a shell builtin)
+paste  (merge lines of files)
+ls | paste - - -
 truncate  (shrink or extend the size of a file to the specified size)
 truncate --size +50M filename
 tty  (print the file name of the terminal connected to standard input)
@@ -556,6 +558,7 @@ nvidia-smi -q -d SUPPORTED_CLOCKS
 inxi  (Command line system information script for console and IRC)
 inxi -C
 inxi -s
+inxi -i | rg "WAN IP:"
 inxi -r
 inxi -w
 inxi -F
