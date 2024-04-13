@@ -91,6 +91,8 @@ sudo nft -v  (nftables)
 getent  (get entries from Name Service Switch libraries)
 getent passwd
 getent group
+awk  (язык обработки данных)
+awk -F: '{print $1}' /etc/passwd
 env  (run a program in a modified environment)
 printenv  (print all or part of environment)
 sed  (stream editor for filtering and transforming text)

@@ -1,0 +1,94 @@
+
+конвертирование в gif
+	ffmpeg -i input.mkv -ss 00:02:27 -to 00:02:29 output.gif
+
+обрезка и конвертирование
+	ffmpeg -y -ss 143 -to 150 -i input.webm output.mkv
+конвертирование и обрезка от 143 сек до 171 сек
+	ffmpeg -y -ss 143 -to 171 -i input.mkv output.mkv
+
+обрезка сначала до 467 сек, !без конвертации
+	ffmpeg -to 467 -i input.mp4 -c copy output.mp4
+
+конвертирование
+	ffmpeg -i input.webm -c copy output.mkv
+
+FFmpeg масштабирование 50% по горизонтали и вертикали, кодируем стандартным кодеком
+	ffmpeg -i input.mpg -vf scale=iw*0.5:ih*0.5 output.mp4
+
+масштабирование указано в пикселях (половина от оригинального 720×576)
+ffmpeg -i input.mpg -vf scale=360:288 output.mp4
+
+Разрешение
+Изменить разрешение (размер) видео: -s
+Формат: widthxheight
+	ffmpeg -i input_4k.mp4 -s 1920x1080 output_1080p.mp4
+	ffmpeg -i input_4k.mp4 -s 1280x720 output_720p.mp4
+Изменять можно не только разрешение видео, но также и картинок:
+	ffmpeg -i input.png -s 320x240 result.png
+
+Частота кадров
+Изменить частоту кадров в секунду: -r
+	ffmpeg -i input.mp4 -r 25 result.mp4
+
+Убрать аудио: -an
+Убрать видео: -vn
+	ffmpeg -i input.mkv -an result.mp4
+	ffmpeg -i input.mkv -vn result.mp3
+
+БитрейтИзменить битрейт аудио: -b:a
+Изменить битрейт видео: -b:v
+Битрейт указывается числом в битах в секунду, но для удобства можно использовать формат:
+123k — 123 кбпс, 2M — 2 Мбпс
+	ffmpeg -i input.mkv -vn -b:a 320k result.mp3
+	ffmpeg -i input.flac -b:a 128k result.mp3
+	ffmpeg -i input.mkv -b:v 16M result.mp4
+	ffmpeg -i input.mkv -b:v 16M -b:a 192k result.mp4
+Ещё примеры:
+масштабирование видео указано в битрейтах
+	ffmpeg -i input.mp4 -b:v 3000k output.mp4
+вырезаем audio с указанным битрейтом
+	ffmpeg -i input.mp4 -b:a 144k output1.mp3
+
+с контролем качества
+Размер видео уменьшился более чем в 5 раз без ощутимой потери качества.
+Опция -qscale:v n, сокращенно -q:v n позволяет установить уровень качества 
+генерируемого видеопотока, где n принимает значения в интервале от 1 до 31. 
+Значение 1 соответствует самому лучшему качеству, а 31 — самому худшему.
+	ffmpeg -i MVI_4703.MOV -q:v 4 MVI_4703.avi
+
+склеивание видео
+	ffmpeg -f concat -i concat.txt -c copy output.mp4
+содержимое concat.txt:
+file File1.mkv
+file File2.mkv
+
+Копирование потоковСохранить оригинальные кодеки и скопировать их как есть:
+-c copy — сохранить видеокодек и аудиокодек,
+-c:v copy — сохранить только видеокодеки,
+-c:a copy — сохранить только аудиокодеки.
+В этом случае не будет происходить перекодирование, что позволяет быстрее обработать файл.
+Это может быть полезно для случаев, когда нужно быстро скачать видео:
+    ffmpeg -i "https://sample-videos.com/video123/mp4/480/big_buck_bunny_480p_10mb.mp4" -c copy out.mp4
+Или получить аудиодорожку из видеофайла:
+    ffmpeg -i in.mp4 -c:a copy out.aac
+* Форматы должны быть совместимы. В mp4 для аудио обычно используется кодек aac, 
+поэтому и копировать его можно только в aac. Если указать в выходном файле .mp3, то будет ошибка:
+    ffmpeg -i in.mp4 -c:a copy out.mp3  => FAIL
+Ещё примеры:
+    ffmpeg -i input.mkv -c:v copy result.mp4
+    ffmpeg -i input.mkv -c:a copy result.mp4
+
+Формат пикселей
+Формат пикселейНекоторые смартфоны и браузеры не поддерживают форматы пикселей YUV444, YUV422, 
+а работают только с YUV420. Чтобы изменить формат пикселей используется ключ -pix_fmt формат
+	ffmpeg -i input.mp4 -pix_fmt yuv420p result.mp4
+
+
+__________________________________________________________
+
+https://annimon.com/article/3993
+https://habr.com/ru/articles/333664/
+https://img.ly/blog/ultimate-guide-to-ffmpeg/
+https://habr.com/ru/companies/ruvds/articles/718384/
+https://ffmpeg.org/

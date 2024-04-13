@@ -60,11 +60,21 @@ if [ ${#request} -gt 0 ]
 		# размер зарплаты от и до
 		from=$(printf "%s" "${request}" | jq -r ".items.[${page}].salary.from")
 		to=$(printf "%s" "${request}" | jq -r ".items.[${page}].salary.to")
+		if [ ${from} = "null" ]; then from="😳"; elif [ ${to} = "null" ]; then to="😳"; fi
 		echo -e "зарплата: ${BLUE}${from}${NORMAL} - ${BLUE}${to}${NORMAL}"
 		
 		# график работы
 		schedule=$(printf "%s" "${request}" | jq -r ".items.[${page}].schedule.name" 2>/dev/null)
 		echo -e "график работы: ${DBLUE}${schedule}${NORMAL}"
+		
+		# адрес для публикации
+		area_name=$(printf "%s" "${request}" | jq -r ".items.[${page}].area.name" 2>/dev/null)
+		echo -e "адрес для публикации: ${BLUE}${area_name}${NORMAL}"
+		
+		# адрес регистрации фирмы
+		address=$(printf "%s" "${request}" | jq -r ".items.[${page}].address.raw" 2>/dev/null)
+		if [[ "${address}" = "null" ]]; then address="😳"; fi
+		echo -e "адрес регистрации фирмы: ${BLUE}${address}${NORMAL}"
 		
 		# прямая ссылка на вакансию
 		alternate_url=$(printf "%s" "${request}" | jq -r ".items.[${page}].alternate_url")

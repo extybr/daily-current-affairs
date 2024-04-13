@@ -1,0 +1,47 @@
+
+>> Скачать установочные файлы и Инструкции с описанием тут:
+https://ngrok.com/download
+
+>> Команда для скачивания и установки через apt:
+$  curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
+
+>> Регистрируемся в https://ngrok.com и Получаем токен тут:
+https://dashboard.ngrok.com/get-started/your-authtoken
+
+>> Регистрируем токен
+$ ngrok config add-authtoken <token>
+
+>> Запускаем сервер:
+$ python -m http.sever 86 
+
+>> Запускаем ngrok:
+$ ngrok http 86
+
+>> Другой пример:
+$ ngrok http 8000 --basic-auth="thomas:anderson"
+где требуется аунтефикация, login - thomas, password - anderson
+
+>> Смотрим адрес для подключения в панеле управления в личном кабинете ngrok/ или смотрим адрес а терминале после запуска предыдущей команды
+https://dashboard.ngrok.com/cloud-edge/endpoints
+
+>> Подключаемся к сайту (пример)
+https://12fe-46-38-15-165.ngrok-free.app/
+
+>> Здесь можно посмотреть кто подключился / или посмотреть в терминале
+https://dashboard.ngrok.com/tunnels/agents
+
+
+>> Дополнительные ссылки:
+Ngrokking. Организация удаленного доступа без белого IP
+https://habr.com/ru/articles/674070/
+Ngrok
+https://sysadmin.pm/ngrok/
+Как сделать локалхост публичным: ngrok
+https://dvmn.org/encyclopedia/web-server/ngrok/
+ngrok — Когда нужно прокинуть ваш сервис в Интернет 
+https://mkdev.me/ru/posts/ngrok-kogda-nuzhno-prokinut-vash-servis-v-internet
+
+
+>> Можно запустить докер этой командой:
+docker run -it -e NGROK_AUTHTOKEN=<token> ngrok/ngrok http 80
+
