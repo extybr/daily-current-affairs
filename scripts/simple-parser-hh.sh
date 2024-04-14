@@ -9,16 +9,18 @@ YELLOW="\033[1;33m"
 NORMAL="\033[0m"
 
 # данные для запроса на сайт
+asu="&text=инженер%20асу"
+dev="&text=Системный%20администратор%20Linux"
 search="clusters=true&enable_snippets=true&st=searchVacancy"
 time="&order_by=publication_time"  # сортировать по дате
-vacancy="&text=инженер%20асу"  # название вакансии
+vacancy="${asu}"  # название вакансии
 pages="&per_page=100"  # число страниц в ответе
 period="&period=1"  # искать за этот период, в днях
 area="&area=113"  # регион для поиска
 
 # проверка параметра на валидность
-if [ "$#" -gt 1 ]
-	then echo -e "${WHITE}ожидался 1 параметр, а передано $#${NORMAL}"
+if [ "$#" -gt 3 ]
+	then echo -e "${WHITE}ожидалось не более 3 параметров, а передано $#${NORMAL}"
 	exit 1
 elif [ "$#" -eq 0 ]
 	then salary="&only_with_salary=true&salary=250000"
@@ -28,7 +30,34 @@ elif [ "$#" -eq 1 ]
 		then echo -e "${WHITE}ожидалось число${NORMAL}"
 		exit 1
 	fi
-  salary="&only_with_salary=true&salary=$1"
+	salary="&only_with_salary=true&salary=$1"
+elif [ "$#" -eq 2 ]
+	then
+	if ! [ "$2" -ge 0 ] 2>/dev/null
+		then echo -e "${WHITE}2-ым параметром ожидалось число${NORMAL}"
+		exit 1
+	fi
+	vacancy=$(echo "&text=$1" | sed "s/ /%20/g")
+	salary="&only_with_salary=true&salary=$2"
+	if [ "$1" = "asu" ]
+		then vacancy="${asu}"
+	elif [ "$1" = "dev" ]
+		then vacancy="${dev}"
+	fi
+elif [ "$#" -eq 3 ]
+	then
+	if ! [ "$2" -ge 0 ] 2>/dev/null || ! [ "$3" -ge 0 ] 2>/dev/null
+		then echo -e "${WHITE}2-ым и 3-им параметром ожидались числа${NORMAL}"
+		exit 1
+	fi
+	vacancy=$(echo "&text=$1" | sed "s/ /%20/g")
+	salary="&only_with_salary=true&salary=$2"
+	period="&period=$3"
+	if [ "$1" = "asu" ]
+		then vacancy="${asu}"
+	elif [ "$1" = "dev" ]
+		then vacancy="${dev}"
+	fi
 fi
 
 # создание запроса к сайту hh.tu

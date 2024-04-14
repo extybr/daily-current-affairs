@@ -567,11 +567,15 @@ inxi -r
 inxi -w
 inxi -F
 { head -n1 /proc/stat;sleep 5;head -n1 /proc/stat; } | awk '/^cpu /{u=$2-u;s=$4-s;i=$5-i;w=$6-w}END{print int(0.5+100*(u+s+w)/(u+s+i+w))}'  (средняя загрузка процессора за период)
+ftp  (File Transfer Protocol client)
+ftp ftp.example.com
+ftp ip_address port
 
+uname  (print system information)
+uname -a
 cat /proc/version
 cat /etc/os-release
 cat /etc/*-release
-uname -a
 cat /etc/issue
 cat /etc/lsb-release
 sudo dmesg | grep Linux
