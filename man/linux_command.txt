@@ -186,6 +186,7 @@ nm-connection-editor  (network connection editor for NetworkManager)
 nmcli  (command-line tool for controlling NetworkManager)
 nmcli connection
 nmcli dev wifi
+nmcli dev status
 systemctl  (Control the systemd system and service manager)
 systemctl status
 systemctl | wc -l
@@ -280,6 +281,7 @@ ip -c -o ntbl
 ip -c -o monitor
 ip -s addr
 ip -c route
+ip route get 8.8.8.8
 ip -c ntable
 ip -c -o netconf
 ip -c tcpmetrics

@@ -18,6 +18,18 @@ https://hackware.ru/?p=18075
 https://www.youtube.com/@DC7499/videos
 ______________________________
 
+варианты отключения сетевого интерфейса:
+sudo ifconfig wlan0 down
+sudo ip link set wlan0 down
+sudo networkctl down wlan0
+______________________________
+
+варианты отключения сетевого интерфейса:
+sudo macchanger -m XX:XX:XX:XX:XX:XX wlan0 
+sudo ifconfig wlan0 hw ether MAC
+sudo ip link set dev wlan0 address XX:XX:XX:XX:XX:XX
+______________________________
+
 Подробная информация об адаптерах
 iw list
 iw phy0 info
@@ -36,6 +48,7 @@ ______________________________
 
 СМЕНА КАНАЛА
 iwconfig wlan0 channel 1
+iw dev wlan0 set channel 1
 
 СМЕНА ЧАСТОТЫ
 iw dev wlan0 set freq 2437
@@ -65,7 +78,7 @@ ifconfig wlan0 up
 iwconfig
 
 ip link set wlan1 down
-iw dev wlan1 set type monitor
+iw dev wlan1 set type monitor  (sudo iw wlan1 set monitor control)
 ip link set wlan1 up
 
 Добавление режима монитор (проверить после iwconfig)

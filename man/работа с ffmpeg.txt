@@ -63,6 +63,13 @@ ffmpeg -i input.mpg -vf scale=360:288 output.mp4
 file File1.mkv
 file File2.mkv
 
+вырезка фрагмента и склейка двух частей
+	input="my_video_file.mp4" && output_1="part_1.mp4" && output_2="part_2.mp4" &&
+	ffmpeg -i $input -to 00:00:05 -c copy $output_1 &&
+	ffmpeg -i $input -ss 00:00:20 -c copy $output_2 &&
+	touch concat.txt && echo "file '$output_1'\nfile '$output_2'" > concat.txt &&
+	ffmpeg -f concat -i concat.txt -c copy output.mp4
+
 Копирование потоковСохранить оригинальные кодеки и скопировать их как есть:
 -c copy — сохранить видеокодек и аудиокодек,
 -c:v copy — сохранить только видеокодеки,
