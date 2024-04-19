@@ -561,6 +561,8 @@ inxi -F
 ftp  (File Transfer Protocol client)
 ftp ftp.example.com
 ftp ip_address port
+grub-mkconfig  (generate a GRUB configuration file)
+grub-mkconfig -o /boot/grub/grub.cfg  (переконфигурируем grub)
 
 net  (Tool for administration of Samba and remote CIFS servers)
 net status sessions
