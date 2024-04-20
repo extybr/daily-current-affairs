@@ -501,7 +501,6 @@ whois  (client for the whois directory service)
 sysctl  (configure kernel parameters at runtime)
 sysctl -a
 sysctl -p
-nmtui  (Text User Interface for controlling NetworkManager)
 eject  (eject removable media)
 badblocks  (search a device for bad blocks)
 tune2fs  (adjust tunable file system parameters on ext2/ext3/ext4 file systems)
@@ -563,6 +562,7 @@ ftp ftp.example.com
 ftp ip_address port
 grub-mkconfig  (generate a GRUB configuration file)
 grub-mkconfig -o /boot/grub/grub.cfg  (переконфигурируем grub)
+nm  (list symbols from object files)
 
 net  (Tool for administration of Samba and remote CIFS servers)
 net status sessions
@@ -577,13 +577,27 @@ iwlist  (Get more detailed wireless information from a wireless interface)
 iwpriv  (configure optionals (private) parameters of a wireless network interface)
 iwspy  (Get wireless statistics from specific nodes)
 iw  (show / manipulate wireless devices and their configuration)
+iw event
+iw list
+iw dev wlan0 scan
+iw dev wlan0 link
+iw phy phy0 interface add moni0 type monitor
+iw dev moni0 del
+iw reg set alpha2
 ethtool  (query or control network driver and hardware settings)
 ifconfig  (configure a network interface)
-nm-connection-editor  (network connection editor for NetworkManager)
 nmcli  (command-line tool for controlling NetworkManager)
 nmcli connection
 nmcli dev wifi
 nmcli dev status
+nm-connection-editor  (network connection editor for NetworkManager)
+nm-online  (ask NetworkManager whether the network is connected)
+nmblookup  (NetBIOS over TCP/IP client used to lookup NetBIOS names)
+nmtui  (Text User Interface for controlling NetworkManager
+nmtui-connect  (Text User Interface for controlling NetworkManager)
+nmtui-edit  (Text User Interface for controlling NetworkManager)
+nmtui-hostname  (Text User Interface for controlling NetworkManager)
+
 
 uname  (print system information)
 uname -a
