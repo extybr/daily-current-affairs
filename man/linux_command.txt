@@ -457,6 +457,10 @@ zless  (file perusal filter for crt viewing of compressed text)
 zstdcat  (zstd, zstdmt, unzstd, zstdcat - Compress or decompress .zst files)
 jq  (Command-line JSON processor)
 yq  (Command-line YAML processor)
+jc  (converts the output of many commands, file-types, and strings to JSON or YAML)
+echo $(jc -p nmcli con show) | jq -r '.[0].uuid'
+jc -p ss -4
+jcat-tool  (standalone detached signature utility)
 cat .gitlab-ci.yml | yq
 zenity --help  (manual page for zenity)
 zenity --calendar
@@ -582,14 +586,18 @@ iw list
 iw dev wlan0 scan
 iw dev wlan0 link
 iw phy phy0 interface add moni0 type monitor
-iw dev moni0 del
+iw dev mon0 del
 iw reg set alpha2
+sudo iw wlp0s20f0u1u4 scan | grep 'SSID:\|signal:' | tac
 ethtool  (query or control network driver and hardware settings)
 ifconfig  (configure a network interface)
 nmcli  (command-line tool for controlling NetworkManager)
 nmcli connection
 nmcli dev wifi
 nmcli dev status
+nmcli device show
+watch -n 5 nmcli dev wifi
+nmcli --mode multiline dev wifi
 nm-connection-editor  (network connection editor for NetworkManager)
 nm-online  (ask NetworkManager whether the network is connected)
 nmblookup  (NetBIOS over TCP/IP client used to lookup NetBIOS names)
@@ -597,7 +605,13 @@ nmtui  (Text User Interface for controlling NetworkManager
 nmtui-connect  (Text User Interface for controlling NetworkManager)
 nmtui-edit  (Text User Interface for controlling NetworkManager)
 nmtui-hostname  (Text User Interface for controlling NetworkManager)
-
+wpa_cli  (WPA command line client)
+while true; do sudo wpa_cli scan; sleep 3; sudo wpa_cli scan_results; done
+sudo wpa_cli scan; sleep 3; output=$(sudo wpa_cli scan_results); echo $output | tr "\t" " " | cut -d " " -f 1,2,3,5
+sudo wpa_cli scan 1>/dev/null; output=$(sudo wpa_cli scan_results); echo $output | tr "\t" " " | sed -n '2,+99p' | cut -d " " -f 1,2,3,5
+dnsmasq  (A lightweight DHCP and caching DNS server)
+hostapd  (IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator)
+hostapd_cli  (hostapd command-line interface)
 
 uname  (print system information)
 uname -a
@@ -608,7 +622,7 @@ cat /etc/issue
 cat /etc/lsb-release
 sudo dmesg | grep Linux
 
-
+getopt  (parse command options (enhanced))
 
 
 
