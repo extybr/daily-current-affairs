@@ -497,6 +497,9 @@ traceroute -n google.com
 traceroute -g 5 google.com
 tracepath  (traces path to a network host discovering MTU along this path)
 tracepath google.com
+route  (show / manipulate the IP routing table)
+route -n
+routel  (list routes with pretty output format)
 drill  (get (debug) information out of DNS(SEC))
 drill rutor.info @8.8.8.8 -T
 dig  (DNS lookup utility)
@@ -515,7 +518,7 @@ rsync  (a fast, versatile, remote (and local) file-copying tool)
 info  (read Info documents)
 readlink  (print resolved symbolic links or canonical file names)
 dmidecode  (DMI table decoder)
-sudo dmidecode -q
+sudo dmidecode -q  (полная информация о системе и железе)
 sudo dmidecode -t 4
 ln  (make links between files)
 lnstat  (unified linux network statistics)
@@ -583,9 +586,11 @@ iwspy  (Get wireless statistics from specific nodes)
 iw  (show / manipulate wireless devices and their configuration)
 iw event
 iw list
+iw {WLAN} info
+iw dev
 iw dev wlan0 scan
 iw dev wlan0 link
-iw phy phy0 interface add moni0 type monitor
+iw phy phy0 interface add mon0 type monitor
 iw dev mon0 del
 iw reg set alpha2
 sudo iw wlp0s20f0u1u4 scan | grep 'SSID:\|signal:' | tac
@@ -612,6 +617,9 @@ sudo wpa_cli scan 1>/dev/null; output=$(sudo wpa_cli scan_results); echo $output
 dnsmasq  (A lightweight DHCP and caching DNS server)
 hostapd  (IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator)
 hostapd_cli  (hostapd command-line interface)
+fuser  (ищет процессы, использующие указанные файлы или сокеты)
+sudo fuser --namespace tcp 80
+fuser --kill 80/tcp
 
 uname  (print system information)
 uname -a
@@ -623,8 +631,8 @@ cat /etc/lsb-release
 sudo dmesg | grep Linux
 
 getopt  (parse command options (enhanced))
-
-
-
-
+cat /proc/softirqs
+cat /proc/interrupts
+cat /proc/net/softnet_stat
+cat /proc/net/udp
 
