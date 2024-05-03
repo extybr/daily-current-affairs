@@ -1,0 +1,23 @@
+
+*** terminator ***
+python -c "import subprocess; print(subprocess.getoutput('terminator -g /home/tux/.config/terminator/config -e \'ls -l; zsh\''))"
+python -c "import subprocess; print(subprocess.getoutput('terminator -g /home/tux/.config/terminator/config -e \'ls -l > files.txt\''))"
+
+python -c "import subprocess; subprocess.run('terminator -g /home/tux/.config/terminator/config -e \'ls -l; zsh\'', shell=True)"
+python -c "import subprocess; subprocess.run('terminator -g /home/tux/.config/terminator/config -e \'top\'', shell=True)"
+
+*** gnome-terminal ***
+python -c "import subprocess; subprocess.run('gnome-terminal --window -- bash -c \'ls -l; zsh\'', shell=True)"
+python -c "import subprocess; subprocess.run('gnome-terminal --tab -- bash -c \'ls -l; zsh\'', shell=True)"
+
+*** xterm ***
+python -c "import subprocess; print(subprocess.getoutput('xterm -e \'ls; zsh\''))"
+python -c "import subprocess; subprocess.run('xterm -e top', shell=True)"
+
+*** requests ***
+python -c "import requests; print(requests.get('https://cheat.sh').text)"
+python -c "import requests; print(requests.get('http://127.0.0.1:3000/ip_a').text)"
+
+*** curl ***
+python -c "import subprocess; print(subprocess.getoutput('curl -s https://cheat.sh'))"
+

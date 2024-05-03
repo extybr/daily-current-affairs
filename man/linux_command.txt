@@ -631,8 +631,19 @@ cat /etc/lsb-release
 sudo dmesg | grep Linux
 
 getopt  (parse command options (enhanced))
+opt  (LLVM optimizer)
 cat /proc/softirqs
 cat /proc/interrupts
 cat /proc/net/softnet_stat
 cat /proc/net/udp
+
+hexdump  (display file contents in hexadecimal, decimal, octal, or ascii)
+hexdump usd-btc.sh > usd-btc.bin
+xxd  (создаёт представление файла в виде шестнадцатеричных кодов или выполняет обратное преобразование)
+xxd -b usd-btc.sh 
+xxd -l 512 -s $(expr $(echo $((0x22))) \* 2048) bootdisk.iso
+xxd 256x64-greyscale-4bit.bmp >256x64-greyscale-4bit.txt
+xxd -r 256x64-greyscale-4bit.txt 256x64-greyscale-4bit.bmp
+shc  (транслятор Bash в C (бинарник из bash скрипта) )
+shc -r -f usd-btc.sh
 
