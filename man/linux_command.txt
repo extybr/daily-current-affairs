@@ -23,6 +23,8 @@ virtualbox
 vlc  (the VLC media player)
 gedit  (a general-purpose text editor)
 wget  (The non-interactive network downloader)
+wget2  (update wget)
+smbget  (wget-like utility for download files over SMB)
 gqrx
 hashcat
 rtl_sdr -h  (an I/Q recorder for RTL2832 based DVB-T receivers)
@@ -51,6 +53,7 @@ fmedia  (cli and gui audio player)
 ./fmedia ./Audio/'Bad Boys Blue - My Star.flac'
 ./fmedia http://ep256.hostingradio.ru:8052/europaplus256.mp3 -o radio.mp3 --stream-copy --out-cop
 ./fmedia './Audio/Tim McGraw/2 Compilations' -o music.m3u8
+./fmedia -s 00:02:00 ~/music/file.mp3
 sampler
 zenith
 nvitop  (https://github.com/XuehaiPan/nvitop)
@@ -73,6 +76,7 @@ atop  (sudo atop)  (Advanced System & Process Monitor)
 iftop  (display bandwidth usage on an interface by host)
 sudo iftop -i enp4s0f1 
 sudo iotop  (simple top-like I/O monitor)
+iotop-c
 bluetoothctl  (Bluetooth Control Command Line Tool)
 bluetoothctl  (help, scan on)
 fdisk  (manipulate disk partition table)
@@ -428,6 +432,8 @@ truncate  (shrink or extend the size of a file to the specified size)
 truncate --size +50M filename
 tty  (print the file name of the terminal connected to standard input)
 udevadm -h  (udev management tool)
+udevadm info -n sdc
+udevadm monitor -k
 link  (call the link function to create a link to a file)
 unlink  (call the unlink function to remove the specified file)
 unlink example.txt
@@ -440,7 +446,8 @@ vmstat  (Report virtual memory statistics)
 vmstat -d
 winecfg  (Wine Configuration Editor)
 winetricks  (manage virtual Windows environments using Wine)
-xz  (Compress or decompress .xz and .lzma files)
+zcat  (compress or expand files)
+bzcat  (decompresses files to stdout)
 xzcat (Compress or decompress .xz and .lzma files)
 xzdiff (compare compressed files)
 xzegrep (search possibly-compressed files for patterns)
@@ -451,7 +458,20 @@ xzmore (view xz or lzma compressed (text) files)
 zcat  (compress or expand files)
 zcat file.txt.gz
 tar  (an archiving utility)
+tar -zcf archive.tar.gz first.txt second.mp3 file.pdf
+tar -xf archive.tar.gz
+bzip2  (a block-sorting file compressor)
+bzip2 file.txt
+bunzip2 file.bz2
+gzip  (compress or expand files)
+gzip file.txt
+gunzip file.gz
+xz  (Compress or decompress .xz and .lzma files)
+xz file.txt
+unxz file.xz
 zip  (package and compress (archive) files)
+zip archive.zip first.txt second.mp3 file.pdf
+unzip archive.zip
 zgrep  (search possibly compressed files for a regular expression)
 zless  (file perusal filter for crt viewing of compressed text)
 zstdcat  (zstd, zstdmt, unzstd, zstdcat - Compress or decompress .zst files)
@@ -527,7 +547,6 @@ lnstat -j
 lstopo  (lstopo-no-graphics)  (Show the topology of the system)
 lsattr  (list file attributes on a Linux second extended file system)
 lsfd  (list file descriptors)
-lsmem  (list the ranges of available memory with their online status)
 lsmod  (depmod, insmod, rmmod, modprobe)
 lsmod  (Show the status of modules in the Linux Kernel)
 lslogins  (display information about known users in the system)
@@ -537,6 +556,7 @@ lshw -class processor
 sudo lshw -C display
 sudo lshw -C network
 lsblk  (list block devices)
+lsmem  (list the ranges of available memory with their online status)
 lscpu  (display information about the CPU architecture)
 lscpu | grep -i mhz
 lsns  (list namespaces)
@@ -646,4 +666,38 @@ xxd 256x64-greyscale-4bit.bmp >256x64-greyscale-4bit.txt
 xxd -r 256x64-greyscale-4bit.txt 256x64-greyscale-4bit.bmp
 shc  (транслятор Bash в C (бинарник из bash скрипта) )
 shc -r -f usd-btc.sh
+
+https://en.wikipedia.org/wiki/List_of_PDF_software
+pdftotext  (Portable Document Format (PDF) to text converter)
+pdftohtml  (program to convert PDF files into HTML, XML and PNG images)
+pdftoppm  (Portable Document Format (PDF) to Portable Pixmap (PPM) converter)
+
+convert  (convert between image formats as well as resize an image, blur, crop, despeckle, dither, draw on, flip, join, re-sample...)
+convert TEXT:file.txt file.pdf
+soffice  (libreoffice)
+soffice --convert-to pdf file.txt
+cupsfilter  (convert a file to another format using cups filters (deprecated))
+ps2pdf  (Convert PostScript to PDF using ghostscript)
+fmt  (simple optimal text formatter)
+djvutxt  (Extract the hidden text from DjVu documents)
+rsvg-convert  (Render SVG documents to PNG images, or convert them to PDF or PS)
+pygmentize  (highlights the input file)
+
+fzf  (command-line fuzzy finder)
+img2txt  (convert images to various text-based coloured files)
+img2txt image.jpg
+
+sysstat  (a collection of performance monitoring tools (iostat,isag,mpstat,pidstat,sadf,sar))
+iostat  (Report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions)
+mpstat  (Report processors related statistics)
+pidstat  (Report statistics for Linux tasks)
+
+pushd  (переход в указанный каталог с запоминанием текущего каталога)
+pushd /etc
+popd  (последний каталог в стеке)
+apropos  (поиск в именах справочных страниц и кратких описаниях)
+run-help  (help)
+run-help find
+display  (displays an image or image sequence on any X server)
+runlevel
 
