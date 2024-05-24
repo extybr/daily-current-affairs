@@ -66,6 +66,9 @@ alias e/='exiftool $1'
 alias s/='shc -r -f $1'
 alias rgh/='cat ~/.zhistory | rg $1'
 alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
+alias cre/=${SCRIPTS_DIRECTORY}'/curl_re.sh'
+alias csh/=${SCRIPTS_DIRECTORY}'/rss_sh.sh'
+alias cpy/=${SCRIPTS_DIRECTORY}'/rss_py.sh'
 . $HOME/${${SCRIPTS_DIRECTORY}#*~}/ratesx.sh
 
 temp () {
