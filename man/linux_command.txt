@@ -39,6 +39,7 @@ sampler  (https://github.com/sqshq/sampler)
 pspy64 (https://github.com/DominicBreuker/pspy)
 zenith  (https://github.com/bvaisvil/zenith)
 nvitop  (https://github.com/XuehaiPan/nvitop)
+conky  (A system monitor for X)
 jq  (Command-line JSON processor)
 yq  (Command-line YAML processor)
 cat .gitlab-ci.yml | yq
@@ -47,6 +48,7 @@ echo $(jc -p nmcli con show) | jq -r '.[0].uuid'
 jc -p ss -4
 xclip  (command line interface to X selections (clipboard))
 xclip -sel clip < file.txt
+ipcalc  (Calculates IP broadcast, network, Cisco wildcard mask, and host ranges)
 ./Outline-Client.AppImage --appimage-mount
 sqlite3  (A command line interface for SQLite version 3)
 sqlite3 _hh-trudvsem_.db
@@ -62,6 +64,11 @@ if ! command -v python &>/dev/null; then echo "Python not installed"; else echo 
 pip  (package manager for Python packages)
 pip list
 pip freeze
+pyenv  (Easily switch between multiple versions of Python; https://github.com/pyenv/pyenv#readme)
+alternatives  (tool to maintain symbolic links determining default commands)
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
+sudo update-alternatives --config python3
 npm  (javascript package manager)
 node  (server-side JavaScript runtime)
 kubectl  (kubectl controls the Kubernetes cluster manager)
@@ -85,6 +92,8 @@ echo -n "Hello World" | md5sum
 base64  (base64 encode/decode data and print to standard output)
 echo -n "Hello World" | base64
 echo $(echo "SGVsbG8gV29ybGQ=" | base64 -d)
+man ascii  (ASCII character set encoded in octal, decimal, and hexadecimal)
+openssl  (OpenSSL command line program)
 gpg  (OpenPGP encryption and signing tool)
 gpg -e text.txt
 gpg -d crypto_text.txt.gpg
@@ -150,6 +159,7 @@ smartctl  (Control and Monitor Utility for SMART Disks)
 sudo smartctl --all /dev/sda
 sudo smartctl -i /dev/sda
 lsblk  (list block devices)
+lsblk -bo NAME,SIZE,MOUNTPOINTS
 df  (report file system space usage)
 df -hT
 hwinfo --short --disk --partition
@@ -430,6 +440,7 @@ paste  (merge lines of files)
 ls | paste - - -
 truncate  (shrink or extend the size of a file to the specified size)
 truncate --size +50M filename
+truncate -s 16034824192 usb.img
 tty  (print the file name of the terminal connected to standard input)
 link  (call the link function to create a link to a file)
 unlink  (call the unlink function to remove the specified file)
@@ -478,6 +489,9 @@ pygmentize  (highlights the input file)
 fzf  (command-line fuzzy finder)
 img2txt  (convert images to various text-based coloured files)
 img2txt image.jpg
+losetup  (set up and control loop devices)
+losetup --show -Pf usb.img  (Создаем связь между файлом образа usb.img и устройством loopback)
+update-desktop-database  (Build cache database of MIME types handled by desktop files)
 
 shutdown  (Halt, power off or reboot the machine)
 shutdown -r now
