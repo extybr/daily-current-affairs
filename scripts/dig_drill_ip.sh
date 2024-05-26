@@ -57,5 +57,12 @@ elif command -V nslookup &> /dev/null; then
 else echo -e "command ${blue}dig${normal}, ${blue}drill${normal} and ${blue}nslookup${normal} ${red}not found${normal}"
   exit 0
 fi
-echo -e "${blue}${ip_addr}${normal}"
+
+IFS=$'\n'
+for word in ${ip_addr}
+do
+  if [ $(echo "${word}" | wc -w) = '1' ]; then
+    echo -e "${blue}${word}${normal}"
+  fi
+done
 
