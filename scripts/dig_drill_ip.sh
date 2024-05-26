@@ -28,7 +28,7 @@ cmd_nslookup() {
 }
 
 cmd_drill() {
-  request=$(timeout 3 drill "$1" -T @8.8.8.8)
+  request=$(timeout 3 drill "$1" -T @8.8.8.8 2> /dev/null)
   if [ "$?" = '124' ]; then
     echo 'timeout'
     cmd_drill "$1"
