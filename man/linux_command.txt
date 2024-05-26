@@ -492,6 +492,8 @@ img2txt image.jpg
 losetup  (set up and control loop devices)
 losetup --show -Pf usb.img  (Создаем связь между файлом образа usb.img и устройством loopback)
 update-desktop-database  (Build cache database of MIME types handled by desktop files)
+ktutil  (Kerberos keytab file maintenance utility)
+kinit  (obtain and cache Kerberos ticket-granting ticket)
 
 shutdown  (Halt, power off or reboot the machine)
 shutdown -r now
@@ -596,6 +598,8 @@ nslookup -type=NS vk.com
 nslookup -vc -type=ANY vk.com
 nslookup -type=MX -debug google.com
 nslookup -type=PTR 188.43.20.67
+named  (Internet domain name server)
+nsupdate  (dynamic DNS update utility)
 ping -c 5 google.com
 traceroute  (print the route packets trace to network host)
 traceroute google.com
