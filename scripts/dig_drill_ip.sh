@@ -32,7 +32,7 @@ cmd_drill() {
   if [ "$?" = '124' ]; then
     echo 'timeout'
     cmd_drill "$1"
-  else ip_addr=$(echo "${request}" | grep -E "^$1" | grep 'A' | tr -d '\t' | cut -d 'A' -f 2)
+  else ip_addr=$(echo "${request}" | grep -E "^$1" | grep -w 'A' | tr -d '\t' | cut -d 'A' -f 2)
   fi
 }
 
@@ -41,7 +41,7 @@ cmd_dig() {
   if [ "$?" = '124' ]; then
     echo 'timeout'
     cmd_dig "$1"
-  else ip_addr=$(echo "${request}" | grep -E "^$1" | grep 'A' | tr -d '\t' | cut -d 'A' -f 2)
+  else ip_addr=$(echo "${request}" | grep -E "^$1" | grep -w 'A' | tr -d '\t' | cut -d 'A' -f 2)
   fi
 }
 
