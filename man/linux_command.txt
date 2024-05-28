@@ -494,6 +494,16 @@ losetup --show -Pf usb.img  (Создаем связь между файлом �
 update-desktop-database  (Build cache database of MIME types handled by desktop files)
 ktutil  (Kerberos keytab file maintenance utility)
 kinit  (obtain and cache Kerberos ticket-granting ticket)
+cdrecord  (record audio or data CD, DVD or BluRay)
+cdrecord -scanbus
+
+mknod  (make block or character special files)
+mknod FILE c 1 5  (/dev/zero)
+mknod FILE c 1 3  (/dev/null)
+cat /dev/null > /var/log/xyz.log
+dd if=/dev/null of=/var/log/xyz.log
+z=/dev/zero > /var/log/xyz.log
+cp /dev/null /var/log/xyz.log
 
 shutdown  (Halt, power off or reboot the machine)
 shutdown -r now
