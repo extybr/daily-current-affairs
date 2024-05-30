@@ -50,6 +50,7 @@ xclip  (command line interface to X selections (clipboard))
 xclip -sel clip < file.txt
 ipcalc  (Calculates IP broadcast, network, Cisco wildcard mask, and host ranges)
 ./Outline-Client.AppImage --appimage-mount
+outline-client  (client outline)
 sqlite3  (A command line interface for SQLite version 3)
 sqlite3 _hh-trudvsem_.db
 db='~/_hh-trudvsem_.db'; if test -f "${db}"; then sqlite3 "${db}"; else echo "${db}: not found"; return 1; fi
@@ -408,6 +409,7 @@ shred  (overwrite a file to hide its contents, and optionally delete it)
 shred --help
 strings  (print the sequences of printable characters in files)
 strings ~/.bashrc
+split  (split a file into pieces)
 swapon  (swapoff)  (enable/disable devices and files for paging and swapping)
 size bin/yt-dlp
 echo "first\nsecond" | tac
@@ -657,6 +659,8 @@ iwlist  (Get more detailed wireless information from a wireless interface)
 iwlist scan
 ethtool  (query or control network driver and hardware settings)
 ifconfig  (configure a network interface)
+NetworkManager  (network management daemon)
+ModemManager  (mobile broadband modem management daemon)
 nmcli  (command-line tool for controlling NetworkManager)
 nmcli connection
 nmcli dev wifi
