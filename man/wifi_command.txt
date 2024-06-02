@@ -14,6 +14,15 @@ https://hackware.ru/?p=18103
 Повышение эффективности аудита безопасности Wi-Fi: новые инструменты, хеш и техники
 https://hackware.ru/?p=18075
 
+KRACK на практике. Как работает атака на Wi-Fi с применением нашумевшей техники
+https://xakep.ru/2019/12/11/krack/
+Как стать гуру или WiFi Cheat Sheet
+https://habr.com/ru/articles/761450/
+Анализ безопасности Wi-Fi: атаки на WPA2-Personal / Enterprise и методология взлома WPA3
+https://habr.com/ru/companies/bastion/articles/777182/
+Новая техника атаки WPA2, не требующая наличия клиента на AP
+https://habr.com/ru/companies/jetinfosystems/articles/419383/
+
 Олег Купреев
 https://www.youtube.com/@DC7499/videos
 ______________________________
@@ -153,6 +162,7 @@ AIRCRACK-NG ДЛЯ WINDOWS
 
 AIRCRACK-NG ДЛЯ LINUX
 aircrack-ng -w /root/Desktop/wpa2/worldlist -b 44:E9:DD:27:D9:F6 /root/Desktop/wpa2/handshake.cap
+aircrack-ng -w pass.txt Router-D777C7.cap
 ______________________________
 
 Wash — это утилита для идентификации точек доступа с включённым WPS
@@ -219,6 +229,7 @@ tshark -F libpcap -w <имя_файла_pcap> -r <имя_файла_cap>
 КОНВЕРТИРОВАНИЕ cap И pcap ФАЙЛ В hccap
 
 aircrack-ng <cap-файл> -J <hccap-файл>
+aircrack-ng dumpfile.cap -J hccapfile
 ______________________________
 
 ИНЪЕКЦИЯ ВСЕМ ТОЧКАМ ДОСТУПА НА ЭТОМ КАНАЛЕ

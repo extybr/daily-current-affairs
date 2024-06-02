@@ -147,6 +147,8 @@ lvscan  (List all logical volumes in all volume groups)
 vgscan  (Search for all volume groups)
 resize.f2fs  (resize filesystem size)
 resize2fs  (ext2/ext3/ext4 file system resizer)
+cdrecord  (record audio or data CD, DVD or BluRay)
+cdrecord -scanbus
 
 udevadm -h  (udev management tool)
 udevadm info -n sdc
@@ -433,7 +435,8 @@ export
 exec bash
 return 127
 exit 0
-exec  (exec is a shell builtin)
+eval  (shell built-in command)
+exec  (shell built-in command)
 true  (do nothing, successfully)
 false  (do nothing, unsuccessfully)
 shift  (shift is a shell builtin)
@@ -496,8 +499,7 @@ losetup --show -Pf usb.img  (Создаем связь между файлом �
 update-desktop-database  (Build cache database of MIME types handled by desktop files)
 ktutil  (Kerberos keytab file maintenance utility)
 kinit  (obtain and cache Kerberos ticket-granting ticket)
-cdrecord  (record audio or data CD, DVD or BluRay)
-cdrecord -scanbus
+rpcinfo  (report RPC information)
 
 mknod  (make block or character special files)
 mknod FILE c 1 5  (/dev/zero)
