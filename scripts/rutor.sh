@@ -1,7 +1,11 @@
 #!/bin/sh
 
+if [ "$1" = '1' ]; then
+  source ./antizapret_proxy.sh
+fi
+
 rutor() {
-request=$(curl -s --max-time 3 http://rutor.info/top)
+request=$(curl -s ${proxy} --max-time 3 'http://rutor.info/top')
 }
 
 main() {
