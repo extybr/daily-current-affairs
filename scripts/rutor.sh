@@ -1,5 +1,8 @@
 #!/bin/sh
 
+current_folder=$(pwd)
+cd ~/PycharmProjects/github/daily-current-affairs/scripts
+
 if [ "$1" = '1' ]; then
   source ./antizapret_proxy.sh
 fi
@@ -35,4 +38,6 @@ fi
 }
 
 main
+
+cd "${current_folder}"
 
