@@ -3,12 +3,19 @@
 current_folder=$(pwd)
 cd ~/PycharmProjects/github/daily-current-affairs/scripts
 
+path='top'
+
+if [ "$#" -eq 2 ]; then
+  search=$(echo "$2" | sed 's/ /%20/g')
+  path="search/${search}"
+fi
+
 if [ "$1" = '1' ]; then
   source ./antizapret_proxy.sh
 fi
 
 rutor() {
-request=$(curl -s ${proxy} --max-time 3 'http://rutor.info/top')
+request=$(curl -s ${proxy} --max-time 3 "http://rutor.info/${path}")
 }
 
 main() {
