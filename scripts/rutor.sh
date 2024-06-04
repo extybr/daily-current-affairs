@@ -1,5 +1,13 @@
 #!/bin/sh
 
+####################################
+# Example:                         #
+# $> ./rutor.sh                    #
+# $> ./rutor.sh 1                  #
+# $> ./rutor.sh 1 Marvel           #
+# $> ./rutor.sh 0 'Resident evil'  #
+####################################
+
 current_folder=$(pwd)
 cd ~/PycharmProjects/github/daily-current-affairs/scripts
 

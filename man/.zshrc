@@ -70,6 +70,7 @@ alias cre/=${SCRIPTS_DIRECTORY}'/curl_re.sh'
 alias csh/=${SCRIPTS_DIRECTORY}'/rss_sh.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
 alias ru/=${SCRIPTS_DIRECTORY}'/rutor.sh'
+alias cd/='pushd '${SCRIPTS_DIRECTORY}
 . $HOME/${${SCRIPTS_DIRECTORY}#*~}/ratesx.sh
 
 temp () {
