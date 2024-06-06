@@ -384,6 +384,13 @@ run-help find
 display  (displays an image or image sequence on any X server)
 runlevel
 alsamixer  (soundcard mixer for ALSA soundcard driver, with ncurses interface)
+amixer  (command-line mixer for ALSA soundcard driver)
+amixer -D pulse sset Master 10%+
+amixer -D pulse sset Master 10%-
+amixer -D pulse sset Master 50%
+amixer cset iface=MIXER,name="Master Playback Volume" 20%
+amixer get Master | grep 'Front Left:' | tr -d " " | cut -d '[' -f 2 | sed 's/%]//g'
+aplay  (command-line sound recorder and player for ALSA soundcard driver)
 eject  (eject removable media)
 pr  (convert text files for printing)
 man pr

@@ -29,7 +29,7 @@ export wlan1='wlp0s20f0u1u4'
 export SCRIPTS_DIRECTORY='~/PycharmProjects/github/daily-current-affairs/scripts'
 alias ip='ip --color'
 alias gitu='git add . && git commit -m'
-alias fm='~/my_programs/fmedia-1/./fmedia'
+alias fm=${SCRIPTS_DIRECTORY}'/fmedia.sh'
 alias reqrypt=${SCRIPTS_DIRECTORY}'/./reqrypt-1.3.1-linux64.sh'
 alias sampler='sampler -c ~/my_programs/config.yml'
 alias pspy='~/my_programs/./pspy64'
@@ -71,9 +71,9 @@ alias csh/=${SCRIPTS_DIRECTORY}'/rss_sh.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
 alias ru/=${SCRIPTS_DIRECTORY}'/rutor.sh'
 alias cd/='pushd '${SCRIPTS_DIRECTORY}
+alias 90/=${SCRIPTS_DIRECTORY}'/90s.sh'
 . $HOME/${${SCRIPTS_DIRECTORY}#*~}/ratesx.sh
 
 temp () {
 watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh
 }
-
