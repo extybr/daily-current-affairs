@@ -557,6 +557,7 @@ pacman -Qe > my_programs.txt
 pacman -Qo /usr/bin/smplayer
 pacman-mirrors  (generate pacman mirrorlist for Manjaro Linux)
 pacman-mirrors -f 10
+pacman-mirrors --fasttrack
 sudo pacman -Sc
 https://wiki.manjaro.org/index.php/Pamac/ru
 https://wiki.manjaro.org/index.php/Arch_User_Repository/ru
@@ -735,6 +736,10 @@ gqrx  (open source software defined radio receiver (SDR) powered by the GNU Radi
 rtl_sdr -h  (an I/Q recorder for RTL2832 based DVB-T receivers)
 rtl_sdr -f 433000000
 rtl_sdr 433
+rtl_433 -C si
+rtl_433 -f 868M -s 1024k
+rtl_fm  (a simple FM demodulator for RTL2832 based DVB-T receivers)
+rtl_fm -f 106.3e6 -M wbfm -s 200000 -r 9000 - | aplay -f S16_LE
 ufw  (program for managing a netfilter firewall)
 sudo ufw status
 firewalld  (firewall management tools)

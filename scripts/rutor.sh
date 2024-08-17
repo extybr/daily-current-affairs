@@ -8,6 +8,10 @@
 # $> ./rutor.sh 0 'Resident evil'  #
 ####################################
 
+VIOLET="\e[35m"
+BLUE="\033[36m"
+NORM="\e[0m"
+
 current_folder=$(pwd)
 cd ~/PycharmProjects/github/daily-current-affairs/scripts
 
@@ -41,7 +45,8 @@ if rutor; then
 	for line in ${result}
 	do 
 		if [ $(expr "${count}" \% 2) -eq 0 ]; then 
-		printf "%s\\n%s\\n\\n" "${line}" "${temp}"
+		number=$(expr ${count} / 2)
+		printf "${BLUE}%s${NORM}. ${VIOLET}%s${NORM}\\n%s\\n\\n" "${number}" "${line}" "${temp}"
 		else temp=$(echo "${line}")
 		fi
 		count=$(expr "${count}" + 1)
