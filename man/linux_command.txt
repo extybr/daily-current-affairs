@@ -391,6 +391,10 @@ amixer -D pulse sset Master 50%
 amixer cset iface=MIXER,name="Master Playback Volume" 20%
 amixer get Master | grep 'Front Left:' | tr -d " " | cut -d '[' -f 2 | sed 's/%]//g'
 aplay  (command-line sound recorder and player for ALSA soundcard driver)
+aplay -l
+aplay radio.wav
+aplay -d 10 radio.wav
+aplay -D sysdefault:CARD=PCH radio.wav
 eject  (eject removable media)
 pr  (convert text files for printing)
 man pr
