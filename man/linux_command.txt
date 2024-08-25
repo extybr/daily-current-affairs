@@ -26,6 +26,7 @@ fmedia  (cli and gui audio player)
 ./fmedia http://ep256.hostingradio.ru:8052/europaplus256.mp3 -o radio.mp3 --stream-copy --out-cop
 ./fmedia './Audio/Tim McGraw/2 Compilations' -o music.m3u8
 ./fmedia -s 00:02:00 ~/music/file.mp3
+./fmedia .
 shellcheck  (Shell script analysis tool)
 shellcheck ~/my_programs/os.sh
 gedit  (a general-purpose text editor)
@@ -49,6 +50,7 @@ jc -p ss -4
 xclip  (command line interface to X selections (clipboard))
 xclip -sel clip < file.txt
 ipcalc  (Calculates IP broadcast, network, Cisco wildcard mask, and host ranges)
+/usr/lib/geoclue-2.0/demos/where-am-i  (geolocation application)
 ./Outline-Client.AppImage --appimage-mount
 outline-client  (client outline)
 sqlite3  (A command line interface for SQLite version 3)
@@ -191,6 +193,7 @@ iftop  (display bandwidth usage on an interface by host)
 sudo iftop -i enp4s0f1 
 sudo iotop  (simple top-like I/O monitor)
 iotop-c  (new version iotop)
+sudo iptraf-ng -i enp4s0f1
 pgrep  (look up, signal, or wait for processes based on name and other attributes)
 pgrep telegram
 pgrep telegram | xargs ps
