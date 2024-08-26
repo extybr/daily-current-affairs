@@ -373,6 +373,10 @@ dirname ~/PycharmProjects/my_other_projects  (/home/tux/PycharmProjects)
 basename  (strip directory and suffix from filenames)
 basename ~/PycharmProjects/my_other_projects   (my_other_projects)
 
+shuf  (generate random permutations)
+echo $RANDOM
+od -An -N1 -d /dev/urandom
+python -c "import random; print(random.randint(1, 100))"
 resize  (set environment and terminal settings to current xterm window size)
 nroff  (format documents with groff for TTY (terminal) devices)
 groff  (front end to the GNU roff document formatting system)
