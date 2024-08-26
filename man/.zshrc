@@ -72,6 +72,7 @@ alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
 alias ru/=${SCRIPTS_DIRECTORY}'/rutor.sh'
 alias cd/='pushd '${SCRIPTS_DIRECTORY}
 alias 90/=${SCRIPTS_DIRECTORY}'/90s.sh'
+alias 40/=${SCRIPTS_DIRECTORY}'/top40.sh'
 alias cy/=${SCRIPTS_DIRECTORY}'/country.sh'
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 . $HOME/${${SCRIPTS_DIRECTORY}#*~}/ratesx.sh
