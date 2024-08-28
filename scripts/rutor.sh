@@ -16,6 +16,7 @@ current_folder=$(pwd)
 cd ~/PycharmProjects/github/daily-current-affairs/scripts
 
 path='top'
+proxy=''
 
 if [ "$#" -eq 2 ]; then
   search=$(echo "$2" | sed 's/ /%20/g')
@@ -27,7 +28,7 @@ if [ "$1" = '1' ]; then
 fi
 
 rutor() {
-request=$(curl -s ${proxy} --max-time 3 "http://rutor.info/${path}")
+request=$(curl -s ${proxy} --max-time 5 "http://rutor.info/${path}")
 }
 
 main() {
