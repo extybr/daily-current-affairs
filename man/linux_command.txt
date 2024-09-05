@@ -255,6 +255,7 @@ sudo -l
 sudo -k
 sudo -s
 sudo su root
+chroot  (run command or interactive shell with special root directory)
 getent  (get entries from Name Service Switch libraries)
 getent passwd
 getent group
@@ -357,6 +358,10 @@ file  (determine file type)
 file myfile.txt
 file my_directory
 file -ih mylink.txt
+ldd  (print shared object dependencies)
+ldd /bin/bash
+readelf  (display information about ELF files)
+readelf -dh /bin/bash
 rg  (ripgrep: recursively search the current directory for lines matching a pattern)
 rga  (ripgrep-all, ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.)
 grep (egrep, fgrep, bzgrep)  (grep: print lines that match patterns)
@@ -839,6 +844,9 @@ cat /etc/os-release
 cat /etc/*-release
 cat /etc/issue
 cat /etc/lsb-release
+lsb_release  (manual page for FSG lsb_release v2.0)
+lsb_release -r
+lsb_release -i
 sudo dmesg | grep Linux
 
 lsattr  (list file attributes on a Linux second extended file system)

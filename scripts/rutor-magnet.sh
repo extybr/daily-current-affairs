@@ -6,7 +6,8 @@
 # $> ./rutor-magnet.sh 1 'http://rutor.info/torrent/999364'  #
 ##############################################################
 
-BLUE="\033[36m"
+BLUE="\e[36m"
+RED="\e[31m"
 NORM="\e[0m"
 
 current_folder=$(pwd)
@@ -22,7 +23,10 @@ url="$2"
 rutor() {
 request=$(curl -s ${proxy} --max-time 5 "${url}" | grep -oP 'magnet[^<]+ce' | grep amp)
 echo -e "\n${BLUE}${request}${NORM}\n"
-echo "${request}" | xclip -sel clip
+if command -v xclip > /dev/null
+  then echo "${request}" | xclip -sel clip
+  else echo -e "xclip: ${RED}not found${NORM}"
+fi
 }
 
 rutor
