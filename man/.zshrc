@@ -27,6 +27,7 @@ unsetopt correct
 export wlan0='wlp3s0'
 export wlan1='wlp0s20f0u1u4'
 export SCRIPTS_DIRECTORY='~/PycharmProjects/github/daily-current-affairs/scripts'
+export PLAYLIST_DIRECTORY='/run/media/tux/Samsung-1TB/Desktop/Radio'
 alias ip='ip --color'
 alias gitu='git add . && git commit -m'
 alias fm=${SCRIPTS_DIRECTORY}'/fmedia.sh'
