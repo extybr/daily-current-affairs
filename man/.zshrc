@@ -65,6 +65,7 @@ alias jj/='~/PycharmProjects/github/script-parser-HH-led/terminal/job.sh'
 alias y/="~/bin/yt-dlp -S 'res:720,fps' $1"
 alias e/='exiftool $1'
 alias s/='shc -r -f $1'
+alias ts/=${SCRIPTS_DIRECTORY}'/timestamp.sh'
 alias rgh/='cat ~/.zhistory | rg $1'
 alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
 alias cre/=${SCRIPTS_DIRECTORY}'/curl_re.sh'
