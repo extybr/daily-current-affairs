@@ -21,6 +21,12 @@ mpv "${tcn_url}"
 s)
 smplayer "${tcn_url}"
 ;;
+v)
+vlc "${tcn_url}"
+;;
+ss)
+smplayer "${tcn_url%"tcn-live.m3u"*}music.m3u"
+;;
 *)
 ffplay 'https://strm112.1.fm/country_mobile_mp3?aw_0_req.gdpr=true' -nodisp
 ;;
