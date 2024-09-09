@@ -47,6 +47,7 @@ cat .gitlab-ci.yml | yq
 jc  (converts the output of many commands, file-types, and strings to JSON or YAML)
 echo $(jc -p nmcli con show) | jq -r '.[0].uuid'
 jc -p ss -4
+collision  (Check hashes for your files)
 xclip  (command line interface to X selections (clipboard))
 xclip -sel clip < file.txt
 ipcalc  (Calculates IP broadcast, network, Cisco wildcard mask, and host ranges)
@@ -339,6 +340,8 @@ more prometheus-command.txt
 zmore  (file perusal filter for crt viewing of compressed text)
 diff  (compare files line by line)
 diff webui_en.py webui_ru.py
+diff3  (compare three files line by line)
+diffimg  (Calculates intersection between two images)
 watch  (execute a program periodically, showing output fullscreen)
 which  (shows the full path of (shell) commands)
 which zsh bash bat
