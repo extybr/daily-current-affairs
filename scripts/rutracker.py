@@ -7,16 +7,6 @@ yellow = "\033[33m"
 blue = "\033[36m"
 normal = "\33[0m"
 
-
-def get_proxy() -> str:
-    """ Not used """
-    cmd = ("curl -s --location --max-time 7 "
-           "'https://p.thenewone.lol:8443/proxy.pac' "
-           "| tail -n 10 | grep PROXY | awk '{print $3}' | sed 's/;//g'")
-    proxy = subprocess.getoutput(cmd)
-    return proxy
-
-
 cmd = "curl -s --proxy n.thenewone.lol:29976 --max-time 10 --location "
 number = 252
 link = f"'https://rutracker.org/forum/viewforum.php?f={number}'"
