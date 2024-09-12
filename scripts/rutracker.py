@@ -2,10 +2,10 @@
 import re
 import subprocess
 
-red = "\33[31m"
+red = "\033[31m"
 yellow = "\033[33m"
 blue = "\033[36m"
-normal = "\33[0m"
+normal = "\033[0m"
 
 cmd = "curl -s --proxy n.thenewone.lol:29976 --max-time 10 --location "
 number = 252

@@ -687,6 +687,7 @@ sudo iw wlp0s20f0u1u4 scan | grep 'SSID:\|signal:' | tac
 iwlist  (Get more detailed wireless information from a wireless interface)
 iwlist scan
 ethtool  (query or control network driver and hardware settings)
+ethtool -k wlan0
 ifconfig  (configure a network interface)
 NetworkManager  (network management daemon)
 ModemManager  (mobile broadband modem management daemon)
@@ -747,6 +748,7 @@ curl  (transfer a URL)
 curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e
 tcpdump  (dump traffic on a network)
 wget  (The non-interactive network downloader)
+wget -O /dev/null https://xxx.xx/files/1Gb.dat
 wget2  (update wget)
 smbget  (wget-like utility for download files over SMB)
 bluetoothctl  (Bluetooth Control Command Line Tool)
