@@ -57,12 +57,12 @@ alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
 alias c/=${SCRIPTS_DIRECTORY}'/cheat.sh'
 alias usd=${SCRIPTS_DIRECTORY}'/usd-btc.sh'
 alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e'
-alias tel='telnet mapscii.me'
+alias tel/='telnet mapscii.me'
 alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'
 alias j/=${SCRIPTS_DIRECTORY}'/simple-parser-hh.sh'
 alias jj/='~/PycharmProjects/github/script-parser-HH-led/terminal/job.sh'
 # https://github.com/yt-dlp/yt-dlp#readme
-alias y/="~/bin/yt-dlp -S 'res:720,fps' $1"
+alias y/="~/bin/yt-dlp -U && ~/bin/yt-dlp -S 'res:720,fps' $1"
 alias e/='exiftool $1'
 alias s/='shc -r -f $1'
 alias ts/=${SCRIPTS_DIRECTORY}'/timestamp.sh'
@@ -73,11 +73,15 @@ alias csh/=${SCRIPTS_DIRECTORY}'/rss_sh.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
 alias ru/=${SCRIPTS_DIRECTORY}'/rutor.sh'
 alias rum/=${SCRIPTS_DIRECTORY}'/rutor-magnet.sh'
+alias rut/=${SCRIPTS_DIRECTORY}'/rutracker.py'
+alias rutm/=${SCRIPTS_DIRECTORY}'/rutracker-magnet.sh'
+alias sc/=${SCRIPTS_DIRECTORY}'/scarabey.sh'
 alias cd/='pushd '${SCRIPTS_DIRECTORY}
 alias 90/=${SCRIPTS_DIRECTORY}'/90s.sh'
 alias 40/=${SCRIPTS_DIRECTORY}'/top40.sh'
 alias cy/=${SCRIPTS_DIRECTORY}'/country.sh'
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
+alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh $1'
 . $HOME/${${SCRIPTS_DIRECTORY}#*~}/ratesx.sh
 
 temp () {

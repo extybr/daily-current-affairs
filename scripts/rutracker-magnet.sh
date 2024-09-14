@@ -4,6 +4,9 @@ red="\e[31m"
 blue="\e[36m"
 normal="\e[0m"
 
+cd ~/PycharmProjects/github/daily-current-affairs/scripts
+proxy=''
+
 if ! [ "$#" -eq 2 ]; then
   echo -e "${red} Ожидалось 2 параметра, а передано $#${normal}"
   exit 0
