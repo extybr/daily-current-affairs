@@ -23,6 +23,10 @@ do
 done
 
 url=$(echo "${last_post}" | grep -oP 'href="[^>]+><' | sed 's/href="//g ; s/"><//g')
+if ! [ "${url}" ]
+  then echo -e "${white}*** FAIL ***${normal}"
+  exit 0
+fi
 echo -e "Ссылка на последний пост: ${blue}${url}${normal}"
 datetime=$(echo "${last_post}" | grep -oP 'datetime="[^>]+00:00' | sed 's/datetime="//g ; s/T/ /g ; s/+00:00//g')
 echo -e "Дата поста: ${yellow}${datetime}${normal}"
