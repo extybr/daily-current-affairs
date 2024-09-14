@@ -76,6 +76,7 @@ alias rum/=${SCRIPTS_DIRECTORY}'/rutor-magnet.sh'
 alias rut/=${SCRIPTS_DIRECTORY}'/rutracker.py'
 alias rutm/=${SCRIPTS_DIRECTORY}'/rutracker-magnet.sh'
 alias sc/=${SCRIPTS_DIRECTORY}'/scarabey.sh'
+alias ti/=${SCRIPTS_DIRECTORY}'/trading-index.py'
 alias cd/='pushd '${SCRIPTS_DIRECTORY}
 alias 90/=${SCRIPTS_DIRECTORY}'/90s.sh'
 alias 40/=${SCRIPTS_DIRECTORY}'/top40.sh'
