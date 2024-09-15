@@ -1,7 +1,8 @@
 #!/bin/sh
-
-# example:
-# $> ./scarabey.sh
+#######################
+# example:            #
+# $> ./scarabey.sh    #
+#######################
 
 blue='\e[36m'
 yellow='\e[033m'

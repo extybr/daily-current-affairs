@@ -9,7 +9,7 @@ elif [ "$1" = '.' ] || [ "$#" -gt 1 ]
 else ~/my_programs/fmedia-1/./fmedia "$1"
 fi
 
-if ! [ $? -eq 0 ]
+if ! [ "$?" -eq 0 ]
   then echo -e "\e[31m*** Неверные параметры ***\e[0m"
 fi
 
