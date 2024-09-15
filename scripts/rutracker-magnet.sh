@@ -1,4 +1,8 @@
 #!/bin/sh
+#####################################################################################
+# $> ./rutracker-magnet.sh 1 'https://rutracker.org/forum/viewtopic.php?t=6549631'  #
+# $> ./rutracker-magnet.sh 0 'https://rutracker.org/forum/viewtopic.php?t=6549631'  #
+#####################################################################################
 
 red="\e[31m"
 blue="\e[36m"

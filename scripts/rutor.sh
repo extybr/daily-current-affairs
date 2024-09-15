@@ -8,9 +8,9 @@
 # $> ./rutor.sh 0 'Resident evil'  #
 ####################################
 
-VIOLET="\e[35m"
-BLUE="\033[36m"
-NORM="\e[0m"
+violet="\e[35m"
+blue="\e[36m"
+normal="\e[0m"
 
 current_folder=$(pwd)
 cd ~/PycharmProjects/github/daily-current-affairs/scripts
@@ -35,23 +35,23 @@ main() {
 
 if rutor; then
 
-	response=$(echo "${request}" | grep -oP '<a href="/torrent/[^<]+' | sed 's/<a href="/http:\/\/rutor.info/g' | sed "s/\">/\\n/g" | sed -n '7,+100p')
+  response=$(echo "${request}" | grep -oP '<a href="/torrent/[^<]+' | sed 's/<a href="/http:\/\/rutor.info/g' | sed "s/\">/\\n/g" | sed -n '7,+100p')
 
-	IFS='|'
-	result=$(echo "${response}" | head -n 60)
+  IFS='|'
+  result=$(echo "${response}" | head -n 60)
 
-	IFS=$'\n'
-	count=1
-	temp=''
-	for line in ${result}
-	do 
-		if [ $(expr "${count}" \% 2) -eq 0 ]; then 
-		number=$(expr ${count} / 2)
-		printf "${BLUE}%s${NORM}. ${VIOLET}%s${NORM}\\n%s\\n\\n" "${number}" "${line}" "${temp}"
-		else temp=$(echo "${line}")
-		fi
-		count=$(expr "${count}" + 1)
-	done
+  IFS=$'\n'
+  count=1
+  temp=''
+  for line in ${result}
+  do 
+    if [ $(expr "${count}" \% 2) -eq 0 ]; then 
+      number=$(expr ${count} / 2)
+      printf "${blue}%s${normal}. ${violet}%s${normal}\\n%s\\n\\n" "${number}" "${line}" "${temp}"
+    else temp=$(echo "${line}")
+    fi
+    count=$(expr "${count}" + 1)
+  done
 
 else echo "timeout"
   main

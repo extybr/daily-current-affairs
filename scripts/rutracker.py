@@ -1,4 +1,8 @@
 #!/bin/python3
+######################
+# $> ./rutracker.py  #
+######################
+
 import re
 import subprocess
 
