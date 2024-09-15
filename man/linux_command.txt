@@ -510,6 +510,7 @@ iconv  (convert text from one character encoding to another)
 iconv --help
 info  (read Info documents)
 readlink  (print resolved symbolic links or canonical file names)
+readlink -f .bashrc
 xdpyinfo  (display information utility for X)
 nm  (list symbols from object files)
 getopt  (parse command options (enhanced))
