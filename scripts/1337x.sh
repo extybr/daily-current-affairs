@@ -11,8 +11,10 @@ normal="\e[0m"
 cd ~/PycharmProjects/github/daily-current-affairs/scripts
 
 if [ "$#" -ne 2 ]; then echo -e "${red}*** ожидалось 2 параметра, а передано $# ***${normal}"; exit 0; fi
-if [ "$1" = '1' ]; then source ./antizapret_proxy.sh; fi
-if ! [ "${proxy}" ]; then proxy="--proxy n.thenewone.lol:29976"; fi
+proxy="--proxy n.thenewone.lol:29976"
+if [ "$1" = '1' ]; then source ./antizapret_proxy.sh
+elif [ "$1" = '0' ]; then proxy=''
+fi
 
 name=$(echo "$2" | sed 's/ /%20/g')
 user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/128.0"
