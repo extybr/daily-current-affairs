@@ -75,6 +75,7 @@ alias ri/=${SCRIPTS_DIRECTORY}'/rutor+search+magnet.sh'
 alias ro/=${SCRIPTS_DIRECTORY}'/rutracker.sh'
 alias sc/=${SCRIPTS_DIRECTORY}'/scarabey.sh'
 alias 13/=${SCRIPTS_DIRECTORY}'/1337x.sh'
+alias bt/=${SCRIPTS_DIRECTORY}'/bitsearch.sh'
 alias ti/=${SCRIPTS_DIRECTORY}'/trading-index.py'
 alias cd/='pushd '${SCRIPTS_DIRECTORY}
 alias 90/=${SCRIPTS_DIRECTORY}'/90s.sh'

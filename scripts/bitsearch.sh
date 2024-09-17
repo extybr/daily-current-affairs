@@ -1,4 +1,8 @@
 #!/bin/sh
+#######################################
+# $> ./bitsearch.sh 0 'Taylor Swift'  #
+# $> ./bitsearch.sh 1 'Taylor Swift'  #
+#######################################
 
 violet="\e[35m"
 blue="\e[36m"

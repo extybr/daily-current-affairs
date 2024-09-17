@@ -17,7 +17,7 @@ elif [ "$1" = '0' ]; then proxy=''
 fi
 
 name=$(echo "$2" | sed 's/ /%20/g')
-user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/128.0"
+user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0"
 
 request() {
 html=$(curl -s "https://1337x.to/sort-search/"${name}"/time/desc/1/" ${proxy} -A "${user_agent}")
