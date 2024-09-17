@@ -469,6 +469,9 @@ true  (do nothing, successfully)
 false  (do nothing, unsuccessfully)
 shift  (shift is a shell builtin)
 hash  (hash is a shell builtin)
+rhash  (calculate/check CRC32, MD5, SHA1, GOST, TTH, BTIH or other message digests)
+rhash -r --sha256 directory/ > directory.sha256
+rhash --sha3-256 --message 'message'
 paste  (merge lines of files)
 ls | paste - - -
 truncate  (shrink or extend the size of a file to the specified size)
