@@ -10,6 +10,8 @@ yellow="\e[33m"
 red="\e[31m"
 normal="\e[0m"
 
+cd ~/PycharmProjects/github/daily-current-affairs/scripts
+
 if [ "$#" -ne 2 ]; then echo -e "${red}*** Ожидалось 2 параметра, а передано $# ***"${normal}; exit 0; fi
 proxy=''
 if [ "$1" -eq 1 ]; then source ./antizapret_proxy.sh; fi
