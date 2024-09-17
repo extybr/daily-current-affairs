@@ -27,13 +27,10 @@ echo -e "${blue}${result}${normal}"
 
 search() {
 html=$(curl -s "${name}" ${proxy} -A "${user_agent}")
-result=$(echo "${html}" | grep -oP 'magnet[^>]+nce')
-for magnet in $(echo "${result}"); do
-  echo -e "\n${blue}${magnet}${normal}\n"
-  break
-done
+result=$(echo "${html}" | grep -oP 'magnet[^>]+nce' | head -n 1)
+echo -e "\n${blue}${result}${normal}\n"
 if command -v xclip > /dev/null
-  then echo "${magnet}" | xclip -sel clip
+  then echo "${result}" | xclip -sel clip
   else echo -e "xclip: ${red}not found${normal}"
 fi
 }

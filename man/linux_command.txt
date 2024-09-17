@@ -308,6 +308,8 @@ cat .bash_history | nl
 cat -b ~/.zshrc ~/.bashrc
 cat -n ~/.zhistory
 cat file1 file2 file3 > file4
+fold  (wrap each input line to fit in specified width)
+cat file.txt | fold -w 80
 nl  (number lines of files)
 nl ~/.zhistory
 touch  (change file timestamps)
