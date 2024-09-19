@@ -458,6 +458,11 @@ typeset -i variable=100
 trap
 alias
 unalias  (unalias is a shell builtin)
+declare
+getconf  (The utility prints the value of a POSIX or X/Open path or system configuration variable to the standard output)
+getconf LONG_BIT
+getconf CHILD_MAX
+getconf -a
 set
 export
 exec bash
