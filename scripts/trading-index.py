@@ -16,18 +16,18 @@ text = re.compile(pattern).findall(html)[0]
 text_change = text.replace('],"tot', '').replace('},{', '}\n{')
 data = text_change.split('\n')
 
-print(f"+----------------+-----------------------------------------------+"
+print(f"+----------------+------------------------------------------------+"
       f"----------------+\n"
-      f"+     {white}index{normal}      +                    {white}title"
+      f"+     {white}index{normal}      +                     {white}title"
       f"{normal}                      +      {white}value{normal}     +\n"
-      f"+----------------+-----------------------------------------------+"
+      f"+----------------+------------------------------------------------+"
       f"----------------+")
 
 for string in data:
     item = json.loads(string)
     print(f"{blue}{item['s'].center(17, ' ')}{normal}"
-          f"{violet}{item['d'][1].center(48, ' ')}{normal}"
+          f"{violet}{item['d'][1].center(50, ' ')}{normal}"
           f"{yellow}{str(item['d'][6]).center(18, ' ')}{normal}")
 
-print(f' {white}traidingview{normal} '.center(92, '*'))
+print(f' {white}tradingview{normal} '.center(92, '*'))
 
