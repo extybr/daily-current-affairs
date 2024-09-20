@@ -6,6 +6,12 @@ yellow="\e[33m"
 white="\e[37m"
 normal="\e[0m"
 
+if ! command -V jq &> /dev/null; then echo 'Программа jq не установлена'; exit 0; fi
+if ! command -V yq &> /dev/null; then echo 'Программа jq не установлена'; exit 0; fi
+
+current_version=$(cat ~/.config/Outline/sentry/session.json | jq -r '.attrs.release')
+if [ "${current_version}" ]; then echo -e "Текущая версия: ${blue}${current_version}${normal}\n"; fi
+
 amazonaws='https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage'
 
 link=${amazonaws%"client"*}
@@ -16,6 +22,7 @@ yml=($(curl -s "${link}client/linux/latest-linux.yml" | yq -r '.version, .path, 
 echo -e "Версия: ${blue}${yml[0]}${normal}"
 echo -e "Дата релиза: ${violet}$(date --date=${yml[2]})${normal}"
 echo -e "Ссылка: ${blue}${yml[1]}${normal}"
+echo -e "Ссылка (2): ${blue}${amazonaws}${normal}"
 
 archlinux="https://aur.archlinux.org/packages/outline-client-appimage"
 echo -e "\nДанные с ${yellow}${archlinux}${normal}"
@@ -27,13 +34,15 @@ version_file=$(curl -s "${archlinux}" | grep -oP "<a href=\"${amazonaws}\">[^>]+
 echo -e "Выложенный файл: ${blue}${version_file#*"\">"}${normal}"
 
 dt=($(curl -s "${archlinux}" | grep -oP '<td>[^<]+(UTC)' | sed 's/<td>//g ; s/ (UTC//g'))
-echo -e "Первая публикация: ${violet}${dt[0]} ${dt[1]}${normal}"
-echo -e "Последняя публикация: ${violet}${dt[2]} ${dt[3]}${normal}"
+echo -e "Первая публикация релиза: ${violet}${dt[0]} ${dt[1]}${normal}"
+echo -e "Последняя публикация релиза: ${violet}${dt[2]} ${dt[3]}${normal}"
 
-echo -e "${white}Установить клиент outline? n/y${normal}"
+source /etc/os-release; if ! [ $(echo "${ID_LIKE}") = 'arch' ]; then exit 0; fi
+
+echo -e "\n${white}Установить клиент outline? n/y${normal}"
 read answer
 if [ "${answer}" = 'y' ]; then
-  #pkill outline
+  pkill outline-apps 2> /dev/null
   git clone 'https://aur.archlinux.org/outline-client-appimage.git'
   cd outline-client-appimage
   makepkg -si
