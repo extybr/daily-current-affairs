@@ -32,9 +32,7 @@ request=$(curl -s ${proxy} --max-time 5 "http://rutor.info/${path}")
 }
 
 main() {
-
 if rutor; then
-
   response=$(echo "${request}" | grep -oP '<a href="/torrent/[^<]+' | \
   sed 's/<a href="/http:\/\/rutor.info/g' | sed "s/\">/\\n/g" | sed -n '7,+100p')
 

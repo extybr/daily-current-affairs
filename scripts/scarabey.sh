@@ -16,22 +16,22 @@ NUM_URLS=18
 
 # Функция загрузки HTML-страницы
 get_html() {
-    html=$(curl -s --location --max-time 3 "${CHANNEL_URL}")
+  html=$(curl -s --location --max-time 3 "${CHANNEL_URL}")
 }
 
 # Функция для получения последних видео из HTML-страницы
 get_latest_videos_from_html() {
-    # Загружаем HTML страницу канала
-    if get_html; then
+  # Загружаем HTML страницу канала
+  if get_html; then
 
-    # Извлекаем названия и ссылки на видео
-    href=$(echo "${html}" | grep -oP '<a href="[^<]+</a></h3>')
+  # Извлекаем названия и ссылки на видео
+  href=$(echo "${html}" | grep -oP '<a href="[^<]+</a></h3>')
 
-    # Соединяем видео
-    paste -d '\n' <(echo "${href}")
+  # Соединяем видео
+  paste -d '\n' <(echo "${href}")
     
-    else get_latest_videos_from_html
-    fi
+  else get_latest_videos_from_html
+  fi
 }
 
 # Получение видео
@@ -39,10 +39,9 @@ result=$(get_latest_videos_from_html | head -n "${NUM_URLS}")
 
 # Вывод видео
 echo "${result}" | while IFS='\n' read -r item; do
-    title=$(echo "${item}" | grep -oP 'title="[^<]+">' | sed 's/title="//g ; s/">//g')
-    url=$(echo "${item}" | grep -oP '<a href="[^<]+" t' | sed 's/<a href="//g ; s/\/" t//g')
-    echo -e "${yellow}${title}${normal}"
-    echo -e "${blue}${url}${normal}"
-    echo
+  title=$(echo "${item}" | grep -oP 'title="[^<]+">' | sed 's/title="//g ; s/">//g')
+  url=$(echo "${item}" | grep -oP '<a href="[^<]+" t' | sed 's/<a href="//g ; s/\/" t//g')
+  echo -e "${yellow}${title}${normal}"
+  echo -e "${blue}${url}${normal}\n"
 done
 
