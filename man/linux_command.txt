@@ -59,6 +59,9 @@ sqlite3 _hh-trudvsem_.db
 db='~/_hh-trudvsem_.db'; if test -f "${db}"; then sqlite3 "${db}"; else echo "${db}: not found"; return 1; fi
 db='~/_hh-trudvsem_.db'; if test -f "$db"; then sqlite3 "${db}" -cmd 'SELECT * FROM headhunter;' .quit; else echo "${db}: not found"; return 1; fi
 psql --help  (PostgreSQL interactive terminal)
+pg_dump postgres > dump.sql
+pg_restore postgres < dump.sql
+psql postgres < dump.sql
 sqlitebrowser --version  (DB Browser for SQLite)
 nginx  (HTTP and reverse proxy server, mail proxy server)
 nginx -V 2>&1 | grep -o with-http_stub_status_module
