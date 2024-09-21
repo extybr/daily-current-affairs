@@ -39,7 +39,8 @@ echo -e "Последняя публикация релиза: ${violet}${dt[2]}
 
 source /etc/os-release; if ! [ $(echo "${ID_LIKE}") = 'arch' ]; then exit 0; fi
 
-echo -e "\n${white}Установить клиент outline? n/y${normal}"
+echo -e "\n${white}Установить клиент outline? n/y"
+echo -en "Ответ$(tput blink):${normal} "
 read answer
 if [ "${answer}" = 'y' ]; then
   pkill outline-apps 2> /dev/null
