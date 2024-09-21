@@ -21,7 +21,8 @@ user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130
 
 request() {
 html=$(curl -s "https://1337x.to/sort-search/"${name}"/time/desc/1/" ${proxy} -A "${user_agent}")
-result=$(echo "${html}" | grep -oP '/torrent/[^<]+</a' | sed "s/\/torrent/https:\/\/1337x.to\/torrent/g ; s/\/\">/\/\n/g ; s/<\/a/\n/g")
+result=$(echo "${html}" | grep -oP '/torrent/[^<]+</a' | \
+sed "s/\/torrent/https:\/\/1337x.to\/torrent/g ; s/\/\">/\/\n/g ; s/<\/a/\n/g")
 echo -e "${blue}${result}${normal}"
 }
 

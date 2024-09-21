@@ -35,7 +35,8 @@ main() {
 
 if rutor; then
 
-  response=$(echo "${request}" | grep -oP '<a href="/torrent/[^<]+' | sed 's/<a href="/http:\/\/rutor.info/g' | sed "s/\">/\\n/g" | sed -n '7,+100p')
+  response=$(echo "${request}" | grep -oP '<a href="/torrent/[^<]+' | \
+  sed 's/<a href="/http:\/\/rutor.info/g' | sed "s/\">/\\n/g" | sed -n '7,+100p')
 
   IFS='|'
   result=$(echo "${response}" | head -n 60)

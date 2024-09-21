@@ -1,5 +1,7 @@
 #!/bin/sh
-# ./tg_last_post.sh igromania
+#################################
+# ./tg_last_post.sh igromania   #
+#################################
 
 white="\e[37m"
 yellow="\e[33m"
@@ -15,7 +17,8 @@ fi
 name="$1"
 tg_channel=${name#*"https://t.me/"}
 tg_channel=${name#*"t.me/"}
-html_content_page=$(curl -s "https://t.me/s/${tg_channel}/" | grep  '<span class="tgme_widget_message_views">')
+html_content_page=$(curl -s "https://t.me/s/${tg_channel}/" | \
+grep  '<span class="tgme_widget_message_views">')
 IFS=$'\n'
 for url in $(echo "${html_content_page}")
 do 
@@ -28,7 +31,8 @@ if ! [ "${url}" ]
   exit 0
 fi
 echo -e "Ссылка на последний пост: ${blue}${url}${normal}"
-datetime=$(echo "${last_post}" | grep -oP 'datetime="[^>]+00:00' | sed 's/datetime="//g ; s/T/ /g ; s/+00:00//g')
+datetime=$(echo "${last_post}" | grep -oP 'datetime="[^>]+00:00' | \
+sed 's/datetime="//g ; s/T/ /g ; s/+00:00//g')
 echo -e "Дата поста: ${yellow}${datetime}${normal}"
 
 html_last_post=$(curl -s "${url}")

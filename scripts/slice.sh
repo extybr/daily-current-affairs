@@ -2,9 +2,9 @@
 
 text='Hello World'
 if [[ "${text}" =~ ^(Hello|OK) ]]
-then echo "Текст начинается со слова Hello или OK"
+  then echo "Текст начинается со слова Hello или OK"
 elif [[ "${text}" =~ (World)$ ]]
-then echo "Текст заканчивается словом World"
+  then echo "Текст заканчивается словом World"
 fi
 
 if [ $# -ne 1 ]

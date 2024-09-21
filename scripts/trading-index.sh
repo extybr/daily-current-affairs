@@ -6,7 +6,8 @@ yellow="\e[33m"
 normal="\e[0m"
 
 request() {
-result=$(curl -s 'https://ru.tradingview.com/markets/indices/quotes-major/' | grep -oP '{"s":"SP:SPX"[^>]+"tot' | sed 's/],"tot//g ; s/},{"s"/}{"s"/g')
+result=$(curl -s 'https://ru.tradingview.com/markets/indices/quotes-major/' | \
+grep -oP '{"s":"SP:SPX"[^>]+"tot' | sed 's/],"tot//g ; s/},{"s"/}{"s"/g')
 IFS=$'\n'
 for line in "${result}"
 do 
