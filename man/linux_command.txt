@@ -27,6 +27,7 @@ fmedia  (cli and gui audio player)
 ./fmedia './Audio/Tim McGraw/2 Compilations' -o music.m3u8
 ./fmedia -s 00:02:00 ~/music/file.mp3
 ./fmedia .
+flameshot  (cross-platform tool to take screenshots with many built-in features to save you time)
 shellcheck  (Shell script analysis tool)
 shellcheck ~/my_programs/os.sh
 gedit  (a general-purpose text editor)
@@ -35,6 +36,7 @@ nvim  (edit text)
 nvim-qt  (Neovim Qt)
 bat  (a cat(1) clone with syntax highlighting and Git integration)
 neofetch  (A fast, highly customizable system info script)
+fastfetch  (Fastfetch is a neofetch-like tool for fetching system information and displaying it prettily)
 ncdu  (консольный NCurses Disk Usage)
 sampler  (https://github.com/sqshq/sampler)
 pspy64 (https://github.com/DominicBreuker/pspy)
