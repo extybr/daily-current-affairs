@@ -3,7 +3,7 @@
 import sys
 
 
-def url_decoder(string):
+def url_decoder(string: str) -> None:
     if type(string) == bytes:
         string = string.decode("utf-8")
     result = bytearray()
