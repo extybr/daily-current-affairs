@@ -1,4 +1,8 @@
 #! /bin/sh
+###################
+# $> ./color.sh   #
+###################
+
 echo -en "\033[37;1;41m Внимание \033[0m"
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)

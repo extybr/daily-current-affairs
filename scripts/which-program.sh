@@ -1,4 +1,8 @@
 #!/bin/sh
+################################
+# $> ./which-program.sh echo   #
+################################
+
 WHITE="\033[37m"
 NORMAL="\033[0m"
 
@@ -18,3 +22,4 @@ if whatis -s1:8 -r "^$1" 2>/dev/null | rg "^$1"
     echo
   done
 fi
+

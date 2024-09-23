@@ -1,4 +1,8 @@
 #!/bin/python3
+###########################
+# $> ./trading-index.py   #
+###########################
+
 import requests
 import re
 import json

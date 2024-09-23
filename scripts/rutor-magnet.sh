@@ -1,7 +1,5 @@
 #!/bin/sh
-
 ##############################################################
-# Example:                                                   #
 # $> ./rutor-magnet.sh 0 'http://rutor.info/torrent/999364'  #
 # $> ./rutor-magnet.sh 1 'http://rutor.info/torrent/999364'  #
 ##############################################################
@@ -10,11 +8,10 @@ blue="\e[36m"
 red="\e[31m"
 normal="\e[0m"
 
-current_folder=$(pwd)
-cd ~/PycharmProjects/github/daily-current-affairs/scripts
 proxy=''
 
 if [ "$1" = '1' ]; then
+  cd ~/PycharmProjects/github/daily-current-affairs/scripts
   source ./antizapret_proxy.sh
 fi
 

@@ -1,4 +1,8 @@
 #!/bin/sh
+##############################
+# $> ./nginx-index-html.sh   #
+##############################
+
 html_path="/usr/share/nginx/html"
 if [ -f "${html_path}"/index.html ]
   then
@@ -7,3 +11,4 @@ if [ -f "${html_path}"/index.html ]
     echo 'file `index.html` copied'
   else 'file `index.html` missing'
 fi
+

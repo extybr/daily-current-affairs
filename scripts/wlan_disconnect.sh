@@ -1,4 +1,7 @@
 #!/bin/sh
+####################################
+# $> ./wlan_disconnect.sh $wlan1   #
+####################################
 
 # Script to turn off an access point (access point mode) or 
 # disconnect an active connection (client mode)
@@ -22,3 +25,4 @@ do
     break
   fi
 done
+

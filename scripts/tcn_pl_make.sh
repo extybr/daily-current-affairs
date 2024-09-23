@@ -1,4 +1,8 @@
 #!/bin/sh
+#########################
+# $> ./tcn_pl_make.sh   #
+#########################
+
 current_folder=$(pwd)
 cd ~/PycharmProjects/github/playlist_check/tcncountry
 ./watch.tcncountry.sh
@@ -9,3 +13,4 @@ if [ $(wc -c playlist.m3u | awk '{print $1}') -gt 500 ]
 else rm playlist.m3u && echo '*** FAIL ***'
 fi
 cd "${current_folder}"
+

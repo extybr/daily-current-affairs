@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cd /home/tux/PycharmProjects/github/remote_control/
-./start.sh
+cd "$HOME/PycharmProjects/github/remote_control/"
+sudo ./start.sh
 

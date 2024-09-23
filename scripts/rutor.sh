@@ -1,7 +1,5 @@
 #!/bin/sh
-
 ####################################
-# Example:                         #
 # $> ./rutor.sh                    #
 # $> ./rutor.sh 1                  #
 # $> ./rutor.sh 1 Marvel           #
@@ -12,9 +10,6 @@ violet="\e[35m"
 blue="\e[36m"
 normal="\e[0m"
 
-current_folder=$(pwd)
-cd ~/PycharmProjects/github/daily-current-affairs/scripts
-
 path='top'
 proxy=''
 
@@ -24,6 +19,7 @@ if [ "$#" -eq 2 ]; then
 fi
 
 if [ "$1" = '1' ]; then
+  cd ~/PycharmProjects/github/daily-current-affairs/scripts
   source ./antizapret_proxy.sh
 fi
 
@@ -58,6 +54,4 @@ fi
 }
 
 main
-
-cd "${current_folder}"
 

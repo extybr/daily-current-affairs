@@ -1,4 +1,10 @@
 #!/bin/python3
+#######################################
+# $> ./antizapret_proxy.py            #
+# $> ./antizapret_proxy.py curl       #
+# $> ./antizapret_proxy.py requests   #
+#######################################
+
 import sys
 import subprocess
 import re

@@ -1,4 +1,8 @@
 #!/bin/sh
+####################################
+# $> ./dig_drill_ip.sh rutor.info  #
+####################################
+
 # IP address determination
 # tracing blocked and not blocked IP addresses
 

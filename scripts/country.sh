@@ -1,4 +1,8 @@
 #!/bin/sh
+#######################
+# $> ./country.sh 1   #
+# $> ./country.sh m   #
+#######################
 
 source ~/PycharmProjects/github/daily-current-affairs/scripts/set_get_volume.sh
 
@@ -33,3 +37,4 @@ ffplay 'https://strm112.1.fm/country_mobile_mp3?aw_0_req.gdpr=true' -nodisp
 esac
 
 clear
+

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cd /home/tux/PycharmProjects/github/wifi/
-./start.sh
+cd "$HOME/PycharmProjects/github/wifi/"
+sudo ./start.sh
 

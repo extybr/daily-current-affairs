@@ -1,4 +1,10 @@
 #!/bin/sh
+#################################################
+# $> ./fmedia.sh .                              #
+# $> ./fmedia.sh file.mp3                       #
+# $> ./fmedia.sh https://example.com/file.m3u   #
+#################################################
+
 source ~/PycharmProjects/github/daily-current-affairs/scripts/set_get_volume.sh
 
 if [ "$#" -lt 1 ]

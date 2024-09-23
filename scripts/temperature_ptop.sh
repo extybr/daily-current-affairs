@@ -1,4 +1,7 @@
 #!/bin/bash
+##############################
+# $> ./temperature_ptop.sh   #
+##############################
 
 temperature () {
 GPU=$(nvidia-smi | rg Default | tr -s " " | cut -d " " -f3 | sed "s/C//g")
