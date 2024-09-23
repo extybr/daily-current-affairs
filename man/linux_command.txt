@@ -755,6 +755,10 @@ watch -n1 netstat -ntuop
 ss  (инструмент, используемый для вывода сетевой статистики)
 ss -4
 nc  (ncat, netcat)  (Concatenate and redirect sockets)
+ncat -l -k --proxy-type http 127.0.0.1 8000
+ncat -lnvp 4321
+ncat rya.nc 1987
+ncat towel.blinkenlights.nl 23
 telnet  (client/server application protocol that provides access to virtual terminals of remote systems on local area)
 nmap  (Утилита для исследования сети и сканер портов)
 wireshark  (Interactively dump and analyze network traffic)
