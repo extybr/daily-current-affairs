@@ -1,9 +1,11 @@
 #!/bin/python3
-###########################
-# $> ./rutracker.py       #
-# $> ./rutracker.py  252  #
-# $> ./rutracker.py  -h   #
-###########################
+#############################
+# $> ./rutracker.py         #
+# $> ./rutracker.py 0       #
+# $> ./rutracker.py 252     #
+# $> ./rutracker.py 1 252   #
+# $> ./rutracker.py -h      #
+#############################
 
 import sys
 import re
@@ -14,7 +16,7 @@ yellow = "\033[33m"
 blue = "\033[36m"
 normal = "\033[0m"
 
-cmd = "curl -s --proxy n.thenewone.lol:29976 --max-time 10 --location "
+proxy = '--proxy n.thenewone.lol:29976 '
 number = 252
 
 
@@ -29,9 +31,18 @@ if len(sys.argv) == 2:
               ' 505 - Индийское кино\n 1803 - Новинки и сериалы в '
               'стадии показа (HD Video)')
         exit(0)
+    elif sys.argv[1] == '0':
+        proxy = ''
+    elif sys.argv[1] == '1':
+        pass
     else:
         number = sys.argv[1] if sys.argv[1].isdigit() else fail()
+elif len(sys.argv) == 3:
+    if sys.argv[1] == '0':
+        proxy = ''
+    number = sys.argv[2] if sys.argv[2].isdigit() else fail()
 
+cmd = f"curl -s --max-time 10 --location {proxy}"
 link = f"'https://rutracker.org/forum/viewforum.php?f={number}'"
 html = subprocess.getoutput(cmd + link, encoding='cp1251')
 
