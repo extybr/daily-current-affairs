@@ -8,17 +8,10 @@ yellow='\e[033m'
 normal='\e[0m'
 
 cd ~/PycharmProjects/github/daily-current-affairs/scripts/
-echo -e "${blue}"
 source ./coordinates.sh "$1"
-lat="${coordinates[0]}"
-lon="${coordinates[1]}"
 size="6000"
-echo -ne "${normal}"
 
-revers=($(curl -s "https://nominatim.openstreetmap.org/reverse?lat=${lat}&&lon=${lon}" | \
-         grep -oP 'city>[^<]+</|town[^<]+</|country>[^<]+</' | \
-         sed 's/<\///g ; s/country//g; s/city//g ; s/town//g ; s/>//g'))
-echo -e "\nГород: ${blue}${revers[0]}${normal}\nСтрана: ${blue}${revers[-1]}${normal}\n"
+echo -e "\nГород: ${blue}${town}${normal}\nСтрана: ${blue}${country}${normal}\n"
 
 geohack="https://geohack.toolforge.org/geohack.php?language=ru&pagename=${city}\
 &params=${lat}_0_0_N_${lon}_0_0_E_region:RU_type:adm2nd"
