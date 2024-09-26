@@ -17,7 +17,7 @@ if ! [ "$#" -eq 2 ]; then
 fi
 
 if [ "$1" = '1' ]; then
-  source ./antizapret_proxy.sh
+  source ./proxy.sh 1> /dev/null
 fi
 
 url="$2"

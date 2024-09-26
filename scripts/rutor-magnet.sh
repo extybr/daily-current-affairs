@@ -12,7 +12,7 @@ proxy=''
 
 if [ "$1" = '1' ]; then
   cd ~/PycharmProjects/github/daily-current-affairs/scripts
-  source ./antizapret_proxy.sh
+  source ./proxy.sh 1> /dev/null
 fi
 
 url="$2"

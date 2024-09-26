@@ -12,7 +12,7 @@ cd ~/PycharmProjects/github/daily-current-affairs/scripts
 
 if [ "$#" -ne 2 ]; then echo -e "${red}*** ожидалось 2 параметра, а передано $# ***${normal}"; exit 0; fi
 proxy="--proxy n.thenewone.lol:29976"
-if [ "$1" = '1' ]; then source ./antizapret_proxy.sh
+if [ "$1" = '1' ]; then source ./proxy.sh 1> /dev/null
 elif [ "$1" = '0' ]; then proxy=''
 fi
 

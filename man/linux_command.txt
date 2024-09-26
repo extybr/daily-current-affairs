@@ -157,7 +157,6 @@ resize.f2fs  (resize filesystem size)
 resize2fs  (ext2/ext3/ext4 file system resizer)
 cdrecord  (record audio or data CD, DVD or BluRay)
 cdrecord -scanbus
-install  (copy files and set attributes)
 
 udevadm -h  (udev management tool)
 udevadm info -n sdc
@@ -457,10 +456,15 @@ mynocmd &> /dev/null
 cd folder && ls
 cd folder && ls | wc
 cd folder || ls
+locale  (get locale-specific information)
 tput  (initialize a terminal or query terminfo database)
 type ls pwd who
 command -V echo
 typeset -i variable=100
+function
+local
+readonly
+read
 trap
 alias
 unalias  (unalias is a shell builtin)
@@ -471,6 +475,7 @@ getconf CHILD_MAX
 getconf -a
 set
 export
+install  (copy files and set attributes)
 exec bash
 return 127
 exit 0
@@ -581,6 +586,11 @@ grub-mkconfig  (generate a GRUB configuration file)
 grub-mkconfig -o /boot/grub/grub.cfg  (переконфигурируем grub)
 bootctl  (Control EFI firmware boot settings and manage boot loader)
 sudo bootctl
+
+g++  (GNU project C and C++ compiler)
+gcc  (GNU project C and C++ compiler)
+gs  (Ghostscript (PostScript and PDF language interpreter and previewer))
+go  (Go is a tool for managing Go source code)
 
 *** package ***
 

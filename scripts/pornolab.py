@@ -16,7 +16,8 @@ yellow = "\033[33m"
 blue = "\033[36m"
 normal = "\033[0m"
 
-proxy = "--proxy n.thenewone.lol:29976"
+proxy = subprocess.getoutput('~/PycharmProjects/github/daily-'
+                             'current-affairs/scripts/./proxy.sh')
 number = 1867
 
 

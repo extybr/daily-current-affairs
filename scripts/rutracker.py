@@ -16,7 +16,8 @@ yellow = "\033[33m"
 blue = "\033[36m"
 normal = "\033[0m"
 
-proxy = '--proxy n.thenewone.lol:29976 '
+proxy = subprocess.getoutput('~/PycharmProjects/github/daily-'
+                             'current-affairs/scripts/./proxy.sh')
 number = 252
 
 
@@ -45,7 +46,6 @@ elif len(sys.argv) == 3:
 cmd = f"curl -s --max-time 10 --location {proxy}"
 link = f"'https://rutracker.org/forum/viewforum.php?f={number}'"
 html = subprocess.getoutput(cmd + link, encoding='cp1251')
-
 if not html:
     fail()
 
