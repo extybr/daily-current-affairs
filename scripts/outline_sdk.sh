@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/bash
 #https://github.com/Jigsaw-Code/outline-sdk
 
 port_8080() {
