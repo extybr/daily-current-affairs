@@ -12,6 +12,9 @@ if grep --color -E "^alias $1=" ~/.zshrc
   then echo
 fi
 
+cmd_type=$(type "$1" 2> /dev/null)
+if [ "${cmd_type}" ]; then echo "type: ${cmd_type}" | grep --color "$1"; echo; fi
+
 if whatis -s1:8 -r "^$1" 2>/dev/null | rg "^$1"
   then CMD=$(whatis -s1:8 -r "^$1" 2>/dev/null | rg "^$1" | cut -d " " -f1)
   echo
