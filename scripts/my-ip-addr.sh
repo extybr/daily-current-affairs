@@ -27,6 +27,6 @@ curl -s ${proxy} --max-time 5 "https://wtfismyip.com/text"
 
 ip_vpn=($(ip_proxy))
 if [[ "${ip_vpn}" ]]
-  then printf "Your VPN IP address: \e[31m%s\e[0m \e[37m > %s\e[0m\n" "${ip_vpn[2]}" "${ip_vpn[1]}"
+  then printf "Your VPN IP address: \e[31m%s\e[0m \e[37m > %s > wtfismyip.com\e[0m\n" "${ip_vpn[2]}" "${ip_vpn[1]}"
 fi
 
