@@ -91,6 +91,7 @@ git remote set-url origin git@github.com:extybr/connect_to_databases
 
 pwgen  (generate pronounceable passwords)
 hashcat  (fastest and most advanced password recovery tool)
+cksum  (compute and verify file checksums)
 sha1sum  (compute and check SHA1 message digest)
 echo -n "Hello World" | sha1sum
 sha256sum  (compute and check SHA256 message digest)
@@ -136,6 +137,7 @@ wipefs  (wipe a signature from a device)
 mountpoint  (see if a directory or file is a mountpoint)
 mountpoint /path/directory
 mkfs  (build a Linux filesystem)
+mkfs -t [type fs] [sdb or sdb1]
 mkfs.ext4  (create an ext2/ext3/ext4 file system)
 mkfs.ntfs  (create an NTFS file system)
 mkfs.exfat  (create an exFAT filesystem)
@@ -308,6 +310,8 @@ tr A-Z a-z
 uniq  (report or omit repeated lines)
 sort  (sort lines of text files)
 ls -liah | tail +4 | tr -s " " | cut -d " " -f 10 | sort -r
+dir  (list directory contents)
+dir -la --author
 cat  (concatenate files and print on the standard output)
 cat .bash_history | nl
 cat -b ~/.zshrc ~/.bashrc
@@ -364,6 +368,8 @@ w  (Show who is logged on and what they are doing)
 who  (show who is logged on)
 whoami  (print effective user name)
 stat  (display file or file system status)
+stat -f /home
+stat file.txt
 file  (determine file type)
 file myfile.txt
 file my_directory
@@ -464,6 +470,7 @@ typeset -i variable=100
 function
 local
 readonly
+dirs
 read
 trap
 alias

@@ -90,6 +90,10 @@ file File2.mkv
 Формат пикселейНекоторые смартфоны и браузеры не поддерживают форматы пикселей YUV444, YUV422, 
 а работают только с YUV420. Чтобы изменить формат пикселей используется ключ -pix_fmt формат
 	ffmpeg -i input.mp4 -pix_fmt yuv420p result.mp4
+	
+Параметр -r, который задаёт значение FPS (кадров в секунду) видео.
+Задать кодек: -c:v libx265
+    ffmpeg -i input.mp4 -c:v libx265 -r 60 output.mp4
 
 
 __________________________________________________________
@@ -98,4 +102,7 @@ https://annimon.com/article/3993
 https://habr.com/ru/articles/333664/
 https://img.ly/blog/ultimate-guide-to-ffmpeg/
 https://habr.com/ru/companies/ruvds/articles/718384/
+https://habr.com/ru/companies/ruvds/articles/845202/
+https://habr.com/ru/rss/search/?q=ffmpeg&order_by=date&target_type=posts&hl=ru&fl=ru&fl=ru
 https://ffmpeg.org/
+
