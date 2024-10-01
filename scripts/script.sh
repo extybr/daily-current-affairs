@@ -3,13 +3,26 @@
 # $> ./script.sh  #
 ###################
 
+cat << EOF
+
+  ███████╗  ██████╗ ██████╗  ██╗ ██████╗ ████████╗
+  ██╔════╝ ██╔════╝ ██╔══██╗ ██║ ██╔══██╗╚══██╔══╝
+  ███████╗ ██║      ██████╔╝ ██║ ██████╔╝   ██║   
+  ╚════██║ ██║      ██╔══██╗ ██║ ██╔═══╝    ██║   
+  ███████║ ╚██████╗ ██║  ██║ ██║ ██║        ██║   
+  ╚══════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═╝ ╚═╝        ╚═╝  
+
+EOF
+
+script_dir="$HOME${${SCRIPTS_DIRECTORY}#*~}"
+
 if [ "$#" -ne 1 ]; then 
-  ls "$HOME${${SCRIPTS_DIRECTORY}#*~}"
+  ls --color "${script_dir}"
   exit 0
 fi
 
 chr="$1" 
-for file in $(ls "$HOME${${SCRIPTS_DIRECTORY}#*~}"); do
+for file in $(ls "${script_dir}"); do
   slice=${${file}#*$chr}
   if (( "${#slice}" <  "${#file}" )); then
     array+=("${file}\n")
@@ -26,6 +39,8 @@ if [[ ! "${number}" || "${number}" -gt "${#array}" ]]; then
   exit 0
 fi
 
-script=$(echo -en "${SCRIPTS_DIRECTORY}/${array[${number}]}")
+echo
+cd "${script_dir}"
+script=$(echo -en "./${array[${number}]}")
 zsh -c "${script} ${params}" 2> /dev/null
 
