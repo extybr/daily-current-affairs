@@ -86,6 +86,7 @@ alias 40/=${SCRIPTS_DIRECTORY}'/top40.sh'
 alias cy/=${SCRIPTS_DIRECTORY}'/country.sh'
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
+alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
 alias lc/="mousepad $HOME${${SCRIPTS_DIRECTORY}#*~}/../man/linux_command.txt"
 . $HOME/${${SCRIPTS_DIRECTORY}#*~}/ratesx.sh
 
