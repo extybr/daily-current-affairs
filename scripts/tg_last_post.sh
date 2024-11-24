@@ -17,7 +17,11 @@ fi
 name="$1"
 tg_channel=${name#*"https://t.me/"}
 tg_channel=${name#*"t.me/"}
-html_content_page=$(curl -s "https://t.me/s/${tg_channel}/" | \
+
+proxy=''
+source ./proxy.sh 1> /dev/null
+
+html_content_page=$(curl -s ${proxy} "https://t.me/s/${tg_channel}/" | \
   grep  '<span class="tgme_widget_message_views">')
 IFS=$'\n'
 for url in $(echo "${html_content_page}")

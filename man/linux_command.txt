@@ -239,6 +239,7 @@ dmesg  (print or control the kernel ring buffer)
 sudo dmesg | rg usb
 last -h  (last -a, last -i)  (show a listing of last logged in users)
 lastlog  (reports the most recent login of all users or of a given user)
+logger  (enter messages into the system log)
 
 *** history ***
 
