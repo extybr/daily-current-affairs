@@ -394,6 +394,10 @@ dirname  (strip last component from file name)
 dirname ~/PycharmProjects/my_other_projects  (/home/tux/PycharmProjects)
 basename  (strip directory and suffix from filenames)
 basename ~/PycharmProjects/my_other_projects   (my_other_projects)
+make  (GNU Make utility to maintain groups of programs)
+makeconv  (compile a converter table)
+makeinfo  (translate Texinfo documents)
+makepkg  (package build utility)
 
 shuf  (generate random permutations)
 echo $RANDOM
