@@ -64,8 +64,6 @@ alias tel/='telnet mapscii.me'
 alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'
 alias j/=${SCRIPTS_DIRECTORY}'/simple-parser-hh.sh'
 alias jj/="$HOME${${SCRIPTS_DIRECTORY}#*~}/../../script-parser-HH-led/terminal/job.sh"
-# https://github.com/yt-dlp/yt-dlp#readme
-alias y/="~/bin/yt-dlp -U && ~/bin/yt-dlp -S 'res:720,fps' $1"
 alias e/='exiftool $1'
 alias s/='shc -r -f $1'
 alias ts/=${SCRIPTS_DIRECTORY}'/timestamp.sh'
@@ -94,3 +92,15 @@ alias lc/="mousepad $HOME${${SCRIPTS_DIRECTORY}#*~}/../man/linux_command.txt"
 temp () {
 watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh
 }
+
+function y/ {
+  # https://github.com/yt-dlp/yt-dlp#readme
+  ~/bin/yt-dlp -U
+  ~/bin/yt-dlp -S 'res:720,fps' "$1"
+  $HOME${${SCRIPTS_DIRECTORY}#*~}/yt-dlp-rename.py $(pwd)
+}
+
+alias python=python3.13
+alias python3=python3.13
+alias pip=pip3.13
+alias pip3=pip3.13
