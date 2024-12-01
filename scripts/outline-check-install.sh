@@ -9,7 +9,7 @@ normal="\e[0m"
 if ! command -V jq &> /dev/null; then echo 'Программа jq не установлена'; exit 0; fi
 if ! command -V yq &> /dev/null; then echo 'Программа yq не установлена'; exit 0; fi
 
-current_version=$(cat ~/.config/Outline/sentry/session.json | jq -r '.attrs.release')
+current_version=$(cat ~/.config/Outline/sentry/session.json 2> /dev/null | jq -r '.attrs.release')
 if [ "${current_version}" ]; then echo -e "Текущая версия: ${blue}${current_version}${normal}\n"; fi
 
 amazonaws='https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage'
@@ -23,6 +23,12 @@ echo -e "Версия: ${blue}${yml[0]}${normal}"
 echo -e "Дата релиза: ${violet}$(date --date=${yml[2]})${normal}"
 echo -e "Ссылка: ${blue}${yml[1]}${normal}"
 echo -e "Ссылка (2): ${blue}${amazonaws}${normal}"
+
+versions=($(curl -s "https://github.com/Jigsaw-Code/outline-sdk/releases" | \
+            grep -oP "/Jigsaw-Code/outline-sdk/releases/tag/[^\"]+\""))
+version=$(echo ${versions[0]} | sed 's/\/Jigsaw-Code\/outline-sdk\/releases\/tag\///g ; s/\"//g')
+echo -e "\nПоследняя версия ${violet}Outline SDK${normal} - ${blue}${version}${normal}"
+echo -e "Ссылка: ${blue}https://github.com/Jigsaw-Code/outline-sdk/releases/tag/${version}${normal}"
 
 archlinux="https://aur.archlinux.org/packages/outline-client-appimage"
 echo -e "\nДанные с ${yellow}${archlinux}${normal}"

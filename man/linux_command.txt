@@ -7,7 +7,9 @@ ________
 
 firefox, brave, links  (web browsers)
 mc   (Визуальная оболочка для Unix-подобных систем)
+fish  (the friendly interactive shell)
 ranger  (консольный visual file manager)
+eza  (A modern replacement for ls (community fork of exa))
 cowsay  (configurable speaking/thinking cow (and a bit more))
 sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
 cmatrix  (command is a matrix program effect that displays green symbols on your terminal)
@@ -70,6 +72,7 @@ nginx -V 2>&1 | grep -o with-http_stub_status_module
 scapy  (Interactive packet manipulation tool)
 python  (an interpreted, interactive, object-oriented programming language)
 if ! command -v python &>/dev/null; then echo "Python not installed"; else echo "Python installed"; fi
+pypy  (A Python implementation written in Python, JIT enabled)
 pip  (package manager for Python packages)
 pip list
 pip freeze
@@ -285,6 +288,7 @@ groups root
 cat /etc/group
 chfn  (Изменение информации finger для пользователя)
 chsh  (Изменение шелла для пользователя)
+chsh -s /bin/zsh
 useradd -D
 sudo passwd newuser
 su newuser
@@ -357,6 +361,8 @@ diffimg  (Calculates intersection between two images)
 watch  (execute a program periodically, showing output fullscreen)
 which  (shows the full path of (shell) commands)
 which zsh bash bat
+whence
+whence npm
 apropos  (поиск в именах справочных страниц и кратких описаниях)
 whatis  (показывает однострочные описания справочных страниц)
 whatis bat
