@@ -7,6 +7,11 @@ blue='\e[36m'
 yellow='\e[033m'
 normal='\e[0m'
 
+if [ "$1" = '1' ]; then
+  cd ~/PycharmProjects/github/daily-current-affairs/scripts
+  source ./proxy.sh 1> /dev/null
+fi
+
 # URL страницы канала
 CHANNEL_URL="https://scarfilm.org/novinki-kino-v-seti/"
 
@@ -15,7 +20,7 @@ NUM_URLS=18
 
 # Функция загрузки HTML-страницы
 get_html() {
-  html=$(curl -s --location --max-time 3 "${CHANNEL_URL}")
+  html=$(curl -s ${proxy} --location --max-time 3 "${CHANNEL_URL}")
 }
 
 # Функция для получения последних видео из HTML-страницы

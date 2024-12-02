@@ -199,6 +199,7 @@ top -o -PID
 top -o COMMAND  (Shift + v)
 htop  (interactive process viewer)
 htop --filter=python
+btop  (A monitor of system resources, bpytop ported to C++)
 atop  (sudo atop)  (Advanced System & Process Monitor)
 iftop  (display bandwidth usage on an interface by host)
 sudo iftop -i enp4s0f1 
