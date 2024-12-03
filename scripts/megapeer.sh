@@ -1,17 +1,33 @@
 #!/bin/bash
+# $> ./megapeer.sh
 
 blue="\e[36m"
+top="\e[01;31m"
 normal="\e[0m"
 
 source ./proxy.sh 1> /dev/null
 
-url='https://megapeer.vip/top'
+src='https://megapeer.vip/top'
 tag1='<a href=\"\/torrent'
 tag2='class=\"url\">'
 tag3='https:\/\/megapeer.vip\/torrent'
-top_week=$(curl -s ${proxy} ${url} | \
-           grep -oP "(${tag1}[^<]+|${tag2}[^<]+</a)" | \
-           sed "s/${tag1}/${tag3}/g ; s/${tag2}/\\n/g")
 
-echo -e "${blue}${top_week}${normal}"
+html=$(curl -s ${proxy} ${src})
+url=($(echo "${html}" | grep -oP "${tag1}[^<]+" | sed "s/${tag1}/${tag3}/g ; s/${tag2}/\\n/g ; s/\" //g"))
+
+echo -e "${top}ТОП за последние 24 часа${normal}"
+for i in {0..29}; do
+  echo -e "${blue}${url[$i]}"
+done
+
+echo -e "${top}Зарубежные фильмы${normal}"
+for i in {30..44}; do
+  echo -e "${blue}${url[$i]}"
+done
+
+echo -e "${top}Зарубежные сериалы${normal}"
+for i in {60..74}; do
+  echo -e "${blue}${url[$i]}"
+done
+echo -ne "${normal}"
 
