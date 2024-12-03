@@ -1,6 +1,6 @@
 #!/bin/bash
 
-white="\e[36m"
+blue="\e[36m"
 normal="\e[0m"
 
 source ./proxy.sh 1> /dev/null
@@ -12,5 +12,5 @@ top_week=$(curl -s ${proxy} ${url} | \
            grep -oP "(${tag1}[^<]+|${tag2}[^\;\"]+)" | \
            sed "s/${tag1}//g ; s/${tag2}//g")
 
-echo -e "${white}${top_week}${normal}"
+echo -e "${blue}${top_week}${normal}"
 
