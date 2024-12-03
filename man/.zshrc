@@ -95,11 +95,16 @@ watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh
 
 function y/ {
   # https://github.com/yt-dlp/yt-dlp#readme
+  if [ "$#" -ne 1 ]
+    then echo -e "\e[37mНеобходимо передать url-адрес\e[0m"
+    return 0
+  fi
   ~/bin/yt-dlp -U
   ~/bin/yt-dlp -S 'res:720,fps' "$1"
   $HOME${${SCRIPTS_DIRECTORY}#*~}/yt-dlp-rename.py $(pwd)
 }
 
+alias py=python3.13
 alias python=python3.13
 alias python3=python3.13
 alias pip=pip3.13

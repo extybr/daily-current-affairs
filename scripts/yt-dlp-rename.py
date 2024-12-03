@@ -19,7 +19,8 @@ try:
                 scrap = re.compile(superfluous).findall(str(file))
                 if scrap:
                     filename = str(file).replace(scrap[0], '')
-                    print(Path(file).rename(filename))
+                    Path(file).rename(filename)
+                    print(f"\033[37m{Path(filename).name}\033[0m")
 except Exception as error:
     print(error)
 
