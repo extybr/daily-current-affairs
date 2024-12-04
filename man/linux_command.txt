@@ -29,6 +29,7 @@ fmedia  (cli and gui audio player)
 ./fmedia './Audio/Tim McGraw/2 Compilations' -o music.m3u8
 ./fmedia -s 00:02:00 ~/music/file.mp3
 ./fmedia .
+snapshot
 flameshot  (cross-platform tool to take screenshots with many built-in features to save you time)
 shellcheck  (Shell script analysis tool)
 shellcheck ~/my_programs/os.sh

@@ -103,6 +103,7 @@ https://habr.com/ru/articles/333664/
 https://img.ly/blog/ultimate-guide-to-ffmpeg/
 https://habr.com/ru/companies/ruvds/articles/718384/
 https://habr.com/ru/companies/ruvds/articles/845202/
+https://habr.com/ru/companies/ruvds/articles/848412/
 https://habr.com/ru/rss/search/?q=ffmpeg&order_by=date&target_type=posts&hl=ru&fl=ru&fl=ru
 https://ffmpeg.org/
 
