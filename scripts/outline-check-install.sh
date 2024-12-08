@@ -1,4 +1,5 @@
 #!/bin/bash
+# ./outline-check-install.sh
 
 violet="\e[35m"
 blue="\e[36m"
@@ -36,8 +37,10 @@ echo -e "\nДанные с ${yellow}${archlinux}${normal}"
 client=$(curl -s "${archlinux}" | grep -oP 'outline-client-appimage[^<]+</h' | sed 's/<\/h//g')
 echo -e "Клиент: ${blue}${client}${normal}"
 
-version_file=$(curl -s "${archlinux}" | grep -oP "<a href=\"${amazonaws}\">[^>]+</a" | sed "s/<\/a//g")
-echo -e "Выложенный файл: ${blue}${version_file#*"\">"}${normal}"
+aur_git='https://aur.archlinux.org/cgit/aur.git/commit/?h=outline-client-appimage'
+aur_file=$(curl -s "${aur_git}" | grep -oP "<a href='/cgit/aur.git/snapshot/[^>]+'>" | \
+           sed "s/<a href='\/cgit\/aur.git\/snapshot\///g ; s/'>//g")
+echo -e "Выложенный файл: ${blue}${aur_file}${normal}"
 
 dt=($(curl -s "${archlinux}" | grep -oP '<td>[^<]+(UTC)' | sed 's/<td>//g ; s/ (UTC//g'))
 echo -e "Первая публикация релиза: ${violet}${dt[0]} ${dt[1]}${normal}"

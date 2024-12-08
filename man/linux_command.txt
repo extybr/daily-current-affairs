@@ -82,6 +82,8 @@ alternatives  (tool to maintain symbolic links determining default commands)
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
 sudo update-alternatives --config python3
+electron32  (Build cross platform desktop apps with JavaScript, HTML, and CSS)
+/usr/lib/electron32/electron path-to-app
 npm  (javascript package manager)
 node  (server-side JavaScript runtime)
 kubectl  (kubectl controls the Kubernetes cluster manager)
@@ -308,6 +310,7 @@ sudo gpasswd --delete myuser newgroup
 
 awk  (язык обработки данных)
 awk -F: '{print $1}' /etc/passwd
+gawk  (pattern scanning and processing language)
 env  (run a program in a modified environment)
 printenv  (print all or part of environment)
 sed  (stream editor for filtering and transforming text)
@@ -406,6 +409,8 @@ make  (GNU Make utility to maintain groups of programs)
 makeconv  (compile a converter table)
 makeinfo  (translate Texinfo documents)
 makepkg  (package build utility)
+set -o
+shopt
 
 shuf  (generate random permutations)
 echo $RANDOM
