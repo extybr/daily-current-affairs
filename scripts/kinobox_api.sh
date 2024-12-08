@@ -8,6 +8,11 @@ white="\e[37m"
 bold="\e[1m"
 normal="\e[0m"
 
+if [ "$#" -ne 1 ]
+	then echo -e "${yellow}ожидалось 1 параметр, а передано $#${normal}"
+	exit 1
+fi
+
 film=$(./url_encoder.py "$1" | sed 's/ /%20/g')
 url="https://kinobox.tv/api/films/search/?title=${film}"
 request=$(curl -s "${url}")
