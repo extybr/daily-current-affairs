@@ -1,5 +1,5 @@
 #!/bin/bash
-# $> ./megapeer.sh
+# $> ./megapeer_top.sh
 
 blue="\e[36m"
 top="\e[01;31m"
