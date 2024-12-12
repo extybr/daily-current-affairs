@@ -34,6 +34,8 @@ encode_to_html_decimal() {
             '|') output+="&#124;" ;;
             '^') output+="&#94;" ;;
             '~') output+="&#126;" ;;
+            '“') output+="&#8220;" ;;
+            '”') output+="&#8221;" ;;
             *) output+="$char" ;;  # Оставляем остальные символы без изменений
         esac
     done

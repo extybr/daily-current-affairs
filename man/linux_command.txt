@@ -10,6 +10,7 @@ mc   (Визуальная оболочка для Unix-подобных сис�
 fish  (the friendly interactive shell)
 ranger  (консольный visual file manager)
 eza  (A modern replacement for ls (community fork of exa))
+nnn  (The unorthodox terminal file manager)
 cowsay  (configurable speaking/thinking cow (and a bit more))
 sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
 cmatrix  (command is a matrix program effect that displays green symbols on your terminal)

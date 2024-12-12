@@ -1,9 +1,7 @@
-#!/bin/env bash
+#!/bin/bash
 ##################
 # $> ./dxdt.sh   #
 ##################
-
-#curl -s 'https://tls13.1d.pw/'
 
 request=$(curl -s 'https://dxdt.ru/feed/' | \
           grep -E '(<title>|<link>|<pubDate>)' | \
@@ -12,5 +10,6 @@ request=$(curl -s 'https://dxdt.ru/feed/' | \
           s/<pubDate>/\\\e[35m/g ; s/<\/pubDate>/\\\e[0m/g ; \
           s/+0000/\n/g")
 
-echo -e "${request}"
+output=$(./decode_html_decimal.py "${request}")
+echo -e "${output}"
 
