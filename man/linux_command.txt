@@ -15,6 +15,12 @@ cowsay  (configurable speaking/thinking cow (and a bit more))
 sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
 cmatrix  (command is a matrix program effect that displays green symbols on your terminal)
 virtualbox  (Oracle VM VirtualBox is open source virtualization software that allows users to run multiple operating system on a single device)
+qemu-img  (QEMU disk image utility)
+qemu-img create /media/username/MyDrive/myWindows.img 30G
+qemu-img info FLASH-16G.img
+qemu-system-x86_64  (QEMU User Documentation)
+qemu-system-x86_64 -m 2048 -drive file=FLASH-16G.img,format=raw
+vncviewer  (VNC viewer for X)
 winecfg  (Wine Configuration Editor)
 winetricks  (manage virtual Windows environments using Wine)
 mpv, smplayer, mplayer, vlc  (video players)
@@ -166,6 +172,12 @@ resize.f2fs  (resize filesystem size)
 resize2fs  (ext2/ext3/ext4 file system resizer)
 cdrecord  (record audio or data CD, DVD or BluRay)
 cdrecord -scanbus
+sudo file -sL /dev/sdf1
+parted  (a partition manipulation program)
+sudo parted /dev/sdf print
+echo $(sudo parted /dev/sda2 print | tail -2 | awk '{print $5}' | tr -d '[:space:]')
+echo ‘/dev/sdb1 /mnt/mydata ext4 defaults 0 2’ | sudo tee -a /etc/fstab
+resizepart  (tell the kernel about the new size of a partition)
 
 udevadm -h  (udev management tool)
 udevadm info -n sdc
@@ -179,6 +191,7 @@ smartctl  (Control and Monitor Utility for SMART Disks)
 sudo smartctl --all /dev/sda
 sudo smartctl -i /dev/sda
 lsblk  (list block devices)
+lsblk -f
 lsblk -bo NAME,SIZE,MOUNTPOINTS
 df  (report file system space usage)
 df -hT
