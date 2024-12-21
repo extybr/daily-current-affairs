@@ -21,7 +21,8 @@ if [ "${#ifconfig}" -gt 0 ]
 fi
 
 ip_proxy() {
-source ~/PycharmProjects/github/daily-current-affairs/scripts/proxy.sh
+cd ~/PycharmProjects/github/daily-current-affairs/scripts 2> /dev/null
+source ./proxy.sh
 curl -s ${proxy} --max-time 5 "https://wtfismyip.com/text"
 }
 
