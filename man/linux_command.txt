@@ -177,6 +177,7 @@ parted  (a partition manipulation program)
 sudo parted /dev/sdf print
 echo $(sudo parted /dev/sda2 print | tail -2 | awk '{print $5}' | tr -d '[:space:]')
 echo ‘/dev/sdb1 /mnt/mydata ext4 defaults 0 2’ | sudo tee -a /etc/fstab
+blkid -o list | grep sd
 resizepart  (tell the kernel about the new size of a partition)
 
 udevadm -h  (udev management tool)
@@ -557,7 +558,8 @@ zstdcat  (zstd, zstdmt, unzstd, zstdcat - Compress or decompress .zst files)
 jcat-tool  (standalone detached signature utility)
 zenity --help  (manual page for zenity)
 zenity --calendar
-stty -a  (change and print terminal line settings)
+stty  (change and print terminal line settings)
+stty -a
 dircolors  (color setup for ls)
 exiftool  (Read and write meta information in files)
 exiftool 'Bad Boys Blue - My Star.flac'
