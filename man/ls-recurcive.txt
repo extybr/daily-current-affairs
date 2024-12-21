@@ -1,0 +1,8 @@
+
+ ls *
+ ls -R
+ du -a .
+ find . -print
+ tree .
+ diff -r -u "$HOME/folder_1" "$HOME/folder_2"
+
