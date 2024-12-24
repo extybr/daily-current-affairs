@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]
 	exit 1
 fi
 
-rating=$(curl -s "https://rating.kinopoisk.ru/"$1".xml")
+rating=$(curl -s "https://rating.kinopoisk.ru/$1.xml"; echo)
 echo "${rating}" | grep -oP ">[^<]+" | sed 's/^.//'
 echo "${rating}" | grep -oE '>[1-9]{1}.[1-9]{1,5}' | sed 's/^.//'
 echo "${rating}" | awk -F'[><]' '{for (i=1; i<=NF; i++) if ($i ~ /^[0-9]+\.[0-9]+$/) print $i}'
