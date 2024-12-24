@@ -1,5 +1,6 @@
 
  ls *
+ echo "bHMgKg==" | base64 -d | bash
  ls -R
  du -a .
  find . -print

@@ -37,6 +37,7 @@ fmedia  (cli and gui audio player)
 ./fmedia -s 00:02:00 ~/music/file.mp3
 ./fmedia .
 snapshot
+gimp  (an image manipulation and paint program)
 flameshot  (cross-platform tool to take screenshots with many built-in features to save you time)
 shellcheck  (Shell script analysis tool)
 shellcheck ~/my_programs/os.sh
@@ -138,14 +139,21 @@ dcfldd  (modified version of GNU dd)
 fdisk  (manipulate disk partition table)
 sudo fdisk -l
 sudo fdisk -l /dev/sda
+sfdisk  (display or manipulate a disk partition table)
+sudo sfdisk –d /dev/sda > sda-table
 fsck --help  (check and repair a Linux filesystem)
 gnome-disks  (the GNOME Disks application)
 gparted  (GNOME Partition Editor for manipulating disk partitions)
 badblocks  (search a device for bad blocks)
+badblocks -v /dev/sdb1
 tune2fs  (adjust tunable file system parameters on ext2/ext3/ext4 file systems)
 e2fsck  (check a Linux ext2/ext3/ext4 file system)
 man e2label  (Change the label on an ext2/ext3/ext4 file system)
 partprobe  (inform the OS of partition table changes)
+findfs  (find a filesystem by label or UUID)
+sudo findfs LABEL=mypartition
+dumpe2fs  (dump ext2/ext3/ext4 file system information)
+dumpe2fs -h /dev/sda1
 wipefs  (wipe a signature from a device)
 mountpoint  (see if a directory or file is a mountpoint)
 mountpoint /path/directory
@@ -164,6 +172,8 @@ vgdisplay  (Display volume group information)
 pvcreate  (Initialize physical volume(s) for use by LVM)
 vgcreate  (Create a volume group)
 lvresize  (Resize a logical volume)
+mdadm  (manage MD devices aka Linux Software RAID)
+pvs  (Display information about physical volumes)
 lvs  (Display information about logical volumes)
 vgs  (Display information about volume groups)
 lvscan  (List all logical volumes in all volume groups)
@@ -242,6 +252,7 @@ lsof -p 1995
 lsof -c firefox
 lsof -u username
 jobs -l
+disown -a
 fg
 bg
 kill %1
@@ -266,6 +277,8 @@ logger  (enter messages into the system log)
 *** history ***
 
 Ctrl+R  (search pattern command in terminal)
+fc  (Edit the previous command, then run it)
+fc -l
 man history
 history 0
 history -10
@@ -384,6 +397,7 @@ which zsh bash bat
 whence
 whence npm
 apropos  (поиск в именах справочных страниц и кратких описаниях)
+apropos crontab
 whatis  (показывает однострочные описания справочных страниц)
 whatis bat
 whatis -r "" | grep "([18])" | nl
@@ -563,6 +577,8 @@ stty -a
 dircolors  (color setup for ls)
 exiftool  (Read and write meta information in files)
 exiftool 'Bad Boys Blue - My Star.flac'
+identify  (describes the format and characteristics of one or more image files)
+identify -verbose image.jpg
 chattr  (change file attributes on a Linux file system)
 lsattr  (list file attributes on a Linux second extended file system)
 lsattr .bash_history
@@ -571,6 +587,7 @@ blkid -k
 iconv  (convert text from one character encoding to another)
 iconv --help
 info  (read Info documents)
+info ls
 readlink  (print resolved symbolic links or canonical file names)
 readlink -f .bashrc
 xdpyinfo  (display information utility for X)
@@ -944,6 +961,8 @@ pdftohtml  (program to convert PDF files into HTML, XML and PNG images)
 pdftoppm  (Portable Document Format (PDF) to Portable Pixmap (PPM) converter)
 convert  (convert between image formats as well as resize an image, blur, crop, despeckle, dither, draw on, flip, join, re-sample...)
 convert TEXT:file.txt file.pdf
+convert tree.jpg tree.png
+convert -resize 1024x768 hat.jpg hat-sm.jpg
 soffice  (libreoffice)
 soffice --convert-to pdf file.txt
 cupsfilter  (convert a file to another format using cups filters (deprecated))
