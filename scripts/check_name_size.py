@@ -6,11 +6,11 @@
 import os
 import sys
 
-red = "\33[31m"
+red = "\033[31m"
 yellow = "\033[33m"
 blue = "\033[36m"
 white = "\033[37m"
-normal = "\33[0m"
+normal = "\033[0m"
 
 if len(sys.argv) != 3:
     sys.exit(f"{red}Ожидалось 2 параметра, а передано {len(sys.argv) - 1}{normal}")
