@@ -1,0 +1,25 @@
+для загрузки файлов через терминал, необходимо заменить адрес удаленного репозитория
+с https://github.com/extybr/repository.git на git@github.com:extybr/repository.git
+
+изменяем
+git remote set-url origin git@github.com:extybr/repository.git
+git remote set-url origin git@gitlab.com:extybr/repository.git
+проверяем
+git remote -v
+загружаем
+gitu "update" ; git push
+
+добавляем
+git remote add mirror git@gitlab.com:extybr/repository.git
+или добавляем только для push
+git remote add --mirror=push mirror git@gitlab.com:extybr/repository.git
+удаляем
+git remote remove mirror
+переименовываем
+git remote rename old new
+получаем информацию о репозитории
+git remote -v show -n mirror
+git remote -v show -n origin
+
+git add .; git commit -m 'update'; git push; git push mirror
+
