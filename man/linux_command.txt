@@ -60,6 +60,11 @@ cat .gitlab-ci.yml | yq
 jc  (converts the output of many commands, file-types, and strings to JSON or YAML)
 echo $(jc -p nmcli con show) | jq -r '.[0].uuid'
 jc -p ss -4
+mail  (mailx)  (send and receive Internet mail)
+echo "sample message" | mail -s "sample mail subject" my@gmail.com 
+mailx -s "subject" my@gmail.com
+sendmail  (Send email from the command-line)
+sendmail -f you@yourdomain.com test@gmail.com < message.txt
 collision  (Check hashes for your files)
 xclip  (command line interface to X selections (clipboard))
 xclip -sel clip < file.txt
