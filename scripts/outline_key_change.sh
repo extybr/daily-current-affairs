@@ -4,7 +4,11 @@ cd ~/my_programs/outline-sdk
 pkill http2transport
 rm outline.key 2> /dev/null
 if [ -f outline_number ]; then
-  number=$(( $(cat outline_number) + 1 ))
+  current_number=$(cat outline_number)
+  if [ "${current_number}" = '4' ]; then
+    current_number='0'
+  fi
+  number=$(( "${current_number}" + 1 ))
   echo "${number}" > outline_number
 else echo '1' > outline_number
 fi
