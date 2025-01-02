@@ -1,7 +1,7 @@
 import os
 
 
-def scan(path):
+def scan(path: str) -> None:
     try:
         for items in os.scandir(path):
             fullpath = os.path.abspath(os.path.join(path, items))
@@ -12,4 +12,10 @@ def scan(path):
         print(error)
 
 
-scan(os.sep)
+my_path = input('Путь до папки: ')
+
+if not (os.path.exists(my_path) and os.path.isdir(my_path)):
+    print('Папка не найдена')
+    exit(0)
+    
+scan(my_path)

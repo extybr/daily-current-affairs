@@ -20,7 +20,13 @@ qemu-img create /media/username/MyDrive/myWindows.img 30G
 qemu-img info FLASH-16G.img
 qemu-system-x86_64  (QEMU User Documentation)
 qemu-system-x86_64 -m 2048 -drive file=FLASH-16G.img,format=raw
+qemu-system-x86_64 -m 2048 -drive file=KASENS-Ralink.iso,media=cdrom -display none
+qemu-system-x86_64 -enable-kvm -cpu host -hda image.qcow2 -drive file=manjaro-xfce-21.0-210318-linux510.iso,media=cdrom -boot d -smp 4 -m 4G -display gtk -vga std -device virtio-net,netdev=vmnic -netdev user,id=vmnic
+qemu-system-x86_64 -enable-kvm -cpu host -hda image.qcow2 -smp 4 -m 4G -display gtk -vga std -device virtio-net,netdev=vmnic -netdev user,id=vmnic
 vncviewer  (VNC viewer for X)
+vncviewer 192.168.1.3:5900
+vncserver  (start a VNC server)
+vncsession  (start a VNC server)
 winecfg  (Wine Configuration Editor)
 winetricks  (manage virtual Windows environments using Wine)
 mpv, smplayer, mplayer, vlc  (video players)
@@ -65,6 +71,11 @@ echo "sample message" | mail -s "sample mail subject" my@gmail.com
 mailx -s "subject" my@gmail.com
 sendmail  (Send email from the command-line)
 sendmail -f you@yourdomain.com test@gmail.com < message.txt
+lp  (lpr, print files)
+lpadmin  (configure cups printers and classes)
+lpinfo  (show available devices or drivers (deprecated))
+lpinfo -m
+lpinfo -v
 collision  (Check hashes for your files)
 xclip  (command line interface to X selections (clipboard))
 xclip -sel clip < file.txt
@@ -429,6 +440,10 @@ rga  (ripgrep-all, ripgrep, but also search in PDFs, E-Books, Office documents, 
 grep (egrep, fgrep, bzgrep)  (grep: print lines that match patterns)
 zgrep  (search possibly compressed files for a regular expression)
 ln  (make links between files)
+ln -s test.txt soft_link_test.txt
+ln test.txt hard_link_test.txt
+ld  (The GNU linker)
+ld path/to/file.o --output path/to/output_executable
 mv -i file.txt  (cp -i, rm -i)
 mkdir  (make directories)
 mkdir test1 && mkdir test2/test3 && cd test2 && echo Hello >> text.txt
@@ -598,6 +613,7 @@ readlink -f .bashrc
 xdpyinfo  (display information utility for X)
 nm  (list symbols from object files)
 getopt  (parse command options (enhanced))
+getopts
 opt  (LLVM optimizer)
 fmt  (simple optimal text formatter)
 djvutxt  (Extract the hidden text from DjVu documents)

@@ -1,8 +1,7 @@
 from pathlib import Path
 
 
-def search(path):
-    folders = Path(path)
+def search(folders: Path) -> None:
     print(folders)
     for item in folders.iterdir():
         print('  ', item)
@@ -11,5 +10,10 @@ def search(path):
             search(folder)
 
 
-directory = input('Путь к папке: ')
+directory = Path(input('Путь к папке: '))
+
+if not (directory.exists() and directory.is_dir()):
+    print('Папка не найдена')
+    exit(0)
+    
 search(directory)

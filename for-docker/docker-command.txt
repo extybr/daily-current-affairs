@@ -148,4 +148,23 @@ docker pull ghcr.io/extybr/git_action
 
 *****************************************************************************
 
+sudo gitlab-runner register --url https://gitlab.com/ --registration-token FAKE-8941sSdr3z782JczwBWBLHS4
+
+
+gitlab-runner register \
+    --non-interactive \
+    --executor "shell" \
+    --url "https://gitlab.com/" \
+    --tag-list "shell,mac,gdk,test" \
+    --run-untagged "false" \
+    --locked "false" \
+    --access-level "not_protected" \
+    --registration-token "FAKE-8941C6YcZV85c8kjtdU-yWYD"
+    
+    
+https://docs.gitlab.com/ee/ci/runners/new_creation_workflow
+https://docs.gitlab.com/runner/register/index.html
+
+*****************************************************************************
+
 

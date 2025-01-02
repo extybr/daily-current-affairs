@@ -1,9 +1,10 @@
 import os
 import fnmatch
 
-# В цикле, с помощью os.listdir('.') получим список файлов
-# в текущей директории (точка в скобках как раз ее и обозначает)
-for fname in os.listdir('.'):
-    # Если у текущего имени файла расширение .py, то печатаем его
-    if fnmatch.fnmatch(fname, '*.*'):
+directory = input('Путь к папке: ')
+extension = input('Искомое расширение файла: ')
+
+for fname in os.listdir(directory):
+    # Если у текущего имени файла, указанное расширение, то печатаем его
+    if fnmatch.fnmatch(fname, f'*.{extension}'):
         print(fname)

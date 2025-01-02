@@ -20,7 +20,12 @@ def gen_files_path(path, count, size, folder):
     return count, size, folder
 
 
-my_path = input('Путь до папки')
+my_path = input('Путь до папки: ')
+
+if not (os.path.exists(my_path) and os.path.isdir(my_path)):
+    print('Папка не найдена')
+    exit(0)
+
 a, b, c = gen_files_path(my_path, 0, 0, 0)
 result = f'Кол-во папок: {c}\nКол-во файлов: {a}\n' + 'Размер директории: {:,d}_Byte'.format(b)
 print(result)

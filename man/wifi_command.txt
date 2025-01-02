@@ -881,3 +881,8 @@ hcxdumptool > 4.2 version
 # hcxpcapngtool -o hash.hc22000 -E wordlist dumpfile.pcapng
 # hashcat -m 22000 hash.hc22000 wordlist.txt
 ___________________________________
+
+wpa_passphrase "${ap_ssid}" "${wpa_password}" > router.config
+wpa_supplicant -B -c router.config -i "${iface}"
+___________________________________
+

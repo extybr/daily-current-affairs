@@ -1,10 +1,9 @@
 import glob
 
 
-def search(path, ext):
+def search(path: str, ext: str) -> None:
     ext = f'*.{ext}'
     folders = glob.glob(path + '/**/', recursive=True)
-    print(folders)
     for folder in folders:
         print(folder)
         files = glob.glob(f'{folder}/{ext}')
