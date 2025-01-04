@@ -27,6 +27,7 @@ unsetopt correct
 export wlan0='wlp3s0'
 export wlan1='wlp0s20f0u1u4'
 export SCRIPTS_DIRECTORY='~/PycharmProjects/github/daily-current-affairs/scripts'
+export TRACKER_PARSER_DIRECTORY='~/PycharmProjects/github/tracker_parser'
 export SAMSUNG_DIRECTORY='/run/media/tux/Samsung-1TB'
 export PLAYLIST_DIRECTORY="${SAMSUNG_DIRECTORY}/Desktop/Radio"
 alias ip='ip --color'
@@ -72,12 +73,6 @@ alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
 alias cre/=${SCRIPTS_DIRECTORY}'/curl_re.sh'
 alias csh/=${SCRIPTS_DIRECTORY}'/rss_sh.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
-alias ri/=${SCRIPTS_DIRECTORY}'/rutor+search+magnet.sh'
-alias ro/=${SCRIPTS_DIRECTORY}'/rutracker.sh'
-alias nt/=${SCRIPTS_DIRECTORY}'/nnmclub.sh'
-alias sc/=${SCRIPTS_DIRECTORY}'/scarabey.sh'
-alias 13/=${SCRIPTS_DIRECTORY}'/1337x.sh'
-alias bt/=${SCRIPTS_DIRECTORY}'/bitsearch.sh'
 alias ti/=${SCRIPTS_DIRECTORY}'/trading-index.py'
 alias cd/="pushd ${SCRIPTS_DIRECTORY}"
 alias 90/=${SCRIPTS_DIRECTORY}'/90s.sh'
@@ -91,6 +86,11 @@ alias lc/="mousepad $HOME${${SCRIPTS_DIRECTORY}#*~}/../man/linux_command.txt"
 
 temp () {
 watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh
+}
+
+function tt/ {
+  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}
+  ./main.sh "$1"
 }
 
 function y/ {
