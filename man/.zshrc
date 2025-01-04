@@ -89,8 +89,13 @@ watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh
 }
 
 function tt/ {
+  current_dir=$(pwd)
   cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}
-  ./main.sh "$1"
+  if [ "$#" -eq 1 ]; then
+    ./main.sh "$1"
+  else ./main.sh
+  fi
+  cd "${current_dir}"
 }
 
 function y/ {
