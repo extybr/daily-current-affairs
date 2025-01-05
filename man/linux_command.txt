@@ -134,6 +134,7 @@ echo -n "Hello World" | base64
 echo $(echo "SGVsbG8gV29ybGQ=" | base64 -d)
 man ascii  (ASCII character set encoded in octal, decimal, and hexadecimal)
 openssl  (OpenSSL command line program)
+echo | openssl s_client -connect youtube.com:443 2> /dev/null | awk '/-----BEGIN/,/END CERTIFICATE-----/' | openssl x509 -noout -enddate
 gpg  (OpenPGP encryption and signing tool)
 gpg -e text.txt
 gpg -d crypto_text.txt.gpg

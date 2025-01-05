@@ -7,25 +7,28 @@ WHITE="\033[37m"
 YELLOW="\033[1;33m"
 NORMAL="\033[0m"
 
-user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0"
+USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0"
+
+VALUE=''
 
 date +%c
 
 start_ts=$(date +%s)
 
 src() {
-VALUE=$(curl -s --max-time 5 -A "${user_agent}" "$1" | jq -r "$2" 2> /dev/null)
+VALUE=$(curl -s --max-time 5 -A "${USER_AGENT}" "$1" | jq -r "$2" 2> /dev/null)
 }
 
-src 'https://api.binance.com/api/v1/ticker/24hr' '.[] | select(.symbol == "BTCUSDT")'
-if [[ "${VALUE}" ]]; then
+if src 'https://api.binance.com/api/v1/ticker/24hr' '.[] | select(.symbol == "BTCUSDT")' && [[ "${VALUE}" ]]; then
   VALUE=$(echo "${VALUE}" | jq -r ".lastPrice" | awk '{printf("%.4f",$1)}')
-else src 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD' '.USD'
-  if [[ "${VALUE}" ]]; then
-    true
-  else src 'https://api.coindesk.com/v1/bpi/currentprice/USD.json' '.bpi.USD.rate'
-  fi
+elif src 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD' '.USD' && [[ "${VALUE}" ]]; then
+  true
+elif src 'https://api.coindesk.com/v1/bpi/currentprice/USD.json' '.bpi.USD.rate' && [[ "${VALUE}" ]]; then
+  true
+elif src 'https://yobit.net/api/3/ticker/btc_usd' '.btc_usd.last' && [[ "${VALUE}" ]]; then
+  true
 fi
+
 echo -e "${YELLOW}BTC${NORMAL} = ${WHITE}${VALUE}${NORMAL} $"
 
 src 'https://www.cbr-xml-daily.ru/daily_json.js' '.Valute.EUR.Value'
