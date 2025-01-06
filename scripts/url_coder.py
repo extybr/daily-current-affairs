@@ -28,6 +28,33 @@ def url_encoder(string: str) -> None:
                 result.append(ord(c[1:2]))
     result = result.decode(encoding="ascii")
     print(result)
-    
 
-url_encoder(sys.argv[1])
+
+def url_decoder(string: str) -> None:
+    if type(string) == bytes:
+        string = string.decode("utf-8")
+    result = bytearray()
+    enter_hex_unicode_mode = 0
+    hex_tmp = ""
+    now_index = 0
+    for char in string:
+        if char == '%': 
+            enter_hex_unicode_mode = 1
+            continue
+        if enter_hex_unicode_mode:
+            hex_tmp += char
+            now_index += 1
+            if now_index == 2: 
+                result.append(int(hex_tmp, 16) )
+                hex_tmp = ""
+                now_index = 0
+                enter_hex_unicode_mode = 0
+            continue
+        result.append(ord(char))
+    result = result.decode(encoding="utf-8")
+    print(result)
+
+
+coder = {'decoder': url_decoder, 'encoder': url_encoder}
+
+coder.get(sys.argv[1], {})(sys.argv[2])

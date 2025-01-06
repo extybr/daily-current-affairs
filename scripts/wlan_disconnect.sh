@@ -16,6 +16,11 @@
 # jq  (Command-line JSON processor)
 # jc  (converts the output of many commands, file-types, and strings to JSON or YAML)
 
+if ! command -V jq &> /dev/null || ! command -V jc &> /dev/null; then
+  echo "--- command ( jq or jc ) not found ---"
+  exit 0
+fi
+
 nm_con=$(jc -p nmcli con show)
 for index in {0..30}
 do

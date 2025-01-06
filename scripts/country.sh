@@ -4,7 +4,7 @@
 # $> ./country.sh m   #
 #######################
 
-source ~/PycharmProjects/github/daily-current-affairs/scripts/set_get_volume.sh
+source ./set_get_volume.sh
 
 tcn_url=${PLAYLIST_DIRECTORY}"/tcn-live.m3u"
 radio_country="http://prmstrm.1.fm:8000"

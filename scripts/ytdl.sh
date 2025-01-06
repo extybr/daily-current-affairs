@@ -1,5 +1,6 @@
 #!/bin/sh
-
-cd ~/PycharmProjects/github/ytdl
-venv/bin/python main.py
-
+ytdl() {
+  pushd ~/PycharmProjects/github/ytdl
+  venv/bin/python main.py
+  popd
+}

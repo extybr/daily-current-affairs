@@ -7,7 +7,7 @@
 blue='\e[36m'
 normal='\e[0m'
 
-city=$(echo $(./url_encoder.py "$1") | sed "s/ /%20/g")
+city=$(echo $(./url_coder.py "encoder" "$1") | sed "s/ /%20/g")
 coordinates=$(curl -s "https://nominatim.openstreetmap.org/\
 search?q=${city}\&format=jsonv2&addressdetails=1&limit=1")
 echo -e "Координаты ${blue}$1${normal}:"

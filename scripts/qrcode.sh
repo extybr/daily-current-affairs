@@ -1,11 +1,15 @@
 #!/bin/sh
-YELLOW="\033[33m"
-NORMAL="\033[0m"
+yellow="\033[33m"
+normal="\033[0m"
 
-if [ "$#" -ne 1 ]; then echo -e "${YELLOW}Ожидалось 1 параметр, а передано $#${NORMAL}"; exit 0; fi
+if [ "$#" -ne 1 ]; then 
+  echo -e "${yellow}Ожидалось 1 параметр, а передано $#${normal}"
+  exit 0
+fi
 
 file_name="grcode_$(date "+%d-%m-%y_%H-%M-%S").png"
 
-trap "echo -e 'Папка с файлом: ${YELLOW}${PWD}${NORMAL}'; echo -e 'Название файла: ${YELLOW}${file_name}${NORMAL}'" EXIT
+trap "echo -e 'Папка с файлом: ${yellow}${PWD}${normal}'; echo -e 'Название файла: ${yellow}${file_name}${normal}'" EXIT
 
 qrencode -o "${file_name}" -s 100 "$1"
+

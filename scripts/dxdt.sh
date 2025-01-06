@@ -10,6 +10,6 @@ request=$(curl -s 'https://dxdt.ru/feed/' | \
           s/<pubDate>/\\\e[35m/g ; s/<\/pubDate>/\\\e[0m/g ; \
           s/+0000/\n/g")
 
-output=$(./decode_html_decimal.py "${request}")
+output=$(./coder_html_decimal.py "decoder" "${request}")
 echo -e "${output}"
 

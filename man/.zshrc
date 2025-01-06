@@ -32,7 +32,6 @@ export SAMSUNG_DIRECTORY='/run/media/tux/Samsung-1TB'
 export PLAYLIST_DIRECTORY="${SAMSUNG_DIRECTORY}/Desktop/Radio"
 alias ip='ip --color'
 alias gitu='git add . && git commit -m'
-alias fm=${SCRIPTS_DIRECTORY}'/fmedia.sh'
 alias reqrypt=${SCRIPTS_DIRECTORY}'/./reqrypt-1.3.1-linux64.sh'
 alias sampler='sampler -c ~/my_programs/config.yml'
 alias pspy='~/my_programs/./pspy64'
@@ -50,12 +49,12 @@ alias tux='cowsay -f tux LINUX - Good !!!'
 alias bsd='echo "\e[31m$(cowsay -f daemon Отдавай все свои биткоины !!!)"'
 alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Тебя поджарить\?)"'
 alias wf/="${SCRIPTS_DIRECTORY}/wifi_start.sh"
-alias myssh="${SCRIPTS_DIRECTORY}/ssh_start.sh"
-alias mpeg=${SCRIPTS_DIRECTORY}'/mpeg.sh'
+alias myssh="bash -c 'cd ~/PycharmProjects/github/remote_control && sudo ./start.sh'"
+alias mpeg='bash -c "cd ~/PycharmProjects/github/ffmpeg_gui && ./start_linux.sh"'
 alias map=${SCRIPTS_DIRECTORY}'/map.sh'
 alias maps=${SCRIPTS_DIRECTORY}'/maps.sh'
 alias ct/=${SCRIPTS_DIRECTORY}'/current_time_area_google.sh'
-alias check=${SCRIPTS_DIRECTORY}'/check.sh'
+alias check='bash -c "cd ~/PycharmProjects/github/playlist_check && venv/bin/python podcast/redbasset_podbean.py"'
 alias anti=${SCRIPTS_DIRECTORY}'/antizapret.sh'
 alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
 alias c/=${SCRIPTS_DIRECTORY}'/cheat.sh'
@@ -70,22 +69,33 @@ alias s/='shc -r -f $1'
 alias ts/=${SCRIPTS_DIRECTORY}'/timestamp.sh'
 alias rgh/='cat ~/.zhistory | rg $1'
 alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
-alias cre/=${SCRIPTS_DIRECTORY}'/curl_re.sh'
-alias csh/=${SCRIPTS_DIRECTORY}'/rss_sh.sh'
+alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
 alias ti/=${SCRIPTS_DIRECTORY}'/trading-index.py'
 alias cd/="pushd ${SCRIPTS_DIRECTORY}"
-alias 90/=${SCRIPTS_DIRECTORY}'/90s.sh'
-alias 40/=${SCRIPTS_DIRECTORY}'/top40.sh'
-alias cy/=${SCRIPTS_DIRECTORY}'/country.sh'
+alias 90/='bash -c "cd ${SCRIPTS_DIRECTORY} && ./90s.sh"'
+alias 40/='bash -c "source ${SCRIPTS_DIRECTORY}/set_get_volume.sh && ffplay http://prmstrm.1.fm:8000/top40 -nodisp"'
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
 alias lc/="mousepad $HOME${${SCRIPTS_DIRECTORY}#*~}/../man/linux_command.txt"
-. $HOME/${${SCRIPTS_DIRECTORY}#*~}/ratesx.sh
+. $HOME/${${SCRIPTS_DIRECTORY}#*~}/ytdl.sh
 
-temp () {
-watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh
+function cy/ {
+  current_dir=$(pwd)
+  cd $HOME${${SCRIPTS_DIRECTORY}#*~}
+  if [ "$#" -eq 1 ]; then
+    ./country.sh "$1"
+  else ./country.sh
+  fi
+  cd "${current_dir}" 
+}
+
+function fm {
+  current_dir=$(pwd)
+  cd $HOME${${SCRIPTS_DIRECTORY}#*~}
+  ./fmedia.sh $*
+  cd "${current_dir}" 
 }
 
 function tt/ {
@@ -94,6 +104,34 @@ function tt/ {
   if [ "$#" -eq 1 ]; then
     ./main.sh "$1"
   else ./main.sh
+  fi
+  cd "${current_dir}"
+}
+
+function cre/ {
+  current_dir=$(pwd)
+  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}/../youtube_latest_videos
+  if [ "$#" -eq 1 ]; then
+    python curl_re.py $1
+  fi
+  cd "${current_dir}"
+}
+
+function csh/ {
+  current_dir=$(pwd)
+  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}/../youtube_latest_videos
+  if [ "$#" -eq 1 ]; then
+   venv/bin/python rss.py $1
+  fi
+  cd "${current_dir}"
+}
+
+function ri/ {
+  current_dir=$(pwd)
+  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}
+  if [ "$#" -gt 1 ]; then
+    ./rutor.sh "$@"
+  else ./rutor.sh 1
   fi
   cd "${current_dir}"
 }
@@ -107,6 +145,20 @@ function y/ {
   ~/bin/yt-dlp -U
   ~/bin/yt-dlp -S 'res:720,fps' "$1"
   $HOME${${SCRIPTS_DIRECTORY}#*~}/yt-dlp-rename.py $(pwd)
+}
+
+btc () {
+  current_dir=$(pwd)
+  cd $HOME/${${SCRIPTS_DIRECTORY}#*~}/
+  white='\033[1;37m'
+  normal='\033[0m'
+  if [ "$#" -eq 0 ]
+    then curl rate.sx
+  elif [ "$#" -eq 1 ]
+    then curl rate.sx/"$1"
+  else echo -e "${white} Ожидалось не более 1 параметра${normal}"
+  fi
+  cd "${current_dir}"
 }
 
 alias py=python3.13
