@@ -48,7 +48,7 @@ alias pacs=${SCRIPTS_DIRECTORY}'/pacs.sh'
 alias tux='cowsay -f tux LINUX - Good !!!'
 alias bsd='echo "\e[31m$(cowsay -f daemon Отдавай все свои биткоины !!!)"'
 alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Тебя поджарить\?)"'
-alias wf/="${SCRIPTS_DIRECTORY}/wifi_start.sh"
+alias wf/="bash -c 'cd ~/PycharmProjects/github/wifi && sudo ./start.sh'"
 alias myssh="bash -c 'cd ~/PycharmProjects/github/remote_control && sudo ./start.sh'"
 alias mpeg='bash -c "cd ~/PycharmProjects/github/ffmpeg_gui && ./start_linux.sh"'
 alias map=${SCRIPTS_DIRECTORY}'/map.sh'
@@ -79,87 +79,7 @@ alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
 alias lc/="mousepad $HOME${${SCRIPTS_DIRECTORY}#*~}/../man/linux_command.txt"
-. $HOME/${${SCRIPTS_DIRECTORY}#*~}/ytdl.sh
-
-function cy/ {
-  current_dir=$(pwd)
-  cd $HOME${${SCRIPTS_DIRECTORY}#*~}
-  if [ "$#" -eq 1 ]; then
-    ./country.sh "$1"
-  else ./country.sh
-  fi
-  cd "${current_dir}" 
-}
-
-function fm {
-  current_dir=$(pwd)
-  cd $HOME${${SCRIPTS_DIRECTORY}#*~}
-  ./fmedia.sh $*
-  cd "${current_dir}" 
-}
-
-function tt/ {
-  current_dir=$(pwd)
-  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}
-  if [ "$#" -eq 1 ]; then
-    ./main.sh "$1"
-  else ./main.sh
-  fi
-  cd "${current_dir}"
-}
-
-function cre/ {
-  current_dir=$(pwd)
-  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}/../youtube_latest_videos
-  if [ "$#" -eq 1 ]; then
-    python curl_re.py $1
-  fi
-  cd "${current_dir}"
-}
-
-function csh/ {
-  current_dir=$(pwd)
-  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}/../youtube_latest_videos
-  if [ "$#" -eq 1 ]; then
-   venv/bin/python rss.py $1
-  fi
-  cd "${current_dir}"
-}
-
-function ri/ {
-  current_dir=$(pwd)
-  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}
-  if [ "$#" -gt 1 ]; then
-    ./rutor.sh "$@"
-  else ./rutor.sh 1
-  fi
-  cd "${current_dir}"
-}
-
-function y/ {
-  # https://github.com/yt-dlp/yt-dlp#readme
-  if [ "$#" -ne 1 ]
-    then echo -e "\e[37mНеобходимо передать url-адрес\e[0m"
-    return 0
-  fi
-  ~/bin/yt-dlp -U
-  ~/bin/yt-dlp -S 'res:720,fps' "$1"
-  $HOME${${SCRIPTS_DIRECTORY}#*~}/yt-dlp-rename.py $(pwd)
-}
-
-btc () {
-  current_dir=$(pwd)
-  cd $HOME/${${SCRIPTS_DIRECTORY}#*~}/
-  white='\033[1;37m'
-  normal='\033[0m'
-  if [ "$#" -eq 0 ]
-    then curl rate.sx
-  elif [ "$#" -eq 1 ]
-    then curl rate.sx/"$1"
-  else echo -e "${white} Ожидалось не более 1 параметра${normal}"
-  fi
-  cd "${current_dir}"
-}
+source $HOME/${${SCRIPTS_DIRECTORY}#*~}/functions.sh
 
 alias py=python3.13
 alias python=python3.13
