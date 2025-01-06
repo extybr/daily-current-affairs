@@ -3,10 +3,13 @@
 # $> ./which-program.sh echo   #
 ################################
 
-WHITE="\033[37m"
-NORMAL="\033[0m"
+white="\033[37m"
+normal="\033[0m"
 
-if [ $# -ne 1 ]; then echo -e "${WHITE}ожидался 1 параметр, а передано $#${NORMAL}"; exit 1; fi
+if [ "$#" -ne 1 ]; then
+  echo -e "${white} Ожидался 1 параметр, а передано $#${normal}"
+  exit 1
+fi
 
 if grep --color -E "^alias $1=" ~/.zshrc
   then echo

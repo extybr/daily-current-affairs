@@ -298,6 +298,7 @@ sudo dmesg | rg usb
 last -h  (last -a, last -i)  (show a listing of last logged in users)
 lastlog  (reports the most recent login of all users or of a given user)
 logger  (enter messages into the system log)
+log  (View, export, and configure logging systems)
 
 *** history ***
 
@@ -325,6 +326,7 @@ sudo -k
 sudo -s
 sudo su root
 chroot  (run command or interactive shell with special root directory)
+chroot path/to/new/root command
 getent  (get entries from Name Service Switch libraries)
 getent passwd
 getent group
@@ -359,6 +361,8 @@ sudo usermod -aG newgroup myuser
 getent group newgroup
 gpasswd  (administer /etc/group and /etc/gshadow)
 sudo gpasswd --delete myuser newgroup
+loginctl  (Control the systemd login manager)
+logname  (print user's login name)
 
 *** GNU-utils * shell builtin ***
 
@@ -470,7 +474,8 @@ makeinfo  (translate Texinfo documents)
 makepkg  (package build utility)
 set -o
 shopt
-
+modprobe  (Add and remove modules from the Linux Kernel)
+sudo modprobe <module_name>
 shuf  (generate random permutations)
 echo $RANDOM
 od -An -N1 -d /dev/urandom

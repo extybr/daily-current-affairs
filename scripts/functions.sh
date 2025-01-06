@@ -86,9 +86,18 @@ ytdl() {
   popd &> /dev/null
 }
 
+function ctd/ {
+  current_dir=$(pwd)
+  cd ~/PycharmProjects/github/connect_to_databases
+  venv/bin/python main.py
+  cd "${current_dir}"
+}
+
 salary() {
+  current_dir=$(pwd)
   cd ~/PycharmProjects/gitlab/salary_analytics
   venv/bin/python main.py
   git add .; git commit -m "update"; git push
+  cd "${current_dir}"
 }
 
