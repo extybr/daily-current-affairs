@@ -5,9 +5,9 @@ source ./text-color.sh
 
 # функция выбора
 function choice {
-output=$(echo -e "$1" | nl | grep -w "$2" | \
-         tr -d "[:blank:]" | sed "s/$2//g")
-echo "${output}"
+  output=$(echo -e "$1" | nl | grep -w "$2" | \
+           tr -d "[:blank:]" | sed "s/$2//g")
+  echo "${output}"
 }
 
 # выбор утилиты для запуска
