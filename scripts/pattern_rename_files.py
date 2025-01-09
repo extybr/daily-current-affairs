@@ -16,7 +16,7 @@ else:
 
 prefix = 'mypattern-'
 count = 0
-files_path = list(path.glob('*'))
+files_path = sorted(list(path.glob('*')))
 
 for file in files_path:
     abspath = Path(path / file)

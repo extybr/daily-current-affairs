@@ -9,7 +9,7 @@ import sys
 
 if len(sys.argv) == 2:
     path = sys.argv[1]
-    if not os.path.exists(path):
+    if not os.path.exists(path) or not os.path.isdir(path):
         print('Путь не найден')
         exit(0)
 else:

@@ -4,6 +4,12 @@
 ################################
 
 path="$1"
+
+if ! test -d "${path}": then
+  echo "*** folder not found ***"
+  exit 1
+fi
+
 IFS=$'\n'
 for item in $(ls -A ${path} | tr -d "\t")
   do

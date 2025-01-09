@@ -18,6 +18,10 @@ if len(sys.argv) != 3:
 source = sys.argv[1]
 destination = sys.argv[2]
 
+if not (os.path.isdir(source) and os.path.isdir(destination) and 
+    os.path.exists(source) and os.path.exists(destination)):
+    sys.exit(f"{red}Ошибка в указании пути папок{normal}")
+
 print(f"\n{white}Сравнение файлов первой папки с файлами во второй по имени и размеру{normal}\n")
 
 files_source = os.listdir(source)

@@ -55,6 +55,10 @@ function ri/ {
   cd "${current_dir}"
 }
 
+function p/ {
+  grep " $1/" /etc/services | cut -d " " -f1 | sort | uniq
+}
+
 function y/ {
   # https://github.com/yt-dlp/yt-dlp#readme
   if [ "$#" -ne 1 ]

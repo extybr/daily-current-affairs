@@ -16,6 +16,11 @@
 # jq  (Command-line JSON processor)
 # jc  (converts the output of many commands, file-types, and strings to JSON or YAML)
 
+if [ "$#" -ne 1 ]; then
+  echo "--- 1 parameter was expected ---"
+  exit 0
+fi
+
 if ! command -V jq &> /dev/null || ! command -V jc &> /dev/null; then
   echo "--- command ( jq or jc ) not found ---"
   exit 0

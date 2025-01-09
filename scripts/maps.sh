@@ -8,6 +8,11 @@ blue='\e[36m'
 yellow='\e[033m'
 normal='\e[0m'
 
+if [ "$#" -ne 1 ]; then 
+  echo -e "${yellow} Ожидалось 1 параметр, а передано $#${normal}"
+  exit 0
+fi
+
 cd ~/PycharmProjects/github/daily-current-affairs/scripts/
 source ./coordinates.sh "$1"
 size="6000"

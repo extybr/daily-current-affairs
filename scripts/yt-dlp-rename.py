@@ -4,7 +4,14 @@ import re
 import sys
 from pathlib import Path
 
-path = sys.argv[1]
+if len(sys.argv) != 2:
+    path = Path(input('Укажите путь к папке: '))
+else:
+    path = Path(sys.argv[1])
+
+while not (path.is_dir() and path.exists()):
+    path = Path(input('Укажите путь к папке: '))
+
 
 pattern_webm = r'.+\[.+\].webm'
 pattern_mp4 = r'.+\[.+\].mp4'
@@ -13,7 +20,7 @@ pattern_mkv = r'.+\[.+\].mkv'
 superfluous = (r'\s\[.{11}\]', r'\s\[-.{8}_.{9}\]')
 
 try:
-    for file in Path(path).iterdir():
+    for file in path.iterdir():
         for pattern in (pattern_webm, pattern_mp4, pattern_m4a, pattern_mkv):
             if str(file) in re.compile(pattern).findall(str(file)):
                 for i in superfluous:

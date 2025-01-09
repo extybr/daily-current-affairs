@@ -3,6 +3,11 @@
 # $> ./ffmpeg-recursive.sh ~/Video   #
 ######################################
 
+if ! test -d "$1"; then
+  echo "*** folder not found ***"
+  exit 1
+fi
+
 cd "$1"
 for file in *.*
   do

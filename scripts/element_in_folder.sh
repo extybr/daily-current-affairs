@@ -6,6 +6,10 @@
 if [ "$#" -ne 1 ]
   then folder="${HOME}"
 else folder="$1"
+  if ! test -d "${folder}"; then
+    echo "*** folder not found ***"
+    exit 1
+  fi
 fi
 
 IFS=$'\n'

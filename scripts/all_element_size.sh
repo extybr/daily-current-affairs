@@ -7,6 +7,12 @@
 # файлом (включая начинающиеся с точки), а также его размер
 
 path="$1"
+
+if ! test -d "${path}"; then
+  echo "*** папка не найдена ***"
+  exit 1
+fi
+
 IFS=$'\n'
 for item in $(ls -Al "${path}" | tr -s " " | cut -d " " -f5,9-15)
 do

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 ##################################
 # $> ./size_folder_and_file.sh   #
 ##################################
@@ -15,8 +15,8 @@ BLUE="\E[37;45m"
 DEFAULT="\E[0m"
 WHITE="\033[37;1;41m"
 
-read -rp "${CLEAR}${BEL}${BOLD}Path: ${NORMAL}" dir
-for folder in "${dir}"/*
+read -rp "${CLEAR}${BEL}${BOLD}Path: ${NORMAL}" directory
+for folder in "${directory}"/*
 do
   if [ -d "${folder}" ]
     then printf "${PINK}%s${DEFAULT}" "$(du -hs "${folder}")"; echo -e "${YELLOW}is folder${NORM}"

@@ -3,18 +3,17 @@
 # $> ./tg_last_post.sh igromania   #
 ####################################
 
-white="\e[37m"
+white="\033[37m"
 yellow="\e[33m"
 blue="\e[36m"
 violet="\e[35m"
-normal="\e[0m"
+normal="\033[0m"
 
-if ! [ "$#" -eq 1 ]
-  then echo -e "${white}ожидалось 1 параметр, а передано $#${normal}"
-  exit 0
+if ! [ "$#" -eq 1 ]; then
+  read -rp "$(tput bold)Channel: $(tput sgr0)" name
+else name="$1"
 fi
 
-name="$1"
 tg_channel=${name#*"https://t.me/"}
 tg_channel=${name#*"t.me/"}
 

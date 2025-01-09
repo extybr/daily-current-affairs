@@ -34,6 +34,6 @@ elif [ "$#" -eq 1 ]
       else echo -e "${blue}${dt}${normal}"
     fi
   fi
-else echo -e "${white}ожидалось не более 1 параметра, а передано $#${normal}"
+else echo -e "${white}1 parameter was expected, but passed $#${normal}"
 fi
 
