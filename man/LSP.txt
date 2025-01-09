@@ -1,0 +1,12 @@
+
+*** LSP ***
+
+html
+cssls
+tsserver
+clangd
+pyright
+gopls
+rust-analyzer
+bash-language-server (Dependencies: bash-completion, shfmt, shellcheck) # https://github.com/bash-lsp/bash-language-server
+

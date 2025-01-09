@@ -5,7 +5,7 @@
 
 path="$1"
 
-if ! test -d "${path}": then
+if ! test -d "${path}"; then
   echo "*** folder not found ***"
   exit 1
 fi
