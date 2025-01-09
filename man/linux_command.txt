@@ -91,6 +91,7 @@ g++  (GNU project C and C++ compiler)
 gcc  (GNU project C and C++ compiler)
 gs  (Ghostscript (PostScript and PDF language interpreter and previewer))
 go  (Go is a tool for managing Go source code)
+gopls  (Language server for Go programming language)
 sqlite3  (A command line interface for SQLite version 3)
 sqlite3 _hh-trudvsem_.db
 db='~/_hh-trudvsem_.db'; if test -f "${db}"; then sqlite3 "${db}"; else echo "${db}: not found"; return 1; fi

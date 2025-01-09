@@ -11,5 +11,5 @@ if [ "$#" -ne 1 ]; then
   exit 0
 fi
 
-curl --max-time 10 cheat-command.sh/"$1"
+curl --max-time 10 cheat.sh/"$1"
 
