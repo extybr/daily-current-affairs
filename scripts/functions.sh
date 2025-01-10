@@ -1,12 +1,5 @@
 #!/bin/zsh
 
-function fm {
-  current_dir=$(pwd)
-  cd $HOME${${SCRIPTS_DIRECTORY}#*~}
-  ./fmedia.sh $*
-  cd "${current_dir}" 
-}
-
 function cy/ {
   current_dir=$(pwd)
   cd $HOME${${SCRIPTS_DIRECTORY}#*~}

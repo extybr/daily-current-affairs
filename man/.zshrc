@@ -73,6 +73,7 @@ alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
 alias ti/=${SCRIPTS_DIRECTORY}'/trading-index.py'
 alias cd/="pushd ${SCRIPTS_DIRECTORY}"
+alias fm="${SCRIPTS_DIRECTORY}/fmedia.sh"
 alias 90/='bash -c "cd ${SCRIPTS_DIRECTORY} && ./90s.sh"'
 alias 40/='bash -c "source ${SCRIPTS_DIRECTORY}/set_get_volume.sh && ffplay http://prmstrm.1.fm:8000/top40 -nodisp"'
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
