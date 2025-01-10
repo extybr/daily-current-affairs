@@ -1,5 +1,7 @@
 
-*** LSP ***
+html, css, typescript, c/c++, python, golang, rust, bash
+
+*** LSP servers for nvim ***
 
 html
 cssls

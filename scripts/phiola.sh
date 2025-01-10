@@ -1,8 +1,8 @@
 #!/bin/sh
 #################################################
-# $> ./fmedia.sh .                              #
-# $> ./fmedia.sh file.mp3                       #
-# $> ./fmedia.sh https://example.com/file.m3u   #
+# $> ./phiola.sh .                              #
+# $> ./phiola.sh file.mp3                       #
+# $> ./phiola.sh https://example.com/file.m3u   #
 #################################################
 
 source ~/PycharmProjects/github/daily-current-affairs/scripts/set_get_volume.sh
@@ -11,8 +11,8 @@ if [ "$#" -lt 1 ]
   then echo -e "\e[31m*** Нет параметров ***\e[0m"
   exit 0
 elif [ "$1" = '.' ] || [ "$#" -gt 1 ]
-  then ~/my_programs/fmedia-1/./fmedia "$@"
-else ~/my_programs/fmedia-1/./fmedia "$1"
+  then ~/my_programs/phiola-2/./phiola "$@"
+else ~/my_programs/phiola-2/./phiola "$1"
 fi
 
 if ! [ "$?" -eq 0 ]

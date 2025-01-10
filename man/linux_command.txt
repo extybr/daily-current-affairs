@@ -36,12 +36,12 @@ cmus  (консольный C* Music Player)
 ffmpeg  (ffmpeg media converter)
 ffplay  (консольный FFplay media player)
 ffplay ./Audio/'Bad Boys Blue - My Star.flac' -nodisp -autoexit
-fmedia  (cli and gui audio player)
-./fmedia ./Audio/'Bad Boys Blue - My Star.flac'
 ./fmedia http://ep256.hostingradio.ru:8052/europaplus256.mp3 -o radio.mp3 --stream-copy --out-cop
-./fmedia './Audio/Tim McGraw/2 Compilations' -o music.m3u8
-./fmedia -s 00:02:00 ~/music/file.mp3
-./fmedia .
+phiola  (cli and gui audio player/recorder/converter; https://github.com/stsaz/phiola)
+./phiola ./Audio/'Bad Boys Blue - My Star.flac'
+./phiola './Audio/Tim McGraw/2 Compilations' -o music.m3u8
+./phiola -s 00:02:00 ~/music/file.mp3
+./phiola .
 snapshot
 gimp  (an image manipulation and paint program)
 flameshot  (cross-platform tool to take screenshots with many built-in features to save you time)
