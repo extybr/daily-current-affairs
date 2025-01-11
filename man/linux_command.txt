@@ -83,6 +83,17 @@ ipcalc  (Calculates IP broadcast, network, Cisco wildcard mask, and host ranges)
 /usr/lib/geoclue-2.0/demos/where-am-i  (geolocation application)
 ./Outline-Client.AppImage --appimage-mount
 outline-client  (client outline)
+gdm
+gegl  (GEGL is an image processing library ...)
+gjs  (GNOME Javascript bindings)
+gjs-console
+gapplication list-apps
+baobab  (A graphical disk usage analyzer for the GNOME desktop)
+gnome-maps
+gnome-maps -S 'New York'
+gnome-weather
+gnome-chess
+gnome-calculator
 ____________
 
 java
@@ -90,6 +101,7 @@ java -jar ESPlorer.jar
 g++  (GNU project C and C++ compiler)
 gcc  (GNU project C and C++ compiler)
 gs  (Ghostscript (PostScript and PDF language interpreter and previewer))
+lua  (Lua interpreter)
 go  (Go is a tool for managing Go source code)
 gopls  (Language server for Go programming language)
 sqlite3  (A command line interface for SQLite version 3)
@@ -698,6 +710,7 @@ pacman-mirrors --fasttrack
 sudo pacman -Sc
 https://wiki.manjaro.org/index.php/Pamac/ru
 https://wiki.manjaro.org/index.php/Arch_User_Repository/ru
+pamac-manager
 pamac -h  (package manager utility)
 pamac search virtualbox
 pamac install base-devel git
