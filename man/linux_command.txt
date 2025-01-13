@@ -14,6 +14,7 @@ nnn  (The unorthodox terminal file manager)
 cowsay  (configurable speaking/thinking cow (and a bit more))
 sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
 cmatrix  (command is a matrix program effect that displays green symbols on your terminal)
+seahorse  (Passwords and Keys)
 virtualbox  (Oracle VM VirtualBox is open source virtualization software that allows users to run multiple operating system on a single device)
 qemu-img  (QEMU disk image utility)
 qemu-img create /media/username/MyDrive/myWindows.img 30G
@@ -94,6 +95,10 @@ gnome-maps -S 'New York'
 gnome-weather
 gnome-chess
 gnome-calculator
+gnome-firmware
+gnome-photos
+gio  (GIO commandline tool)
+gio help copy
 ____________
 
 java
@@ -130,6 +135,7 @@ sudo update-alternatives --config python3
 electron32  (Build cross platform desktop apps with JavaScript, HTML, and CSS)
 /usr/lib/electron32/electron path-to-app
 npm  (javascript package manager)
+npx  (Run a command from a local or remote npm package)
 node  (server-side JavaScript runtime)
 kubectl  (kubectl controls the Kubernetes cluster manager)
 docker  (Docker image and container command line interface)
@@ -328,6 +334,16 @@ cat ~/.zhistory | rg 'iptables'
 !703  (number command in history)
 echo $HISTSIZE
 A=$HISTSIZE; B=$(cat ~/.zhistory | wc -l); if [ $A != $B ]; then echo $(($A-$B)); fi
+
+** history (in real time) **
+
+journalctl -f _COMM=wpa_supplicant
+tail -f -n 10 ~/.zhistory
+watch -n1 ifstat
+watch -n1 netstat -ntuop
+watch -n 5 nmcli dev wifi
+gio monitor -f ./file.log
+gio monitor -d path/folder
 
 *** users ***
 
@@ -828,7 +844,6 @@ nmcli dev wifi
 nmcli dev status
 nmcli device show
 nmcli c s 'eth0' | grep dns
-watch -n 5 nmcli dev wifi
 nmcli --mode multiline dev wifi
 nm-connection-editor  (network connection editor for NetworkManager)
 nm-online  (ask NetworkManager whether the network is connected)
@@ -867,7 +882,7 @@ ip link
 ip addr
 sudo ip link set grelan up
 netstat  (Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships)
-watch -n1 netstat -ntuop
+netstat -ntuop
 ss  (инструмент, используемый для вывода сетевой статистики)
 ss -4
 nc  (ncat, netcat)  (Concatenate and redirect sockets)
@@ -917,7 +932,6 @@ cat /etc/nsswitch.conf
 brctl  (ethernet bridge administration)
 brctl show
 ifstat  (handy utility to read network interface statistics)
-watch -n1 ifstat
 lnstat  (unified linux network statistics)
 lnstat -d
 lnstat -j

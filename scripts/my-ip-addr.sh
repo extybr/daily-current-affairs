@@ -5,29 +5,42 @@
 
 ip -c route
 
-ident=$(curl -s --max-time 3 "http://ident.me")
-if [ "${#ident}" -gt 0 ]
-  then printf "Your IP address: \e[31m%s\e[0m \e[37m > http://ident.me\e[0m\n" "${ident}"
-fi
+function ip_addr {
+  response=$(curl -s --max-time 3 "$1")
+  if [ "$#" -eq 2 ]; then
+    response=$(echo "${response}" | jq -r "$2")
+  fi
+}
 
-myip=$(curl -s --max-time 3 "https://api.myip.com" | jq -r ".ip")
-if [ "${#myip}" -gt 0 ]
-  then printf "Your IP address: \e[31m%s\e[0m \e[37m > https://api.myip.com\e[0m\n" "${myip}"
+if ip_addr "http://ident.me" && [ "${response}" ]; then
+  src="ident.me"
+  break
+elif ip_addr "https://api.myip.com" ".ip" && [ "${response}" ]; then
+  src="api.myip.com"
+  break
+elif ip_addr "ifconfig.me" && [ "${response}" ]; then
+  src="ifconfig.me"
+  break
+elif ip_addr "https://ipwho.is/?output=json" ".ip" && [ "${response}" ]; then
+  src="ipwho.is"
+  break
+elif ip_addr "https://wtfismyip.com/text" && [ "${response}" ]; then
+  src="wtfismyip.com"
+  break
 fi
-
-ifconfig=$(curl -s --max-time 3 ifconfig.me)
-if [ "${#ifconfig}" -gt 0 ]
-  then printf "Your IP address: \e[31m%s\e[0m \e[37m > ifconfig.me\e[0m\n" "${ifconfig}"
-fi
+printf "Your IP address: \e[31m%s\e[0m \e[37m > ${src}\e[0m\n" "${response}"
 
 ip_proxy() {
   cd ~/PycharmProjects/github/daily-current-affairs/scripts 2> /dev/null
   source ./proxy.sh
-  curl -s ${proxy} --max-time 5 "https://wtfismyip.com/text"
+  curl -s ${proxy} --max-time 5 "$1"
 }
 
-ip_vpn=($(ip_proxy))
-if [[ "${ip_vpn}" ]]
-  then printf "Your VPN IP address: \e[31m%s\e[0m \e[37m > %s > wtfismyip.com\e[0m\n" "${ip_vpn[2]}" "${ip_vpn[1]}"
-fi
+for src in ifconfig.me ident.me; do
+  ip_vpn=($(ip_proxy "${src}"))
+  if [[ "${#ip_vpn[@]}" -eq 3 ]]; then
+    printf "Your VPN IP address: \e[31m%s\e[0m \e[37m > %s > ${src}\e[0m\n" "${ip_vpn[2]}" "${ip_vpn[1]}"
+    break
+  fi
+done
 
