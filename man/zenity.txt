@@ -1,0 +1,26 @@
+
+zenity --help
+zenity --help-file-selection
+
+zenity --question
+zenity --question --text="Продолжить форматирование диска?"
+zenity --scale
+zenity --color-selection 2> /dev/null
+zenity --password
+zenity --error
+zenity --entry
+
+cat $(zenity --file-selection 2> /dev/null)
+
+zenity --forms --add-entry="User" --add-password="Password" --separator=" "
+
+zenity --list --height="500" --text "Выберите опцию" --title "Степень прозрачности" --column "Прозрачность" `for (( c=1; c<=9; c++ )); do echo -n "0.$c "; done` 1.0 2.0
+
+zenity --list --height="500" --text "Выберите желаемый курс" --title "Курс рубля" --column "список курсов" $(./bestchange.sh)
+
+IFS=$'\n'; zenity --list --width="500" --height="800" --text "Выберите файл/папку" --title "Выбор объекта" --column "список" $(ls)
+
+zenity --list --width="300" --height="700" --text "Выбор объекта" --title "Ваш выбор" --column "список" "first" "second"
+
+zenity --text-info --title=ЗАГОЛОВОК --ok-label=ТЕКСТ2 --cancel-label=ТЕКСТ1 --filename=file.txt --editable --font=Aria --auto-scroll
+
