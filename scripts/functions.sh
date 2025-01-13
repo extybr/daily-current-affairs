@@ -2,7 +2,7 @@
 
 function cy/ {
   current_dir=$(pwd)
-  cd $HOME${${SCRIPTS_DIRECTORY}#*~}
+  cd ${SCRIPTS_DIRECTORY}
   if [ "$#" -eq 1 ]; then
     ./country.sh "$1"
   else ./country.sh
@@ -12,7 +12,7 @@ function cy/ {
 
 function tt/ {
   current_dir=$(pwd)
-  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}
+  cd ${TRACKER_PARSER_DIRECTORY}
   if [ "$#" -eq 1 ]; then
     ./main.sh "$1"
   else ./main.sh
@@ -22,7 +22,7 @@ function tt/ {
 
 function cre/ {
   current_dir=$(pwd)
-  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}/../youtube_latest_videos
+  cd ${GITHUB_DIRECTORY}/youtube_latest_videos
   if [ "$#" -eq 1 ]; then
     python curl_re.py $1
   fi
@@ -31,7 +31,7 @@ function cre/ {
 
 function csh/ {
   current_dir=$(pwd)
-  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}/../youtube_latest_videos
+  cd ${GITHUB_DIRECTORY}/youtube_latest_videos
   if [ "$#" -eq 1 ]; then
    venv/bin/python rss.py $1
   fi
@@ -40,7 +40,7 @@ function csh/ {
 
 function ri/ {
   current_dir=$(pwd)
-  cd $HOME${${TRACKER_PARSER_DIRECTORY}#*~}
+  cd ${TRACKER_PARSER_DIRECTORY}
   if [ "$#" -gt 1 ]; then
     ./rutor.sh "$@"
   else ./rutor.sh 1
@@ -60,12 +60,12 @@ function y/ {
   fi
   ~/bin/yt-dlp -U
   ~/bin/yt-dlp -S 'res:720,fps' "$1"
-  $HOME${${SCRIPTS_DIRECTORY}#*~}/yt-dlp-rename.py $(pwd)
+  ${SCRIPTS_DIRECTORY}/yt-dlp-rename.py $(pwd)
 }
 
 btc () {
   current_dir=$(pwd)
-  cd $HOME/${${SCRIPTS_DIRECTORY}#*~}/
+  cd ${SCRIPTS_DIRECTORY}/
   white='\033[1;37m'
   normal='\033[0m'
   if [ "$#" -eq 0 ]
@@ -78,21 +78,21 @@ btc () {
 }
 
 ytdl() {
-  pushd ~/PycharmProjects/github/ytdl &> /dev/null
+  pushd ${GITHUB_DIRECTORY}/ytdl &> /dev/null
   venv/bin/python main.py &> /dev/null
   popd &> /dev/null
 }
 
 function ctd/ {
   current_dir=$(pwd)
-  cd ~/PycharmProjects/github/connect_to_databases
+  cd ${GITHUB_DIRECTORY}/connect_to_databases
   venv/bin/python main.py
   cd "${current_dir}"
 }
 
 salary() {
   current_dir=$(pwd)
-  cd ~/PycharmProjects/gitlab/salary_analytics
+  cd ${GITHUB_DIRECTORY}/../gitlab/salary_analytics
   venv/bin/python main.py
   git add .; git commit -m "update"; git push
   cd "${current_dir}"

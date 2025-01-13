@@ -117,6 +117,7 @@ psql --help  (PostgreSQL interactive terminal)
 pg_dump postgres > dump.sql
 pg_restore postgres < dump.sql
 psql postgres < dump.sql
+isql  (iusql; unixODBC interactive SQL command-line tools)
 sqlitebrowser --version  (DB Browser for SQLite)
 nginx  (HTTP and reverse proxy server, mail proxy server)
 nginx -V 2>&1 | grep -o with-http_stub_status_module
@@ -637,6 +638,7 @@ zstdcat  (zstd, zstdmt, unzstd, zstdcat - Compress or decompress .zst files)
 jcat-tool  (standalone detached signature utility)
 zenity --help  (manual page for zenity)
 zenity --calendar
+zenity --forms --add-entry="Name" --add-password="Password" --separator=";"
 stty  (change and print terminal line settings)
 stty -a
 dircolors  (color setup for ls)
@@ -896,6 +898,9 @@ wireshark  (Interactively dump and analyze network traffic)
 tshark  (Dump and analyze network traffic)
 curl  (transfer a URL)
 curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e
+GET  (Simple command line user agent)
+GET http://127.0.0.1
+POST  (Simple command line user agent)
 tcpdump  (dump traffic on a network)
 wget  (The non-interactive network downloader)
 wget -O /dev/null https://xxx.xx/files/1Gb.dat

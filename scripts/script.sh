@@ -14,7 +14,7 @@ cat << EOF
 
 EOF
 
-script_dir="$HOME${${SCRIPTS_DIRECTORY}#*~}"
+script_dir="${SCRIPTS_DIRECTORY}"
 
 if [ "$#" -ne 1 ]; then 
   ls --color "${script_dir}"

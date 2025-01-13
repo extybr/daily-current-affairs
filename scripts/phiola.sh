@@ -5,7 +5,7 @@
 # $> ./phiola.sh https://example.com/file.m3u   #
 #################################################
 
-source ~/PycharmProjects/github/daily-current-affairs/scripts/set_get_volume.sh
+source "${SCRIPTS_DIRECTORY}"/set_get_volume.sh
 
 if [ "$#" -lt 1 ]
   then echo -e "\e[31m*** Нет параметров ***\e[0m"

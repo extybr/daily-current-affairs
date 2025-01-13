@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #######################
 # $> ./my-ip-addr.sh  #
 #######################
@@ -14,24 +14,19 @@ function ip_addr {
 
 if ip_addr "http://ident.me" && [ "${response}" ]; then
   src="ident.me"
-  break
 elif ip_addr "https://api.myip.com" ".ip" && [ "${response}" ]; then
   src="api.myip.com"
-  break
 elif ip_addr "ifconfig.me" && [ "${response}" ]; then
   src="ifconfig.me"
-  break
 elif ip_addr "https://ipwho.is/?output=json" ".ip" && [ "${response}" ]; then
   src="ipwho.is"
-  break
 elif ip_addr "https://wtfismyip.com/text" && [ "${response}" ]; then
   src="wtfismyip.com"
-  break
 fi
 printf "Your IP address: \e[31m%s\e[0m \e[37m > ${src}\e[0m\n" "${response}"
 
 ip_proxy() {
-  cd ~/PycharmProjects/github/daily-current-affairs/scripts 2> /dev/null
+  cd ${SCRIPTS_DIRECTORY} 2> /dev/null
   source ./proxy.sh
   curl -s ${proxy} --max-time 5 "$1"
 }

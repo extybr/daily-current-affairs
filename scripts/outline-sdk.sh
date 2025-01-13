@@ -23,15 +23,15 @@ if ! [ -f ~/.config/autostart/outline-sdk.desktop ]; then
 Type=Application
 Name=outline-sdk
 Comment=outline-sdk script
-Path=${HOME}/PycharmProjects/github/daily-current-affairs/scripts
+Path=${SCRIPTS_DIRECTORY}
 Exec=outline-sdk
 StartupNotify=false
 Terminal=false" > outline-sdk.desktop
   mv outline-sdk.desktop ~/.config/autostart
 fi
 
-if ! [ -f ~/PycharmProjects/github/daily-current-affairs/scripts/outline-sdk ]; then
-  cd ~/PycharmProjects/github/daily-current-affairs/scripts
+if ! [ -f ${SCRIPTS_DIRECTORY}/outline-sdk ]; then
+  cd ${SCRIPTS_DIRECTORY}
   shc -r -f outline-sdk.sh
   rm outline-sdk.sh.x.c
   mv outline-sdk.sh.x outline-sdk

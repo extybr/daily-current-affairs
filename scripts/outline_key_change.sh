@@ -14,6 +14,6 @@ else echo '1' > outline_number
 fi
 unzip keys.zip "outline_${number}.key"
 mv "outline_${number}.key" outline.key
-cd ~/PycharmProjects/github/daily-current-affairs/scripts
+cd ${SCRIPTS_DIRECTORY}
 ./outline-sdk
  

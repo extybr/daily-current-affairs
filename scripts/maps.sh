@@ -13,7 +13,7 @@ if [ "$#" -ne 1 ]; then
   exit 0
 fi
 
-cd ~/PycharmProjects/github/daily-current-affairs/scripts/
+cd ${SCRIPTS_DIRECTORY}/
 source ./coordinates.sh "$1"
 size="6000"
 

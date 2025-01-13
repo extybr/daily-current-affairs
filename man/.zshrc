@@ -26,9 +26,10 @@ unsetopt correct
 
 export wlan0='wlp3s0'
 export wlan1='wlp0s20f0u1u4'
-export SCRIPTS_DIRECTORY='~/PycharmProjects/github/daily-current-affairs/scripts'
-export TRACKER_PARSER_DIRECTORY='~/PycharmProjects/github/tracker_parser'
-export SAMSUNG_DIRECTORY='/run/media/tux/Samsung-1TB'
+export GITHUB_DIRECTORY="${HOME}/PycharmProjects/github"
+export SCRIPTS_DIRECTORY="${GITHUB_DIRECTORY}/daily-current-affairs/scripts"
+export TRACKER_PARSER_DIRECTORY="${GITHUB_DIRECTORY}/tracker_parser"
+export SAMSUNG_DIRECTORY="/run/media/${USER}/Samsung-1TB"
 export PLAYLIST_DIRECTORY="${SAMSUNG_DIRECTORY}/Desktop/Radio"
 alias ip='ip --color'
 alias gitu='git add . && git commit -m'
@@ -53,8 +54,9 @@ alias myssh="bash -c 'cd ~/PycharmProjects/github/remote_control && sudo ./start
 alias mpeg='bash -c "cd ~/PycharmProjects/github/ffmpeg_gui && ./start_linux.sh"'
 alias map=${SCRIPTS_DIRECTORY}'/map.sh'
 alias maps=${SCRIPTS_DIRECTORY}'/maps.sh'
+alias gm/='gnome-maps -S'
 alias ct/=${SCRIPTS_DIRECTORY}'/current_time_area_google.sh'
-alias check='bash -c "cd ~/PycharmProjects/github/playlist_check && venv/bin/python podcast/redbasset_podbean.py"'
+alias check='bash -c "cd ${GITHUB_DIRECTORY}/playlist_check && venv/bin/python podcast/redbasset_podbean.py"'
 alias anti=${SCRIPTS_DIRECTORY}'/antizapret.sh'
 alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
 alias c/=${SCRIPTS_DIRECTORY}'/cheat-command.sh'
@@ -63,7 +65,7 @@ alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affai
 alias tel/='telnet mapscii.me'
 alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'
 alias j/=${SCRIPTS_DIRECTORY}'/simple-parser-hh.sh'
-alias jj/="$HOME${${SCRIPTS_DIRECTORY}#*~}/../../script-parser-HH-led/terminal/job.sh"
+alias jj/="${GITHUB_DIRECTORY}/script-parser-HH-led/terminal/job.sh"
 alias e/='exiftool $1'
 alias s/='shc -r -f $1'
 alias ts/=${SCRIPTS_DIRECTORY}'/timestamp.sh'
@@ -80,8 +82,8 @@ alias e+='bash -c "source ${SCRIPTS_DIRECTORY}/set_get_volume.sh && ffplay http:
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
-alias lc/="mousepad $HOME${${SCRIPTS_DIRECTORY}#*~}/../man/linux_command.txt"
-source $HOME/${${SCRIPTS_DIRECTORY}#*~}/functions.sh
+alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../man/linux_command.txt"
+source ${SCRIPTS_DIRECTORY}/functions.sh
 
 alias py=python3.13
 alias python=python3.13
