@@ -12,9 +12,9 @@ fi
 choice=$(zenity --list --width="300" --height="500" --text "Выбор 🎼 🔊 🥁 🎺 🎹" \
          --title "Выбор радио" --column "список" "топ 40" "европа +" "кантри")
 
-lvl=$(zenity --scale --text="Уровень громкости")
+level=$(zenity --scale --text="Уровень громкости")
 
-source ./set_get_volume.sh "${lvl}%"
+source ./set_get_volume.sh "-->" "${level}%"
 
 case "$choice" in
   'топ 40')

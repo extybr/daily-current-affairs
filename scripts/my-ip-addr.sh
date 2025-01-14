@@ -12,12 +12,12 @@ function ip_addr {
   fi
 }
 
-if ip_addr "http://ident.me" && [ "${response}" ]; then
-  src="ident.me"
+if ip_addr "ifconfig.me" && [ "${response}" ]; then
+  src="ifconfig.me"
 elif ip_addr "https://api.myip.com" ".ip" && [ "${response}" ]; then
   src="api.myip.com"
-elif ip_addr "ifconfig.me" && [ "${response}" ]; then
-  src="ifconfig.me"
+elif ip_addr "http://ident.me" && [ "${response}" ]; then
+  src="ident.me"
 elif ip_addr "https://ipwho.is/?output=json" ".ip" && [ "${response}" ]; then
   src="ipwho.is"
 elif ip_addr "https://wtfismyip.com/text" && [ "${response}" ]; then
@@ -31,7 +31,7 @@ ip_proxy() {
   curl -s ${proxy} --max-time 5 "$1"
 }
 
-for src in ifconfig.me ident.me; do
+for src in eth0.me ipaddress.sh curlmyip.net; do
   ip_vpn=($(ip_proxy "${src}"))
   if [[ "${#ip_vpn[@]}" -eq 3 ]]; then
     printf "Your VPN IP address: \e[31m%s\e[0m \e[37m > %s > ${src}\e[0m\n" "${ip_vpn[2]}" "${ip_vpn[1]}"
