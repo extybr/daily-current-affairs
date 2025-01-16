@@ -1,0 +1,62 @@
+#!/bin/bash
+# Сравнение строки по паттерну
+
+########## Начало или конец текста ##########
+
+text='Hello World'
+if [[ "${text}" =~ ^(Hello|OK) ]]
+  then echo "Текст начинается со слова Hello или OK"
+elif [[ "${text}" =~ (World)$ ]]
+  then echo "Текст заканчивается словом World"
+fi
+
+########## Проверьте, содержит ли строка подстроку ##########
+
+if [[ $var == *sub_string* ]]; then
+    printf '%s\n' "sub_string is in var."
+fi
+
+# Inverse (substring not in string).
+if [[ $var != *sub_string* ]]; then
+    printf '%s\n' "sub_string is not in var."
+fi
+
+# This works for arrays too!
+if [[ ${arr[*]} == *sub_string* ]]; then
+    printf '%s\n' "sub_string is in array."
+fi
+
+case "$var" in
+    *sub_string*)
+        echo "Do stuff"
+    ;;
+
+    *sub_string2*)
+        echo "Do more stuff"
+    ;;
+
+    *)
+        echo "Else"
+    ;;
+esac
+
+########## Проверьте, начинается ли строка с подстроки ##########
+
+if [[ $var == sub_string* ]]; then
+    printf '%s\n' "var starts with sub_string."
+fi
+
+if [[ $var != sub_string* ]]; then
+    printf '%s\n' "var does not start with sub_string."
+fi
+
+########## Проверьте, заканчивается ли строка вложенной строкой ##########
+
+if [[ $var == *sub_string ]]; then
+    printf '%s\n' "var ends with sub_string."
+fi
+
+if [[ $var != *sub_string ]]; then
+    printf '%s\n' "var does not end with sub_string."
+fi
+

@@ -1,0 +1,33 @@
+#!/bin/bash
+# Перевод букв в нужный регистр
+
+########## Перевод букв в нижний регистр ##########
+
+lower() {
+    printf '%s\n' "${1,,}"
+}
+
+lower "HELLO"
+lower "HeLlO"
+lower "hello"
+
+########## Перевод букв в верхний регистр ##########
+
+upper() {
+    printf '%s\n' "${1^^}"
+}
+
+upper "hello"
+upper "HeLlO"
+upper "HELLO"
+
+########## Перевод букв в противоположный регистр ##########
+
+reverse_case() {
+    printf '%s\n' "${1~~}"
+}
+
+reverse_case "hello"
+reverse_case "HeLlO"
+reverse_case "HELLO"
+

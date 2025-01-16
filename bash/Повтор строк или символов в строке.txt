@@ -1,0 +1,12 @@
+#!/bin/bash
+# Повтор строк или символов в строке
+
+########## Повторить n-ое количество раз ##########
+
+myString=$(printf "%5s")
+echo ${myString// /Hello-World }            # печать Hello-World 10 раз
+
+number=20
+myString=$(printf "%$((${number}-1))s")
+echo "${myString}" "*"                      # печать 20 пробелов перед *
+

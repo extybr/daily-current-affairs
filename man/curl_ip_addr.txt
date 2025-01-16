@@ -66,5 +66,3 @@ curl ascii.live/forrest - run Forrest, run!
 curl ascii.live/nyan - watch Nyan Cat
 curl https://poptart.spinda.net — fullscreen colorized Nyan Cat
 
-
-

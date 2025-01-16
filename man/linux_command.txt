@@ -6,6 +6,7 @@ ________
 *** popular programs ***
 
 firefox, brave, links  (web browsers)
+firefox --version
 mc   (Визуальная оболочка для Unix-подобных систем)
 fish  (the friendly interactive shell)
 ranger  (консольный visual file manager)
@@ -19,6 +20,7 @@ virtualbox  (Oracle VM VirtualBox is open source virtualization software that al
 qemu-img  (QEMU disk image utility)
 qemu-img create /media/username/MyDrive/myWindows.img 30G
 qemu-img info FLASH-16G.img
+qemu-img check /var/stuff/mine.qcow2
 qemu-system-x86_64  (QEMU User Documentation)
 qemu-system-x86_64 -m 2048 -drive file=FLASH-16G.img,format=raw
 qemu-system-x86_64 -m 2048 -drive file=KASENS-Ralink.iso,media=cdrom -display none
@@ -28,6 +30,8 @@ vncviewer  (VNC viewer for X)
 vncviewer 192.168.1.3:5900
 vncserver  (start a VNC server)
 vncsession  (start a VNC server)
+vncpasswd  (change the VNC password)
+remmina  (Remmina the GTK+ Remote Desktop Client)
 winecfg  (Wine Configuration Editor)
 winetricks  (manage virtual Windows environments using Wine)
 mpv, smplayer, mplayer, vlc  (video players)
@@ -99,6 +103,9 @@ gnome-firmware
 gnome-photos
 gio  (GIO commandline tool)
 gio help copy
+flatpak  (Build, install and run applications and runtimes)
+magick  (convert between image formats as well as resize an image, blur, crop, despeckle, dither, draw on, flip, join, re-sample,..)
+magick-script  (scripting language that converts between image formats as well as resize an image, blur, crop, despeckle, dither, draw ...)
 ____________
 
 java
@@ -285,6 +292,8 @@ pgrep telegram | xargs ps
 pgrep telegram | xargs lsof -p 2>/dev/null | rg TCP
 pgrep -a firefox
 pgrep htop | xargs kill
+slabtop  (display kernel slab cache information in real time)
+sudo slabtop
 pgrep -u username
 xargs  (build and execute command lines from standard input)
 pidof  (find the process ID of a running program)
@@ -296,6 +305,9 @@ lsof -i -n -P | grep firefox
 lsof -p 1995
 lsof -c firefox
 lsof -u username
+lsof +d /home/tux/Документы
+lsof -c bash
+lsof -d cwd
 jobs -l
 disown -a
 fg
@@ -315,7 +327,9 @@ journalctl  (Print log entries from the systemd journal)
 journalctl -u docker
 dmesg  (print or control the kernel ring buffer)
 sudo dmesg | rg usb
+last  (show a listing of last logged in users)
 last -h  (last -a, last -i)  (show a listing of last logged in users)
+lastb  (show a listing of last logged in users)
 lastlog  (reports the most recent login of all users or of a given user)
 logger  (enter messages into the system log)
 log  (View, export, and configure logging systems)
@@ -369,6 +383,7 @@ sudo vipw
 vigr  (edit the password or group file)
 sudo vigr
 virsh  (management user interface)
+virsh list
 getfacl  (get file access control lists)
 getfacl prometheus-command.txt  (getfacl *)
 users  (print the user names of users currently logged in to the current host)
@@ -376,17 +391,26 @@ groups  (показывает имена групп запустившего п�
 groups root
 cat /etc/group
 newusers  (обновляет и создаёт новые учётные записи пользователей в пакетно...)
+chage  (изменяет информацию об устаревании пароля пользователя)
+chage -l $USER  (View password expiration info)
+finger
 chfn  (Изменение информации finger для пользователя)
 chsh  (Изменение шелла для пользователя)
 chsh -s /bin/zsh
+useradd  (регистрирует нового пользователя или изменяет информацию по умо..)
 useradd -D
+userdel  (удаляет учётную запись и файлы пользователя)
+passwd  (изменяет пароль пользователя)
 sudo passwd newuser
 su newuser
 umask  (права = 777 - umask)
 usermod -aG sudo tux
 sudo usermod -L myuser  (заблокировать пользователя)
 sudo usermod -U myuser  (разблокировать пользователя myuser)
+groupadd  (создаёт новую группу)
 sudo groupadd newgroup
+groupmod  (изменяет определение группы в системе)
+groupdel  (удаляет группу)
 sudo usermod -aG newgroup myuser
 getent group newgroup
 gpasswd  (administer /etc/group and /etc/gshadow)
@@ -396,6 +420,7 @@ logname  (print user's login name)
 
 *** GNU-utils * shell builtin ***
 
+startx  (initialize an X session)
 awk  (язык обработки данных)
 awk -F: '{print $1}' /etc/passwd
 gawk  (pattern scanning and processing language)
@@ -562,6 +587,8 @@ shred  (overwrite a file to hide its contents, and optionally delete it)
 shred --help
 strings  (print the sequences of printable characters in files)
 strings -n 80 ~/.bashrc
+join  (join lines of two files on a common field)
+join -1 3 -2 1 file1 file2
 split  (split a file into pieces)
 swapon  (swapoff)  (enable/disable devices and files for paging and swapping)
 size bin/yt-dlp
@@ -614,6 +641,7 @@ truncate  (shrink or extend the size of a file to the specified size)
 truncate --size +50M filename
 truncate -s 16034824192 usb.img
 tty  (print the file name of the terminal connected to standard input)
+xterm  (terminal emulator for X)
 link  (call the link function to create a link to a file)
 unlink  (call the unlink function to remove the specified file)
 unlink example.txt
@@ -621,6 +649,7 @@ view  (screen oriented (visual) display editor based on ex)
 view .bash_history  (vi, vim, nvim)
 vmstat  (Report virtual memory statistics)
 vmstat -d
+vmstat -S M -s
 zcat  (compress or expand files)
 bzcat  (decompresses files to stdout)
 xzcat (Compress or decompress .xz and .lzma files)
@@ -687,6 +716,7 @@ shutdown  (Halt, power off or reboot the machine)
 shutdown -r now
 poweroff  (Power off, reboot, or halt the machine)
 reboot  (Power off, reboot, or halt the machine)
+halt  (Power off, reboot, or halt the machine)
 
 systemctl  (Control the systemd system and service manager)
 systemctl status
@@ -754,6 +784,7 @@ timeout --signal INT 5s sleep 10
 cal  (display a calendar)
 date  (print or set the system date and time)
 timedatectl  (Control the system time and date)
+hwclock  (time clocks utility)
 
 *** archive ***
 
@@ -805,10 +836,12 @@ drill  (get (debug) information out of DNS(SEC))
 drill rutor.info @8.8.8.8 -T
 dig  (DNS lookup utility)
 dig +trace rutor.info @8.8.8.8
+dig +short rutracker.org
 whois  (client for the whois directory service)
 whois  --verbose mult.ru
 arp  (address resolution protocol)
 arp -vn
+arping  (send ARP REQUEST to a neighbour host)
 mtr  (Combines the functionality of traceroute and ping into one tool)
 net  (Tool for administration of Samba and remote CIFS servers)
 net status sessions
@@ -925,12 +958,15 @@ iptables  (administration tool for IPv4/IPv6 packet filtering and NAT)
 sudo iptables -L -n --line-numbers
 sudo iptables -L -n -v
 sudo iptables --list-rules
+iptables-save  (dump iptables rules)
+sudo iptables-save > iptables.rules
 sudo iptables-nft -L --line-numbers
 nft  (Administration tool of the nftables framework for packet filtering and classification)
 sudo nft -v  (nftables)
 ftp  (File Transfer Protocol client)
 ftp ftp.example.com
 ftp ip_address port
+ftpd  (File Transfer Protocol server)
 cat /etc/hosts
 cat /etc/resolv.conf
 cat /etc/nsswitch.conf
@@ -943,12 +979,30 @@ lnstat -j
 ssh  (OpenSSH remote login client)
 ssh 192.168.1.199 sudo netstat -ntuop
 ssh -v 199 w  (connect to server, print verbouse info connection, output command w)
-ssh-add -L  (print all ssh public key)
 ssh -T git@github.com
 ssh -T git@gitlab.com
+ssh -D 12345 myserver  (Using SSH as a SOCKS Proxy )
+ssh -L 5902:localhost:5902 myserver  (Using VNC on Untrusted Networks with SSH)
+ssh-keygen  (OpenSSH authentication key utility)
+ssh-copy-id  (use locally available keys to authorise logins on a remote machine)
+ssh-agent  (OpenSSH authentication agent)
+ssh-add  (adds private key identities to the OpenSSH authentication agent)
+ssh-add -L  (print all ssh public key)
 scp  (OpenSSH secure file copy)
+sftp  (OpenSSH secure file transfer)
+sftp-server  (OpenSSH SFTP server subsystem)
 rsync  (a fast, versatile, remote (and local) file-copying tool)
 sync  (Synchronize cached writes to persistent storage)
+lftp
+findsmb
+smbpasswd
+smbclient
+smbstatus
+smbtree  (A text based smb network browser)
+exportfs  (maintain table of exported NFS file systems)
+showmount  (show mount information for an NFS server)
+nmblookup  (NetBIOS over TCP/IP client used to lookup NetBIOS names)
+mii-tool  (view, manipulate media-independent interface status)
 
 *** hardware info ***
 
@@ -981,6 +1035,23 @@ lscpu  (display information about the CPU architecture)
 lscpu | grep -i mhz
 cat /proc/cpuinfo
 cat /proc/cpuinfo | grep -i mhz | uniq
+cat /proc/devices
+cat /proc/cmdline
+cat /proc/diskstats
+cat /proc/filesystems
+cat /proc/interrupts
+cat /proc/iomem
+cat /proc/ioports
+cat /proc/loadavg
+cat /proc/meminfo
+cat /proc/misc
+cat /proc/modules
+cat /proc/mounts
+cat /proc/partitions
+cat /proc/stat
+cat /proc/swaps
+ cat /proc/uptime
+ cat /proc/version
 head -n 5 /proc/stat
 sensors  (print sensors information)
 sensors -u
@@ -1008,6 +1079,12 @@ lsb_release -r
 lsb_release -i
 sudo dmesg | grep Linux
 
+init  (systemd system and service manager)
+dmidecode  (DMI table decoder)
+sudo dmidecode
+sudo dmidecode -t 17,20
+modinfo  (Show information about a Linux Kernel module)
+modinfo parport_pc
 lsattr  (list file attributes on a Linux second extended file system)
 lsfd  (list file descriptors)
 lsmod  (depmod, insmod, rmmod, modprobe)
