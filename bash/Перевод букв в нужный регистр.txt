@@ -3,31 +3,36 @@
 
 ########## Перевод букв в нижний регистр ##########
 
-lower() {
-    printf '%s\n' "${1,,}"
-}
+lower="HELLO"
+printf '%s\n' "${lower,,}"
 
-lower "HELLO"
-lower "HeLlO"
-lower "hello"
+########## Перевод первой буквы в нижний регистр ##########
 
-########## Перевод букв в верхний регистр ##########
+lower="HELLO"
+printf '%s\n' "${lower,}"
 
-upper() {
-    printf '%s\n' "${1^^}"
-}
+########## Перевод всех букв в верхний регистр ##########
 
-upper "hello"
-upper "HeLlO"
-upper "HELLO"
+upper="hello"
+printf '%s\n' "${upper^^}"
+
+########## Перевод первой буквы в верхний регистр ##########
+
+upper="hello"
+printf '%s\n' "${upper^}"
 
 ########## Перевод букв в противоположный регистр ##########
 
 reverse_case() {
-    printf '%s\n' "${1~~}"
+  printf '%s\n' "${1~~}"
 }
 
 reverse_case "hello"
 reverse_case "HeLlO"
 reverse_case "HELLO"
+
+########## Перевод первой буквы в противоположный регистр ##########
+
+reverse_case="HeLlO"
+printf '%s\n' "${reverse_case~}"
 

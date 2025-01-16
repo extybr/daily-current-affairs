@@ -46,5 +46,9 @@ echo "usage: ${0##*/} namesfile datafile"  # Сценарий можно зап�
 /home/user/bin/script   ${path##*/}     home/user/bin/script
 /home/user/bin/script   ${path#/home}   /user/bin/script
 /home/user/bin/script   ${path#*user}   /bin/script
+image.001.jpg           ${img%.*}       image.001
+image.001.jpg           ${img%%.*}      image
+/home/user/bin/script   ${path%/*}      /home/user/bin
+../home/user/bin/script   ${path%%/*}   ..
 
 
