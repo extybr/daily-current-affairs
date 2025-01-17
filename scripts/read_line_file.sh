@@ -1,7 +1,23 @@
 #!/bin/bash
+
 IFS=$'\n'
-file="${HOME}/.bash_history"
-for var in $(cat ${file})
+for var in $(cat "${HOME}/.bash_history")
 do
   echo "${var}"
 done
+
+##############################
+
+for var in $(< ~/.bash_history)
+do
+  echo "${var}"
+done
+
+##############################
+
+while read line; do
+  echo "$line"
+done < ~/.bash_history
+
+##############################
+

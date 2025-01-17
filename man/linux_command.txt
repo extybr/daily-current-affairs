@@ -185,6 +185,14 @@ xxd -r 256x64-greyscale-4bit.txt 256x64-greyscale-4bit.bmp
 shc  (транслятор Bash в C (бинарник из bash скрипта) )
 shc -r -f usd-btc.sh
 
+expr  (evaluate expressions)
+expr length "string"
+expr 5 \* 2
+dc  (an arbitrary precision calculator)
+dc --expression='10 k 5 3 / p'
+bc  (An arbitrary precision calculator language)
+echo '5 / 3' | bc
+
 *** disk utils ***
 
 dd  (a powerful tool for disk management)
@@ -473,6 +481,9 @@ less prometheus-command.txt
 more  (display the contents of a file in a terminal)
 more prometheus-command.txt
 zmore  (file perusal filter for crt viewing of compressed text)
+comm  (compare two sorted files line by line)
+comm file1 file2
+comm -12 <(sort file1.csv) <(sort file2.csv)
 diff  (compare files line by line)
 diff webui_en.py webui_ru.py
 diff3  (compare three files line by line)
@@ -704,6 +715,12 @@ update-desktop-database  (Build cache database of MIME types handled by desktop 
 ktutil  (Kerberos keytab file maintenance utility)
 kinit  (obtain and cache Kerberos ticket-granting ticket)
 rpcinfo  (report RPC information)
+yacc  (GNU Project parser generator)
+lex  (Lexical analyzer generator)
+compgen  (A built-in command for auto-completion in Bash, which is called on pressing TAB key twice)
+compgen -c
+compgen -a
+compgen -k
 
 mknod  (make block or character special files)
 mknod FILE c 1 5  (/dev/zero)
