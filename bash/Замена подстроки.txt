@@ -1,5 +1,0 @@
-#!/bin/bash
-# Замена подстроки
-
-word='Hello world'; echo "${word/o/..bye..bye}"
-

@@ -1,0 +1,114 @@
+#!/bin/bash
+# Замена подстроки / Удаление символов из строки по шаблону
+
+#################### Замена подстроки ####################
+
+Значение $0                     Выражение               Возвращаемый результат
+
+./ascript                       ${0#*/}                 ascript
+./ascript                       ${0##*/}                ascript
+../bin/ascript                  ${0#*/}                 bin/ascript
+../bin/ascript                  ${0##*/}                ascript
+/home/guy/bin/ascript           ${0#*/}                 home/guy/bin/ascript
+/home/guy/bin/ascript           ${0##*/}                ascript
+/home/user/bin/script           ${0##*/}                home/user/bin/script
+/home/user/bin/script           ${0#/home}              /user/bin/script
+/home/user/bin/script           ${0#*user}              /bin/script
+
+image.001.jpg                   ${0%.*}                 image.001
+image.001.jpg                   ${0%%.*}                image
+/home/user/bin/script           ${0%/*}                 /home/user/bin
+../home/user/bin/script         ${0%%/*}                ..
+
+'Hello world'                   ${0/o/..bye..bye}       'Hell..bye..bye world'
+'Hello world'                   ${0/o/}                 'Hell world'
+/home user bin script'          ${0// /_}               /home_user_bin_script
+'/home user bin script'         ${0// /}                /homeuserbinscript
+'/home user bin script'         ${0/ /_}                '/home_user bin script'
+'/home user bin script'         ${0//\//}               'home user bin script'
+'/home user /bin script'        ${0//\//}               'home user bin script'
+'/home user /bin script'        ${0/\//}                'home user /bin script'
+
+text="Hello World"      # основной текст, который нужно обрезать
+before=${text%"$1"*}    # удаление части основного текста до переданного символа/слова
+after=${text#*"$1"}     # удаление части основного текста после переданного символа/слова
+cut=${text// /}         # удаление всех пробелов с основного текста
+
+########## Удаление символов из строки по шаблону ##########
+
+strip_all() {
+    printf '%s\n' "${1//$2}"
+}
+
+strip_all "The Quick Brown Fox" "[aeiou]"
+# Th Qck Brwn Fx
+strip_all "The Quick Brown Fox" "[[:space:]]"
+# TheQuickBrownFox
+strip_all "The Quick Brown Fox" "Quick "
+# The Brown Fox
+
+########## Удаление символов из строки по шаблону (первое вхождение) ##########
+
+strip() {
+    printf '%s\n' "${1/$2}"
+}
+
+strip "The Quick Brown Fox" "[aeiou]"
+# Th Quick Brown Fox
+strip "The Quick Brown Fox" "[[:space:]]"
+# TheQuick Brown Fox
+
+########## Удаление по шаблону из начала строки ##########
+
+lstrip() {
+    printf '%s\n' "${1##$2}"
+}
+
+lstrip "The Quick Brown Fox" "The "
+# Quick Brown Fox
+
+########## Удаление по шаблону из конца строки ##########
+
+rstrip() {
+    printf '%s\n' "${1%%$2}"
+}
+
+rstrip "The Quick Brown Fox" " Fox"
+# The Quick Brown
+
+########## Удаление кавычек из строки ##########
+
+trim_quotes() {
+    : "${1//\'}"
+    printf '%s\n' "${_//\"}"
+}
+
+var="'Hello', \"World\""
+trim_quotes "$var"
+
+########## Удаление пробелов ##########
+
+trim_string() {
+    : "${1#"${1%%[![:space:]]*}"}"
+    : "${_%"${_##*[![:space:]]}"}"
+    printf '%s\n' "$_"
+}
+
+trim_string "    Hello,  World    "
+name="   John Black  "
+trim_string "$name"
+
+
+# shellcheck disable=SC2086,SC2048
+trim_all() {
+    set -f
+    set -- $*
+    printf '%s\n' "$*"
+    set +f
+}
+
+trim_all "    Hello,    World    "
+name="   John   Black  is     my    name.    "
+trim_all "$name"
+
+

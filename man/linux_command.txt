@@ -35,7 +35,7 @@ remmina  (Remmina the GTK+ Remote Desktop Client)
 winecfg  (Wine Configuration Editor)
 winetricks  (manage virtual Windows environments using Wine)
 mpv, smplayer, mplayer, vlc  (video players)
-qmmp, audacious  (audio players)
+qmmp, audacious, amberol  (audio players)
 mocp  (Console audio player)
 cmus  (консольный C* Music Player)
 ffmpeg  (ffmpeg media converter)
@@ -47,7 +47,8 @@ phiola  (cli and gui audio player/recorder/converter; https://github.com/stsaz/p
 ./phiola './Audio/Tim McGraw/2 Compilations' -o music.m3u8
 ./phiola -s 00:02:00 ~/music/file.mp3
 ./phiola .
-snapshot
+snapshot  (Снимайте фото и видео)
+fragments  (Простой BitTorrent-клиент)
 gimp  (an image manipulation and paint program)
 flameshot  (cross-platform tool to take screenshots with many built-in features to save you time)
 shellcheck  (Shell script analysis tool)
