@@ -5,6 +5,7 @@
 
 text='Hello World'
 echo "${text:1:-1}"
+echo "${text::5}"
 
 set -- 01234567890abcdefgh
 echo ${1:7}

@@ -1,4 +1,6 @@
 #!/bin/bash
+# $> ./choice-radio.sh
+set -e
 
 top40="http://prmstrm.1.fm:8000/top40"
 europaplus="http://ep256.hostingradio.ru:8052/europaplus256.mp3"

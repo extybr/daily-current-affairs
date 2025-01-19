@@ -83,6 +83,7 @@ alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
 alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../man/linux_command.txt"
+alias el/='expr length'
 source ${SCRIPTS_DIRECTORY}/functions.sh
 
 alias py=python3.13

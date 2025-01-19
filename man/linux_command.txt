@@ -36,6 +36,7 @@ winecfg  (Wine Configuration Editor)
 winetricks  (manage virtual Windows environments using Wine)
 mpv, smplayer, mplayer, vlc  (video players)
 qmmp, audacious, amberol  (audio players)
+shortwave  (radio stations)
 mocp  (Console audio player)
 cmus  (консольный C* Music Player)
 ffmpeg  (ffmpeg media converter)
@@ -50,6 +51,8 @@ phiola  (cli and gui audio player/recorder/converter; https://github.com/stsaz/p
 snapshot  (Снимайте фото и видео)
 fragments  (Простой BitTorrent-клиент)
 gimp  (an image manipulation and paint program)
+feh  (image viewer and cataloguer)
+feh --slideshow-delay seconds path/to/images
 flameshot  (cross-platform tool to take screenshots with many built-in features to save you time)
 shellcheck  (Shell script analysis tool)
 shellcheck ~/my_programs/os.sh
@@ -111,8 +114,14 @@ ____________
 
 java
 java -jar ESPlorer.jar
+jar  (To archive all files in the current directory into a jar file)
+jar cf <file.jar> *
 g++  (GNU project C and C++ compiler)
 gcc  (GNU project C and C++ compiler)
+c++  (It is called block and it is language-level addition to C and Obj-C)
+clang  (the Clang C, C++, and Objective-C compiler)
+clangd  (Language server that provides IDE-like features to editors)
+as  (the portable GNU assembler)
 gs  (Ghostscript (PostScript and PDF language interpreter and previewer))
 lua  (Lua interpreter)
 go  (Go is a tool for managing Go source code)
@@ -426,6 +435,7 @@ gpasswd  (administer /etc/group and /etc/gshadow)
 sudo gpasswd --delete myuser newgroup
 loginctl  (Control the systemd login manager)
 logname  (print user's login name)
+pass  (Initalize password store using a gpg id)
 
 *** GNU-utils * shell builtin ***
 
@@ -488,6 +498,8 @@ diff  (compare files line by line)
 diff webui_en.py webui_ru.py
 diff3  (compare three files line by line)
 diffimg  (Calculates intersection between two images)
+sdiff  (side-by-side merge of file differences)
+sdiff -Z path/to/file1 path/to/file2
 watch  (execute a program periodically, showing output fullscreen)
 which  (shows the full path of (shell) commands)
 which zsh bash bat
@@ -539,7 +551,11 @@ make  (GNU Make utility to maintain groups of programs)
 makeconv  (compile a converter table)
 makeinfo  (translate Texinfo documents)
 makepkg  (package build utility)
-set -o
+set  (Display, set or unset values of shell attributes and positional parameters)
+set -eoux pipefail
+unset  (специальная встроенная команда bash)
+unset -v foo bar
+xtrace
 shopt
 modprobe  (Add and remove modules from the Linux Kernel)
 sudo modprobe <module_name>
@@ -576,6 +592,8 @@ eject  (eject removable media)
 pr  (convert text files for printing)
 man pr
 ionice  (set or get process I/O scheduling class and priority)
+ionice -p$(pgrep firefox)
+ionice -c2 -n0 bash
 nice  (run a program with modified scheduling priority)
 glxinfo | grep -i "direct rendering"
 rev  (reverse lines characterwise)
@@ -622,6 +640,7 @@ function
 local
 readonly
 dirs
+coproc  (Bash builtin for creating interactive asynchronous subshells)
 read
 trap
 alias
@@ -631,7 +650,6 @@ getconf  (The utility prints the value of a POSIX or X/Open path or system confi
 getconf LONG_BIT
 getconf CHILD_MAX
 getconf -a
-set
 export
 install  (copy files and set attributes)
 exec bash
@@ -803,6 +821,11 @@ cal  (display a calendar)
 date  (print or set the system date and time)
 timedatectl  (Control the system time and date)
 hwclock  (time clocks utility)
+times  (специальная встроенная команда bash)
+time  (ключевое слово командного процессора)
+time command
+waitpid  (utility to wait for arbitrary processes)
+wait  (Wait for a process to complete before proceeding)
 
 *** archive ***
 
@@ -951,6 +974,7 @@ curl  (transfer a URL)
 curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e
 GET  (Simple command line user agent)
 GET http://127.0.0.1
+GET https://v4.ident.me/
 POST  (Simple command line user agent)
 tcpdump  (dump traffic on a network)
 wget  (The non-interactive network downloader)

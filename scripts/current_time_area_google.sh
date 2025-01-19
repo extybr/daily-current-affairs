@@ -3,26 +3,36 @@
 # ./current_time_area_google.sh New-York   #
 ############################################
 
-region=$(echo "$1" | sed 's/ /-/g')
+REGION=$(echo "$1" | sed 's/ /-/g')
 USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0"
+NUMBER=10
+
+GMT=$(curl -s -I 'https://google.com' | grep 'date:')
 
 google() {
-  time=$(curl -s --max-time 5 -A "${USER_AGENT}" "https://www.google.com/search?q=current+time+$1" | \
-         grep -oP '"3" role="heading">[^<]+' | sed "s/\"3\" role=\"heading\">/\\n/g")
-  echo "${time}"
+#  time=$(curl -s --max-time 5 -A "${USER_AGENT}" "https://www.google.com/search?q=current+time+${REGION}" | \
+#         grep -oP '"3" role="heading">[^<]+' | sed "s/\"3\" role=\"heading\">/\\n/g")
+  ct=$(echo "${GMT}" | awk '{print $6}')
+  if [[ "${ct}" ]]; then
+    ctt="${ct:0:2}"
+    if (( $ctt > 13 )) && (( $ctt < 24 )); then
+      ctt=$(( $ctt - 14 ))
+    else ctt=$(( "${ctt}" + "${NUMBER}" ))
+    fi
+    TIME="${ctt}${ct:2}"
+  fi
 }
 
 time_is() {
-  time=$(curl -s --max-time 5 -A "${USER_AGENT}" --location "https://time.is/$1" | \
+  TIME=$(curl -s --max-time 5 -A "${USER_AGENT}" --location "https://time.is/${REGION}" | \
          grep -oP '<time id="clock">[^<]+</t' | sed 's/<time id="clock">//g ; s/<\/t//g')
-  echo "${time}"
 }
 
-exact_time=$(google "${region}")
-if ! [[ "${exact_time}" ]]; then
-  exact_time=$(time_is "${region}")
+if [ "$#" -eq 1 ] && time_is && [[ "${TIME}" ]]; then
+  true
+else google
 fi
 
-echo -e "\n\e[31m${exact_time}\e[0m\n"
-curl -I 'https://google.com' 2>&1 | grep date  # date (GMT) from google
+echo -e "\n\e[31m ${TIME}\e[0m\n"
+echo "${GMT}"  # date (GMT) from google
 
