@@ -8,6 +8,13 @@ function cutX {
   # ls | sed "p;s:^[0-9]\{1,3\}\.[\]\s::g" | xargs -n2 -p mv -i
 }
 
+function renameSuffix {
+  # Переименовываем все файлы с указанным расширение в текущей папке
+  for file in *.txt; do 
+    mv $file ${file/txt/TXT}
+  done
+}
+
 function cutN() {
   # Удаляем по n символов с имени каждого файла
   IFS=$'\n'; n=5; for i in $(ls -1); do
