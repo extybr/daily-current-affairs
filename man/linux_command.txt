@@ -116,6 +116,7 @@ java
 java -jar ESPlorer.jar
 jar  (To archive all files in the current directory into a jar file)
 jar cf <file.jar> *
+perl  (The Perl 5 language interpreter)
 g++  (GNU project C and C++ compiler)
 gcc  (GNU project C and C++ compiler)
 c++  (It is called block and it is language-level addition to C and Obj-C)
