@@ -1,4 +1,5 @@
 #!/bin/bash
+# $> ./sl.sh
 # Для циклического запуска программы sl
 trap "echo ' Trapped Ctrl-C'; exit 0" SIGINT
 while true

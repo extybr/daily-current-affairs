@@ -1,7 +1,6 @@
-#!/bin/sh
-########################
-# $> ./open_ports.sh   #
-########################
+#!/bin/bash
+# $> ./open_ports.sh
+# Открытые порты
 
 echo "*****  open ports on my host  *****"
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Добавляет записи в iptables для отброса icmp пакетов
 
 iptables -A INPUT -p icmp -j DROP
 iptables -A OUTPUT -p icmp -j ACCEPT

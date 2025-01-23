@@ -1,4 +1,5 @@
 #!/bin/bash
+# $> ./keys_press.sh
 # Выводит нажатые клавиши
 
 while read -sN1 ; do

@@ -1,9 +1,7 @@
-#!/bin/sh
-#######################
-# $> ./antizapret.sh  #
-#######################
-
+#!/bin/bash
+# $> ./antizapret.sh
 # antizapret.prostovpn.org
+# Получение прокси антизапрета
 
 address=$(curl --max-time 3 -i -s https://p.thenewone.lol:8443/proxy.pac | \
           grep "location:" | cut -f2 -d " ")

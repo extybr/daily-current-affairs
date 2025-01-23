@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 ############################################
 # ./current_time_area_google.sh New-York   #
 ############################################
+# Показывает текущее время указанного города/региона с сайта google.com или time.is
 
 REGION=$(echo "$1" | sed 's/ /-/g')
 USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0"

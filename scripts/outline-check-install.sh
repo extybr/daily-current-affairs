@@ -1,5 +1,6 @@
 #!/bin/bash
 # ./outline-check-install.sh
+# Проверка последней версии outline с возможностью установки
 
 violet="\e[35m"
 blue="\e[36m"

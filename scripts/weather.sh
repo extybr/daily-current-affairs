@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##############################
 # $> ./weather.sh            #
 # $> ./weather.sh New-York   #
