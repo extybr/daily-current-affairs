@@ -1,5 +1,6 @@
 #!/bin/bash
 # $> ./format.sh
+# WARNING: Форматирование, выбранного диска
 
 source ./text-color.sh
 

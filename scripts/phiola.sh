@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 #################################################
 # $> ./phiola.sh .                              #
 # $> ./phiola.sh file.mp3                       #
 # $> ./phiola.sh https://example.com/file.m3u   #
 #################################################
+# Запуск аудиопрограммы phiola с определенными параметрами
 
 source "${SCRIPTS_DIRECTORY}"/set_get_volume.sh
 

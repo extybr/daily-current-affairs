@@ -5,6 +5,7 @@
 
 echo "*****  open ports on my host  *****"
 
+# FIXME: возможные варианты >
 # lsof -i -n -P | tr -s " " | cut -d " " -f 9 | cut -d ":" -f 2 | \
 # cut -d "-" -f 1 | grep -v "NAME"
 

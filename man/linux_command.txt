@@ -48,6 +48,8 @@ phiola  (cli and gui audio player/recorder/converter; https://github.com/stsaz/p
 ./phiola './Audio/Tim McGraw/2 Compilations' -o music.m3u8
 ./phiola -s 00:02:00 ~/music/file.mp3
 ./phiola .
+notify-send  (a program to send desktop notifications)
+notify-send 'Hello World !!!'
 snapshot  (Снимайте фото и видео)
 fragments  (Простой BitTorrent-клиент)
 gimp  (an image manipulation and paint program)

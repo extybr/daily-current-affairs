@@ -1,6 +1,7 @@
 #!/bin/bash
-# https://radio-t.com
 # $> ./radio-t.sh
+# https://radio-t.com
+# Для вывода тем и ссылки последнего выпуска
 
 blue='\e[36m'
 yellow='\e[33m'

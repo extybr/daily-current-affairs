@@ -1,5 +1,6 @@
 #!/bin/bash
-#https://github.com/Jigsaw-Code/outline-sdk
+# https://github.com/Jigsaw-Code/outline-sdk
+# HACK: для запуска программы с ключами
 
 port_8080() {
   # port=8080

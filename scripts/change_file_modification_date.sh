@@ -1,5 +1,6 @@
 #!/bin/bash
 # $> ./change_file_modification_date.sh '~/Documents/file.txt'
+# Замена времени изменения и создания файла на текущее
 
 normal="\033[0m"
 yellow="\033[33m"

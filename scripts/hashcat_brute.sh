@@ -1,5 +1,6 @@
 #!/bin/bash
 # $> ./hashcat_brute.sh ef2d127de37b942baad0614
+# Вариант брутфорса хэша с помощью hashcat
 
 set -e
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Варианты использования openssl
 
 function cryptArchive {
   # Шифруем архив

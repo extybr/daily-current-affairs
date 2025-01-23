@@ -1,5 +1,6 @@
 #!/bin/bash
 # ./encoding-cp1251-to-utf8.sh path/file.txt
+# Изменение кодировки файла с cp-1251 в utf-8
 
 yellow="\033[33m"
 normal="\033[0m"

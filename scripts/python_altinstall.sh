@@ -1,5 +1,6 @@
 #!/bin/bash
 # $> ./python_altinstall.sh 3.14.0 a3
+# WAGNING: Установка другой версии python
 
 if [[ "$#" -lt 1 || "$#" -gt 2 ]]; then
    echo "Ожидалось 1 или 2 параметра"

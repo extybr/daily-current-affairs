@@ -1,5 +1,7 @@
 #!/bin/bash
 # $> ./choice-radio.sh
+# Выбор радио и громкости звука
+
 set -e
 
 top40="http://prmstrm.1.fm:8000/top40"

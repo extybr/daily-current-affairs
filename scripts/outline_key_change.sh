@@ -1,4 +1,6 @@
 #!/bin/bash
+# $> ./outline_key_change.sh
+# HACK: для изменения ключей в программе
 
 cd ~/my_programs/outline-sdk
 pkill http2transport

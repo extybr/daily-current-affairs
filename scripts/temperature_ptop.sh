@@ -2,6 +2,7 @@
 ##############################
 # $> ./temperature_ptop.sh   #
 ##############################
+# Показывает температуру CPU и GPU с цветовой раскраской
 
 temperature () {
   GPU=$(nvidia-smi | rg Default | tr -s " " | cut -d " " -f3 | sed "s/C//g")

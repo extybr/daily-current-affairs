@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+# python yt-dlp-rename.py path/directory
+# Удаляет с названия файла, определенные патерны
 
 import re
 import sys

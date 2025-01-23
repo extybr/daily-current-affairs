@@ -1,8 +1,9 @@
 #!/bin/bash -
 # $> ./find_warning_comments.sh /path/directory
+# Рекурсивный поиск меток [TODO|FIXME|HACK|WARNING|ERROR|XXX|NOTE|BUG] в комментариях файлов с указанными расширениями
 
 SRCPATH="$1"
-TAGS="TODO|FIXME|HACK|WARNING"
+TAGS="TODO|FIXME|HACK|WARNING|XXX:|NOTE|BUG"
 ERRORTAG="# ERROR|ERROR:"
 
 OUTPUT=$(find "${SRCPATH}" ! \( -path "*venv*" -or -path "*build*" \) \( -name "*.sh" -or -name "*.py" -or -name "*.go" \) -print0 | \
@@ -11,7 +12,7 @@ OUTPUT=$(find "${SRCPATH}" ! \( -path "*venv*" -or -path "*build*" \) \( -name "
 
 echo "$OUTPUT"
 
-if [[ $OUTPUT == *" error: "* ]]; then
+if [[ "$OUTPUT" == *" error: "* ]]; then
   exit 1
 fi
 

@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 #############################
 # $> ./pacs.sh my_program   #
 #############################
+# Поиск указанной программы с помощью программ pacman/yay/flatpak
 
 if printf "\e[31m%s\e[0m\n" "sudo pacman -Ss $1"; sudo pacman -Ss "$1"; then exit 0; fi
 	

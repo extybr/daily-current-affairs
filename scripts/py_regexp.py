@@ -1,4 +1,5 @@
-#!/bin/python3
+#!/usr/bin/python3
+# Показывает совпадения с тексте и переданной регулярке
 
 import sys
 import re

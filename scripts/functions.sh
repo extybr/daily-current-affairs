@@ -1,4 +1,5 @@
 #!/bin/zsh
+# HACK: для применения в файле .zshrc
 
 function cy/ {
   current_dir=$(pwd)

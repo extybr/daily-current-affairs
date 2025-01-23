@@ -1,10 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 ####################################
 # $> ./dig_drill_ip.sh rutor.info  #
 ####################################
-
-# IP address determination
-# tracing blocked and not blocked IP addresses
+# HACK: IP address determination tracing blocked and not blocked IP addresses
 
 blue="\033[36m"
 red='\033[31m'

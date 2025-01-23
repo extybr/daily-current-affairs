@@ -10,6 +10,7 @@ NUMBER=10
 GMT=$(curl -s -I 'https://google.com' | grep 'date:')
 
 google() {
+# FIXME: закомментированный код перестал работать
 #  time=$(curl -s --max-time 5 -A "${USER_AGENT}" "https://www.google.com/search?q=current+time+${REGION}" | \
 #         grep -oP '"3" role="heading">[^<]+' | sed "s/\"3\" role=\"heading\">/\\n/g")
   ct=$(echo "${GMT}" | awk '{print $6}')

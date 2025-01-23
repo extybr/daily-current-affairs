@@ -1,4 +1,7 @@
 #!/bin/sh
+# $> ./map.sh London
+# Запуск карты, указанного города
+# WARNING: необходимо наличие TkinterMapView
 
 white="\e[37m"
 violet="\e[35m"

@@ -4,6 +4,7 @@
 # $> ./antizapret_proxy.py curl       #
 # $> ./antizapret_proxy.py requests   #
 #######################################
+# Варианты получения прокси адреса антизапрета
 
 import sys
 import subprocess

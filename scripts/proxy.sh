@@ -1,4 +1,5 @@
 #!/bin/bash
+# Показывает используемый прокси адрес
 
 addr_proxy() {
 address=$(curl -s --location --max-time 3 'https://p.thenewone.lol:8443/proxy.pac' | \
@@ -17,7 +18,7 @@ if curl -s localhost:1080 &> /dev/null; then
 elif curl -s localhost:8080 &> /dev/null; then
   proxy="--proxy localhost:8080"
 else addr_proxy
-#else proxy="--proxy n.thenewone.lol:29976"
+# FIXME: else proxy="--proxy n.thenewone.lol:29976"
 fi
 echo "${proxy} "
 

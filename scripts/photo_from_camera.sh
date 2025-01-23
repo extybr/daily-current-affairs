@@ -1,4 +1,6 @@
 #!/bin/bash
+# $> ./photo_from_camera.sh
+# Делает фото с камеры гаджета
 
 sleep 1
 dt=$(date "+%d-%m-%y_%H-%M-%S")

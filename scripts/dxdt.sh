@@ -1,7 +1,6 @@
 #!/bin/bash
-##################
-# $> ./dxdt.sh   #
-##################
+# $> ./dxdt.sh
+# Парсинг RSS сайта dxdt.ru
 
 request=$(curl -s 'https://dxdt.ru/feed/' | \
           grep -E '(<title>|<link>|<pubDate>)' | \

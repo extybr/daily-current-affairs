@@ -1,4 +1,6 @@
 #!/bin/bash
+# $> ./rbc_title_news.sh
+# Парсинг RSS тем сайта rbc.ru
 
 white="\e[36m"
 normal="\e[0m"

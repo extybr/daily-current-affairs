@@ -1,4 +1,6 @@
 #!/bin/bash
+# $> ./read_line_file.sh
+# TODO: замена пути файла для чтения
 
 IFS=$'\n'
 for var in $(cat "${HOME}/.bash_history")

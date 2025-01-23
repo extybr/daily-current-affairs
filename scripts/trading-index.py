@@ -1,7 +1,8 @@
-#!/bin/python3
+#!/usr/bin/python3
 ###########################
 # $> ./trading-index.py   #
 ###########################
+# Парсинг сайта tradingview.com с показом индексов основных рынков в виде таблицы
 
 import requests
 import re

@@ -1,5 +1,6 @@
 #!/bin/bash
 # $> ./python_release.sh
+# Парсинг сайта www.python.org с показом релизов
 
 blue="\e[36m"
 normal="\e[0m"
