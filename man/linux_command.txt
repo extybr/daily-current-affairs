@@ -50,6 +50,7 @@ phiola  (cli and gui audio player/recorder/converter; https://github.com/stsaz/p
 ./phiola .
 notify-send  (a program to send desktop notifications)
 notify-send 'Hello World !!!'
+notify-send "Topic" "my message" --icon=google-chrome --app-name="Google Chrome" -u critical
 snapshot  (Снимайте фото и видео)
 fragments  (Простой BitTorrent-клиент)
 gimp  (an image manipulation and paint program)
@@ -663,6 +664,7 @@ exec  (shell built-in command)
 true  (do nothing, successfully)
 false  (do nothing, unsuccessfully)
 shift  (shift is a shell builtin)
+gperf  (generate a perfect hash function from a key set)
 hash  (hash is a shell builtin)
 rhash  (calculate/check CRC32, MD5, SHA1, GOST, TTH, BTIH or other message digests)
 rhash -r --sha256 directory/ > directory.sha256
