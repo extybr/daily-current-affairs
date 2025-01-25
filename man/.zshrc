@@ -27,6 +27,7 @@ unsetopt correct
 export wlan0='wlp3s0'
 export wlan1='wlp0s20f0u1u4'
 export GITHUB_DIRECTORY="${HOME}/PycharmProjects/github"
+export GITLAB_DIRECTORY="${HOME}/PycharmProjects/gitlab"
 export SCRIPTS_DIRECTORY="${GITHUB_DIRECTORY}/daily-current-affairs/scripts"
 export TRACKER_PARSER_DIRECTORY="${GITHUB_DIRECTORY}/tracker_parser"
 export SAMSUNG_DIRECTORY="/run/media/${USER}/Samsung-1TB"
@@ -73,7 +74,7 @@ alias rgh/='cat ~/.zhistory | rg $1'
 alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
 alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
-alias ti/=${SCRIPTS_DIRECTORY}'/trading-index.py'
+alias ti/=${GITLAB_DIRECTORY}'/tradingindex_to_html_sql_csv_json/trading-index.py'
 alias cd/="pushd ${SCRIPTS_DIRECTORY}"
 alias ph="${SCRIPTS_DIRECTORY}/phiola.sh"
 alias 40/="ph http://prmstrm.1.fm:8000/top40"
