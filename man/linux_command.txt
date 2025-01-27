@@ -187,6 +187,10 @@ echo | openssl s_client -connect youtube.com:443 2> /dev/null | awk '/-----BEGIN
 gpg  (OpenPGP encryption and signing tool)
 gpg -e text.txt
 gpg -d crypto_text.txt.gpg
+gpg-agent  (Secret key management for GnuPG)
+gpg2  (GNU Privacy Guard 2)
+gpg2 --list-keys
+gpg2 -K
 
 hexdump  (display file contents in hexadecimal, decimal, octal, or ascii)
 hexdump usd-btc.sh > usd-btc.bin
@@ -451,6 +455,7 @@ env  (run a program in a modified environment)
 printenv  (print all or part of environment)
 sed  (stream editor for filtering and transforming text)
 seq  (print a sequence of numbers)
+cut  (To cut out the third field of text or stdoutput that is delimited by a #:)
 tr  (translate or delete characters)
 tr A-Z a-z
 uniq  (report or omit repeated lines)
@@ -599,7 +604,11 @@ ionice  (set or get process I/O scheduling class and priority)
 ionice -p$(pgrep firefox)
 ionice -c2 -n0 bash
 nice  (run a program with modified scheduling priority)
+vulkaninfo  (диагностика графического стека)
+glxinfo  (тестирование производительности графического ускорителя)
 glxinfo | grep -i "direct rendering"
+glxgears  (Проверка производительности 3D-ускорение)
+glxgears -info
 rev  (reverse lines characterwise)
 echo "Hello World" | rev
 xdg-open  (opens a file or URL in the user's preferred application)
@@ -624,6 +633,7 @@ strings -n 80 ~/.bashrc
 join  (join lines of two files on a common field)
 join -1 3 -2 1 file1 file2
 split  (split a file into pieces)
+stdbuf  (Run COMMAND, with modified buffering operations for its standard streams)
 swapon  (swapoff)  (enable/disable devices and files for paging and swapping)
 size bin/yt-dlp
 echo "first\nsecond" | tac
@@ -846,7 +856,8 @@ gunzip file.gz
 xz  (Compress or decompress .xz and .lzma files)
 xz file.txt
 xz -d ./*  (decompress)
-unxz file.xz
+unxz  (Compress or decompress .xz and .lzma files)
+unxz file.tar.xz
 zip  (package and compress (archive) files)
 zip archive.zip first.txt second.mp3 file.pdf
 unzip archive.zip
@@ -1050,6 +1061,7 @@ exportfs  (maintain table of exported NFS file systems)
 showmount  (show mount information for an NFS server)
 nmblookup  (NetBIOS over TCP/IP client used to lookup NetBIOS names)
 mii-tool  (view, manipulate media-independent interface status)
+tc  (show / manipulate traffic control settings)
 
 *** hardware info ***
 
