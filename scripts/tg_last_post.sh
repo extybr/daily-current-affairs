@@ -17,7 +17,7 @@ tg_channel=${name#*"https://t.me/"}
 tg_channel=${name#*"t.me/"}
 
 proxy=''
-source ${SCRIPTS_DIRECTORY}/proxy.sh 1> /dev/null
+source "${SCRIPTS_DIRECTORY/'~'/$HOME}"/proxy.sh 1> /dev/null
 
 html_content_page=$(curl -s ${proxy} "https://t.me/s/${tg_channel}/" | \
   grep  '<span class="tgme_widget_message_views">')
