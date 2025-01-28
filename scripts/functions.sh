@@ -24,18 +24,14 @@ function tt/ {
 function cre/ {
   current_dir=$(pwd)
   cd ${GITHUB_DIRECTORY}/youtube_latest_videos
-  if [ "$#" -eq 1 ]; then
-    python curl_re.py $1
-  fi
+  [[ "$#" -eq 1 ]] && python curl_re.py $1
   cd "${current_dir}"
 }
 
 function csh/ {
   current_dir=$(pwd)
   cd ${GITHUB_DIRECTORY}/youtube_latest_videos
-  if [ "$#" -eq 1 ]; then
-   venv/bin/python rss.py $1
-  fi
+  [[ "$#" -eq 1 ]] && venv/bin/python rss.py $1
   cd "${current_dir}"
 }
 

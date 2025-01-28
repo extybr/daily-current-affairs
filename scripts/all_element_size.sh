@@ -8,19 +8,15 @@
 
 path="$1"
 
-if ! test -d "${path}"; then
-  echo "*** папка не найдена ***"
-  exit 1
-fi
+[[ ! -d "${path}" ]] && echo "*** папка не найдена ***" && exit 1
 
 IFS=$'\n'
-for item in $(ls -Al "${path}" | tr -s " " | cut -d " " -f5,9-15)
-do
+for item in $(ls -Al "${path}" | tr -s " " | cut -d " " -f5,9-15); do
   elem=$(echo "${item}" | cut -d " " -f2-5)
-  if [ -d "${path}/${elem}" ]
-    then echo "$(du -sh ${path}/${elem} 2> /dev/null) is folder"
-  elif [ -f "${path}/${elem}" ]
-    then echo "${item} is file"
+  if [ -d "${path}/${elem}" ]; then
+    echo "$(du -sh ${path}/${elem} 2> /dev/null) is folder"
+  elif [ -f "${path}/${elem}" ]; then
+    echo "${item} is file"
   fi
 done
 
