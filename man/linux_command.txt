@@ -52,6 +52,9 @@ notify-send  (a program to send desktop notifications)
 notify-send 'Hello World !!!'
 notify-send "Topic" "my message" --icon=google-chrome --app-name="Google Chrome" -u critical
 snapshot  (Снимайте фото и видео)
+qvidcap  (A v4l2 video capture viewer)
+bwrap  (container setup utility)
+fluid  (the fast light user-interface designer)
 fragments  (Простой BitTorrent-клиент)
 gimp  (an image manipulation and paint program)
 feh  (image viewer and cataloguer)
@@ -1170,4 +1173,15 @@ cupsfilter  (convert a file to another format using cups filters (deprecated))
 ps2pdf  (Convert PostScript to PDF using ghostscript)
 rsvg-convert  (Render SVG documents to PNG images, or convert them to PDF or PS)
 
+*** cam ***
 
+ffplay -i /dev/video0 -volume 10
+timeout 10 ffmpeg -i /dev/video0 -f mpeg2video output.mp4
+timeout 10 ffmpeg -f x11grab -i :0.0 output.mp4
+ffmpeg -f alsa -ac 2 -i hw:0,0 -acodec pcm_s16le -f x11grab -s 1280x1024 -r 25 -i :0.0 -vcodec qtrle screencast.mov
+ffmpeg -y -f alsa -ac 1 -i hw:0,0 -f x11grab -r 25 -s 1680x1050 -r 30 -i :0.0 -vcodec mpeg2video temp.avi
+ffmpeg -video_size 1920x1080 -framerate 25 -f x11grab -i :0.0 -f alsa -ac 2 -i default output.mkv 
+ffmpeg -f x11grab -s 1920x1080 -r 25 -i :0.0 -vcodec qtrle screencast.mov
+ffmpeg -y -t 1 -f video4linux2 -s 1920x1080 -i /dev/video0 -frames:v 1 -f image2 screen.png &> /dev/null
+qvidcap
+snapshot
