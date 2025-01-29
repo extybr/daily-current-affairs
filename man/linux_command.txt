@@ -36,6 +36,7 @@ winecfg  (Wine Configuration Editor)
 winetricks  (manage virtual Windows environments using Wine)
 mpv, smplayer, mplayer, vlc  (video players)
 qmmp, audacious, amberol  (audio players)
+arduino  (Integrated development environment for Arduino boards)
 shortwave  (radio stations)
 mocp  (Console audio player)
 cmus  (консольный C* Music Player)
@@ -398,8 +399,6 @@ sudo -l
 sudo -k
 sudo -s
 sudo su root
-chroot  (run command or interactive shell with special root directory)
-chroot path/to/new/root command
 getent  (get entries from Name Service Switch libraries)
 getent passwd
 getent group
@@ -536,8 +535,7 @@ file  (determine file type)
 file myfile.txt
 file my_directory
 file -ih mylink.txt
-ldd  (print shared object dependencies)
-ldd /bin/bash
+ipcs  (show information on IPC facilities)
 readelf  (display information about ELF files)
 readelf -dh /bin/bash
 rg  (ripgrep: recursively search the current directory for lines matching a pattern)
@@ -736,6 +734,13 @@ readlink  (print resolved symbolic links or canonical file names)
 readlink -f .bashrc
 xdpyinfo  (display information utility for X)
 nm  (list symbols from object files)
+nm -D /bin/ls
+ar  (Create, modify, and extract from Unix archives. Typically used for static libraries (`.a`) and Debian packages (`.deb`))
+ar -t /usr/lib64/libc.a
+objdump  (display information from object files)
+objdump -t mylib.o
+ldd  (print shared object dependencies)
+ldd /bin/bash
 getopt  (parse command options (enhanced))
 getopts
 opt  (LLVM optimizer)
@@ -1185,3 +1190,14 @@ ffmpeg -f x11grab -s 1920x1080 -r 25 -i :0.0 -vcodec qtrle screencast.mov
 ffmpeg -y -t 1 -f video4linux2 -s 1920x1080 -i /dev/video0 -frames:v 1 -f image2 screen.png &> /dev/null
 qvidcap
 snapshot
+
+*** namespace ***
+
+unshare (run program in new namespaces)
+sudo unshare -u /bin/bash
+sudo unshare --pid --fork --mount-proc /bin/bash
+sudo unshare --mount /bin/bash && mount -t tmpfs tmpfs /mnt
+sudo unshare --user --map-root-user /bin/bash
+chroot  (run command or interactive shell with special root directory)
+chroot path/to/new/root command
+chroot test /bin/bash
