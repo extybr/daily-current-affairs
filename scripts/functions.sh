@@ -1,5 +1,11 @@
 #!/bin/zsh
-# HACK: для применения в файле .zshrc
+# HACK: для применения в файле .zshrc и текущей сессии терминала
+
+function kp/ {
+  for pid in $(pgrep "$1"); do
+    kill -9 "$pid"
+  done
+}
 
 function cy/ {
   current_dir=$(pwd)
@@ -87,9 +93,9 @@ function ctd/ {
   cd "${current_dir}"
 }
 
-salary() {
+backup() {
   current_dir=$(pwd)
-  cd ${GITHUB_DIRECTORY}/../gitlab/salary_analytics
+  cd ${GITLAB_DIRECTORY}/backup
   venv/bin/python main.py
   git add .; git commit -m "update"; git push
   cd "${current_dir}"
