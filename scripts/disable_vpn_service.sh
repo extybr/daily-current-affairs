@@ -2,7 +2,7 @@
 # $> ./disable_vpn_service.sh
 # Отключение ВПН служб
 
-services='outline_proxy_controller.service AmneziaVPN.service'
+services='outline_proxy_controller.service AmneziaVPN.service xray.service'
 for service in ${services}; do
 
   echo "${service}" | rg "${service}"
