@@ -14,7 +14,9 @@ fi
 
 proxy=''
 if curl -s localhost:1080 &> /dev/null; then
-  proxy="--proxy localhost:1080"
+  proxy="--proxy localhost:1080"  # outline-sdk
+elif curl -s localhost:10808 &> /dev/null; then
+  proxy="--proxy localhost:10808"  # xray-proxy
 elif curl -s localhost:8080 &> /dev/null; then
   proxy="--proxy localhost:8080"
 else addr_proxy
