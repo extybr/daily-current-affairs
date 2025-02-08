@@ -7,6 +7,23 @@ function kp/ {
   done
 }
 
+function x/ {
+  if (( "$#" > 0 )) && [ "$1" = 'k' ]; then
+    "${SCRIPTS_DIRECTORY}/xray_key_change.sh"
+  else
+    python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder \
+    $(echo "${$(cat $HOME/my_programs/xray/vless.key):251:-1}")
+  fi
+}
+
+function h/ {
+  if [ "$#" -eq 1 ]; then
+    htop --filter="$1"
+  else
+    htop --filter='outline|http2|xray|amnezia'
+  fi
+}
+
 function cy/ {
   current_dir=$(pwd)
   cd ${SCRIPTS_DIRECTORY}

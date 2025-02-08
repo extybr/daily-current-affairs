@@ -142,6 +142,10 @@ psql --help  (PostgreSQL interactive terminal)
 pg_dump postgres > dump.sql
 pg_restore postgres < dump.sql
 psql postgres < dump.sql
+postgres  (PostgreSQL database server)
+createuser  (define a new PostgreSQL user account)
+createdb  (create a new PostgreSQL database)
+initdb  (create a new PostgreSQL database cluster)
 isql  (iusql; unixODBC interactive SQL command-line tools)
 sqlitebrowser --version  (DB Browser for SQLite)
 nginx  (HTTP and reverse proxy server, mail proxy server)
@@ -762,6 +766,7 @@ compgen  (A built-in command for auto-completion in Bash, which is called on pre
 compgen -c
 compgen -a
 compgen -k
+localectl  (Control the system locale and keyboard layout settings)
 
 mknod  (make block or character special files)
 mknod FILE c 1 5  (/dev/zero)
