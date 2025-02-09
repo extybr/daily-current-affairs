@@ -17,6 +17,7 @@ google() {
   ct=$(echo "${GMT}" | awk '{print $6}')
   if [[ "${ct}" ]]; then
     ctt="${ct:0:2}"
+    if [ "${ctt:0:-1}" = '0' ]; then ctt="${ctt/0/}"; fi
     if (( $ctt > 13 )) && (( $ctt < 24 )); then
       ctt=$(( $ctt - 14 ))
     else ctt=$(( "${ctt}" + "${NUMBER}" ))
