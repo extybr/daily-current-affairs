@@ -1,0 +1,58 @@
+﻿
+Для Linux
+python3 -m venv venv
+source ./venv/bin/activate
+deactivate
+pip freeze
+_______________________
+
+Для Windows
+cd kurs (переход в нужный каталог)
+python -m venv venv  (создание каталога env)
+cd venv/Scripts (переход в каталог Scripts)
+activate (запуск виртуальной среды)
+deactivate (остановка виртуальной среды)
+pip freeze (установленные пакеты)
+
+переход в каталог и установка необходимых пакетов
+cd ..
+cd ..
+python kurs.py
+pip install PyQt5
+pip install requests
+_______________________
+
+pyinstaller kurs.py -F -w --i=favicon.ico
+_______________________
+
+pip freeze > requirements.txt
+
+pip install -r requirements.txt
+
+python.exe -m pip install --upgrade pip
+
+обновление пакета
+python.exe -m pip install -U yt-dlp
+
+____________________________________________________________________
+
+pip install --upgrade pip
+$ pip install --upgrade <package-name>
+$ pip install -U <package-name>
+
+$ pip uninstall <package-name>
+$ pip uninstall <package-name1> <package-name2> <package-name3> ...
+
+$ pip install <package-name>
+$ pip install <package-name1> <package-name2> <package-name3> ...
+$ pip install <package-name>==<version>
+$ pip install git+https://github.com/<user-name>/<repository-name>
+$ pip install https://github.com/requests/requests/archive/v2.30.0.zip
+$ pip install git+https://github.com/requests/requests@v2.30.0
+_______________________________________________________________________
+
+$ pipenv install pygame --pre
+$ pip show aiohttp
+
+
+

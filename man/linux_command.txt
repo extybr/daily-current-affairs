@@ -139,8 +139,9 @@ sqlite3 _hh-trudvsem_.db
 db='~/_hh-trudvsem_.db'; if test -f "${db}"; then sqlite3 "${db}"; else echo "${db}: not found"; return 1; fi
 db='~/_hh-trudvsem_.db'; if test -f "$db"; then sqlite3 "${db}" -cmd 'SELECT * FROM headhunter;' .quit; else echo "${db}: not found"; return 1; fi
 psql --help  (PostgreSQL interactive terminal)
-pg_dump postgres > dump.sql
-pg_restore postgres < dump.sql
+psql -U postgres -c "\l" && psql -U postgres -c "\c postgres" && psql -U postgres -c "select * from test;"
+pg_dump -U postgres > dump.sql
+pg_restore -U postgres < dump.sql
 psql postgres < dump.sql
 postgres  (PostgreSQL database server)
 createuser  (define a new PostgreSQL user account)
@@ -157,6 +158,8 @@ pip  (package manager for Python packages)
 pip list
 pip freeze
 pyenv  (Easily switch between multiple versions of Python; https://github.com/pyenv/pyenv#readme)
+pyenv install 3.12
+pyenv uninstall 3.12.8
 scapy  (Interactive packet manipulation tool)
 alternatives  (tool to maintain symbolic links determining default commands)
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1

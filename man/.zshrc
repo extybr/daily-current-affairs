@@ -88,7 +88,7 @@ alias el/='expr length'
 source ${SCRIPTS_DIRECTORY}/functions.sh
 
 alias py=python3.13
-alias python=python3.13
-alias python3=python3.13
-alias pip=pip3.13
-alias pip3=pip3.13
+#alias python=python3.13
+#alias python3=python3.13
+#alias pip=pip3.13
+#alias pip3=pip3.13
