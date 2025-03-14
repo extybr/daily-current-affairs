@@ -287,12 +287,14 @@ mount  (cat /proc/mounts)
 mount | grep sda1
 mount /dev/sdc /mnt/disk
 findmnt  (find a filesystem)
+findmnt --real
 smartctl  (Control and Monitor Utility for SMART Disks)
 sudo smartctl --all /dev/sda
 sudo smartctl -i /dev/sda
 lsblk  (list block devices)
 lsblk -f
 lsblk -bo NAME,SIZE,MOUNTPOINTS
+lsblk -o name -lpn
 df  (report file system space usage)
 df -hT
 hwinfo --short --disk --partition
