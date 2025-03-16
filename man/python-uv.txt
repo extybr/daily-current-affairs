@@ -1,0 +1,142 @@
+https://docs.astral.sh/uv/
+https://astral.sh/
+https://github.com/astral-sh/uv
+https://habr.com/ru/articles/828016/
+https://habr.com/ru/articles/875840/
+https://www.youtube.com/watch?v=0Osso8mLL-A
+_______________________
+
+Установка UV
+
+On macOS and Linux.
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+
+On Windows.
+    powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+For a specific version.
+    curl -LsSf https://astral.sh/uv/0.2.23/install.sh | sh
+    powershell -c "irm https://astral.sh/uv/0.2.23/install.ps1 | iex"
+
+With pip.
+    pip install uv
+
+With pipx.
+    pipx install uv
+
+With Homebrew.
+    brew install uv
+
+Создание окружения
+    uv venv
+
+Активация окружения
+
+On macOS and Linux.
+    source .venv/bin/activate
+
+On Windows.
+    .venv\Scripts\activate
+
+Создание дополнительного виртуального окружения с другой версией python и активация.
+    uv venv -p /home/timur/.local/share/uv/python/cpython-3.12.3-linux-x86_64-gnu/bin/python3 venv2
+    source venv2/bin/activate
+
+Инициализация проекта (создаюся необходимые файлы)
+    uv init
+
+Установка библиотек
+    uv add requests
+    uv add --dev pytest
+    uv add requests yt-dlp
+    uv add requests==2.31.0
+    uv pip install flask # Ставим flask
+    uv pip install -r requirements.txt # Установка из requirements.txt
+
+Если нужно установить список пакетов с версиями, заносите его в dependenciesи затем выполняете:
+    uv sync
+
+Обновление пакетов
+    uv tree --outdated
+    uv add yt-dlp --upgrade
+    uv sync --upgrade
+    uv add requests==2.31.0 --upgrade
+
+Удаление пакетов
+    uv remove requests yt-dlp
+
+Отображение дерева зависимостей:
+    uv tree
+
+Зависимости
+    uv pip freeze
+    uv pip list
+
+Фиксация зависимостей
+    uv pip freeze | uv pip compile - -o requirements.txt
+
+Ставим нужную версию python
+    uv python install 3.12
+
+Установка нескольких версий python
+    uv python install 3.10 3.11 3.12
+
+Удаление конкретной python версии
+    uv python uninstall 3.12
+
+Создаем файл с указанием нужной версией Python
+    uv python pin 3.13.2
+
+Проверяем что все установилось
+    uv python list
+
+Запуск файла
+    uv run main.py
+
+Добавление в uv линтера ruff
+    uv add ruff
+    uvx ruff
+
+Запуск линтера
+    uv run ruff check
+    uvx ruff check .
+    uvx ruff check . --fix
+
+Запуск без создания виртуального окружения    
+    uv run --with requests==2.32.3 python -c "import requests; print(requests.get('https://cheat.sh').text)"
+
+Автодополнение для zsh
+    echo 'eval "$(uv generate-shell-completion zsh)"' >> ~/.zshrc
+    echo 'eval "$(uvx generate-shell-completion zsh)"' >> ~/.zshrc
+
+Создание нового скрипта и добавление зависимостей:
+    echo 'import requests; print(requests.get("https://astral.sh"))' > example.py
+    uv add --script example.py requests
+
+Добавление для скриптов
+    #!/usr/bin/env -S uv run --script
+
+    # /// script
+    # requires-python = ">=3.13"
+    # dependencies = [
+    #     "requests",
+    # ]
+    # ///
+
+Запись:
+    # /// script
+    # requires-python = ">=3.13"
+    # dependencies = [
+    #     "requests",
+    # ]
+    # ///
+Создается командой
+    uv add --script example.py requests
+
+Проверка установленной версии uv
+    uv --version
+
+Обновление uv
+    uv self update
+
+

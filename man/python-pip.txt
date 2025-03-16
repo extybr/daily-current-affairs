@@ -1,0 +1,56 @@
+﻿_______________________
+
+Для Windows
+    cd project (переход в нужный каталог)
+    python -m venv venv  (создание виртуального окружения)
+    cd venv/Scripts (переход в каталог Scripts)
+    activate (запуск виртуальной среды)
+    deactivate (остановка виртуальной среды)
+    pip install <package-name> (установка пакета)
+    python main.py
+
+Для Linux
+    python3 -m venv venv
+    source ./venv/bin/activate
+    deactivate
+_______________________
+
+установка пакета
+    pip install <package-name>
+    pip install <package-name1> <package-name2> <package-name3> ...
+    pip install <package-name>==<version>
+    pip install git+https://github.com/<user-name>/<repository-name>
+    pip install https://github.com/requests/requests/archive/v2.30.0.zip
+    pip install git+https://github.com/requests/requests@v2.30.0
+
+удаление пакета
+    pip uninstall <package-name>
+    pip uninstall <package-name1> <package-name2> <package-name3> ...
+
+обновление пакетного менаджера pip
+    pip install --upgrade pip
+    python.exe -m pip install --upgrade pip
+
+обновление конкретного пакета
+    pip install --upgrade <package-name>
+    pip install -U <package-name>
+    python.exe -m pip install -U yt-dlp
+
+информация о пакете
+    pip show <package-name>
+    
+установленные пакеты
+    pip freeze
+    pip list
+
+создание файла с зависимостями
+    pip freeze > requirements.txt
+
+установка всех зависимостей, указанных в файле
+    pip install -r requirements.txt
+_______________________
+
+альтернативный пакетный менеджер pipenv
+    pipenv install pygame --pre
+_______________________
+

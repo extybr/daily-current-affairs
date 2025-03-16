@@ -24,6 +24,14 @@ function h/ {
   fi
 }
 
+function f/ {
+  if (( "$#" == 2 )) && (( "$1" == 0 )); then
+    ffplay "$2" -nodisp -volume 3
+  elif (( "$#" == 1 )); then
+    ffplay "$1" -volume 3
+  fi
+}
+
 function cy/ {
   current_dir=$(pwd)
   cd ${SCRIPTS_DIRECTORY}

@@ -2,7 +2,7 @@
 # $> ./xray_key_change.sh
 # HACK: для изменения ключей в программе
 
-cd $HOME/my_programs/xray
+cd "$HOME/my_programs/xray" || exit
 killall xray
 rm vless.key 2> /dev/null
 
@@ -18,6 +18,6 @@ fi
 
 unzip keys.zip "vless_${number}.key"
 mv "vless_${number}.key" vless.key
-cd ${SCRIPTS_DIRECTORY}
+cd "${SCRIPTS_DIRECTORY}" || exit
 ./xray-proxy
 
