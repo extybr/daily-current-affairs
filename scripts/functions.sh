@@ -91,6 +91,16 @@ function y/ {
   ${SCRIPTS_DIRECTORY}/yt-dlp-rename.py $(pwd)
 }
 
+function hx/ {
+  item=$(dir -1 | fzf --prompt=" helix  " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z "${item}" ]]; then
+    echo "Nothing selected"
+    return 0
+  else
+    helix "${item}"
+  fi
+}
+
 btc () {
   current_dir=$(pwd)
   cd ${SCRIPTS_DIRECTORY}/

@@ -67,6 +67,7 @@ gedit  (a general-purpose text editor)
 vi  (screen oriented (visual) display editor based on ex)
 nvim  (edit text)
 nvim-qt  (Neovim Qt)
+helix  (A post-modern modal text editor)
 bat  (a cat(1) clone with syntax highlighting and Git integration)
 neofetch  (A fast, highly customizable system info script)
 fastfetch  (Fastfetch is a neofetch-like tool for fetching system information and displaying it prettily)
@@ -157,6 +158,9 @@ pypy  (A Python implementation written in Python, JIT enabled)
 pip  (package manager for Python packages)
 pip list
 pip freeze
+pipx  (Install and Run Python Applications in Isolated Environments)
+uv  (An extremely fast Python package installer and resolver written in Rust)
+uvx  (uv-tool)
 pyenv  (Easily switch between multiple versions of Python; https://github.com/pyenv/pyenv#readme)
 pyenv install 3.12
 pyenv uninstall 3.12.8
