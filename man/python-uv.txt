@@ -138,5 +138,8 @@ On Windows.
 
 Обновление uv
     uv self update
+    
+Для обновления пакета, используйте команду run uv lock с флагом --upgrade-package:
+    uv lock --upgrade-package requests
 
 

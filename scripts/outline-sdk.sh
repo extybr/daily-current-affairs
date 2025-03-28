@@ -31,8 +31,8 @@ Terminal=false" > outline-sdk.desktop
   mv outline-sdk.desktop ~/.config/autostart
 fi
 
-if ! [ -f ${SCRIPTS_DIRECTORY}/outline-sdk ]; then
-  cd ${SCRIPTS_DIRECTORY}
+if ! [ -f "${SCRIPTS_DIRECTORY}/outline-sdk" ]; then
+  cd "${SCRIPTS_DIRECTORY}"
   shc -r -f outline-sdk.sh
   rm outline-sdk.sh.x.c
   mv outline-sdk.sh.x outline-sdk
