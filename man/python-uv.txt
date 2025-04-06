@@ -53,7 +53,7 @@ On Windows.
     uv pip install flask # Ставим flask
     uv pip install -r requirements.txt # Установка из requirements.txt
 
-Если нужно установить список пакетов с версиями, заносите его в dependenciesи затем выполняете:
+Если нужно установить список пакетов с версиями, заносите его в dependencies и затем выполняете:
     uv sync
 
 Обновление пакетов

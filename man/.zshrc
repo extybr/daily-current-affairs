@@ -57,7 +57,7 @@ alias map=${SCRIPTS_DIRECTORY}'/map.sh'
 alias maps=${SCRIPTS_DIRECTORY}'/maps.sh'
 alias gm/='gnome-maps -S'
 alias ct/=${SCRIPTS_DIRECTORY}'/current_time_area_google.sh'
-alias check='bash -c "cd ${GITHUB_DIRECTORY}/playlist_check && venv/bin/python podcast/redbasset_podbean.py"'
+alias check='bash -c "cd ${GITHUB_DIRECTORY}/playlist_check && uv run podcast/redbasset_podbean.py"'
 alias anti=${SCRIPTS_DIRECTORY}'/antizapret.sh'
 alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
 alias c/=${SCRIPTS_DIRECTORY}'/cheat-command.sh'
@@ -85,10 +85,8 @@ alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
 alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../man/linux_command.txt"
 alias el/='expr length'
+#alias nv="NVIM_APPNAME=nv nvim"
 source ${SCRIPTS_DIRECTORY}/functions.sh
 
 alias py=python3.13
-#alias python=python3.13
-#alias python3=python3.13
-#alias pip=pip3.13
-#alias pip3=pip3.13
+
