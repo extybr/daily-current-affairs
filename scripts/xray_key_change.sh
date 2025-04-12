@@ -1,9 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 # $> ./xray_key_change.sh
 # HACK: для изменения ключей в программе
 
 cd "$HOME/my_programs/xray" || exit
-killall xray
 rm vless.key 2> /dev/null
 
 if [ -f vless_number ]; then
@@ -18,6 +17,17 @@ fi
 
 unzip keys.zip "vless_${number}.key"
 mv "vless_${number}.key" vless.key
-cd "${SCRIPTS_DIRECTORY}" || exit
-./xray-proxy
+
+text=$(cat "$HOME/my_programs/xray/vless.key")
+
+id=$(echo "${${text}:17:36}")
+sed -i "s/\"id\": \".\{36\}\"/\"id\": \"$id\"/" "$HOME/my_programs/xray/config.json"
+
+shortId=$(echo "${${text}:238:12}")
+sed -i "s/\"shortId\": \".\{12\}\"/\"shortId\": \"$shortId\"/" "$HOME/my_programs/xray/config.json"
+
+sudo systemctl stop xray.service
+sudo rm "/usr/local/etc/xray/config.json"
+sudo cp "$HOME/my_programs/xray/config.json" "/usr/local/etc/xray/config.json"
+sudo systemctl start xray.service
 

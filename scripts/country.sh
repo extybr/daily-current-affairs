@@ -1,7 +1,7 @@
 #!/bin/bash
 #######################
 # $> ./country.sh 1   #
-# $> ./country.sh m   #
+# $> ./country.sh s   #
 #######################
 # Запуск радиостанции или плейлиста по выбору
 
@@ -20,16 +20,10 @@ ffplay "${radio_country}/ccountry" -nodisp
 3)
 ffplay "${radio_country}/country" -nodisp
 ;;
-m)
-mpv "${tcn_url}"
+v)
+vlc "${tcn_url%"tcn-live.m3u"*}music.m3u"
 ;;
 s)
-smplayer "${tcn_url}"
-;;
-v)
-vlc "${tcn_url}"
-;;
-ss)
 smplayer "${tcn_url%"tcn-live.m3u"*}music.m3u"
 ;;
 *)
