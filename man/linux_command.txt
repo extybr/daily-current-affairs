@@ -68,6 +68,7 @@ vi  (screen oriented (visual) display editor based on ex)
 nvim  (edit text)
 nvim-qt  (Neovim Qt)
 helix  (A post-modern modal text editor)
+zed  (A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter)
 bat  (a cat(1) clone with syntax highlighting and Git integration)
 neofetch  (A fast, highly customizable system info script)
 fastfetch  (Fastfetch is a neofetch-like tool for fetching system information and displaying it prettily)
@@ -581,6 +582,9 @@ unset  (специальная встроенная команда bash)
 unset -v foo bar
 xtrace
 shopt
+mktemp  (create a temporary file or directory)
+mktemp -d tempsXXX
+mktemp temp.XXXtxt
 modprobe  (Add and remove modules from the Linux Kernel)
 sudo modprobe <module_name>
 shuf  (generate random permutations)
