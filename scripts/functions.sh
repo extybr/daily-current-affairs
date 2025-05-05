@@ -9,10 +9,12 @@ function kp/ {
 
 function x/ {
   if (( "$#" > 0 )) && [ "$1" = 'k' ]; then
-    "${SCRIPTS_DIRECTORY}/xray_key_change.sh"
+    # "${SCRIPTS_DIRECTORY}/xray_key_change.sh"
+    echo '*** изменение ключа отключено ***'
   else
-    python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder \
-    $(echo "${$(cat $HOME/my_programs/xray/vless.key):251:-1}")
+    source "${SCRIPTS_DIRECTORY}/xray_key_name.sh"
+    python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder "${key_name}"
+    # $(echo "${$(cat $HOME/my_programs/xray/vless.key):251:-1}")
   fi
 }
 
