@@ -330,6 +330,7 @@ sudo iftop -i enp4s0f1
 sudo iotop  (simple top-like I/O monitor)
 iotop-c  (new version iotop)
 sudo iptraf-ng -i enp4s0f1
+glances  (An eye on your system)
 pgrep  (look up, signal, or wait for processes based on name and other attributes)
 pgrep telegram
 pgrep telegram | xargs ps
@@ -781,6 +782,7 @@ compgen -c
 compgen -a
 compgen -k
 localectl  (Control the system locale and keyboard layout settings)
+aa-status  (display various information about the current AppArmor policy)
 
 mknod  (make block or character special files)
 mknod FILE c 1 5  (/dev/zero)
