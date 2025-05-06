@@ -71,10 +71,7 @@ function csh/ {
 function ri/ {
   current_dir=$(pwd)
   cd ${TRACKER_PARSER_DIRECTORY}
-  if [ "$#" -gt 1 ]; then
-    ./rutor.sh "$@"
-  else ./rutor.sh 1
-  fi
+  ./rutor.sh "$@"
   cd "${current_dir}"
 }
 
