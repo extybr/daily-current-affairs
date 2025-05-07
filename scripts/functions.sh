@@ -10,7 +10,10 @@ function kp/ {
 function x/ {
   if (( "$#" > 0 )) && [ "$1" = 'k' ]; then
     # "${SCRIPTS_DIRECTORY}/xray_key_change.sh"
-    echo '*** изменение ключа отключено ***'
+    echo '*** изменение ключей отключено ***'
+  elif (( "$#" == 1 )) && [[ "$1" =~ ^(vless://) ]]; then
+    "${SCRIPTS_DIRECTORY}/xray_config_fix.sh" "$1"
+    "${SCRIPTS_DIRECTORY}/xray-service-fix.sh"
   else
     source "${SCRIPTS_DIRECTORY}/xray_key_name.sh"
     python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder "${key_name}"
@@ -70,7 +73,7 @@ function csh/ {
 
 function ri/ {
   current_dir=$(pwd)
-  cd ${TRACKER_PARSER_DIRECTORY}
+  cd "${TRACKER_PARSER_DIRECTORY}"
   ./rutor.sh "$@"
   cd "${current_dir}"
 }
