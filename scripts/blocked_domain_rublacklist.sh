@@ -1,5 +1,6 @@
 #!/bin/bash
-# $> ./blocked_domain_rublacklist.sh
+# $> ./blocked_domain_rublacklist.sh rutracker.org
+# $> ./blocked_domain_rublacklist.sh 1 rutor.info
 # https://roskomsvoboda.org, https://reestr.rublacklist.net
 # Информация о блокированных доменах
 
