@@ -1104,6 +1104,7 @@ cat /etc/systemd/resolved.conf
 cat /etc/resolv.conf
 sudo systemctl start systemd-resolved.service
 sudo resolvectl flush-caches
+dnssec-keygen  (DNSSEC key generation tool)
 
 *** hardware info ***
 

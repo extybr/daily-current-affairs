@@ -16,8 +16,15 @@ function x/ {
     "${SCRIPTS_DIRECTORY}/xray-service-fix.sh"
   else
     source "${SCRIPTS_DIRECTORY}/xray_key_name.sh"
+    echo -n "xray: "
     python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder "${key_name}"
-    # $(echo "${$(cat $HOME/my_programs/xray/vless.key):251:-1}")
+    prefix="&prefix=%16%03%01%00%C2%A8%01%01#"
+    source "$HOME/my_programs/outline-sdk/outline.key"
+    o_key_name=$(echo "${outline_key}" | \
+                 grep -oP "${prefix}[^>]+" | \
+                 sed "s/${prefix}//")
+    echo -n "outline: "
+    python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder "${o_key_name}"
   fi
 }
 
