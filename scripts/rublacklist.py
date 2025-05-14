@@ -2,14 +2,13 @@ import requests
 import sys
 from bs4 import BeautifulSoup
 
-if len(sys.argv) < 2 or len(sys.argv) > 3:
-    print('Необходимо передать имя ресурса')
+if len(sys.argv) < 2 or len(sys.argv) > 4:
     exit(1)
 
 src = sys.argv[1]
 ignore = 0
 
-if len(sys.argv) == 3:
+if (len(sys.argv) == 3 and sys.argv[2] != 'h') or len(sys.argv) == 4:
     src = sys.argv[2]
     if sys.argv[1] == '1':
         ignore = 1
