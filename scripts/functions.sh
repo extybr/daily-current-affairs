@@ -36,6 +36,13 @@ function h/ {
   fi
 }
 
+function ttk {
+  current_dir=$(pwd)
+  cd "${SCRIPTS_DIRECTORY}"/internet_balance
+  ./balance_ttk.sh "$@"
+  cd "${current_dir}"
+}
+
 function f/ {
   if (( "$#" == 2 )) && (( "$1" == 0 )); then
     ffplay "$2" -nodisp -volume 3
