@@ -35,15 +35,22 @@ function session() {
   fi
   echo "contract_id: $contract_id"
 
-  loginKey=$(grep 'loginKey' "$COOKIE_FILE" | awk '{print $NF}')
-  sessionId=$(grep 'sessionId' "$COOKIE_FILE" | awk '{print $NF}')
+  loginKey=$(grep 'loginKey' "$COOKIE_FILE" 2> /dev/null | awk '{print $NF}')
+  sessionId=$(grep 'sessionId' "$COOKIE_FILE" 2> /dev/null | awk '{print $NF}')
 
   echo "loginKey: $loginKey"
   echo -e "sessionId: $sessionId\n"
   
-  for var in ${loginKey} ${sessionId}; do
+  counter=0
+  for var in "${loginKey}" "${sessionId}"; do
+    if [ "$counter" -eq 2 ]; then
+      echo -e "Не получены \033[31mloginKey,sessionId\033[0m" && exit
+    fi
     if [ -z "$var" ]; then
-      echo "Не получены $var" && exit
+      echo -e "Не получены \033[31mloginKey,sessionId\033[0m" 
+      sleep 2
+      counter=$[ counter + 1 ]
+      session
     fi
   done
   
