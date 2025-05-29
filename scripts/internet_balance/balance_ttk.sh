@@ -1,27 +1,26 @@
 #!/bin/bash
 # $> ./balance_ttk.sh    # вывод данных
 # $> ./balance_ttk.sh 1  # вывод данных с историей оплаты
+# На выбор с файлом cookie.txt curl (get_cookies_file) и без него (get_cookies).
 # lk.ttk.ru | Баланс ТТК
 
 source secret.txt  # содержит LOGIN и PASSWORD
-USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0"
 URL="https://lk.ttk.ru"
 COOKIE_FILE="cookie.txt"
 
-function session() {
-
-  # --- Цвета ---
+# --- Цвета ---
   
-  red='\033[1;31m'
-  green='\033[1;32m'
-  norm='\033[0m'
-  magenta='\033[35m'
-  cyan='\033[36m'
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+NORM='\033[0m'
+MAGENTA='\033[35m'
+CYAN='\033[36m'
 
-  # --- Параметры curl ---
+# --- Параметры curl ---
   
-  COMMON_HEADERS=(
-  -A "User-Agent: $USER_AGENT"
+COMMON_HEADERS=(
+  -s --fail
+  -A "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0"
   -H 'Accept: */*'
   -H 'Accept-Language: ru,en-US;q=0.7,en;q=0.3'
   -H 'Accept-Encoding: gzip, deflate, br, zstd'
@@ -37,14 +36,71 @@ function session() {
   -H 'Cache-Control: no-cache'
 )
 
+function get_cookies_file() {
   # --- Получаем новые куки и основные данные сессии ---
+  # --- С использованием файла curl ---
 
-  raw=$(curl -s --fail "$URL/api/auth/loginByAccount" \
-  -c "$COOKIE_FILE" -b "$COOKIE_FILE" \
-  -H "Referer: $URL/auth" "${COMMON_HEADERS[@]}" \
-  --data-raw "{\"login\":\"$LOGIN\",\"password\":\"$PASSWORD\",\"remember\":false}" \
-  -c "$COOKIE_FILE" | jq '.[]' 2> /dev/null) || (echo "Ошибка получения страницы логина" && exit)
+  responce=$(curl "$URL/api/auth/loginByAccount" \
+            -c "$COOKIE_FILE" -b "$COOKIE_FILE" \
+            -H "Referer: $URL/auth" "${COMMON_HEADERS[@]}" \
+            --data-raw "{\"login\":\"$LOGIN\",\"password\":\"$PASSWORD\",\"remember\":false}" \
+            -c "$COOKIE_FILE" | jq '.[]' 2> /dev/null)
+
+  if ! [[ "$responce" ]]; then
+    echo "Ошибка получения страницы логина" && exit
+  fi
+
+  loginKey=$(awk '/loginKey/ {print $NF}' "$COOKIE_FILE" 2>/dev/null)
+  sessionId=$(awk '/sessionId/ {print $NF}' "$COOKIE_FILE" 2>/dev/null)
+
+  merged_json=$(echo "$responce" | jq --arg loginKey "$loginKey" --arg sessionId "$sessionId" \
+  '. + {loginKey: $loginKey, sessionId: $sessionId}')
+
+  echo "$merged_json"
+}
+
+function get_cookies() {
+  # --- Получаем новые куки и основные данные сессии ---
+  # --- Без использования файла curl ---
+
+  responce=$(curl -s -D - "$URL/api/auth/loginByAccount" \
+          -H "Referer: $URL/auth" "${COMMON_HEADERS[@]}" \
+          --data '{"login":"'"$LOGIN"'","password":"'"$PASSWORD"'","remember":false}')
+
+  headers=$(echo "$responce" | sed '/^\r$/q')
+  body=$(echo "$responce" | sed '1,/^\r$/d' | jq '.[]' 2> /dev/null)
+
+  if ! [[ "$body" ]]; then
+    echo "Ошибка получения страницы логина" && exit
+  fi
+
+  loginKey=$(echo "$headers" | grep -i 'Set-Cookie: loginKey=' | sed 's/.*loginKey=\([^;]*\).*/\1/')
+  sessionId=$(echo "$headers" | grep -i 'Set-Cookie: sessionId=' | sed 's/.*sessionId=\([^;]*\).*/\1/')
   
+  merged_json=$(echo "$body" | jq --arg loginKey "$loginKey" --arg sessionId "$sessionId" \
+  '. + {loginKey: $loginKey, sessionId: $sessionId}')
+
+  echo "$merged_json"
+}
+
+function session() {
+  # raw=$(get_cookies_file)  # С использованием файла curl
+  raw=$(get_cookies)  # Без использования файла curl
+
+  loginKey=$(jq -r '.loginKey' <<< "$raw")
+  sessionId=$(jq -r '.sessionId' <<< "$raw")
+
+  for attempt in {1..2}; do
+    if [[ -z "$loginKey" || -z "$sessionId" ]]; then
+      echo -e "${GREEN}Не получены ${RED}loginKey, sessionId${NORM}\n"
+      (( attempt == 2 )) && exit
+      sleep 2
+      session "$@" && return 1
+    else
+      break
+    fi
+  done
+
   # --- Вывод данных ---
   
   contract=$(jq -r '.contract' <<< "$raw")
@@ -53,32 +109,18 @@ function session() {
 
   echo "contract: $contract"
   if [ "$status" = 'Активен' ]; then
-    echo -e "status: ${green}${status}${norm}"
+    echo -e "status: ${GREEN}${status}${NORM}"
   else
-    echo -e "status: ${red}${status}${norm}"
+    echo -e "status: ${RED}${status}${NORM}"
   fi
   echo "contract_id: $contract_id"
 
-  loginKey=$(awk '/loginKey/ {print $NF}' "$COOKIE_FILE" 2>/dev/null)
-  sessionId=$(awk '/sessionId/ {print $NF}' "$COOKIE_FILE" 2>/dev/null)
-
   echo "loginKey: $loginKey"
   echo -e "sessionId: $sessionId\n"
-  
-  for attempt in {1..2}; do
-    if [[ -z "$loginKey" || -z "$sessionId" ]]; then
-      echo -e "Не получены ${red}loginKey, sessionId${norm}"
-      (( attempt == 2 )) && exit
-      sleep 2
-      session
-    else
-      break
-    fi
-  done
 
   # --- Первый POST запрос данных в json-формате ---
 
-  info=$(curl -s --fail "$URL/api/user" \
+  info=$(curl "$URL/api/user" \
   -H "Referer: $URL/" "${COMMON_HEADERS[@]}" \
   -H "Cookie: sessionId=${sessionId}; loginKey=${loginKey}" \
   --data-raw "{\"contract_id\":\"${contract_id}\"}" | jq 2> /dev/null)
@@ -94,11 +136,11 @@ function session() {
   login=$(echo "$info" | jq -r '.login')
   echo "login: $login"
   balance=$(echo "$info" | jq -r '.balance')
-  echo -e "balance: ${magenta}${balance}${norm}\n"
+  echo -e "balance: ${MAGENTA}${balance}${NORM}\n"
   
   # --- Второй POST запрос данных в json-формате ---
 
-  tariff_price=$(curl -s --fail "$URL/api/services/getServices" \
+  tariff_price=$(curl "$URL/api/services/getServices" \
   -H "Referer: $URL/" "${COMMON_HEADERS[@]}" \
   -H "Cookie: sessionId=${sessionId}; loginKey=${loginKey}" \
   --data-raw "{\"contract_id\":\"${contract_id}\"}" | jq -r ".[]" 2> /dev/null)
@@ -108,7 +150,7 @@ function session() {
   tariff=$(echo $tariff_price | jq -r '.tariff')
   price=$(echo $tariff_price | jq -r '.price')
   echo "tariff: $tariff"
-  echo -e "price: ${cyan}${price}${norm}"
+  echo -e "price: ${CYAN}${price}${NORM}"
   
   # --- Вывод истории оплат ---
 
@@ -117,13 +159,13 @@ function session() {
     now_date=$(date +%Y-%m-%d)  # Текущая дата
     target_date=$(date -d "@$(( $(date +%s) - days ))" +%Y-%m-%d)  # Дата на 2 недели назад
 
-    getHistory=$(curl -s --fail "$URL/api/payments/getHistory" \
+    getHistory=$(curl "$URL/api/payments/getHistory" \
     -H "Referer: $URL/finance" "${COMMON_HEADERS[@]}" \
     -H "Cookie: sessionId=${sessionId}; loginKey=${loginKey}; GEO_CITY_ID=8527; "\
     "GEO_CITY_CODE=komsomolsknaamure; BXMOD_AUTH_LAST_PAGE_Y=%2F" \
     --data-raw "{\"contract_id\":\"${contract_id}\",\"start_date\":\"${target_date}\",\"end_date\":\"${now_date}\"}")
     
-    echo -e "\n${cyan}История оплаты:${norm}"
+    echo -e "\n${CYAN}История оплаты:${NORM}"
     
     echo "$getHistory" | jq -c '.[]' | while read -r item; do
       date=$(jq -r '.date' <<< "$item")
@@ -133,11 +175,11 @@ function session() {
 
       # Цвет по знаку суммы
       if [[ $amount == -* ]]; then
-        color="${red}"
-      else color="${green}"
+        color="${RED}"
+      else color="${GREEN}"
       fi
 
-      echo -e "$date | $type | ${color}${amount}${norm} | $name"  # Печать
+      echo -e "$date | $type | ${color}${amount}${NORM} | $name"  # Печать
     done
 
   fi
