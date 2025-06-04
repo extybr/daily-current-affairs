@@ -43,6 +43,15 @@ function ttk {
   cd "${current_dir}"
 }
 
+function al/ {
+  current_dir=$(pwd)
+  trap "echo ' Trapped Ctrl-C'; rm *.m3u && cd "${current_dir}" && return 0" SIGINT
+  cd "${GITHUB_DIRECTORY}"/playlist_check/alensat
+  ./alensat_playlist.sh "$@"
+  rm *.m3u
+  cd "${current_dir}"
+}
+
 function f/ {
   if (( "$#" == 2 )) && (( "$1" == 0 )); then
     ffplay "$2" -nodisp -volume 3
