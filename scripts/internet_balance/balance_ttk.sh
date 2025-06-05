@@ -7,6 +7,7 @@
 source secret.txt  # содержит LOGIN и PASSWORD
 URL="https://lk.ttk.ru"
 COOKIE_FILE="cookie.txt"
+ATTEMPT=0
 
 # --- Цвета ---
   
@@ -87,19 +88,16 @@ function session() {
   # raw=$(get_cookies_file)  # С использованием файла curl
   raw=$(get_cookies)  # Без использования файла curl
 
-  loginKey=$(jq -r '.loginKey' <<< "$raw")
-  sessionId=$(jq -r '.sessionId' <<< "$raw")
+  loginKey=$(jq -r '.loginKey' 2>/dev/null <<< "$raw")
+  sessionId=$(jq -r '.sessionId' 2>/dev/null <<< "$raw")
 
-  for attempt in {1..2}; do
-    if [[ -z "$loginKey" || -z "$sessionId" ]]; then
-      echo -e "${GREEN}Не получены ${RED}loginKey, sessionId${NORM}\n"
-      (( attempt == 2 )) && exit
-      sleep 2
-      session "$@" && return 1
-    else
-      break
-    fi
-  done
+  if [[ -z "$loginKey" || -z "$sessionId" ]] && [ "$ATTEMPT" -lt 2 ]; then
+    echo -e "${GREEN}Не получены ${RED}loginKey, sessionId${NORM}\n"
+    ATTEMPT=$(( ATTEMPT + 1 ))
+    (( ATTEMPT == 2 )) && exit
+    sleep 2
+    session "$@"
+  fi
 
   # --- Вывод данных ---
   
