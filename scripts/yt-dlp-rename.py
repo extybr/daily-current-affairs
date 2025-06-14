@@ -19,7 +19,7 @@ pattern_webm = r'.+\[.+\].webm'
 pattern_mp4 = r'.+\[.+\].mp4'
 pattern_m4a = r'.+\[.+\].m4a'
 pattern_mkv = r'.+\[.+\].mkv'
-superfluous = (r'\s\[.{11}\]', r'\s\[-.{8}_.{9}\]')
+superfluous = (r'\s\[.{11}\]', r'\s\[-.{8}_.{9}\]', r'\s\[-.{9}_.{9}\]')
 
 try:
     for file in path.iterdir():

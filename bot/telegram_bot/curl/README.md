@@ -50,6 +50,8 @@ curl -s -X POST -F media="[{\"type\":\"photo\",\"media\":\"attach://photo1\"}, {
 
 curl -s -X POST -F media="[{\"type\":\"document\",\"media\":\"attach://document\"}]" -F document=@"systemd.pdf" -H "Content-Type:multipart/form-data" https://api.telegram.org/bot'$TG_TOKEN'/sendMediaGroup?chat_id='$TG_USER'
 
+curl -F chat_id='$TG_USER' -F document=@"text.txt" -F caption="Document" 'https://api.telegram.org/bot'$TG_TOKEN'/sendDocument'
+
 </details>
 
 ---

@@ -1083,6 +1083,8 @@ scp  (OpenSSH secure file copy)
 sftp  (OpenSSH secure file transfer)
 sftp-server  (OpenSSH SFTP server subsystem)
 rsync  (a fast, versatile, remote (and local) file-copying tool)
+rsync -aAXHv --delete --delete-excluded ~/target_folder "backup_folder"
+# https://wiki.archlinux.org/title/Rsync#Full_system_backup
 sync  (Synchronize cached writes to persistent storage)
 lftp
 findsmb
