@@ -117,8 +117,6 @@ gnome-photos
 gio  (GIO commandline tool)
 gio help copy
 flatpak  (Build, install and run applications and runtimes)
-magick  (convert between image formats as well as resize an image, blur, crop, despeckle, dither, draw on, flip, join, re-sample,..)
-magick-script  (scripting language that converts between image formats as well as resize an image, blur, crop, despeckle, dither, draw ...)
 ____________
 
 java
@@ -324,6 +322,7 @@ top -o COMMAND  (Shift + v)
 htop  (interactive process viewer)
 htop --filter=python
 btop  (A monitor of system resources, bpytop ported to C++)
+bmon  (Мониторинг трафика с визуализацией по интерфейсам)
 atop  (sudo atop)  (Advanced System & Process Monitor)
 iftop  (display bandwidth usage on an interface by host)
 sudo iftop -i enp4s0f1 
@@ -1208,6 +1207,10 @@ pdftoppm  (Portable Document Format (PDF) to Portable Pixmap (PPM) converter)
 convert  (convert between image formats as well as resize an image, blur, crop, despeckle, dither, draw on, flip, join, re-sample...)
 convert TEXT:file.txt file.pdf
 convert tree.jpg tree.png
+magick  (convert between image formats as well as resize an image, blur, crop, despeckle, dither, draw on, flip, join, re-sample,..)
+magick file.docx file.pdf
+magick convert -resize 10x7 one.png two.png
+magick-script  (scripting language that converts between image formats as well as resize an image, blur, crop, despeckle, dither, draw ...)
 convert -resize 1024x768 hat.jpg hat-sm.jpg
 soffice  (libreoffice)
 soffice --convert-to pdf file.txt
