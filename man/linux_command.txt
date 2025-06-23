@@ -101,6 +101,7 @@ ipcalc  (Calculates IP broadcast, network, Cisco wildcard mask, and host ranges)
 /usr/lib/geoclue-2.0/demos/where-am-i  (geolocation application)
 ./Outline-Client.AppImage --appimage-mount
 outline-client  (client outline)
+xray  (усовершенствованный прокси-инструмент, который повышает безопасность и производительность VPN)
 gdm
 gegl  (GEGL is an image processing library ...)
 gjs  (GNOME Javascript bindings)
