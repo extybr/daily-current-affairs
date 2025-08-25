@@ -1080,6 +1080,7 @@ ssh-copy-id  (use locally available keys to authorise logins on a remote machine
 ssh-agent  (OpenSSH authentication agent)
 ssh-add  (adds private key identities to the OpenSSH authentication agent)
 ssh-add -L  (print all ssh public key)
+echo "после переустановки" && eval `ssh-agent -s` && ssh-add "$HOME/.ssh/extybr" && git clone git@gitlab.com:extybr/secret.git
 scp  (OpenSSH secure file copy)
 sftp  (OpenSSH secure file transfer)
 sftp-server  (OpenSSH SFTP server subsystem)
