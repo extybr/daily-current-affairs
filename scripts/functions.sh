@@ -112,7 +112,7 @@ function y/ {
     return 0
   fi
   ~/bin/yt-dlp -U
-  ~/bin/yt-dlp -S 'res:720,fps' "$1"
+  ~/bin/yt-dlp --proxy http://127.0.0.1:1080 -S 'res:720,fps' "$1"
   ${SCRIPTS_DIRECTORY}/yt-dlp-rename.py $(pwd)
 }
 

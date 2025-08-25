@@ -39,7 +39,8 @@ cmd_drill() {
 }
 
 cmd_dig() {
-  request=$(timeout 3 dig +trace "$1" @8.8.8.8)
+  # request=$(timeout 3 dig +trace "$1" @8.8.8.8)  # long time
+  request=$(timeout 3 dig +nocmd +noall +answer "$1")
   if [ "$?" = '124' ]; then
     echo 'timeout'
     cmd_dig "$1"

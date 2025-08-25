@@ -924,6 +924,7 @@ drill rutor.info @8.8.8.8 -T
 dig  (DNS lookup utility)
 dig +trace rutor.info @8.8.8.8
 dig +short rutracker.org
+dig +nocmd +noall +answer rutor.info
 whois  (client for the whois directory service)
 whois  --verbose mult.ru
 arp  (address resolution protocol)

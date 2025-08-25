@@ -12,6 +12,7 @@ curl ip.tyk.nu
 curl curlmyip.net
 curl api.ipify.org
 curl ipcalf.com
+curl -s --proxy 127.0.0.1:1080 'https://ipwho.is/?output=json&fields=ip,country,city,region&lang=ru' | jq
 
 curl ipaddy.net
 curl eth0.me
