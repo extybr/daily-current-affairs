@@ -1,6 +1,14 @@
 #!/bin/zsh
 # HACK: для применения в файле .zshrc и текущей сессии терминала
 
+function gitu {
+  if ! ssh-add -L &>/dev/null; then
+    eval "$(ssh-agent -s)" && ssh-add "$HOME/.ssh/extybr"
+  fi
+  git add .
+  git commit -m "$1"
+}
+
 function kp/ {
   for pid in $(pgrep "$1"); do
     kill -9 "$pid"
