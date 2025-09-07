@@ -24,8 +24,8 @@ SAVEHIST=20000
 # unsetopt correct_all
 unsetopt correct
 
-export wlan0='wlp3s0'
-export wlan1='wlp0s20f0u1u4'
+export wlan0='wlo1'
+export wlan1='wlp5s0f4u1u2'
 export GITHUB_DIRECTORY="${HOME}/PycharmProjects/github"
 export GITLAB_DIRECTORY="${HOME}/PycharmProjects/gitlab"
 export SCRIPTS_DIRECTORY="${GITHUB_DIRECTORY}/daily-current-affairs/scripts"
@@ -33,9 +33,8 @@ export TRACKER_PARSER_DIRECTORY="${GITHUB_DIRECTORY}/tracker_parser"
 export SAMSUNG_DIRECTORY="/run/media/${USER}/Samsung-1TB"
 export PLAYLIST_DIRECTORY="${SAMSUNG_DIRECTORY}/Desktop/Radio"
 alias ip='ip --color'
-alias gitu='git add . && git commit -m'
 alias reqrypt=${SCRIPTS_DIRECTORY}'/./reqrypt-1.3.1-linux64.sh'
-alias sampler='sampler -c ~/my_programs/config.yml'
+# alias sampler='sampler -c ~/my_programs/config.yml'
 alias pspy='~/my_programs/./pspy64'
 alias cm/='cmatrix -r'
 alias mocp='mocp -T /usr/share/moc/themes/darkdot_theme'
@@ -46,7 +45,6 @@ alias sl/=${SCRIPTS_DIRECTORY}'/sl.sh'
 alias os/=${SCRIPTS_DIRECTORY}'/os.sh'
 alias pac='sudo pacman -S'
 alias pacs=${SCRIPTS_DIRECTORY}'/pacs.sh'
-# /usr/share/cows
 alias tux='cowsay -f tux LINUX - Good !!!'
 alias bsd='echo "\e[31m$(cowsay -f daemon Отдавай все свои биткоины !!!)"'
 alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Тебя поджарить\?)"'
@@ -85,7 +83,6 @@ alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
 alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../man/linux_command.txt"
 alias el/='expr length'
-#alias nv="NVIM_APPNAME=nv nvim"
 source ${SCRIPTS_DIRECTORY}/functions.sh
 
 alias py=python3.13

@@ -147,11 +147,3 @@ function ctd/ {
   cd "${current_dir}"
 }
 
-backup() {
-  current_dir=$(pwd)
-  cd ${GITLAB_DIRECTORY}/backup
-  venv/bin/python main.py
-  git add .; git commit -m "update"; git push
-  cd "${current_dir}"
-}
-
