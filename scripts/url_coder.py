@@ -1,4 +1,5 @@
-#!/bin/python3
+#!/usr/bin/env python3
+# $> ./url_coder.py decoder  '%D0%9B%D0%B0%D0%BD%D0%B3%D0%B5'
 # https://github.com/wayne931121/Python_URL_Decode
 import sys
 

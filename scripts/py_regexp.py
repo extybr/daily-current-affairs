@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Показывает совпадения с тексте и переданной регулярке
 
 import sys

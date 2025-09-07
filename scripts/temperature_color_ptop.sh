@@ -12,8 +12,8 @@ GPU=$(nvidia-smi | grep Default | tr -s " " | cut -d " " -f3 | sed "s/C//g")
 echo -e "${WHITE}Температура GPU:${NORMAL} ${BLUE}${GPU}${NORMAL}°C"
 echo -e "${WHITE}Температура CPU:${NORMAL}"
 IFS=$' '
-CPU=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input | sed "s/\(.\)..$/.\1°C/")
-LABEL=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_label)
+CPU=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input 2> /dev/null | sed "s/\(.\)..$/.\1°C/")
+LABEL=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_label 2> /dev/null)
 paste <(echo -e ${LABEL}) <(echo ${CPU}) | column -s $'\t' -t | rg "\d\d[.]\d"
 inxi -s 2>/dev/null | sed -e "s/  System Temperatures: //g" -e "s/mobo: N\/A//g" | rg "\d\d[.]\d"
 inxi -c28 -t 2>/dev/null

@@ -1,5 +1,5 @@
-#!/usr/bin/python
-# $> ./coder_html_decimal.py 'Обновление &#8220;Избранного&#8221;'
+#!/usr/bin/env python3
+# $> ./coder_html_decimal.py decoder 'Обновление &#8220;Избранного&#8221;'
 
 import re
 import sys

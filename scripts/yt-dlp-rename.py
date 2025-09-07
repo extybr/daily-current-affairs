@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # python yt-dlp-rename.py path/directory
 # Удаляет с названия файла, определенные патерны
 

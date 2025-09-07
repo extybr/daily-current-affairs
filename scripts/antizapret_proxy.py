@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 #######################################
 # $> ./antizapret_proxy.py            #
 # $> ./antizapret_proxy.py curl       #

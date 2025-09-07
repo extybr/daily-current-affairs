@@ -18,7 +18,7 @@ function x/ {
     source "${SCRIPTS_DIRECTORY}/xray_key_name.sh"
     echo -n "xray: "
     python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder "${key_name}"
-    prefix="&prefix=%16%03%01%00%C2%A8%01%01#"
+    prefix="%16%03%01%00%C2%A8%01%01#"
     source "$HOME/my_programs/outline-sdk/outline.key"
     o_key_name=$(echo "${outline_key}" | \
                  grep -oP "${prefix}[^>]+" | \
@@ -83,14 +83,7 @@ function tt/ {
 function cre/ {
   current_dir=$(pwd)
   cd ${GITHUB_DIRECTORY}/youtube_latest_videos
-  [[ "$#" -eq 1 ]] && python curl_re.py $1
-  cd "${current_dir}"
-}
-
-function csh/ {
-  current_dir=$(pwd)
-  cd ${GITHUB_DIRECTORY}/youtube_latest_videos
-  [[ "$#" -eq 1 ]] && venv/bin/python rss.py $1
+  python curl_re.py "$@"
   cd "${current_dir}"
 }
 
@@ -138,12 +131,6 @@ btc () {
   else echo -e "${white} Ожидалось не более 1 параметра${normal}"
   fi
   cd "${current_dir}"
-}
-
-ytdl() {
-  pushd ${GITHUB_DIRECTORY}/ytdl &> /dev/null
-  venv/bin/python main.py &> /dev/null
-  popd &> /dev/null
 }
 
 function ctd/ {

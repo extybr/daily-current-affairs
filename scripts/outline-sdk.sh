@@ -28,7 +28,7 @@ Path=${SCRIPTS_DIRECTORY}
 Exec=outline-sdk
 StartupNotify=false
 Terminal=false" > outline-sdk.desktop
-  mv outline-sdk.desktop ~/.config/autostart
+  mv outline-sdk.desktop "$HOME/.config/autostart"
 fi
 
 if ! [ -f "${SCRIPTS_DIRECTORY}/outline-sdk" ]; then
@@ -39,12 +39,12 @@ if ! [ -f "${SCRIPTS_DIRECTORY}/outline-sdk" ]; then
   chmod u=rwx,g=r,o=r outline-sdk
 fi
 
-if [ -f ~/my_programs/outline-sdk/http2transport ]; then
-  cd ~/my_programs/outline-sdk
+if [ -f "$HOME/my_programs/outline-sdk/http2transport" ]; then
+  cd "$HOME/my_programs/outline-sdk"
   source outline.key
   transport &
-elif [ -d ~/my_programs/outline-sdk ]; then
-  cd ~/my_programs/outline-sdk
+elif [ -d "$HOME/my_programs/outline-sdk" ]; then
+  cd "$HOME/my_programs/outline-sdk"
   source outline.key
   port_8080 &
 else exit 0
