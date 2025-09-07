@@ -1,12 +1,11 @@
 #!/bin/zsh
 # HACK: для применения в файле .zshrc и текущей сессии терминала
 
-function gitu {
+function gitup {
   if ! ssh-add -L &>/dev/null; then
     eval "$(ssh-agent -s)" && ssh-add "$HOME/.ssh/extybr"
   fi
-  git add .
-  git commit -m "$1"
+  git add . && git commit -m "$1" && git push
 }
 
 function kp/ {
