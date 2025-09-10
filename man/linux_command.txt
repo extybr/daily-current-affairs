@@ -72,12 +72,14 @@ zed  (A high-performance, multiplayer code editor from the creators of Atom and 
 bat  (a cat(1) clone with syntax highlighting and Git integration)
 neofetch  (A fast, highly customizable system info script)
 fastfetch  (Fastfetch is a neofetch-like tool for fetching system information and displaying it prettily)
-ncdu  (консольный NCurses Disk Usage)
+ncdu. duc, gdu, duf  (консольный Disk Usage)
 sampler  (https://github.com/sqshq/sampler)
 pspy64 (https://github.com/DominicBreuker/pspy)
 zenith  (https://github.com/bvaisvil/zenith)
 nvitop  (https://github.com/XuehaiPan/nvitop)
 conky  (A system monitor for X)
+lazygit  (это терминальный псевдографический интерфейс (TUI) для Git)
+lazydocker  (это терминальный псевдографический интерфейс (TUI) для Docker)
 jq  (Command-line JSON processor)
 yq  (Command-line YAML processor)
 cat .gitlab-ci.yml | yq
@@ -206,6 +208,10 @@ gpg-agent  (Secret key management for GnuPG)
 gpg2  (GNU Privacy Guard 2)
 gpg2 --list-keys
 gpg2 -K
+veracrypt  (программное обеспечение, используемое для шифрования)
+udisksctl  (The udisks command line tool)
+udisksctl unlock -b '/dev/sdb1'
+cryptsetup  (utility for configuring and managing encrypted storage devices)
 
 hexdump  (display file contents in hexadecimal, decimal, octal, or ascii)
 hexdump usd-btc.sh > usd-btc.bin
@@ -248,6 +254,7 @@ sudo findfs LABEL=mypartition
 dumpe2fs  (dump ext2/ext3/ext4 file system information)
 dumpe2fs -h /dev/sda1
 wipefs  (wipe a signature from a device)
+wipefs --all /dev/sda  (очищает диск, удаление структуры)
 mountpoint  (see if a directory or file is a mountpoint)
 mountpoint /path/directory
 mkfs  (build a Linux filesystem)
@@ -666,6 +673,7 @@ cd folder && ls
 cd folder && ls | wc
 cd folder || ls
 locale  (get locale-specific information)
+locale-gen  (генерирует файл локализации locale.conf)
 tput  (initialize a terminal or query terminfo database)
 type ls pwd who
 command -V echo
@@ -783,6 +791,7 @@ compgen -a
 compgen -k
 localectl  (Control the system locale and keyboard layout settings)
 aa-status  (display various information about the current AppArmor policy)
+cat /dev/input/mouse1 | xxd -c 3 -g 1  (позиция мышки в xxd данных)
 
 mknod  (make block or character special files)
 mknod FILE c 1 5  (/dev/zero)
@@ -819,8 +828,12 @@ sysctl  (configure kernel parameters at runtime)
 sysctl -a
 sysctl -p
 
+grub-install  (устанавливает загрузчик grub)
+grub-install /dev/sda
+cat /etc/default/grub  (конфигурационный файл загрузчика)
 grub-mkconfig  (generate a GRUB configuration file)
 grub-mkconfig -o /boot/grub/grub.cfg  (переконфигурируем grub)
+sudo cat /boot/grub/grub.cfg
 bootctl  (Control EFI firmware boot settings and manage boot loader)
 sudo bootctl
 

@@ -8,6 +8,16 @@ function gitup {
   git add . && git commit -m "$1" && git push
 }
 
+function m/ {
+  if [ "$#" -ne 1 ]; then echo "*** нужно 1 параметр ***" && return 1; fi
+  "${SCRIPTS_DIRECTORY}/veracrypt.sh" "m" "$1"
+}
+
+function u/ {
+  if [ "$#" -ne 1 ]; then echo "*** нужно 1 параметр ***" && return 1; fi
+  "${SCRIPTS_DIRECTORY}/veracrypt.sh" "u" "$1"
+}
+
 function kp/ {
   for pid in $(pgrep "$1"); do
     kill -9 "$pid"
