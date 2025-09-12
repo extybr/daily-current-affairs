@@ -10,10 +10,6 @@ TARGET_PATH=''
 TARGET_FOLDER=''
 FILES_MANAGER='nautilus'
 
-if ! [ -f "$SOURCE_FILE" ]; then
-  echo "<$SOURCE_FILE> не найден" && exit
-fi
-
 if [ "$1" = 'm' ]; then
   CMD='--mount'
 elif [ "$1" = 'u' ]; then
@@ -25,10 +21,18 @@ if [ "$2" = 'f' ]; then
   TARGET_PATH='/mnt/'
   TARGET_FOLDER='veracrypt1'
   SRC="$SOURCE_FILE"
+  if ! [ -f "$SOURCE_FILE" ]; then
+    echo "файл <$SOURCE_FILE> не найден" && exit
+  fi
 elif [ "$2" = 'd' ]; then
   TARGET_PATH="/run/media/$USER/"
   TARGET_FOLDER='Samsung-500GB'
   SRC="$SOURCE_DISK"
+  if ! [ -d "$TARGET_PATH$TARGET_FOLDER" ]; then
+    echo "папка <$TARGET_PATH$TARGET_FOLDER> не найдена" \
+    && sudo mkdir "$TARGET_PATH$TARGET_FOLDER" \
+    && echo "папка $TARGET_FOLDER создана"
+  fi
 else exit
 fi
 

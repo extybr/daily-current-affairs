@@ -67,6 +67,7 @@ gedit  (a general-purpose text editor)
 vi  (screen oriented (visual) display editor based on ex)
 nvim  (edit text)
 nvim-qt  (Neovim Qt)
+micro  (A modern and intuitive terminal-based text editor)
 helix  (A post-modern modal text editor)
 zed  (A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter)
 bat  (a cat(1) clone with syntax highlighting and Git integration)
@@ -595,6 +596,7 @@ mktemp -d tempsXXX
 mktemp temp.XXXtxt
 modprobe  (Add and remove modules from the Linux Kernel)
 sudo modprobe <module_name>
+mkinitcpio  (Create an initial ramdisk environment)
 shuf  (generate random permutations)
 echo $RANDOM
 od -An -N1 -d /dev/urandom
@@ -981,6 +983,7 @@ nmcli dev status
 nmcli device show
 nmcli c s 'eth0' | grep dns
 nmcli --mode multiline dev wifi
+nmcli radio wifi off  (выключение wifi)
 nm-connection-editor  (network connection editor for NetworkManager)
 nm-online  (ask NetworkManager whether the network is connected)
 nmblookup  (NetBIOS over TCP/IP client used to lookup NetBIOS names)
@@ -1176,6 +1179,7 @@ sensors  (print sensors information)
 sensors -u
 sensors -j
 sudo sensors-detect
+cat /sys/class/power_supply/BAT0/capacity  (заряд батареи аккумулятора)
 cat /sys/class/thermal/thermal_zone*/temp
 cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input
 paste <(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_label) <(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input) | column -s $'\t' -t | sed 's/\(.\)..$/.\1°C/'
@@ -1208,6 +1212,7 @@ lsattr  (list file attributes on a Linux second extended file system)
 lsfd  (list file descriptors)
 lsmod  (depmod, insmod, rmmod, modprobe)
 lsmod  (Show the status of modules in the Linux Kernel)
+dkms  (Dynamic Kernel Module Support)
 lsns  (list namespaces)
 cat /proc/softirqs
 cat /proc/interrupts
