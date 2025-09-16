@@ -18,6 +18,11 @@ function u/ {
   "${SCRIPTS_DIRECTORY}/veracrypt.sh" "u" "$1"
 }
 
+function fix/ {
+  if [ "$#" -ne 1 ]; then echo "*** нужно 1 параметр ***" && return 1; fi
+  "${SCRIPTS_DIRECTORY}/veracrypt.sh" "fix" "$1"
+}
+
 function kp/ {
   for pid in $(pgrep "$1"); do
     kill -9 "$pid"

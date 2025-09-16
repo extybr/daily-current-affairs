@@ -118,8 +118,12 @@ gnome-chess
 gnome-calculator
 gnome-firmware
 gnome-photos
+gnome-session  (Start the GNOME desktop environment)
+gsettings  (GSettings configuration tool)
 gio  (GIO commandline tool)
 gio help copy
+xrdb  (X server resource database utility)
+xmodmap  (utility for modifying keymaps and pointer button mappings in X)
 flatpak  (Build, install and run applications and runtimes)
 ____________
 
@@ -621,6 +625,7 @@ amixer -D pulse sset Master 10%-
 amixer -D pulse sset Master 50%
 amixer cset iface=MIXER,name="Master Playback Volume" 20%
 amixer get Master | grep 'Front Left:' | tr -d " " | cut -d '[' -f 2 | sed 's/%]//g'
+pactl  (Control a running PulseAudio sound server)
 aplay  (command-line sound recorder and player for ALSA soundcard driver)
 aplay -l
 aplay radio.wav
