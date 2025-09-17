@@ -119,6 +119,7 @@ gnome-calculator
 gnome-firmware
 gnome-photos
 gnome-session  (Start the GNOME desktop environment)
+gnome-extensions  (Command line tool for managing GNOME extensions)
 gsettings  (GSettings configuration tool)
 gio  (GIO commandline tool)
 gio help copy
@@ -446,6 +447,8 @@ users  (print the user names of users currently logged in to the current host)
 groups  (показывает имена групп запустившего программу пользователя)
 groups root
 cat /etc/group
+newgrp  (log in to a new group)
+newgrp docker
 newusers  (обновляет и создаёт новые учётные записи пользователей в пакетно...)
 chage  (изменяет информацию об устаревании пароля пользователя)
 chage -l $USER  (View password expiration info)
@@ -626,6 +629,11 @@ amixer -D pulse sset Master 50%
 amixer cset iface=MIXER,name="Master Playback Volume" 20%
 amixer get Master | grep 'Front Left:' | tr -d " " | cut -d '[' -f 2 | sed 's/%]//g'
 pactl  (Control a running PulseAudio sound server)
+pw-cli  (The PipeWire Command Line Interface)
+pw-cli list-objects
+pw-cli list-objects | grep -E "(node|alias)"
+pw-top  (The PipeWire process viewer)
+systemctl --user status pipewire pulseaudio wireplumber (Какая звуковая система активна)
 aplay  (command-line sound recorder and player for ALSA soundcard driver)
 aplay -l
 aplay radio.wav
@@ -843,6 +851,14 @@ grub-mkconfig -o /boot/grub/grub.cfg  (переконфигурируем grub)
 sudo cat /boot/grub/grub.cfg
 bootctl  (Control EFI firmware boot settings and manage boot loader)
 sudo bootctl
+
+efibootmgr  (change the UEFI Boot Manager configuration)
+sudo efibootmgr -v  (список загрузчиков UEFI)
+sudo efibootmgr -b 5 -B  (удалить запись с загрузчика UEFI)
+sudo fdisk -l | grep -i efi
+sudo mount /dev/nvme0n1p1 /mnt
+sudo rm -rf /mnt/EFI/Manjaro/
+sudo umount /mnt
 
 *** package ***
 

@@ -2,6 +2,10 @@
 # HACK: для применения в файле .zshrc и текущей сессии терминала
 
 function gitup {
+  if [ -z "$1" ]; then
+        echo "❌ Usage: gitup \"commit message\""
+        return 1
+  fi
   if ! ssh-add -L &>/dev/null; then
     eval "$(ssh-agent -s)" && ssh-add "$HOME/.ssh/extybr"
   fi
