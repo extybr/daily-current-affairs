@@ -1,41 +1,55 @@
-# Use powerline
-USE_POWERLINE="true"
-# Has weird character width
-# Example:
-#    is not a diamond
-HAS_WIDECHARS="false"
-# Source manjaro-zsh-configuration
-if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
-  source /usr/share/zsh/manjaro-zsh-config
-fi
-# Use manjaro zsh prompt
-if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
-  source /usr/share/zsh/manjaro-zsh-prompt
-fi
-
-#https://www.geeksforgeeks.org/histcontrol-command-in-linux-with-examples/
-#HISTCONTROL=ignoreboth:erasedups
-
-#/usr/share/zsh/manjaro-zsh-config
+# Используем стандартный для Zsh файл истории
+HISTFILE=~/.zhistory
 HISTSIZE=20000
 SAVEHIST=20000
 
-# Disable autocorrect
-# unsetopt correct_all
-unsetopt correct
+# Настройки истории
+setopt appendhistory           # Добавлять в историю, а не перезаписывать
+setopt INC_APPEND_HISTORY      # Добавлять команды сразу, а не при выходе
+setopt SHARE_HISTORY           # Делиться историей между сессиями
+setopt HIST_IGNORE_DUPS        # Не сохранять повторяющиеся команды
+setopt HIST_IGNORE_SPACE       # Не сохранять команды, начинающиеся с пробела
+unsetopt correct               # Отключаем исправление команд
+# unsetopt correctall          # Отключаем исправление аргументов команд
+setopt extendedglob            # Расширенное шаблонирование (глоббинг). Включает мощные шаблоны для поиска файлов.
+setopt autocd                  # Автоматический переход в каталог. Если ввести имя каталога без команды cd, Zsh автоматически перейдёт в него.
+setopt nomatch                 # Не выдавать ошибку, если шаблон не совпал
+unsetopt beep                  # Отключить звуковой сигнал (бип)
+unsetopt notify                # Не уведомлять сразу о завершении фоновых задач
 
-export wlan0='wlo1'
-export wlan1='wlp5s0f4u1u2'
+# Themes
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# Fish-like syntax highlighting and autosuggestions
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# pkgfile "command not found" handler
+source /usr/share/doc/pkgfile/command-not-found.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+alias ls='ls --color=auto'
+alias ip='ip --color'
+alias grep='grep --color=auto'
+alias py=python3.13
+export TERMINAL="terminator"
+
+export wlan0='wlan0'
+export wlan1='wlan1'
 export GITHUB_DIRECTORY="${HOME}/PycharmProjects/github"
 export GITLAB_DIRECTORY="${HOME}/PycharmProjects/gitlab"
 export SCRIPTS_DIRECTORY="${GITHUB_DIRECTORY}/daily-current-affairs/scripts"
 export TRACKER_PARSER_DIRECTORY="${GITHUB_DIRECTORY}/tracker_parser"
 export SAMSUNG_DIRECTORY="/run/media/${USER}/Samsung-1TB"
 export PLAYLIST_DIRECTORY="${SAMSUNG_DIRECTORY}/Desktop/Radio"
-alias ip='ip --color'
 # alias sampler='sampler -c ~/my_programs/config.yml'
 alias pspy='~/my_programs/./pspy64'
 alias cm/='cmatrix -r'
+alias mo/="$HOME/my_programs/Momoisay/./momoisay -f"  # https://github.com/Mon4sm/momoisay
+alias merry="$HOME/my_programs/tree-christmas.sh"
+alias po/='ponysay "Hello, Linux" 2> /dev/null'  # https://github.com/erkin/ponysay
 alias mocp='mocp -T /usr/share/moc/themes/darkdot_theme'
 alias gpgd='gpg2 -d ${SAMSUNG_DIRECTORY}/mail.txt.gpg'
 alias gpgd/='gpgd | rg -A10 -B5 $1'
@@ -84,5 +98,5 @@ alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../man/linux_command.txt"
 alias el/='expr length'
 source ${SCRIPTS_DIRECTORY}/functions.sh
 
-alias py=python3.13
-
+# Переконфигурирование zsh (все остальные строки перед этим удалить или закомментировать)
+# source /usr/share/cachyos-zsh-config/cachyos-config.zsh

@@ -10,9 +10,11 @@ firefox --version
 mc   (Визуальная оболочка для Unix-подобных систем)
 fish  (the friendly interactive shell)
 ranger  (консольный visual file manager)
+yazi  (консольный visual file manager)
 eza  (A modern replacement for ls (community fork of exa))
 nnn  (The unorthodox terminal file manager)
 cowsay  (configurable speaking/thinking cow (and a bit more))
+ponysay  (cowsay reimplemention for ponies)
 sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
 cmatrix  (command is a matrix program effect that displays green symbols on your terminal)
 seahorse  (Passwords and Keys)
@@ -614,6 +616,7 @@ groff  (front end to the GNU roff document formatting system)
 troff  (GNU roff typesetter and document formatter)
 source ~/.zshrc
 . ~/.zshrc
+bindkey, zstyle, zle  (для zsh)
 pushd  (переход в указанный каталог с запоминанием текущего каталога)
 pushd /etc
 popd  (последний каталог в стеке)
@@ -795,6 +798,7 @@ img2txt image.jpg
 losetup  (set up and control loop devices)
 losetup --show -Pf usb.img  (Создаем связь между файлом образа usb.img и устройством loopback)
 update-desktop-database  (Build cache database of MIME types handled by desktop files)
+gtk-update-icon-cache  (Icon theme caching utility)
 ktutil  (Kerberos keytab file maintenance utility)
 kinit  (obtain and cache Kerberos ticket-granting ticket)
 rpcinfo  (report RPC information)
@@ -1138,6 +1142,7 @@ mii-tool  (view, manipulate media-independent interface status)
 tc  (show / manipulate traffic control settings)
 
 Настройка локального кеширующего DNS-сервера systemd-resolved
+resolvectl  (Resolve domain names, IPV4 and IPv6 addresses, DNS resource records, and services; introspect and reconfigure the DNS)
 resolvectl status
 systemctl status systemd-resolved
 sudo systemctl enable systemd-resolved.service --now

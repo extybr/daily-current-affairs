@@ -1,6 +1,16 @@
 #!/bin/zsh
 # HACK: для применения в файле .zshrc и текущей сессии терминала
 
+function d/ {
+  # clock / https://github.com/octobanana/peaclock
+  if [ "$1" = "d" ]; then
+    peaclock --config-dir $HOME/.peaclock/digital
+  elif [ "$1" = "dp" ]; then
+    peaclock --config-dir $HOME/.peaclock/digital-party
+  else peaclock --config-dir $HOME/.peaclock/
+  fi
+}
+
 function gitup {
   if [ -z "$1" ]; then
         echo "❌ Usage: gitup \"commit message\""
