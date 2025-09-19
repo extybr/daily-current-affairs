@@ -1,6 +1,28 @@
 #!/bin/zsh
 # HACK: для применения в файле .zshrc и текущей сессии терминала
 
+function all/ {
+  bat "$HOME/my_programs/function.txt"
+}
+
+function wl/ {
+  if pgrep auto-wallpaper; then
+    pkill -f auto-wallpaper
+  fi
+  if [ $# -eq 1 ]; then
+    if [ "$1" = "k" ]; then
+      pkill -f auto-wallpaper
+      gsettings set org.gnome.desktop.background picture-uri-dark "$HOME/Изображения/Wallpapers/IMG_0776.jpg"
+    elif [ -d "$1" ]; then
+      nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" "$1" &>/dev/null &
+    fi
+  elif [ $# -eq 2 ] && [ -d "$1" ]; then
+    nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" "$1" "$2" &>/dev/null &
+  else
+    nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" &>/dev/null &
+  fi
+}
+
 function d/ {
   # clock / https://github.com/octobanana/peaclock
   if [ "$1" = "d" ]; then

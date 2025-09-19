@@ -370,6 +370,7 @@ lsof -c bash
 lsof -d cwd
 jobs -l
 disown -a
+setsid  (run a program in a new session)
 fg
 bg
 kill %1
