@@ -1,14 +1,18 @@
 #!/bin/bash
-# Простой сменщик обоев для GNOME
+# Простой сменщик обоев для GNOME с кэшированием
 
 WALLPAPER_DIR="$HOME/Изображения/Wallpapers"
+INTERVAL=10
+ORIENT=''
 if [ "$#" -eq 1 ] && [ -d "$1" ]; then
   WALLPAPER_DIR="$1"
-fi
-INTERVAL=10  # 10 в секундах
-if [ "$#" -eq 2 ] && [ -d "$1" ]; then
+elif [ "$#" -eq 2 ] && [ -d "$1" ]; then
   WALLPAPER_DIR="$1"
   INTERVAL="$2"
+elif [ "$#" -eq 3 ] && [ -d "$1" ]; then
+  WALLPAPER_DIR="$1"
+  INTERVAL="$2"
+  ORIENT="$3"
 fi
 
 # Проверяем папку
@@ -16,66 +20,69 @@ if [ ! -d "$WALLPAPER_DIR" ]; then
   echo "Папка $WALLPAPER_DIR отсутствует!" && exit 1
 fi
 
-# Проверяем ImageMagick (для определения ориентации)
-if ! command -v identify &> /dev/null; then
-  echo "Установите ImageMagick" && exit 1
-fi
+# Кэш в памяти
+declare -A orientation_cache
+last_file_count=0
 
-# Функция проверки горизонтальной ориентации с обработкой ошибок
+# Функция проверки горизонтальной ориентации с кэшем
 is_horizontal() {
   local file="$1"
     
-  # Пробуем получить геометрию
-  local geometry=$(identify -format "%wx%h" "$file" 2>/dev/null)
-    
-  # Если identify failed, пропускаем файл
-  if [ $? -ne 0 ] || [ -z "$geometry" ]; then
-    return 1
+  # Проверяем кэш
+  if [[ -v orientation_cache["$file"] ]]; then
+    return ${orientation_cache["$file"]}
   fi
     
-  # Извлекаем ширину и высоту
-  local width=${geometry%x*}
-  local height=${geometry#*x}
-    
-  # Проверяем что это числа
-  if ! [[ "$width" =~ ^[0-9]+$ ]] || ! [[ "$height" =~ ^[0-9]+$ ]]; then
-    return 1
-  fi
-    
-  # Проверяем ориентацию
-  [ "$width" -gt "$height" ] && return 0 || return 1
-}
+  # Определяем ориентацию через file
+  local info=$(file "$file" 2>/dev/null) 
+  local third_field=$(echo "$info" | awk '{print $(NF-2)}')
 
+  # Проверяем третье поле на наличие размеров
+  if [[ "$third_field" =~ ([0-9]+)x([0-9]+) ]]; then
+    local width="${BASH_REMATCH[1]}"
+    local height="${BASH_REMATCH[2]}"
+    if [ "$width" -gt "$height" ]; then
+      orientation_cache["$file"]=0
+      return 0
+    else
+      orientation_cache["$file"]=1
+      return 1
+    fi
+  fi
+    
+  # Если не определили - считаем вертикальным
+  orientation_cache["$file"]=1
+  return 1
+}
 
 # Основной цикл
 while true; do
   # Ищем все изображения
-  mapfile -t all_wallpapers < <(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.webp" \))
+  mapfile -t all_wallpapers < <(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.webp" \) 2>/dev/null)
     
   if [ ${#all_wallpapers[@]} -eq 0 ]; then
     echo "Нет обоев в $WALLPAPER_DIR!"
-    sleep 10
-    continue
+    exit
   fi
 
-  # Фильтруем только горизонтальные
   horizontal_wallpapers=()
-  
-  if [ $INTERVAL -ge 10 ]; then
-		for wallpaper in "${all_wallpapers[@]}"; do
-			if is_horizontal "$wallpaper"; then
-				horizontal_wallpapers+=("$wallpaper")
-			fi
-		done
-		# Если нет горизонтальных, используем ВСЕ обои
-		if [ ${#horizontal_wallpapers[@]} -eq 0 ]; then
-		  echo "Нет горизонтальных обоев! Использую все доступные."
-		  horizontal_wallpapers=("${all_wallpapers[@]}")
-		fi
-	else horizontal_wallpapers=("${all_wallpapers[@]}")
+    
+  if [ "$ORIENT" = 'all' ]; then
+    horizontal_wallpapers=("${all_wallpapers[@]}")
+  else
+    # Фильтруем только горизонтальные используя кэш
+    for wallpaper in "${all_wallpapers[@]}"; do
+      if is_horizontal "$wallpaper"; then
+        horizontal_wallpapers+=("$wallpaper")
+      fi
+    done
+    if [ ${#horizontal_wallpapers[@]} -eq 0 ]; then
+      echo "Нет горизонтальных обоев! Использую все доступные."
+      horizontal_wallpapers=("${all_wallpapers[@]}")
+    fi
   fi
 
-  # Выбираем случайные горизонтальные обои
+  # Выбираем случайные обои
   random_wall="${horizontal_wallpapers[RANDOM % ${#horizontal_wallpapers[@]}]}"
     
   # Меняем обои

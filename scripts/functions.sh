@@ -18,6 +18,8 @@ function wl/ {
     fi
   elif [ $# -eq 2 ] && [ -d "$1" ]; then
     nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" "$1" "$2" &>/dev/null &
+  elif [ $# -eq 3 ] && [ -d "$1" ]; then
+    nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" "$1" "$2" "$3" &>/dev/null &
   else
     nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" &>/dev/null &
   fi
