@@ -1,0 +1,32 @@
+* Если при установке пакета появляются ошибки ключей, то прежде чем следовать советам ниже - 
+  попробовать обновить систему: sudo pacman -Syu
+  а потом заново попробовать поставить пакет.
+
+1. Обновление ключей Arch Linux (рекомендуется сначала попробовать это):
+
+	sudo pacman-key --refresh-keys
+	sudo pacman -S archlinux-keyring
+
+2. Если не помогло, переполучить и переподписать ключи:
+
+	sudo pacman-key --init
+	sudo pacman-key --populate archlinux
+	sudo pacman-key --refresh-keys
+
+3. Для конкретного ключа CachyOS:
+
+	sudo pacman-key -r CACHYOS_KEY_ID  # сначала найти ID ключа
+	sudo pacman-key --lsign-key CACHYOS_KEY_ID
+
+4. Пропустить проверку подписи (не рекомендуется, но как временное решение):
+
+	sudo pacman -S sqlitebrowser --ignore
+
+5. Полная переустановка ключей (если ничего не помогает):
+
+	sudo rm -rf /etc/pacman.d/gnupg/
+	sudo pacman-key --init
+	sudo pacman-key --populate archlinux
+	sudo pacman -S archlinux-keyring
+
+Рекомендую начать с первого варианта - это самое безопасное и правильное решение.
