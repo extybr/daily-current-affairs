@@ -28,7 +28,8 @@ fi
 cd ~/PycharmProjects/temp/TkinterMapView
 
 map() {
-  .venv/bin/python main.py
+  #.venv/bin/python main.py
+  uv run main.py
 }
 
 fix() {
@@ -46,7 +47,7 @@ then
   if [ "$#" -gt 1 ]
     then echo -e "${white}ожидалось не более 1 параметра, а передано $#${normal}"
   elif [ "$#" -eq 1 ]
-    then .venv/bin/python main.py "$1"
+    then uv run main.py "$1"
   else map
   fi
 else echo -e "${white}*** fix ***${normal}" && fix && map

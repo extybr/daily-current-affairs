@@ -128,6 +128,10 @@ gio help copy
 xrdb  (X server resource database utility)
 xmodmap  (utility for modifying keymaps and pointer button mappings in X)
 flatpak  (Build, install and run applications and runtimes)
+flatpak list
+yay  (AUR Helper written in go)
+yay Syu  (update repo)
+yay Scc  (delete cache)
 ____________
 
 java
@@ -523,6 +527,8 @@ ls -liah .bash_history > info.txt | tee
 tee  (read from standard input and write to standard output and files)
 find  (search for files in a directory hierarchy)
 find *.txt
+fd  (find entries in the filesystem)
+fd my_video
 free  (Display amount of free and used memory in the system)
 free -h
 head  (output the first part of files)

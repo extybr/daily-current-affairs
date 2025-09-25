@@ -17,22 +17,30 @@ elif [ "$1" = 'u' ]; then
 else exit
 fi
 
-if [ "$2" = 'f' ]; then
-  TARGET_PATH='/mnt/'
-  TARGET_FOLDER='veracrypt1'
-  SRC="$SOURCE_FILE"
-  if ! [ -f "$SOURCE_FILE" ]; then
-    echo "файл <$SOURCE_FILE> не найден" && exit
-  fi
-elif [ "$2" = 'd' ]; then
-  TARGET_PATH="/run/media/$USER/"
-  TARGET_FOLDER='Samsung-500GB'
-  SRC="$SOURCE_DISK"
+function check_path {
   if ! [ -d "$TARGET_PATH$TARGET_FOLDER" ]; then
     echo "папка <$TARGET_PATH$TARGET_FOLDER> не найдена" \
     && sudo mkdir "$TARGET_PATH$TARGET_FOLDER" \
     && echo "папка $TARGET_FOLDER создана"
   fi
+}
+
+if [ "$2" = 'f' ]; then
+  TARGET_PATH='/mnt/'
+  TARGET_FOLDER='veracrypt1'
+  SRC="$SOURCE_FILE"
+  if [ "$#" -eq 3 ] && [ -f "$3" ]; then
+    SRC="$3"
+  fi
+  if ! [ -f "$SRC" ]; then
+    echo "файл <$SRC> не найден" && exit
+  fi
+  check_path
+elif [ "$2" = 'd' ]; then
+  TARGET_PATH="/run/media/$USER/"
+  TARGET_FOLDER='Samsung-500GB'
+  SRC="$SOURCE_DISK"
+  check_path
 else exit
 fi
 

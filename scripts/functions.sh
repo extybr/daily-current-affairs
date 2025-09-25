@@ -46,19 +46,11 @@ function gitup {
   git add . && git commit -m "$1" && git push
 }
 
-function m/ {
-  if [ "$#" -ne 1 ]; then echo "*** нужно 1 параметр ***" && return 1; fi
-  "${SCRIPTS_DIRECTORY}/veracrypt.sh" "m" "$1"
-}
-
-function u/ {
-  if [ "$#" -ne 1 ]; then echo "*** нужно 1 параметр ***" && return 1; fi
-  "${SCRIPTS_DIRECTORY}/veracrypt.sh" "u" "$1"
-}
-
-function fix/ {
-  if [ "$#" -ne 1 ]; then echo "*** нужно 1 параметр ***" && return 1; fi
-  "${SCRIPTS_DIRECTORY}/veracrypt.sh" "fix" "$1"
+function v/ {
+  if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
+    echo "*** нужно 2 или 3 параметра ***" && return 1
+  fi
+  "${SCRIPTS_DIRECTORY}/veracrypt.sh" "$@"
 }
 
 function kp/ {
