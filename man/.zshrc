@@ -30,6 +30,8 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage'
+
 export wlan0='wlan0'
 export wlan1='wlan1'
 export TERMINAL="terminator"
@@ -70,7 +72,7 @@ alias rgh/='cat ~/.zhistory | rg $1'
 alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
 alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
-alias ti/='cd ${GITLAB_DIRECTORY}/tradingindex_to_html_sql_csv_json/ && uv run trading-index.py'
+alias ti/='pushd && cd ${GITLAB_DIRECTORY}/tradingindex_to_html_sql_csv_json/ && uv run trading-index.py && popd'
 alias ts/=${SCRIPTS_DIRECTORY}'/timestamp.sh'
 alias ct/=${SCRIPTS_DIRECTORY}'/current_time_area_google.sh'
 alias anti=${SCRIPTS_DIRECTORY}'/antizapret.sh'
@@ -91,6 +93,7 @@ alias pspy='~/my_programs/./pspy64'
 alias e/='exiftool $1'
 alias s/='shc -r -f $1'
 alias el/='expr length'
+alias fr/='xclip -o | xargs fragments'
 alias ls='ls --color=auto'
 alias ip='ip --color'
 alias grep='grep --color=auto'
