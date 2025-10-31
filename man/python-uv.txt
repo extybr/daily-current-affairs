@@ -96,6 +96,8 @@ On Windows.
 Добавление в uv линтера ruff
     uv add ruff
     uvx ruff
+    
+uvx это алиас для uv tool run, призванный упростить ввод, чтобы каждый раз не писать uv tool run
 
 Запуск линтера
     uv run ruff check
