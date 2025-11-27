@@ -152,13 +152,17 @@ function p/ {
 
 function y/ {
   # https://github.com/yt-dlp/yt-dlp#readme
-  if [ "$#" -ne 1 ]
-    then echo -e "\e[37mНеобходимо передать url-адрес\e[0m"
+  if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+    echo -e "\e[37mНеобходимо передать url-адрес\e[0m"
     return 0
   fi
   ~/bin/yt-dlp -U
-  ~/bin/yt-dlp --proxy http://127.0.0.1:1080 -S 'res:720,fps' "$1"
-  ${SCRIPTS_DIRECTORY}/yt-dlp-rename.py $(pwd)
+  if [ "$#" -eq 2 ] && [ "$2" = 'audio' ]; then
+    # ~/bin/yt-dlp --proxy 127.0.0.1:1080 -f bestaudio -o '%(title)s.%(ext)s' "$1"  # audio.webm
+    ~/bin/yt-dlp --proxy 127.0.0.1:1080 -o '%(title)s.%(ext)s' --extract-audio "$1"  # audio.opus
+  else ~/bin/yt-dlp --proxy http://127.0.0.1:1080 -S 'res:720,fps' "$1"  # video-720p
+    ${SCRIPTS_DIRECTORY}/yt-dlp-rename.py $(pwd)
+  fi
 }
 
 function hx/ {

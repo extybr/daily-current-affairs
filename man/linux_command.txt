@@ -301,6 +301,9 @@ echo $(sudo parted /dev/sda2 print | tail -2 | awk '{print $5}' | tr -d '[:space
 echo ‘/dev/sdb1 /mnt/mydata ext4 defaults 0 2’ | sudo tee -a /etc/fstab
 blkid -o list | grep sd
 resizepart  (tell the kernel about the new size of a partition)
+e4defrag  (online defragmenter for ext4 file system)
+sudo e4defrag -c -v /mnt/hdd  (дефрагментация примонтированного диска, файловая система - ext4)
+blkdiscard  (discard sectors on a device)
 
 udevadm -h  (udev management tool)
 udevadm info -n sdc
@@ -392,6 +395,7 @@ journalctl  (Print log entries from the systemd journal)
 journalctl -u docker
 dmesg  (print or control the kernel ring buffer)
 sudo dmesg | rg usb
+sudo dmesg -WH  (в режиме реального времени смотрит лог ядра системы: подключаемые устройства, сетевые правила)
 last  (show a listing of last logged in users)
 last -h  (last -a, last -i)  (show a listing of last logged in users)
 lastb  (show a listing of last logged in users)

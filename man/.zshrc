@@ -32,6 +32,13 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 
 alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage'
 
+# Инициализация системы автодополнения
+autoload -Uz compinit
+compinit
+
+# Автодополнение для uv
+eval "$(uv generate-shell-completion zsh)"
+
 export wlan0='wlan0'
 export wlan1='wlan1'
 export TERMINAL="terminator"
@@ -51,6 +58,7 @@ alias bsd='echo "\e[31m$(cowsay -f daemon Отдавай все свои бит�
 alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Тебя поджарить\?)"'
 alias mocp='mocp -T /usr/share/moc/themes/darkdot_theme'
 alias ph="${SCRIPTS_DIRECTORY}/phiola.sh"
+alias mpva='mpv --no-video --ytdl-format=worstaudio "$@"'
 alias 40/="ph http://prmstrm.1.fm:8000/top40"
 alias 90/='ffplay "https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761" -nodisp -volume 3; clear'
 alias e+='ffplay http://ep256.hostingradio.ru:8052/europaplus256.mp3 -nodisp -volume 3'
@@ -92,7 +100,7 @@ alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../man/linux_command.txt"
 alias pspy='~/my_programs/./pspy64'
 alias e/='exiftool $1'
 alias s/='shc -r -f $1'
-alias el/='expr length'
+alias el/='expr length'  # длина строки, аналог: echo -n "$@" | wc -c | awk '{print $1}'
 alias fr/='xclip -o | xargs fragments'
 alias ls='ls --color=auto'
 alias ip='ip --color'
