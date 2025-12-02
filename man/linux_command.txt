@@ -126,6 +126,8 @@ gnome-extensions  (Command line tool for managing GNOME extensions)
 gsettings  (GSettings configuration tool)
 gio  (GIO commandline tool)
 gio help copy
+gio trash --list  (список файлов в корзине, с указанием первоначального месторасположения)
+gio trash --empty  (очистить корзину)
 xrdb  (X server resource database utility)
 xmodmap  (utility for modifying keymaps and pointer button mappings in X)
 flatpak  (Build, install and run applications and runtimes)
@@ -645,6 +647,7 @@ mktemp temp.XXXtxt
 mkinitcpio  (Create an initial ramdisk environment)
 shuf  (generate random permutations / Shuffles lines of text in random order)
 echo $RANDOM
+echo "BASH_SOURCE: ${BASH_SOURCE[0]}"
 factor  (Prints the prime factors of a given number / factor numbers)
 od -An -N1 -d /dev/urandom
 python -c "import random; print(random.randint(1, 100))"
@@ -813,6 +816,7 @@ exiftool 'Bad Boys Blue - My Star.flac'
 identify  (describes the format and characteristics of one or more image files)
 identify -verbose image.jpg
 chattr  (change file attributes on a Linux file system)
+sudo chattr +i -V superfile.txt  (неудаляемый файл / Make a file or directory immutable to changes and deletion, even by superuser)
 lsattr  (list file attributes on a Linux second extended file system)
 lsattr .bash_history
 blkid  (locate/print block device attributes / Displays block device attributes, including UUID)

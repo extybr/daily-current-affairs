@@ -1,0 +1,54 @@
+Backlit keyboard for a laptop running the GNOME desktop environment
+Подсветка клавиатуры ноутбука со средой рабочего стола gnome
+
+Включить / on
+
+gdbus call --session \
+  --dest org.gnome.SettingsDaemon.Power \
+  --object-path /org/gnome/SettingsDaemon/Power \
+  --method org.gnome.SettingsDaemon.Power.Keyboard.StepUp
+
+Выключить / off
+
+gdbus call --session \
+  --dest org.gnome.SettingsDaemon.Power \
+  --object-path /org/gnome/SettingsDaemon/Power \
+  --method org.gnome.SettingsDaemon.Power.Keyboard.StepDown
+
+Включить-Выключить / Turn on-off
+
+gdbus call --session \
+  --dest org.gnome.SettingsDaemon.Power \
+  --object-path /org/gnome/SettingsDaemon/Power \
+  --method org.gnome.SettingsDaemon.Power.Keyboard.Toggle
+
+Проверить яркость / Check the brightness
+
+gdbus call --session \
+  --dest org.gnome.SettingsDaemon.Power \
+  --object-path /org/gnome/SettingsDaemon/Power \
+  --method org.freedesktop.DBus.Properties.Get \
+  "org.gnome.SettingsDaemon.Power.Keyboard" "Brightness"
+
+Уменьшить яркость / Decrease brightness
+
+gdbus call --session \
+  --dest org.gnome.SettingsDaemon.Power \
+  --object-path /org/gnome/SettingsDaemon/Power \
+  --method org.gnome.SettingsDaemon.Power.Keyboard.StepDown
+
+Увеличить яркость / Increase brightness
+
+gdbus call --session \
+  --dest org.gnome.SettingsDaemon.Power \
+  --object-path /org/gnome/SettingsDaemon/Power \
+  --method org.gnome.SettingsDaemon.Power.Keyboard.StepUp
+
+Выставить яркость на 50% / Set brightness to 50%
+
+gdbus call --session \
+  --dest org.gnome.SettingsDaemon.Power \
+  --object-path /org/gnome/SettingsDaemon/Power \
+  --method org.freedesktop.DBus.Properties.Set \
+  "org.gnome.SettingsDaemon.Power.Keyboard" "Brightness" "<int32 50>"
+

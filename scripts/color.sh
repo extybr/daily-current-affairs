@@ -39,7 +39,14 @@ function color {
   tput sgr0
 }
 
-color
+function numbers {
+  for i in {0..255}; do
+    echo -ne "[38;5;${i}m$i "
+  done
+  echo
+}
 
+color
 colorize
+numbers
 
