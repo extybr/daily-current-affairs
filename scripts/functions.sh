@@ -158,9 +158,12 @@ function y/ {
   fi
   ~/bin/yt-dlp -U
   if [ "$#" -eq 2 ] && [ "$2" = 'audio' ]; then
-    # ~/bin/yt-dlp --proxy 127.0.0.1:1080 -f bestaudio -o '%(title)s.%(ext)s' "$1"  # audio.webm
-    ~/bin/yt-dlp --proxy 127.0.0.1:1080 -o '%(title)s.%(ext)s' --extract-audio "$1"  # audio.opus
-  else ~/bin/yt-dlp --proxy http://127.0.0.1:1080 -S 'res:720,fps' "$1"  # video-720p
+    # ~/bin/yt-dlp --proxy 127.0.0.1:1080 -f bestaudio -o '%(title)s.%(ext)s' "$1"     # audio.webm
+    # ~/bin/yt-dlp --proxy 127.0.0.1:1080 -o '%(title)s.%(ext)s' --extract-audio "$1"  # audio.opus
+    ~/bin/yt-dlp --proxy 127.0.0.1:1080 --retries infinite --no-playlist \
+    --format bestaudio --extract-audio --audio-format mp3 --embed-thumbnail \
+    --windows-filenames --force-overwrites --output '%(title)s.%(ext)s' "$1"  # audio.mp3 + thumbnail
+  else ~/bin/yt-dlp --proxy http://127.0.0.1:1080 -S 'res:720,fps' "$1"       # video-720p
     ${SCRIPTS_DIRECTORY}/yt-dlp-rename.py $(pwd)
   fi
 }

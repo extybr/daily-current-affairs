@@ -82,6 +82,7 @@ alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'
 alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
 alias ti/='pushd && cd ${GITLAB_DIRECTORY}/tradingindex_to_html_sql_csv_json/ && uv run trading-index.py && popd'
 alias ts/=${SCRIPTS_DIRECTORY}'/timestamp.sh'
+alias dt/='echo && date "+%X,%e %B %Yг, %A | %F" && echo && cal | grep -E "$(date '+%e')\b| "'
 alias ct/=${SCRIPTS_DIRECTORY}'/current_time_area_google.sh'
 alias anti=${SCRIPTS_DIRECTORY}'/antizapret.sh'
 alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
@@ -100,7 +101,8 @@ alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../man/linux_command.txt"
 alias pspy='~/my_programs/./pspy64'
 alias e/='exiftool $1'
 alias s/='shc -r -f $1'
-alias el/='expr length'  # длина строки, аналог: echo -n "$@" | wc -c | awk '{print $1}'
+alias el/='expr length'  # длина строки
+# длина строки, аналог 1) echo -n "$@" | wc -c | awk '{print $1}' или аналог 2) function el/ { echo "${#1}" }
 alias fr/='xclip -o | xargs fragments'
 alias ls='ls --color=auto'
 alias ip='ip --color'

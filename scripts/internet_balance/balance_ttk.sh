@@ -4,10 +4,7 @@
 # На выбор с файлом cookie.txt curl (get_cookies_file) и без него (get_cookies).
 # lk.ttk.ru | Баланс ТТК
 
-source secret.txt  # содержит LOGIN и PASSWORD
-URL="https://lk.ttk.ru"
-COOKIE_FILE="cookie.txt"
-ATTEMPT=0
+trap "echo ' Trapped Ctrl-C'; exit 0" SIGINT
 
 # --- Цвета ---
   
@@ -16,6 +13,17 @@ GREEN='\033[1;32m'
 NORM='\033[0m'
 MAGENTA='\033[35m'
 CYAN='\033[36m'
+
+secret='secret.txt'
+
+if ! [ -f "$secret" ]; then
+  echo -e "$RED Отсутствует файл с логином и паролем $NORM" && exit 0
+fi
+
+source secret.txt  # содержит LOGIN и PASSWORD
+URL="https://lk.ttk.ru"
+COOKIE_FILE="cookie.txt"
+ATTEMPT=0
 
 # --- Параметры curl ---
   

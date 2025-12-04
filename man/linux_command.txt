@@ -204,6 +204,7 @@ pwgen  (generate pronounceable passwords / Generates random passwords)
 uuidgen  (create a new UUID value / Generates a new universally unique identifier (UUID))
 hashcat  (fastest and most advanced password recovery tool)
 cksum  (compute and verify file checksums)
+sum  (checksum and count the blocks in a file)
 sha1sum  (compute and check SHA1 message digest)
 echo -n "Hello World" | sha1sum
 sha256sum  (compute and check SHA256 message digest / Computes and verifies SHA-256 hashes)
@@ -537,7 +538,7 @@ cat  (concatenate files and print on the standard output / Displays the content 
 cat .bash_history | nl
 cat -b ~/.zshrc ~/.bashrc
 cat -n ~/.zhistory
-cat file1 file2 file3 > file4
+cat file1 file2 file3 > file4  (склеивает файлы в один)
 fold  (wrap each input line to fit in specified width)
 cat file.txt | fold -w 80
 nl  (number lines of files)
@@ -715,6 +716,7 @@ script -q  (stop)
 script -h
 shred  (overwrite a file to hide its contents, and optionally delete it / Securely deletes a file by overwriting it)
 shred --help
+sudo shred -vzn 1 /dev/sda
 strings  (print the sequences of printable characters in files)
 strings -n 80 ~/.bashrc
 join  (join lines of two files on a common field / Joins lines of two files based on a common field)
@@ -968,6 +970,9 @@ timeout  (run a command with a time limit)
 timeout 5s sleep 10
 timeout --signal INT 5s sleep 10
 cal  (display a calendar)
+cal 10 2026  (Display a calendar for a specific month and year)
+cal -y  (показать весь год)
+cal -3  (Display previous, current and next month)
 date  (print or set the system date and time / Displays or sets the system date and time)
 timedatectl  (Control the system time and date / Manages system time and date settings)
 sudo timedatectl set-ntp false && sudo ntpdate -s 10.10.11.31
@@ -1363,7 +1368,11 @@ snapshot
 
 unshare (run program in new namespaces)
 sudo unshare -u /bin/bash
-sudo unshare --pid --fork --mount-proc /bin/bash
+sudo unshare --pid --fork --mount-proc /bin/bash  (работа с PID-неймспейсами прямо из терминала)
+  - `--pid` создаёт новый PID-namespace  
+  - `--fork` запускает новый процесс как PID 1 внутри пространства  
+  - `--mount-proc` подменяет `/proc`, чтобы видеть только локальные процессы
+  ps aux  - и получите полностью изолированное дерево процессов.
 sudo unshare --mount /bin/bash && mount -t tmpfs tmpfs /mnt
 sudo unshare --user --map-root-user /bin/bash
 nsenter  (run program in different namespaces)
