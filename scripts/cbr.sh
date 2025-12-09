@@ -16,7 +16,7 @@ sed 'N;s/\n/ /'
 echo
 curl -s 'https://www.cbr.ru/rss/RssCurrency' | grep 'Австралийский' -A 55
 echo
-curl -s 'https://www.cbr.ru/scripts/XML_daily.asp' | iconv -f cp1251 | grep -oP '(<Name>|<Value>)\K[^<]+'
+curl -s 'https://www.cbr.ru/scripts/XML_daily.asp' | iconv -f cp1251 | grep -oP '(<Name>|<Value>)\K[^<]+' | sed 'N;s/\n/ - /'
 echo
 echo -e "Ключевая ставка ЦБР: \033[35;1m$(curl -s 'https://www.cbr.ru' | grep 'Ключевая ставка' -A 4 | tail -1 | sed 's/.*value">//g')"
 
