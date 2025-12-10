@@ -104,6 +104,7 @@ alias s/='shc -r -f $1'
 alias el/='expr length'  # длина строки
 # длина строки, аналог 1) echo -n "$@" | wc -c | awk '{print $1}' или аналог 2) function el/ { echo "${#1}" }
 alias fr/='xclip -o | xargs fragments'
+alias ch/='(){ [[ -n "$1" ]] && chmod u+x *.$1 || echo "Usage: ch/ <extension>" }'
 alias ls='ls --color=auto'
 alias ip='ip --color'
 alias grep='grep --color=auto'
