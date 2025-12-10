@@ -34,7 +34,7 @@ if [[ "${#chkv}" -lt 53 ]]; then
   echo "недостоверные данные (неверный запрос или нет сети)" && exit 1
 fi
 
-version=$(echo "${chkv##*/v}")  # обрезка строки
+version=$"${chkv##*/v}"  # обрезка строки
 version="${version::-4}"  # убираю лишние символы скрипта github_release_version.sh
 
 link="https://github.com/FreeTubeApp/FreeTube/releases/download/v${version}/freetube-${version}-linux-x64-portable.zip"

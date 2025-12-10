@@ -14,7 +14,10 @@ sed 's/\/development/https:\/\/www.cbr.ru\/development/g ; s/">/ 🚘 /g' | \
 sed 'N;s/\n/ /'
 
 echo
-curl -s 'https://www.cbr.ru/rss/RssCurrency' | grep 'Австралийский' -A 55
+currency=$(curl -s 'https://www.cbr.ru/rss/RssCurrency' | \
+           grep 'Австралийский' -A 55 | \
+           sed 's/pubDate>/\\033[0m/g ; s/description>/\\033[35m/g ; s/<//g; s/\///g ; s/     //g')
+IFS='\n'; for line in "$currency"; do echo -e "$line"; done
 echo
 curl -s 'https://www.cbr.ru/scripts/XML_daily.asp' | iconv -f cp1251 | grep -oP '(<Name>|<Value>)\K[^<]+' | sed 'N;s/\n/ - /'
 echo
