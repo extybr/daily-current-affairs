@@ -21,7 +21,7 @@ else echo -e "  Доступные параметры (цифры от 1 до 3)
      && echo -e "${urls[@]}\033[0m" | sed 's/ /\n/g' | nl && exit
 fi
 
-user_agent='Mozilla/5.0 (X11; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0'
+user_agent='Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0'
 request=$(curl -s --max-time 10 ${proxy} -A "${user_agent}" "${url}" | \
           iconv -f windows-1251 -t utf-8)
 

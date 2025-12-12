@@ -1,5 +1,6 @@
 #!/bin/bash
 # $> ./abracadabra.sh "abracadabra"
+# FIXME: временное решение для непонятной кодировки
 
 if hash iconv 2>/dev/null; then true; else echo 'command `iconv` not found' && exit 0; fi
 

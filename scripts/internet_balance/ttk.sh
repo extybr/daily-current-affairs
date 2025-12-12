@@ -7,7 +7,7 @@
 trap "echo ' Trapped Ctrl-C'; exit 0" SIGINT
 
 # --- Цвета ---
-  
+
 RED='\033[1;31m'
 GREEN='\033[1;32m'
 NORM='\033[0m'
@@ -26,10 +26,10 @@ COOKIE_FILE="cookie.txt"
 ATTEMPT=0
 
 # --- Параметры curl ---
-  
+
 COMMON_HEADERS=(
   -s --fail
-  -A "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0"
+  -A "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0"
   -H 'Accept: */*'
   -H 'Accept-Language: ru,en-US;q=0.7,en;q=0.3'
   -H 'Accept-Encoding: gzip, deflate, br, zstd'
@@ -108,7 +108,7 @@ function session() {
   fi
 
   # --- Вывод данных ---
-  
+
   contract=$(jq -r '.contract' <<< "$raw")
   status=$(jq -r '.status' <<< "$raw")
   contract_id=$(jq -r '.contract_id' <<< "$raw")
@@ -130,7 +130,7 @@ function session() {
   -H "Referer: $URL/" "${COMMON_HEADERS[@]}" \
   -H "Cookie: sessionId=${sessionId}; loginKey=${loginKey}" \
   --data-raw "{\"contract_id\":\"${contract_id}\"}" | jq 2> /dev/null)
-  
+
   # --- Вывод данных ---
 
   last_name=$(echo "$info" | jq -r '.last_name')
@@ -143,21 +143,21 @@ function session() {
   echo "login: $login"
   balance=$(echo "$info" | jq -r '.balance')
   echo -e "balance: ${MAGENTA}${balance}${NORM}\n"
-  
+
   # --- Второй POST запрос данных в json-формате ---
 
   tariff_price=$(curl "$URL/api/services/getServices" \
   -H "Referer: $URL/" "${COMMON_HEADERS[@]}" \
   -H "Cookie: sessionId=${sessionId}; loginKey=${loginKey}" \
   --data-raw "{\"contract_id\":\"${contract_id}\"}" | jq -r ".[]" 2> /dev/null)
-  
+
   # --- Вывод данных ---
 
   tariff=$(echo $tariff_price | jq -r '.tariff')
   price=$(echo $tariff_price | jq -r '.price')
   echo "tariff: $tariff"
   echo -e "price: ${CYAN}${price}${NORM}"
-  
+
   # --- Вывод истории оплат ---
 
   if [[ "$#" -gt 0 ]]; then
@@ -170,9 +170,9 @@ function session() {
     -H "Cookie: sessionId=${sessionId}; loginKey=${loginKey}; GEO_CITY_ID=8527; "\
     "GEO_CITY_CODE=komsomolsknaamure; BXMOD_AUTH_LAST_PAGE_Y=%2F" \
     --data-raw "{\"contract_id\":\"${contract_id}\",\"start_date\":\"${target_date}\",\"end_date\":\"${now_date}\"}")
-    
+
     echo -e "\n${CYAN}История оплаты:${NORM}"
-    
+
     echo "$getHistory" | jq -c '.[]' | while read -r item; do
       date=$(jq -r '.date' <<< "$item")
       type=$(jq -r '.type' <<< "$item")

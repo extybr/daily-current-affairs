@@ -12,7 +12,7 @@ function wl/ {
   if [ $# -eq 1 ]; then
     if [ "$1" = "k" ]; then
       pkill -f auto-wallpaper
-      gsettings set org.gnome.desktop.background picture-uri-dark "$HOME/Изображения/Wallpapers/IMG_0776.jpg"
+      nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" k &>/dev/null
     elif [ -d "$1" ]; then
       nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" "$1" &>/dev/null &
     fi
@@ -91,7 +91,14 @@ function h/ {
 function ttk {
   current_dir=$(pwd)
   cd "${SCRIPTS_DIRECTORY}"/internet_balance
-  ./balance_ttk.sh "$@"
+  ./ttk.sh "$@"
+  cd "${current_dir}"
+}
+
+function rt {
+  current_dir=$(pwd)
+  cd "${SCRIPTS_DIRECTORY}"/internet_balance
+  ./rostelecom.sh "$@"
   cd "${current_dir}"
 }
 

@@ -5,7 +5,7 @@
 # Показывает текущее время указанного города/региона с сайта google.com или time.is
 
 REGION=$(echo "$1" | sed 's/ /-/g')
-USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0"
+USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0"
 NUMBER=10
 
 GMT=$(curl -s -I 'https://google.com' | grep 'date:')

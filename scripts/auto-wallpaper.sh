@@ -1,10 +1,45 @@
 #!/bin/bash
+# $> ./auto-wallpaper.sh  # обои с папки по-умолчанию ($WALLPAPER_DIR)
+# $> ./auto-wallpaper.sh k  # обои - конкретный файл по-умолчанию ($DEFAULT)
+# $> ./auto-wallpaper.sh 'path/to/folder' 3  # только горизонтальные обои с указанной папки (рамдомные обои)
+# $> ./auto-wallpaper.sh 'path/to/folder' 2 all  # обои с указанной папки (горизонтальные/вертикальные)
 # Простой сменщик обоев для GNOME с кэшированием
 
 WALLPAPER_DIR="$HOME/Изображения/Wallpapers"
+DEFAULT="$WALLPAPER_DIR/IMG_0776.jpg"
 INTERVAL=10
 ORIENT=''
-if [ "$#" -eq 1 ] && [ -d "$1" ]; then
+
+if ! command -v gsettings &>/dev/null; then exit 1; fi
+
+#######-info-##########
+function_add_bashrc='
+function wl/ {
+  if pgrep auto-wallpaper; then
+    pkill -f auto-wallpaper
+  fi
+  if [ $# -eq 1 ]; then
+    if [ "$1" = "k" ]; then
+      pkill -f auto-wallpaper
+      nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" k &>/dev/null
+    elif [ -d "$1" ]; then
+      nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" "$1" &>/dev/null &
+    fi
+  elif [ $# -eq 2 ] && [ -d "$1" ]; then
+    nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" "$1" "$2" &>/dev/null &
+  elif [ $# -eq 3 ] && [ -d "$1" ]; then
+    nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" "$1" "$2" "$3" &>/dev/null &
+  else
+    nohup "${SCRIPTS_DIRECTORY}/auto-wallpaper.sh" &>/dev/null &
+  fi
+}
+'
+#######################
+
+if [ "$#" -eq 1 ] && [ "$1" = 'k' ]; then
+  gsettings set org.gnome.desktop.background picture-uri-dark "$DEFAULT"
+  exit 0
+elif [ "$#" -eq 1 ] && [ -d "$1" ]; then
   WALLPAPER_DIR="$1"
 elif [ "$#" -eq 2 ] && [ -d "$1" ]; then
   WALLPAPER_DIR="$1"
