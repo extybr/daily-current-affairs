@@ -98,7 +98,7 @@ function ttk {
 function rt {
   current_dir=$(pwd)
   cd "${SCRIPTS_DIRECTORY}"/internet_balance
-  ./rostelecom.sh "$@"
+  ./rt.sh "$@"
   cd "${current_dir}"
 }
 

@@ -47,7 +47,8 @@ dt=($(curl -s "${archlinux}" | grep -oP '<td>[^<]+(UTC)' | sed 's/<td>//g ; s/ (
 echo -e "Первая публикация релиза: ${violet}${dt[0]} ${dt[1]}${normal}"
 echo -e "Последняя публикация релиза: ${violet}${dt[2]} ${dt[3]}${normal}"
 
-source /etc/os-release; if ! [ $(echo "${ID_LIKE}") = 'arch' ]; then exit 0; fi
+source /etc/os-release 2>/dev/null
+[[ "${ID_LIKE}" =~ arch ]] || grep -q "^PKGEXT='\.pkg\.tar" /etc/makepkg.conf &>/dev/null || exit 0
 
 echo -e "\n${white}Установить клиент outline? n/y"
 echo -en "Ответ$(tput blink):${normal} "

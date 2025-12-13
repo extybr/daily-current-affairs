@@ -7,7 +7,7 @@ echo
 hostnamectl
 echo
 inxi -c11 -F 2> /dev/null
-printf "\n%s\n\n" "$(pacman-mirrors)"
+printf "\n%s\n\n" "$(pacman-mirrors  2>/dev/null)"
 fastfetch -c all.jsonc 2> /dev/null
 printf "Your IP address: \e[31m%s\e[0m  (time: %s)\n" "$(curl -s --max-time 3 ifconfig.me)" "$(date '+%d-%m-%y %T')"
 uname -a
