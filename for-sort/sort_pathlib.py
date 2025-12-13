@@ -1,3 +1,5 @@
+# Сортирует файлы с указанными расширениями по папкам
+
 from pathlib import Path
 
 dir_suff_dict = {"Images": ['.jpg', '.jpeg', '.png', '.gif', '.tiff', '.ico', '.bmp', '.webp', '.svg'],
@@ -31,4 +33,4 @@ if __name__ == "__main__":
         print('[-] Директории не существует')
     else:
         sort_func(path_d)
-	print('[!] Сортировка завершена')
+    print('[!] Сортировка завершена')

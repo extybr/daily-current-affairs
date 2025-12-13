@@ -5,6 +5,7 @@
 
 string='Learn Bash Programming'
 echo "Длина строки: ${#string}"  # число символов строки
+echo "Длина строки: $(expr length "$string")"
 echo "Длина строки: $(($(echo ${string} | wc -c) - 1))"
 echo "Последний символ строки: ${string:$((${#string}-1)):1}"
 

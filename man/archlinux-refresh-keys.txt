@@ -18,6 +18,11 @@
 	sudo pacman-key -r CACHYOS_KEY_ID  # сначала найти ID ключа
 	sudo pacman-key --lsign-key CACHYOS_KEY_ID
 
+Обновить ключи CachyOS (если у них есть свой keyring):
+    sudo pacman -Syu cachyos-keyring
+Для CachyOS иногда нужно также добавить их репозиторий:
+    sudo pacman-key --populate cachyos
+
 4. Пропустить проверку подписи (не рекомендуется, но как временное решение):
 
 	sudo pacman -S sqlitebrowser --ignore
