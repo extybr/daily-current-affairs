@@ -29,15 +29,12 @@ check_path() {
 
 cd "$github_scan_dir" || ( echo "нет папки: $github_scan_dir" && exit 1 )
 
-chkv=$(./github_release_version.sh FreeTubeApp FreeTube)     
-if [[ "${#chkv}" -lt 53 ]]; then
+chkv=$(curl -s "https://api.github.com/repos/FreeTubeApp/FreeTube/releases" | jq -r '.[0].tag_name')
+if [[ -z "${chkv}" || "${#chkv}" -gt 20 ]]; then
   echo "недостоверные данные (неверный запрос или нет сети)" && exit 1
 fi
 
-version=$"${chkv##*/v}"  # обрезка строки
-version="${version::-4}"  # убираю лишние символы скрипта github_release_version.sh
-
-link="https://github.com/FreeTubeApp/FreeTube/releases/download/v${version}/freetube-${version}-linux-x64-portable.zip"
+link="https://github.com/FreeTubeApp/FreeTube/releases/download/${chkv}/freetube-${chkv#*v}-linux-x64-portable.zip"
 
 cd "$freetube_dir" && ( for file in $(ls ./); do rm -rf "$file"; done ) || ( echo "нет папки: $freetube_dir" && exit 1 )
 wget "$link"  # скачивание архива с программой

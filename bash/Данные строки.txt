@@ -4,8 +4,12 @@
 ########## Число символов строки ##########
 
 string='Learn Bash Programming'
-echo "Длина строки: ${#string}"  # число символов строки
+echo "Длина строки: ${#string}"
 echo "Длина строки: $(expr length "$string")"
 echo "Длина строки: $(($(echo ${string} | wc -c) - 1))"
+echo "Длина строки: $(echo -n ${string} | wc -c | awk '{print $1}')"
+
+########## Последний символ строки ##########
+
 echo "Последний символ строки: ${string:$((${#string}-1)):1}"
 

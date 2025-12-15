@@ -1,5 +1,6 @@
 #!/bin/bash
-# Перевод букв в нужный регистр
+# Перевод букв в нужный регистр.
+# HACK: если кодировка в кириллице, то лучше использовать варианты с: awk, sed, python, perl
 
 ########## Перевод букв в нижний регистр ##########
 
@@ -35,4 +36,23 @@ reverse_case "HELLO"
 
 reverse_case="HeLlO"
 printf '%s\n' "${reverse_case~}"
+
+##########--- с использованием доп.утилит или программ ---##########
+
+##### Переводит буквы в нижний регистр, за исключением первых букв #####
+
+echo 'МАЙКЛ ДЖЕКСОН' | sed 's/\([А-Я]\)\([А-Я]*\)/\1\L\2/g'
+echo 'МАЙКЛ ДЖЕКСОН' | sed 'y/АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ/абвгдеёжзийклмнопрстуфхцчшщъыьэюя/ ; s/\b\(.\)/\U\1/g'
+echo 'МАЙКЛ ДЖЕКСОН' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2))}1'
+echo 'МАЙКЛ ДЖЕКСОН' | perl -CS -ne 's/(\w)(\w*)/\u\1\L\2/g; print'
+echo 'МАЙКЛ ДЖЕКСОН' | python3 -c "import sys; text = sys.stdin.read().strip(); result = ' '.join(word[0].upper() + word[1:].lower() for word in text.split()); print(result)"
+echo 'МАЙКЛ ДЖЕКСОН' | python3 -c "print(input().title())"
+
+##### Только в нижний регистр #####
+
+echo 'МАЙКЛ ДЖЕКСОН' | perl -we 'binmode (STDIN, ":utf8"); binmode (STDOUT, ":utf8"); while (<>) { print lc; }'
+echo 'МАЙКЛ ДЖЕКСОН' | python3 -c "print(input().lower())"
+echo 'МАЙКЛ ДЖЕКСОН' | sed 's/./\L&/g'
+echo 'МАЙКЛ ДЖЕКСОН' | awk '{print tolower($0)}'
+echo 'МАЙКЛ ДЖЕКСОН' | tr '[:upper:]' '[:lower:]'  # Не дружит с разной кодировкой (Unicode, кириллицей, эмодзи и т.д)
 
