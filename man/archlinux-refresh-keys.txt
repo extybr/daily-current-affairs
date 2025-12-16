@@ -22,6 +22,11 @@
     sudo pacman -Syu cachyos-keyring
 Для CachyOS иногда нужно также добавить их репозиторий:
     sudo pacman-key --populate cachyos
+Это утилита для автоматического обновления списка зеркал.
+    sudo pacman -S reflector
+Следующая команда найдет 5 самых быстрых зеркал за последние 12 часов, отсортирует их по скорости,
+ выберет только HTTPS и сохранит новый список, предварительно сделав резервную копию старого.
+    sudo reflector --latest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose
 
 4. Пропустить проверку подписи (не рекомендуется, но как временное решение):
 

@@ -23,6 +23,19 @@ POSIX-совместимый вариант:
 
 #############################
 
+Удаляем строки которые НЕ начинаются с https://raw.githubusercontent.com
+    sed -i '/^https:\/\/raw\.githubusercontent\.com/!d' playlist.m3u
+
+#############################
+
+Удаляем всё после слова main или master (включая эти слова)
+    sed -i 's/\/\(main\|master\).*//' playlist.m3u
+    
+Если нужно сохранить слова main/master
+    sed -i 's/\/\(main\|master\).*//' playlist.m3u
+
+#############################
+
 Для вставки </tag><tag> после каждой третьей строки используйте:
     sed '0~3 a\</tag><tag>' файл.txt
 

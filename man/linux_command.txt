@@ -673,6 +673,8 @@ amixer -D pulse sset Master 10%-
 amixer -D pulse sset Master 50%
 amixer cset iface=MIXER,name="Master Playback Volume" 20%
 amixer get Master | grep 'Front Left:' | tr -d " " | cut -d '[' -f 2 | sed 's/%]//g'
+arecord  (command-line sound recorder and player for ALSA soundcard driver)
+arecord -D plughw:1,0 -f FLOAT_LE -r 44100 -c 1 --disable-resample mysoundfile.wav 2>/dev/null
 pactl  (Control a running PulseAudio sound server)
 pw-cli  (The PipeWire Command Line Interface)
 pw-cli list-objects
