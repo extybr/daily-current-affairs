@@ -1,5 +1,6 @@
 #!/bin/bash
-# ./no-video.sh mp 'http://link'
+# $> ./no-video.sh mp 'http://link'
+# Запуск в терминале только аудио потока
 
 set -e
 

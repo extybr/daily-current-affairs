@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # $> ./qrcode.sh https://t.me/extybr_bot
 # Для генерации qr-кода
 
@@ -14,5 +14,5 @@ file_name="grcode_$(date "+%d-%m-%y_%H-%M-%S").png"
 
 trap "echo -e 'Папка с файлом: ${yellow}${PWD}${normal}'; echo -e 'Название файла: ${yellow}${file_name}${normal}'" EXIT
 
-qrencode -o "${file_name}" -s 100 "$1"
+qrencode -o "${file_name}" -s 100 "$1" || exit 1
 

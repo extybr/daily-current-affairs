@@ -229,6 +229,8 @@ veracrypt  (программное обеспечение, используем�
 udisksctl  (The udisks command line tool)
 udisksctl unlock -b '/dev/sdb1'
 cryptsetup  (utility for configuring and managing encrypted storage devices / Manages encrypted devices)
+cryptsetup luksFormat /dev/vda2
+cryptsetup luksOpen /dev/vda2 cryptroot
 od  (Displays files in octal, decimal, hexadecimal, or ASCII)
 od -An -N1 -d /dev/urandom
 
@@ -260,6 +262,8 @@ sudo fdisk -l /dev/sda
 sfdisk  (display or manipulate a disk partition table)
 sudo sfdisk –d /dev/sda > sda-table
 fsck --help  (check and repair a Linux filesystem)
+cfdisk  (display or manipulate a disk partition table)
+cfdisk /dev/vda
 gnome-disks  (the GNOME Disks application)
 gparted  (GNOME Partition Editor for manipulating disk partitions)
 badblocks  (search a device for bad blocks)
@@ -636,6 +640,7 @@ make  (GNU Make utility to maintain groups of programs)
 makeconv  (compile a converter table)
 makeinfo  (translate Texinfo documents)
 makepkg  (package build utility)
+vercmp  (version comparison utility)
 set  (Display, set or unset values of shell attributes and positional parameters)
 set -eoux pipefail
 unset  (специальная встроенная команда bash)
@@ -670,12 +675,24 @@ alsamixer  (soundcard mixer for ALSA soundcard driver, with ncurses interface)
 amixer  (command-line mixer for ALSA soundcard driver)
 amixer -D pulse sset Master 10%+
 amixer -D pulse sset Master 10%-
-amixer -D pulse sset Master 50%
-amixer cset iface=MIXER,name="Master Playback Volume" 20%
+amixer -D pulse sset Master 50%  (Управление PulseAudio)
+amixer cset iface=MIXER,name="Master Playback Volume" 20%  (Прямое управление ALSA микшером)
 amixer get Master | grep 'Front Left:' | tr -d " " | cut -d '[' -f 2 | sed 's/%]//g'
+amixer sget Master  (Проверить текущие уровни громкости)
+amixer -D pulse sget Master  (Проверить текущие уровни громкости)
+amixer -D pulse scontrols  (PulseAudio контролы)
+amixer controls  (ALSA аппаратные контролы)
+amixer sset Capture 80%  (уровень микрофона)
+amixer cset numid=1 85%  (уровень микрофона)
+speaker-test  (command-line speaker test tone generator for ALSA)
+speaker-test -t sine -f 1000 -l 1  (Звуковой простой тест)
+pavucontrol  (PulseAudio GUI)
 arecord  (command-line sound recorder and player for ALSA soundcard driver)
 arecord -D plughw:1,0 -f FLOAT_LE -r 44100 -c 1 --disable-resample mysoundfile.wav 2>/dev/null
 pactl  (Control a running PulseAudio sound server)
+pactl list sinks | grep -A 10 "Sink #"
+pactl list sinks | grep -i "volume:\|mute"  (PulseAudio статус)
+pactl set-source-volume @DEFAULT_SOURCE@ 75%  (уровень микрофона)
 pw-cli  (The PipeWire Command Line Interface)
 pw-cli list-objects
 pw-cli list-objects | grep -E "(node|alias)"
@@ -935,16 +952,30 @@ sudo umount /mnt
 *** package ***
 
 __arch
+https://wiki.archlinux.org/title/Pacman_(Русский)
 https://wiki.manjaro.org/index.php/Pacman_Overview
 pacman  (package manager utility)
-pacman -Ql | more
+pacman -Ql | more  (Вывести список файлов пакетов в репозитории)
 pacman -Q | more
-pacman -Qe > my_programs.txt
+pacman -Qe > my_programs.txt  (Вывести список пакетов)
 pacman -Qo /usr/bin/smplayer
+sudo pacman -Sc
+pacman -Qii jq  (Показать подробную информацию об установленном пакете в репозитории)
+pacman -Si conky  (Показать подробную информацию об неустановленном пакете из репозиториев)
+pacman -Sg gnome  (список пакетов, принадлежащих к группе gnome)
+  Для взаимодействия с базами данных в pacman предусмотрены флаги 
+  -Q (база данных пакетов), -S (база данных синхронизации) и -F (база данных файлов). 
+  Команды pacman -Q --help, pacman -S --help и pacman -F --help выведут список возможных опций для этих флагов. 
+cat /etc/pacman.conf
+cat /etc/pacman.d/mirrorlist
+paccache  (flexible pacman cache cleaning utility)
+paccache -r  (Очистка кэша пакетов)
+pactree  (package dependency tree viewer)
+pactree docker  (Дерево зависимостей пакета)
+pactree -r mpv  (список пакетов, которые сами зависят от указанного)
 pacman-mirrors  (generate pacman mirrorlist for Manjaro Linux)
 pacman-mirrors -f 10
 pacman-mirrors --fasttrack
-sudo pacman -Sc
 https://wiki.manjaro.org/index.php/Pamac/ru
 https://wiki.manjaro.org/index.php/Arch_User_Repository/ru
 pamac-manager
