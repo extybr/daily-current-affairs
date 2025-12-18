@@ -26,11 +26,14 @@ rss_v2() {
 
 rss_v3() {
   curl -s 'https://www.kmscity.ru/rss-feeds/' | \
-    grep -oP 'href="\K[^"]+\.rss[^<]*' | \       # Ищем ссылки на RSS + текст после них
-    sed -E 's|">| |; s|^/rss|https://www.kmscity.ru/rss|' | \  # Форматируем
-    while read -r title url; do \                 # Разбиваем на две переменные
-      printf '\033[36m%s \033[35m%s\n' "$title" "$url"  # Вывод с цветами
-    done
+  # Ищем ссылки на RSS + текст после них
+  grep -oP 'href="\K[^"]+\.rss[^<]*' | \
+  # Форматируем
+  sed -E 's|">| |; s|^/rss|https://www.kmscity.ru/rss|' | \
+  # Разбиваем на две переменные
+  while read -r title url; do \
+    printf '\033[36m%s \033[35m%s\n' "$title" "$url"  # Вывод с цветами
+  done
 }
 
 if [ "$#" -gt 0 ]; then

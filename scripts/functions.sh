@@ -158,15 +158,12 @@ function p/ {
 }
 
 function y/ {
-  # https://github.com/yt-dlp/yt-dlp#readme
   if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
     echo -e "\e[37mНеобходимо передать url-адрес\e[0m"
     return 0
   fi
   ~/bin/yt-dlp -U
   if [ "$#" -eq 2 ] && [ "$2" = 'audio' ]; then
-    # ~/bin/yt-dlp --proxy 127.0.0.1:1080 -f bestaudio -o '%(title)s.%(ext)s' "$1"     # audio.webm
-    # ~/bin/yt-dlp --proxy 127.0.0.1:1080 -o '%(title)s.%(ext)s' --extract-audio "$1"  # audio.opus
     ~/bin/yt-dlp --proxy 127.0.0.1:1080 --retries infinite --no-playlist \
     --format bestaudio --extract-audio --audio-format mp3 --embed-thumbnail \
     --windows-filenames --force-overwrites --output '%(title)s.%(ext)s' "$1"  # audio.mp3 + thumbnail

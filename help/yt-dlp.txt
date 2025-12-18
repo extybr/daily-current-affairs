@@ -1,0 +1,76 @@
+
+***** yt-dlp *****
+    https://github.com/yt-dlp/yt-dlp#readme
+
+##### Проверка обновлений #####
+    ~/bin/yt-dlp -U
+
+##### Скачивание аудио #####
+
+# audio-only format
+    yt-dlp -f bestaudio <video_url>
+
+# audio.webm + proxy
+    ~/bin/yt-dlp --proxy 127.0.0.1:1080 -f bestaudio -o '%(title)s.%(ext)s' "$1"
+
+# audio.opus + proxy
+    ~/bin/yt-dlp --proxy 127.0.0.1:1080 -o '%(title)s.%(ext)s' --extract-audio "$1"
+
+# audio.mp3 + thumbnail + proxy
+    ~/bin/yt-dlp --proxy 127.0.0.1:1080 --retries infinite --no-playlist \
+        --format bestaudio --extract-audio --audio-format mp3 --embed-thumbnail \
+        --windows-filenames --force-overwrites --output '%(title)s.%(ext)s' "$1"
+
+##### Скачивание видео #####
+
+# download a video
+    yt-dlp <video_url>
+
+# select best quality
+    yt-dlp -f best <video_url>
+
+# video-720p + proxy
+    ~/bin/yt-dlp --proxy http://127.0.0.1:1080 -S 'res:720,fps' "$1"
+
+# Это выведет в консоль все HTTP-запросы и ответы, включая те, что идут к al_video.php, 
+# что позволяет в реальном времени увидеть, какие параметры передаются и что возвращается.
+    ~/bin/yt-dlp --verbose --print-traffic "https://vk.com/video-1959_456251549"
+
+# select specific format
+    yt-dlp -f <format-id> <video_url>
+
+# limit download speed
+    yt-dlp -r 50K <video_url>
+
+# resume download
+    yt-dlp -c <video_url>
+
+# filter by date
+    yt-dlp --date 20230101 <video_url>
+
+# filter by age limit
+    yt-dlp --age-limit 18 <video_url>
+
+# download by format codes
+    yt-dlp -f 22,17,18 <video_url>
+
+# download by file extension
+    yt-dlp --format mp4 <video_url>
+
+# download thumbnail image  
+    yt-dlp --ignore-errors write-thumbnail --skip-download <video_url>
+
+##### Скачивание плейлиста #####
+
+# download a playlist
+    yt-dlp <playlist_url>
+
+# set size limit
+    yt-dlp --min-filesize 100M <playlist_url>
+
+# download specific videos from playlist
+    yt-dlp --playlist-items 1,3,5 <playlist_url>
+
+filter by title
+    yt-dlp --match-title 'keyword' <playlist_url>
+
