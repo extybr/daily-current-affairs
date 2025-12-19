@@ -1,0 +1,162 @@
+# Современные пользовательские агенты для браузеров (70% списка)
+
+# ========== Mozilla Firefox (разные ОС и архитектуры) ==========
+# Windows
+Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0
+Mozilla/5.0 (Windows NT 11.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0
+# macOS (Intel и ARM)
+Mozilla/5.0 (Macintosh; Intel Mac OS X 14.6; rv:146.0) Gecko/20100101 Firefox/146.0
+Mozilla/5.0 (Macintosh; ARM Mac OS X 14.6; rv:146.0) Gecko/20100101 Firefox/146.0
+# Linux x64/x86
+Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0
+Mozilla/5.0 (X11; Linux i686; rv:146.0) Gecko/20100101 Firefox/146.0
+Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0
+Mozilla/5.0 (X11; Fedora; Linux x64; rv:146.0) Gecko/20100101 Firefox/146.0
+# Linux ARM
+Mozilla/5.0 (X11; Linux armv7l; rv:146.0) Gecko/20100101 Firefox/146.0
+Mozilla/5.0 (X11; Linux aarch64; rv:146.0) Gecko/20100101 Firefox/146.0
+Mozilla/5.0 (X11; Linux armv8l; rv:145.0) Gecko/20100101 Firefox/145.0
+# Android
+Mozilla/5.0 (Android 14; Mobile; rv:146.0) Gecko/146.0 Firefox/146.0
+Mozilla/5.0 (Android 14; Tablet; rv:146.0) Gecko/146.0 Firefox/146.0
+# FreeBSD
+Mozilla/5.0 (X11; FreeBSD amd64; rv:146.0) Gecko/20100101 Firefox/146.0
+Mozilla/5.0 (X11; FreeBSD aarch64; rv:145.0) Gecko/20100101 Firefox/145.0
+
+# ========== Google Chrome / Chromium (разные ОС и архитектуры) ==========
+# Windows
+Mozilla/5.0 (Windows NT 10.0; Win64; x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+# macOS
+Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Mozilla/5.0 (Macintosh; ARM Mac OS X 14_6_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+# Linux
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+# Linux ARM (включая Raspberry Pi)
+Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+# Android
+Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36
+Mozilla/5.0 (Linux; Android 14; SM-A536B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36
+Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36
+# iOS/iPadOS
+Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/131.0.0.0 Mobile/15E148 Safari/604.1
+Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/131.0.0.0 Mobile/15E148 Safari/604.1
+# Chrome OS
+Mozilla/5.0 (X11; CrOS x86_64 15633.69.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+
+# ========== Safari (macOS и iOS) ==========
+Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15
+Mozilla/5.0 (Macintosh; ARM Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15
+Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1
+Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1
+
+# ========== Microsoft Edge (на Chromium) ==========
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0
+Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0
+Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0
+
+# ========== Opera ==========
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0
+Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0
+
+# ========== Яндекс.Браузер ==========
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 YaBrowser/24.8.0.0 Safari/537.36
+Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 YaBrowser/24.8.0.0 Safari/537.36
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 YaBrowser/24.8.0.0 Safari/537.36
+
+# ========== Vivaldi ==========
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Vivaldi/6.9
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Vivaldi/6.9
+
+# ========== Brave ==========
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Brave/131.0.0.0
+Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Brave/131.0.0.0
+
+# ========== Android WebView / Samsung Internet ==========
+Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36
+Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/26.0 Chrome/131.0.0.0 Mobile Safari/537.36
+
+# ========== Другие/Специфичные ==========
+# Firefox Focus, DuckDuckGo, UC Browser, Huawei Browser
+Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Focus/12.0 Chrome/131.0.0.0 Mobile Safari/537.36
+Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 DuckDuckGo/7.5 Chrome/130.0.0.0 Mobile Safari/537.36
+UCWEB/2.0 (Linux; U; Android 14; en-US; SM-A146B) U2/1.0.0 UCBrowser/15.0.0 U2/1.0.0 Mobile
+Mozilla/5.0 (Linux; Android 14; LIO-AN00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 HuaweiBrowser/20.2.0.303 Mobile Safari/537.36
+
+###############################################################################
+# Поисковые боты, инструменты и библиотеки (30% списка)
+###############################################################################
+
+# ========== Google Боты ==========
+Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/131.0.0.0 Safari/537.36
+Googlebot-Image/1.0
+Googlebot-Video/1.0
+Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+
+# ========== Яндекс Боты ==========
+Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)
+Mozilla/5.0 (compatible; YandexAccessibilityBot/3.0; +http://yandex.com/bots)
+YandexMobileBot/3.0 (iPhone; iOS 18.0; like Mac OS X) Mozilla/5.0 AppleWebKit/537.36
+
+# ========== Bing Боты ==========
+Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)
+Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/131.0.0.0 Safari/537.36
+
+# ========== DuckDuckGo, Baidu, Seznam ==========
+DuckDuckBot/1.0; (+http://duckduckgo.com/duckduckbot.html)
+Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)
+Mozilla/5.0 (compatible; SeznamBot/3.2-test1; +http://napoveda.seznam.cz/en/seznambot-intro/)
+
+# ========== Apple, Facebook, Twitter, LinkedIn ==========
+Applebot/0.1 (+http://www.apple.com/go/applebot)
+facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)
+Twitterbot/1.0
+LinkedInBot/1.0 (compatible; Mozilla/5.0; Jakarta Commons-HttpClient/3.1; +http://www.linkedin.com)
+
+# ========== Telegram, Pinterest, Slack, Discord, WhatsApp ==========
+TelegramBot (like TwitterBot)
+Pinterest/0.2 (+http://www.pinterest.com/bot.html)
+Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)
+Discordbot/2.0; +https://discordapp.com
+WhatsApp/2.0
+
+# ========== SEO и аналитические боты (Ahrefs, Semrush, Majestic и др.) ==========
+Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)
+Mozilla/5.0 (compatible; SemrushBot/8~bl; +http://www.semrush.com/bot.html)
+Mozilla/5.0 (compatible; MJ12bot/v1.4.8; http://mj12bot.com/)
+Mozilla/5.0 (compatible; DotBot/1.2; +https://opensiteexplorer.org/dotbot; help@moz.com)
+CCBot/2.0 (https://commoncrawl.org/faq/)
+PetalBot/1.0 (+https://webmaster.petalsearch.com/site/petalbot)
+
+# ========== Боты для мониторинга и архивации ==========
+Mozilla/5.0 (compatible; Pingdom.com_bot_version_1.4_(http://www.pingdom.com/))
+UptimeRobot/2.0
+Mozilla/5.0 (compatible; archive.org_bot +http://archive.org/details/archive.org_bot)
+
+# ========== КОМАНДНАЯ СТРОКА и ИНСТРУМЕНТЫ (важно: определяются именно так) ==========
+curl/8.10.0
+Wget/1.21.4
+# HTTP-клиенты на разных языках
+python-requests/2.32.3
+Go-http-client/1.1
+Java/21.0.3
+PHP/8.3.10
+Apache-HttpClient/5.2.3 (Java/21.0.3)
+okhttp/5.0.0-alpha.14
+node-fetch/1.0 (+https://github.com/bitinn/node-fetch)
+Mozilla/5.0 (compatible; PostmanRuntime/7.41.0)
+
+# ========== Headless-браузеры и скрипты (часто используются для парсинга) ==========
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.0.0 Safari/537.36
+Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.0.0 Safari/537.36
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.0.0 Safari/537.36
+# Пользовательские скрипты и боты
+Mozilla/5.0 (compatible; DataForSeoBot/1.0; +https://dataforseo.com/dataforseo-bot)
+Mozilla/5.0 (compatible; Bytespider; +https://zhanzhang.toutiao.com/)
+python-requests/2.32.3 (Mozilla/5.0 compatible; MyMonitoringBot/1.0; +https://example.com)
+

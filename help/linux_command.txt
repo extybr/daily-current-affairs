@@ -67,6 +67,7 @@ shellcheck  (Shell script analysis tool)
 shellcheck ~/my_programs/os.sh
 gedit  (a general-purpose text editor)
 vi  (screen oriented (visual) display editor based on ex)
+ex  (text editor)
 nvim  (edit text)
 nvim-qt  (Neovim Qt)
 micro  (A modern and intuitive terminal-based text editor)
@@ -520,6 +521,11 @@ chage  (Changes user password expiration information)
 
 *** GNU-utils * shell builtin ***
 
+builtin  (это встроенная команда bash)
+builtin echo OK
+bindkey  (Add keybindings to Z-Shell)
+let  (Evaluate arithmetic expressions in shell)
+let "result = 3 + 9" && echo "$result"
 startx  (initialize an X session)
 awk  (язык обработки данных)
 awk -F: '{print $1}' /etc/passwd
@@ -632,6 +638,7 @@ mkdir test1 && mkdir test2/test3 && cd test2 && echo Hello >> text.txt
 rmdir  (remove empty directories / Removes directories)
 rm  (remove files or directories / Removes files or directories)
 echo  (display a line of text / Prints text to the terminal or writes text to files)
+echo a{d,c,b}e
 dirname  (strip last component from file name / Extracts the directory path from a file path)
 dirname ~/PycharmProjects/my_other_projects  (/home/tux/PycharmProjects)
 basename  (strip directory and suffix from filenames)
@@ -671,6 +678,9 @@ run-help  (help)
 run-help find
 display  (displays an image or image sequence on any X server)
 runlevel
+select  (Bash builtin construct for creating menus)
+select word in apple orange pear banana; do echo $word; done  (Create a menu out of individual words)
+select line in $(command); do echo $line; done  (Create a menu from the output of another command)
 alsamixer  (soundcard mixer for ALSA soundcard driver, with ncurses interface)
 amixer  (command-line mixer for ALSA soundcard driver)
 amixer -D pulse sset Master 10%+
@@ -774,7 +784,8 @@ read  (Reads input from the user or file)
 trap
 alias  (Creates a shortcut for a command)
 unalias  (Removes an alias for a command)
-declare
+declare  (Declare variables and give them attributes)
+declare -a variable=(item_a item_b item_c)  (Each name is an indexed array variable)
 getconf  (The utility prints the value of a POSIX or X/Open path or system configuration variable to the standard output)
 getconf LONG_BIT
 getconf CHILD_MAX
