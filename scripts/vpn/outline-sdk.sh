@@ -24,15 +24,15 @@ if ! [ -f ~/.config/autostart/outline-sdk.desktop ]; then
 Type=Application
 Name=outline-sdk
 Comment=outline-sdk script
-Path=${SCRIPTS_DIRECTORY}
+Path=${SCRIPTS_DIRECTORY}/vpn
 Exec=outline-sdk
 StartupNotify=false
 Terminal=false" > outline-sdk.desktop
   mv outline-sdk.desktop "$HOME/.config/autostart"
 fi
 
-if ! [ -f "${SCRIPTS_DIRECTORY}/outline-sdk" ]; then
-  cd "${SCRIPTS_DIRECTORY}"
+if ! [ -f "${SCRIPTS_DIRECTORY}/vpn/outline-sdk" ]; then
+  cd "${SCRIPTS_DIRECTORY}/vpn"
   shc -r -f outline-sdk.sh
   rm outline-sdk.sh.x.c
   mv outline-sdk.sh.x outline-sdk

@@ -10,14 +10,33 @@ fi
 
 link="$2"
 
+check_install() {
+  if hash "$1" 2>/dev/null; then
+    true
+  else echo -e "Программа не установлена: \033[31m$1" && exit
+  fi
+}
+
+check_path() {
+  if [ -f "$1" ]; then
+    true
+  else echo -e "Программа не найдена: \033[31mphiola" && exit
+  fi
+}
+
 case "$1" in
-  mp) mpv --no-video --ytdl-format=worstaudio "$link"
+  mp) check_install mpv
+      mpv --no-video --ytdl-format=worstaudio "$link"
   ;;
-  ff) ffplay "$link" -volume 3 -nodisp
+  ff) check_install ffplay
+      ffplay "$link" -volume 3 -nodisp
   ;;
-  mo) mocp -S && mocp -l -v 20 "$link"
+  mo) check_install mocp
+      mocp -S && mocp -l -v 20 "$link"
   ;;
-  ph) "$HOME/my_programs/phiola-2/./phiola" "$link"
+  ph) phiola="$HOME/my_programs/phiola-2/./phiola"
+      check_path "$phiola"
+      "$phiola" "$link"
   ;;
 esac
 

@@ -3,6 +3,10 @@
 # Изменение конфига xray
 
 config="$HOME/my_programs/xray/config.json"
+if ! [ -f "$config" ]; then
+  exit
+fi
+
 cp "${config}" "${config}.backup"
 
 new_protocol=''

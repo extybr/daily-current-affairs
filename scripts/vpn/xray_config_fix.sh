@@ -1,8 +1,12 @@
 #!/bin/bash
-# $> ./xray_config_fix.sh
+# $> ./xray_config_fix.sh "vless://bla-bla-bla"
 # Правка конфигурационного файла xray
 
 config="$HOME/my_programs/xray/config.json"
+if ! [ -f "$config" ]; then
+  exit
+fi
+
 if [ "$#" -eq 1 ]; then
   key="$1"
 else key="vless://00000000-0000-0000-0000-000000000000@2ip.ru:443?security=reality&encryption=none&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&pbk=xxxxx_xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx&sni=mail.ru&sid=00ff00ff00ff#195%20%D0%9D%D0%B5%D0%B7%D1%8B%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B%D0%B9%20%D0%9B%D0%B0%D0%BC%D0%B0%D1%81"

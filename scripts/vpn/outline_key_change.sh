@@ -2,7 +2,7 @@
 # $> ./outline_key_change.sh
 # HACK: для изменения ключей в программе
 
-cd $HOME/my_programs/outline-sdk
+cd $HOME/my_programs/outline-sdk || exit
 
 if ! [[ -f $HOME/my_programs/outline-sdk/keys.zip ]]; then exit 1; fi
 

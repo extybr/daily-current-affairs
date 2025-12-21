@@ -8,8 +8,8 @@ yellow="\e[33m"
 white="\e[37m"
 normal="\e[0m"
 
-if ! command -V jq &> /dev/null; then echo 'Программа jq не установлена'; exit 0; fi
-if ! command -V yq &> /dev/null; then echo 'Программа yq не установлена'; exit 0; fi
+if ! command -v jq &>/dev/null; then echo 'Программа jq не установлена'; exit 0; fi
+if ! command -v yq &>/dev/null; then echo 'Программа yq не установлена'; exit 0; fi
 
 current_version=$(cat ~/.config/Outline/sentry/session.json 2> /dev/null | jq -r '.attrs.release')
 if [ "${current_version}" ]; then echo -e "Текущая версия: ${blue}${current_version}${normal}\n"; fi

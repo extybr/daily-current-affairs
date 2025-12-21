@@ -19,6 +19,10 @@ request=$(curl -s 'https://api.rt.ru/v2/users/current' \
           -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0' \
           -H "${COOKIE}")
 
+# echo "${COOKIE}" | grep -oP '(lego_token|ELK_CSRF_TOKEN| gsscw-rt-lk|SSO_DEVICE_ID)=[^;]+' | awk -F= '{print $1,":",$2}' 
+         
+( echo "$request" | grep "Требуется авторизация" &>/dev/null ) && echo " ${RED}Требуется авторизация" && exit
+
 echo "$request" | jq -c | while read -r item; do
   rt_status=$(jq -r '.accounts.[0].status' <<< "$item")
   num_id=$(jq -r '.accounts.[0].id' <<< "$item")
