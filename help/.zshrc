@@ -30,7 +30,7 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage'
+alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage &; disown'
 
 # Инициализация системы автодополнения
 autoload -Uz compinit

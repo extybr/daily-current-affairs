@@ -1,0 +1,93 @@
+Инструкция по nmcli
+
+Общее управление:
+nmcli general status — общий статус NetworkManager
+nmcli general logging — настройки логгирования
+nmcli -p — подробный вывод (pretty)
+nmcli -t — вывод для скриптов (tab-separated)
+nmcli -f поля — указать поля для вывода
+
+Сети и устройства:
+nmcli device status — статус сетевых устройств
+nmcli device show — детальная информация об устройствах
+nmcli device wifi — список WiFi сетей
+nmcli device wifi rescan — пересканировать WiFi сети
+
+Подключения:
+nmcli connection show — список сохраненных подключений
+nmcli connection show --active — активные подключения
+nmcli connection up имя — активировать подключение
+nmcli connection down имя — деактивировать подключение
+nmcli connection delete имя — удалить подключение
+
+WiFi:
+nmcli device wifi connect SSID password пароль — подключиться к WiFi
+nmcli device wifi hotspot — создать точку доступа
+nmcli device wifi list — список доступных сетей
+
+Создание подключений:
+nmcli connection add type тип ifname интерфейс — создать подключение
+nmcli connection modify имя параметр значение — изменить параметр
+nmcli connection edit имя — интерактивное редактирование
+
+Типы подключений:
+ethernet — Ethernet
+wifi — WiFi
+pppoe — PPPoE
+bond — Bonding
+team — Teaming
+vlan — VLAN
+bridge — Bridge
+vpn — VPN
+
+Примеры создания:
+nmcli connection add type ethernet ifname eth0 — Ethernet на eth0
+nmcli connection add type wifi ifname wlan0 — WiFi на wlan0
+
+Модификация параметров:
+nmcli connection modify имя ipv4.addresses адрес/маска — статический IP
+nmcli connection modify имя ipv4.method auto — DHCP
+nmcli connection modify имя ipv4.gateway шлюз — шлюз
+nmcli connection modify имя ipv4.dns DNS — DNS серверы
+
+Мониторинг:
+nmcli monitor — мониторинг событий в реальном времени
+
+Перезагрузка:
+nmcli connection reload — перезагрузить конфигурацию
+
+Импорт/экспорт:
+nmcli connection export имя файл — экспорт подключения в файл
+nmcli connection import type тип file файл — импорт подключения
+
+Примеры:
+nmcli device status — статус устройств
+nmcli connection show --active — активные подключения
+nmcli device wifi list — список WiFi сетей
+nmcli device wifi connect MyWiFi password mypass — подключиться к WiFi
+nmcli connection add type ethernet ifname eth0 con-name my-eth — создать Ethernet подключение
+nmcli connection modify my-eth ipv4.addresses 192.168.1.100/24 — задать статический IP
+nmcli connection modify my-eth ipv4.gateway 192.168.1.1 — задать шлюз
+nmcli connection modify my-eth ipv4.dns "8.8.8.8 8.8.4.4" — задать DNS
+nmcli connection up my-eth — активировать подключение
+nmcli connection down my-eth — деактивировать подключение
+nmcli -p device show eth0 — подробная информация об eth0
+nmcli -t -f GENERAL,WIFI-PROPERTIES dev show wlan0 — определенные поля для wlan0
+nmcli monitor — следить за событиями сети
+
+Точка доступа:
+    nmcli device wifi hotspot ifname wlan0 ssid MyHotspot password MyPass
+    
+Модемное подключение:
+nmcli connection add type gsm ifname ttyUSB0 — GSM модем
+
+VPN:
+nmcli connection add type vpn vpn-type openvpn — OpenVPN подключение
+
+Bonding:
+    nmcli connection add type bond ifname bond0 mode active-backup
+    nmcli connection add type bond-slave ifname eth0 master bond0
+    
+Bridge:
+    nmcli connection add type bridge ifname br0
+    nmcli connection add type bridge-slave ifname eth0 master br0

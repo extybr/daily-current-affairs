@@ -1,0 +1,130 @@
+Инструкция по file
+
+Основные опции:
+file файл — определить тип файла
+file -b файл — только тип (без имени файла)
+file -i файл — MIME тип файла
+file -L файл — следовать симлинкам
+file -s файл — читать специальные файлы (блочные/символьные устройства)
+file -k файл — продолжить при обнаружении первого совпадения
+file -z файл — заглянуть внутрь сжатых файлов
+
+Множественные файлы:
+file файл1 файл2 файл3 — несколько файлов
+file * — все файлы в директории
+file *.txt — все txt файлы
+file -b *.bin — только типы бинарных файлов
+
+Вывод:
+file -N — не выравнивать имена файлов в выводе
+file -F разделитель — использовать указанный разделитель вместо :
+file -n — печатать имена файлов при выводе (всегда)
+file -r — raw вывод (не экранировать непечатные символы)
+file -v — версия программы
+file -C — скомпилировать magic базу данных
+file -m файл — использовать указанный magic файл вместо стандартного
+
+Примеры:
+file document.pdf — PDF document, version 1.4
+file -b image.jpg — JPEG image data, JFIF standard 1.01
+file -i script.sh — text/x-shellscript; charset=us-ascii
+file -s /dev/sda1 — block special (блочное устройство)
+file -L /usr/bin/python — цель симлинка
+file -z archive.tar.gz — gzip compressed data
+file -k unknown.bin — продолжить анализ после первого совпадения
+file *.log — типы всех лог-файлов
+file -b /etc/passwd — ASCII text
+file /dev/null — character special (символьное устройство)
+file /proc/cpuinfo — empty (специальный файл proc)
+file -s /proc/cpuinfo — теперь покажет как текстовый файл
+file /usr/bin/file — ELF 64-bit LSB executable, x86-64
+file --mime-encoding file.txt — кодировка файла
+file -F " -> " file.txt — использовать " -> " как разделитель
+
+Magic база:
+/usr/share/misc/magic — база данных magic чисел
+/etc/magic — локальная magic база
+file -m custom.mgc unknown.type — использовать свою magic базу
+
+Сжатые файлы:
+file compressed.gz — gzip compressed data, from Unix
+file -z compressed.gz — заглянуть внутрь сжатого файла
+
+Архивы:
+file archive.tar — POSIX tar archive
+file archive.zip — Zip archive data
+
+Исполняемые файлы:
+file /bin/ls — ELF 64-bit LSB shared object, x86-64
+file /bin/bash — ELF 64-bit LSB shared object, x86-64
+file script.py — Python script, ASCII text executable
+
+Изображения:
+file photo.png — PNG image data, 1920 x 1080, 8-bit/color RGB
+file image.gif — GIF image data, version 89a, 800 x 600
+
+Документы:
+file document.docx — Microsoft Word 2007+
+file spreadsheet.xlsx — Microsoft Excel 2007+
+
+Аудио/Видео:
+file audio.mp3 — MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, JntStereo
+file video.mp4 — ISO Media, MP4 v2
+
+Сетевые данные:
+file capture.pcap — tcpdump capture file (little-endian) - version 2.4
+
+Специальные файлы:
+file /dev/random — character special (1/0)
+file /dev/sda — block special (8/0)
+
+Текстовые файлы:
+file utf8.txt — UTF-8 Unicode text
+file utf16.txt — Little-endian UTF-16 Unicode text
+file bom.txt — UTF-8 Unicode (with BOM) text
+
+Практическое использование:
+file * | grep -i "text" — найти все текстовые файлы
+file -i *.html — MIME типы всех HTML файлов
+for f in *; do file -b "$f" | grep -q "text" && echo "$f"; done — все текстовые файлы
+file --mime-type *.jpg — только MIME type для jpg
+find . -type f -exec file -b {} \; | sort | uniq -c | sort -rn — статистика типов файлов
+
+Проверка кодировки:
+file --mime-encoding document.txt — кодировка текстового файла
+
+Скрипты:
+file script — определить тип скрипта (bash, python, perl и т.д.)
+
+Сетевые пакеты:
+file network.pcapng — pcap-ng capture file
+
+Базы данных:
+file database.db — SQLite 3.x database
+
+Виртуальные диски:
+file disk.img — DOS/MBR boot sector
+file disk.vmdk — VMware4 disk image
+
+Проверка целостности:
+file corrupted.jpg — может показать "data" или "broken" для поврежденных файлов
+
+Идентификация по содержимому:
+file анализирует первые несколько байт файла (magic numbers)
+
+Создание своей magic базы:
+    # custom.magic
+    0 string MyFormat My custom file format
+    >10 string version: Version %s
+
+file -C -m custom.magic — скомпилировать
+file -m custom.mgc myfile — использовать
+
+Справка:
+file --help — краткая справка
+man file — полная документация
+
+Важно:
+    file использует эвристики и magic numbers
+    Не всегда точен на 100%
+    Для веб-серверов часто используется для определения Content-Type

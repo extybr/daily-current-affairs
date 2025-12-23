@@ -1,0 +1,62 @@
+Инструкция по curl
+
+Основные методы:
+curl -X GET — GET запрос
+curl -X POST — POST запрос
+curl -X PUT — PUT запрос
+curl -X DELETE — DELETE запрос
+
+Заголовки:
+curl -H "Header: value" — добавить заголовок
+curl -H "Content-Type: application/json" — тип контента
+curl -H "Authorization: Bearer TOKEN" — авторизация
+
+Данные:
+curl -d "data" — отправить данные (POST)
+curl -d @file.json — отправить данные из файла
+curl --data-urlencode "data" — URL-кодированные данные
+curl -F "name=value" — отправить форму
+curl -F "file=@file.txt" — загрузить файл
+
+Параметры URL:
+curl -G -d "param=value" — добавить параметры к URL (GET)
+curl --data-binary "@file" — отправить бинарные данные
+
+Вывод:
+curl -o file — сохранить вывод в файл
+curl -O — сохранить с именем из URL
+curl -s — тихий режим (без прогресс-бара)
+curl -S — показывать ошибки в тихом режиме
+curl -i — включить заголовки ответа в вывод
+curl -I — только заголовки ответа (HEAD)
+curl -v — подробный вывод (verbose)
+curl --trace file — полная трассировка
+
+Прокси и сеть:
+curl -x proxy:port — использовать прокси
+curl --proxy-user user:pass — авторизация прокси
+curl --connect-timeout N — таймаут соединения (сек)
+curl -m N — максимальное время выполнения
+
+Безопасность:
+curl -k — игнорировать проверку SSL
+curl --cert file.pem — SSL клиентский сертификат
+curl --key file.key — приватный ключ SSL
+curl --cacert file.pem — CA сертификат
+
+Куки:
+curl -b "name=value" — отправить куки
+curl -b file.txt — отправить куки из файла
+curl -c file.txt — сохранить куки в файл
+
+Авторизация:
+curl -u user:pass — базовая авторизация
+curl -u user — базовая авторизация (запросит пароль)
+curl --negotiate -u : — Negotiate авторизация
+
+Разное:
+curl -L — следовать редиректам
+curl --limit-rate 100K — ограничить скорость
+curl --compressed — запросить сжатый ответ
+curl --fail — не выводить тело при ошибке HTTP
+curl --retry N — количество повторных попыток

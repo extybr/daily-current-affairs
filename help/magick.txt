@@ -1,0 +1,371 @@
+Инструкция по magick (ImageMagick 7)
+
+Примечание: magick - это команда ImageMagick 7, convert - устаревшая версия ImageMagick 6.
+
+Основные подкоманды
+    magick convert         # преобразование изображений (аналог старого convert)
+    magick identify        # информация об изображении
+    magick mogrify         # изменение изображений на месте
+    magick composite       # композиция изображений
+    magick montage         # создание коллажей
+    magick compare         # сравнение изображений
+
+Основные опции
+    -resize WxH           # изменение размера
+    -crop WxH+X+Y         # обрезка
+    -rotate градусы       # поворот
+    -flip                 # зеркальное отражение по вертикали
+    -flop                 # зеркальное отражение по горизонтали
+    -quality N            # качество JPEG (1-100)
+    -format формат        # формат выходного файла
+
+Форматы изображений
+    jpg, jpeg     - JPEG
+    png           - PNG
+    gif           - GIF
+    webp          - WebP
+    bmp           - BMP
+    tiff, tif     - TIFF
+    pdf           - PDF
+    svg           - SVG
+    ico           - ICO (иконки)
+
+Примеры использования
+
+1. Базовые преобразования
+    # Изменение размера
+    magick input.jpg -resize 800x600 output.jpg
+    magick input.jpg -resize 50% output.jpg
+    magick input.jpg -resize 800x600! output.jpg  # игнорировать пропорции
+    magick input.jpg -resize 800x output.jpg      # ширина 800, высота автоматически
+    magick input.jpg -resize x600 output.jpg      # высота 600, ширина автоматически
+
+    # Обрезка
+    magick input.jpg -crop 300x300+100+50 output.jpg  # 300x300 начиная с (100,50)
+    magick input.jpg -crop 3x3@ output.jpg           # разрезать на 9 частей
+
+    # Поворот
+    magick input.jpg -rotate 90 output.jpg           # поворот на 90°
+    magick input.jpg -rotate -45 output.jpg          # поворот на -45°
+    magick input.jpg -rotate 90 -background white -extent 0x0 output.jpg  # с корректными размерами
+
+    # Зеркальное отражение
+    magick input.jpg -flip output.jpg     # по вертикали
+    magick input.jpg -flop output.jpg     # по горизонтали
+
+2. Конвертация форматов
+    # Простая конвертация
+    magick input.png output.jpg
+    magick input.jpg output.webp
+    magick input.tiff output.png
+
+    # Конвертация с параметрами качества
+    magick input.jpg -quality 85 output.jpg
+    magick input.png -quality 95 output.webp
+
+    # Конвертация в PDF
+    magick input.jpg output.pdf
+    magick *.jpg images.pdf                # несколько изображений в один PDF
+
+    # Создание иконок
+    magick input.png -resize 64x64 favicon.ico
+    magick input.png -resize 16x16,32x32,48x48,64x64,128x128 output.ico  # многоразмерная иконка
+
+3. Коррекция изображений
+    # Яркость/контраст
+    magick input.jpg -brightness-contrast 10x20 output.jpg    # яркость +10%, контраст +20%
+    magick input.jpg -brightness-contrast -10x-5 output.jpg   # уменьшить яркость и контраст
+
+    # Цветовая коррекция
+    magick input.jpg -auto-level output.jpg          # автоматическая коррекция уровней
+    magick input.jpg -auto-gamma output.jpg          # автоматическая гамма-коррекция
+    magick input.jpg -auto-orient output.jpg         # автоматическая ориентация (EXIF)
+
+    # Насыщенность
+    magick input.jpg -modulate 100,150,100 output.jpg  # насыщенность +50% (R,G,B)
+
+    # Ч/Б и сепия
+    magick input.jpg -grayscale Rec709Luminance output.jpg  # ч/б
+    magick input.jpg -sepia-tone 80% output.jpg            # сепия
+
+    # Резкость
+    magick input.jpg -sharpen 0x1.0 output.jpg      # увеличение резкости
+    magick input.jpg -unsharp 1.5x1+0.7+0.02 output.jpg  # более точная резкость
+
+4. Добавление текста и графики
+    # Добавление текста
+    magick input.jpg -pointsize 36 -fill white -annotate +50+50 "Текст" output.jpg
+    magick input.jpg -font Arial -pointsize 24 -fill red -draw "text 100,200 'Hello'" output.jpg
+
+    # Водяной знак
+    magick input.jpg logo.png -gravity southeast -composite output.jpg
+    magick input.jpg \( -background none -fill white -pointsize 24 label:"Водяной знак" \) \
+      -gravity southeast -geometry +10+10 -composite output.jpg
+
+    # Рамки
+    magick input.jpg -bordercolor black -border 10 output.jpg            # простая рамка
+    magick input.jpg -mattecolor gray -frame 10x10+3+3 output.jpg        # рельефная рамка
+    magick input.jpg -shave 10x10 -bordercolor white -border 10 output.jpg  # белая рамка
+
+    # Наложение изображений
+    magick background.jpg foreground.png -compose over -composite output.jpg
+    magick input.jpg -compose dissolve -define compose:args=50 watermark.png -composite output.jpg  # полупрозрачное
+
+5. Создание изображений
+    # Создание однотонных изображений
+    magick -size 800x600 xc:red red.png                     # красный
+    magick -size 800x600 xc:"rgb(100,150,200)" color.png    # кастомный цвет
+    magick -size 800x600 gradient:blue-red gradient.png     # градиент
+    magick -size 800x600 radial-gradient:red-blue circle.png  # радиальный градиент
+
+    # Создание фигур
+    magick -size 100x100 xc:transparent -fill blue -draw "circle 50,50 50,20" circle.png
+    magick -size 100x100 xc:transparent -fill green -draw "rectangle 10,10 90,90" square.png
+
+    # Создание текстовых изображений
+    magick -background lightblue -fill blue -pointsize 36 label:"Текст" text.png
+    magick -size 400x200 xc:white -font Arial -pointsize 24 -fill black \
+      -draw "text 50,100 'Многострочный\nтекст'" multiline.png
+
+6. Информация об изображениях
+    # Основная информация
+    magick identify image.jpg
+    magick identify -format "%wx%h" image.jpg            # только размер
+    magick identify -format "%f: %wx%h, %b, %m" *.jpg    # подробно для всех файлов
+
+    # Подробная информация
+    magick identify -verbose image.jpg
+    magick identify -ping image.jpg                      # быстрая проверка без загрузки
+
+    # EXIF информация
+    magick identify -format "%[EXIF:*]" image.jpg
+    magick identify -format "%[EXIF:DateTimeOriginal]" image.jpg  # дата съемки
+
+7. Пакетная обработка
+    # Изменение всех изображений в директории
+    magick mogrify -resize 800x600 *.jpg                 # изменяет исходные файлы!
+    magick mogrify -format png *.jpg                     # конвертирует все JPG в PNG
+
+    # Безопасная пакетная обработка
+    for file in *.jpg; do
+        magick "$file" -resize 800x600 "resized_${file}"
+    done
+
+    # Использование find
+    find . -name "*.jpg" -exec magick {} -resize 800x600 {}_small.jpg \;
+
+    # Параллельная обработка
+    find . -name "*.jpg" | parallel -j 4 magick {} -resize 800x600 {}_small.jpg
+
+8. Создание коллажей и монтажей
+    # Создание контактного листа
+    magick montage *.jpg -tile 3x3 -geometry 200x200+5+5 contact_sheet.jpg
+
+    # Создание сетки изображений
+    magick montage image1.jpg image2.jpg image3.jpg -tile 1x3 -geometry +0+0 vertical.jpg
+    magick montage image1.jpg image2.jpg image3.jpg -tile 3x1 -geometry +0+0 horizontal.jpg
+
+    # Создание панорамы
+    magick image1.jpg image2.jpg image3.jpg +append panorama_h.jpg    # горизонтальная
+    magick image1.jpg image2.jpg image3.jpg -append panorama_v.jpg    # вертикальная
+
+9. Специальные эффекты
+    # Размытие
+    magick input.jpg -blur 0x3 output.jpg                # легкое размытие
+    magick input.jpg -gaussian-blur 5 output.jpg         # гауссово размытие
+    magick input.jpg -motion-blur 0x15+45 output.jpg     # размытие в движении (45°)
+
+    # Эффекты краев
+    magick input.jpg -edge 2 output.jpg                  # выделение краев
+    magick input.jpg -emboss 0x1 output.jpg              # рельеф
+    magick input.jpg -charcoal 2 output.jpg              # эффект угля
+
+    # Цветовые эффекты
+    magick input.jpg -colorize 50,0,0 output.jpg         # добавить красный оттенок
+    magick input.jpg -tint 50 output.jpg                 # тонирование
+    magick input.jpg -paint 4 output.jpg                 # эффект масляной живописи
+
+    # Искажения
+    magick input.jpg -implode 0.5 output.jpg             # эффект всасывания
+    magick input.jpg -swirl 90 output.jpg                # закручивание
+    magick input.jpg -wave 5x50 output.jpg               # волновой эффект
+
+10. Оптимизация изображений
+    # Оптимизация PNG
+    magick input.png -strip +dither -colors 256 output.png
+    magick input.png -quality 85 output.png
+
+    # Оптимизация JPEG
+    magick input.jpg -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB output.jpg
+
+    # Создание прогрессивных JPEG
+    magick input.jpg -interlace plane output.jpg
+
+    # Удаление метаданных
+    magick input.jpg -strip output.jpg
+
+    # Сжатие PDF
+    magick input.pdf -compress jpeg -quality 75 output.pdf
+
+11. Работа с прозрачностью
+    # Добавление альфа-канала
+    magick input.jpg -alpha set -background none output.png
+
+    # Установка прозрачного цвета
+    magick input.png -transparent white output.png
+
+    # Создание маски
+    magick input.jpg -alpha extract mask.png
+
+    # Применение маски
+    magick input.jpg mask.png -alpha off -compose copyopacity -composite output.png
+
+    # Изменение прозрачности
+    magick input.png -alpha set -channel A -evaluate set 50% +channel output.png
+
+12. Сравнение изображений
+    # Простое сравнение
+    magick compare image1.jpg image2.jpg diff.jpg
+
+    # Метрики различий
+    magick compare -metric AE image1.jpg image2.jpg null: 2>&1  # количество разных пикселей
+    magick compare -metric RMSE image1.jpg image2.jpg null: 2>&1  # среднеквадратичная ошибка
+
+    # Визуальное сравнение
+    magick compare image1.jpg image2.jpg -compose src diff.jpg           # различие
+    magick compare image1.jpg image2.jpg -composite highlight.jpg        # выделение различий
+
+13. Скрипты и сложные операции
+    # Создание скринкастов (GIF)
+    magick -delay 20 -loop 0 frame*.png animation.gif
+
+    # Создание анимированного GIF
+    magick -delay 50 frame1.jpg -delay 10 frame2.jpg -delay 50 frame3.jpg animation.gif
+
+    # Извлечение кадров из видео/анимации
+    magick animation.gif frame%d.png
+
+    # Создание favicon с разными размерами
+    magick logo.png -define icon:auto-resize=16,32,48,64,128 favicon.ico
+
+    # Создание социальных изображений
+    magick input.jpg -resize 1200x630 -gravity center -crop 1200x630+0+0 social.jpg
+
+14. Цветовые пространства и профили
+    # Конвертация цветового пространства
+    magick input.jpg -colorspace sRGB output.jpg
+    magick input.jpg -colorspace Gray output.jpg
+
+    # Работа с ICC профилями
+    magick input.jpg -profile sRGB.icm output.jpg
+    magick input.jpg -strip -profile icc:CMYK.icc output.jpg
+
+    # Извлечение цветового профиля
+    magick input.jpg profile.icc
+
+15. Продвинутые примеры
+    # Создание миниатюр с водяным знаком
+    magick input.jpg -resize 200x200 \
+      \( -size 200x200 xc:none -fill white -pointsize 20 -gravity center -annotate 0 "©" \) \
+      -composite thumbnail.jpg
+
+    # Создание круглой маски
+    magick input.jpg \( +clone -threshold -1 -negate -fill white -draw "circle 100,100 100,50" \) \
+      -alpha off -compose copy_opacity -composite round.png
+
+    # Эффект виньетки
+    magick input.jpg \( +clone -fill black -colorize 100 \
+      -fill white -draw "circle 400,300 400,50" -blur 0x30 \) \
+      -compose multiply -composite vignette.jpg
+
+    # Создание палитры
+    magick input.jpg -colors 8 -unique-colors palette.png
+    magick input.jpg -resize 1x1\! -scale 1000x100\! dominant_colors.png
+
+16. Интерактивные команды
+    # Просмотр изображения
+    magick display image.jpg
+
+    # Редактирование изображения
+    magick convert image.jpg -negate display:-  # инвертировать и показать
+
+    # Создание изображения с вводом параметров
+    read -p "Введите размер: " size
+    magick -size ${size}x${size} xc:blue square.png
+
+17. Комбинации команд
+    # Цепочка операций
+    magick input.jpg -resize 800x600 -rotate 90 -quality 85 output.jpg
+
+    # Сложная обработка
+    magick input.jpg \
+      -resize 50% \
+      -brightness-contrast 10x20 \
+      -charcoal 1 \
+      -colorspace Gray \
+      output.jpg
+
+    # Использование скобок для группировки
+    magick input.jpg \
+      \( -clone 0 -blur 0x10 \) \
+      \( -clone 0 -clone 1 -compose mathematics -set option:compose:args "0,1,-1,0.5" -composite \) \
+      -delete 1 \
+      output.jpg
+
+Полезные советы
+
+1. Безопасная обработка
+    # Всегда делайте копии при использовании mogrify
+    mkdir processed
+    magick mogrify -path processed -resize 800x600 *.jpg
+
+2. Оптимизация производительности
+    # Используйте -limit для управления ресурсами
+    magick -limit memory 2GiB -limit map 4GiB input.jpg output.jpg
+
+    # Используйте -ping для быстрой проверки
+    magick identify -ping large.jpg
+
+3. Обработка больших изображений
+    # Используйте -define для больших TIFF
+    magick large.tiff -define tiff:bigtiff=yes output.tiff
+
+4. Отладка
+    # Включение подробного вывода
+    magick -debug all input.jpg output.jpg
+
+    # Проверка времени выполнения
+    time magick input.jpg -resize 800x600 output.jpg
+
+Установка ImageMagick
+
+Ubuntu/Debian:
+    sudo apt install imagemagick
+
+RHEL/CentOS:
+    sudo yum install ImageMagick
+
+macOS:
+    brew install imagemagick
+
+Из исходников:
+    wget https://imagemagick.org/download/ImageMagick.tar.gz
+    tar xvzf ImageMagick.tar.gz
+    cd ImageMagick-*
+    ./configure
+    make
+    sudo make install
+
+Безопасность
+
+ImageMagick имеет известные уязвимости. Для безопасного использования:
+    # Проверяйте файлы перед обработкой
+    magick identify -ping suspicious.jpg
+
+    # Используйте политики безопасности
+    sudo nano /etc/ImageMagick-7/policy.xml
+
+Эта инструкция покрывает большинство повседневных задач обработки изображений с
+помощью ImageMagick 7 (magick). Команды обратно совместимы с ImageMagick 6 (convert),
+но рекомендуется использовать magick для новых скриптов.
+

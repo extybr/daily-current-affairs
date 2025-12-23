@@ -3,10 +3,8 @@ https://github.com/williamboman/mason.nvim
 
 :help lspconfig-all
 
-html, css, typescript, c/c++, python, golang, rust, bash
-
 *** LSP servers for nvim ***
-
+    html, css, typescript, c/c++, python, golang, rust, bash
 html
 cssls
 tsserver
@@ -16,3 +14,48 @@ gopls
 rust-analyzer
 bash-language-server (Dependencies: bash-completion, shfmt, shellcheck) # https://github.com/bash-lsp/bash-language-server
 bashls
+
+############### Языковые серверы (LSP) ###############
+
+Go: gopls — официальный LSP для Go
+Python: pyright (Microsoft), pylsp, jedi-language-server
+JavaScript/TypeScript: typescript-language-server
+Rust: rust-analyzer
+C/C++: clangd
+Java: jdtls (Eclipse)
+C#: omnisharp
+PHP: intelephense, phpactor
+Ruby: solargraph
+Kotlin: kotlin-language-server
+Swift: sourcekit-lsp
+Haskell: haskell-language-server
+Scala: metals
+Elixir: elixir-ls
+Clojure: clojure-lsp
+Dart: dart-analysis-server
+Lua: sumneko-lua-language-server
+Shell: bash-language-server
+HTML/CSS: vscode-html-languageserver, vscode-css-languageserver
+JSON: vscode-json-languageserver
+YAML: yaml-language-server
+Markdown: unified-language-server
+SQL: sql-language-server
+Dockerfile: dockerfile-language-server
+Terraform: terraform-ls
+Nix: rnix-lsp
+Zig: zls
+V: vls
+Nim: nimlsp
+OCaml: ocaml-lsp
+ReasonML: reason-language-server
+Elm: elm-language-server
+F#: fsautocomplete
+Erlang: erlang-ls
+Julia: julia-language-server
+R: languageserver
+LaTeX: texlab
+Solidity: solidity-ls
+Fortran: fortran-language-server
+Assembly: asm-lsp
+VimScript: vim-language-server
+

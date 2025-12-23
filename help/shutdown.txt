@@ -1,0 +1,287 @@
+Инструкция по shutdown (Linux, Windows, FreeBSD, macOS)
+
+########## 1. Linux ##########
+
+Синтаксис:
+    shutdown [опции] время [сообщение]
+
+Основные опции:
+    shutdown -h now              # выключить немедленно
+    shutdown -r now              # перезагрузить немедленно
+    shutdown -h +5               # выключить через 5 минут
+    shutdown -h 20:00            # выключить в 20:00
+    shutdown -c                  # отменить запланированное выключение
+    shutdown -k +10 "Сообщение"  # только предупредить, не выключать
+
+С дополнительными опциями:
+    shutdown -P now              # выключить и отключить питание (poweroff)
+    shutdown -H now              # остановить систему (halt)
+    shutdown --reboot now        # перезагрузить (аналог -r)
+    shutdown --poweroff now      # выключить питание (аналог -P)
+
+Примеры Linux:
+    # Немедленное выключение
+    sudo shutdown -h now
+
+    # Перезагрузка через 10 минут
+    sudo shutdown -r +10
+
+    # Выключение в 23:30 с сообщением
+    sudo shutdown -h 23:30 "Система выключится для обновления"
+
+    # Отмена запланированного выключения
+    sudo shutdown -c
+
+    # Экстренное выключение (минуя службы)
+    sudo shutdown -h now --no-wall
+
+Systemd (современные дистрибутивы):
+    systemctl poweroff          # выключить
+    systemctl reboot            # перезагрузить
+    systemctl halt              # остановить
+    systemctl suspend           # спящий режим
+    systemctl hibernate         # гибернация
+
+
+########## 2. Windows  ##########
+
+Командная строка (CMD):
+    shutdown /s                 # выключить
+    shutdown /r                 # перезагрузить
+    shutdown /l                 # выйти из системы
+    shutdown /h                 # гибернация
+    shutdown /a                 # отменить выключение
+    shutdown /t N               # задержка N секунд
+    shutdown /c "Сообщение"     # сообщение пользователю
+    shutdown /f                 # принудительное завершение приложений
+
+Примеры Windows CMD:
+    # Выключить через 60 секунд
+    shutdown /s /t 60
+
+    # Перезагрузить немедленно
+    shutdown /r /t 0
+
+    # Выключить с сообщением
+    shutdown /s /t 300 /c "Система выключится через 5 минут для обновления"
+
+    # Отменить выключение
+    shutdown /a
+
+    # Гибернация
+    shutdown /h
+
+PowerShell:
+    Stop-Computer              # выключить
+    Restart-Computer           # перезагрузить
+
+Примеры PowerShell:
+    # Выключить
+    Stop-Computer -Force
+
+    # Перезагрузить с таймаутом
+    Restart-Computer -Delay 60
+
+    # Выключить удаленный компьютер
+    Stop-Computer -ComputerName "SERVER01" -Force
+
+GUI команды:
+    # Диалог выключения
+    shutdown /i
+
+    # Спящий режим
+    rundll32.exe powrprof.dll,SetSuspendState 0,1,0
+
+########## 3. FreeBSD ##########
+
+Синтаксис:
+    shutdown [опции] время [сообщение]
+
+Основные опции:
+    shutdown -p now            # выключить и отключить питание
+    shutdown -r now            # перезагрузить
+    shutdown -h now            # остановить систему
+    shutdown +5                # через 5 минут
+    shutdown 2030              # в 20:30
+    shutdown -k +10            # только предупреждение
+    shutdown -o                # пропустить fsck при перезагрузке
+
+Примеры FreeBSD:
+    # Выключить немедленно
+    sudo shutdown -p now
+
+    # Перезагрузить через 10 минут
+    sudo shutdown -r +10 "Перезагрузка для обновления"
+
+    # Остановить систему
+    sudo shutdown -h now
+
+    # Быстрая перезагрузка (без fsck)
+    sudo shutdown -r -o now
+
+Альтернативные команды:
+    poweroff                   # выключить
+    reboot                     # перезагрузить
+    halt                       # остановить
+    fastboot                   # быстрая перезагрузка
+    fasthalt                   # быстрая остановка
+
+########## 4. macOS ##########
+
+Синтаксис:
+    sudo shutdown [опции] время
+
+Основные опции:
+    sudo shutdown -h now       # выключить немедленно
+    sudo shutdown -r now       # перезагрузить немедленно
+    sudo shutdown -h +5        # выключить через 5 минут
+    sudo shutdown -h 20:00     # выключить в 20:00
+    sudo shutdown -k now       # только предупреждение
+
+Примеры macOS:
+    # Выключить через 10 минут
+    sudo shutdown -h +10
+
+    # Перезагрузить сейчас
+    sudo shutdown -r now
+
+    # Выключить в конкретное время
+    sudo shutdown -h 23:00
+
+    # Отменить (только в течение 1 минуты после запуска)
+    sudo killall shutdown
+
+Альтернативные команды macOS:
+    # Выключить
+    sudo halt
+    sudo poweroff
+
+    # Перезагрузить
+    sudo reboot
+
+    # Спящий режим
+    pmset sleepnow
+
+    # Гибернация
+    sudo pmset hibernatemode 25
+
+Специфичные для macOS:
+    # Немедленное выключение (без ожидания)
+    sudo shutdown -h now -o
+
+    # Перезагрузка в однопользовательский режим
+    sudo shutdown -u now
+
+    # Перезагрузка с fsck
+    sudo shutdown -r now -F
+
+########## Универсальные методы (кросс-платформенные) ##########
+
+1. Python
+    import os
+    import platform
+
+    system = platform.system()
+
+    if system == "Linux" or system == "Darwin":  # macOS
+        os.system("sudo shutdown -h now")
+    elif system == "Windows":
+        os.system("shutdown /s /t 0")
+
+2. Свои сообщения
+
+Linux/macOS/FreeBSD:
+    sudo shutdown -h +5 "Система выключится через 5 минут. Сохраните работу!"
+
+Windows:
+    shutdown /s /t 300 /c "Система выключится через 5 минут. Сохраните работу!"
+
+3. Планирование
+
+Cron (Linux/macOS/FreeBSD):
+    # Выключить каждый день в 2:00
+    0 2 * * * /sbin/shutdown -h now
+
+Task Scheduler (Windows):
+    schtasks /create /tn "NightShutdown" /tr "shutdown /s" /sc daily /st 02:00
+
+Безопасное выключение
+
+Для всех систем:
+
+1. Сохранить данные:
+    sync    # Linux/macOS/FreeBSD - сбросить кэш на диск
+
+2. Предупредить пользователей:
+    # Linux/FreeBSD
+    wall "Система выключится через 5 минут!"
+
+    # Windows (нужен net send или аналог)
+    msg * "Система выключится через 5 минут!"
+
+3. Остановить службы:
+    # Systemd (Linux)
+    systemctl stop служба
+
+    # SysV init (старые системы)
+    service служба stop
+
+Аварийное выключение
+
+Linux:
+    echo o > /proc/sysrq-trigger      # немедленное выключение
+    echo b > /proc/sysrq-trigger      # немедленная перезагрузка
+
+Windows:
+    shutdown /s /f /t 0               # принудительное выключение
+
+macOS:
+    sudo shutdown -hu now             # жесткое выключение
+
+Отмена выключения
+
+Linux/macOS/FreeBSD:
+    sudo shutdown -c
+    # или если запущено
+    sudo killall shutdown
+
+Windows:
+    shutdown /a
+
+Практические примеры
+
+1. Скрипт кросс-платформенного выключения:
+    #!/bin/bash
+    case "$(uname -s)" in
+        Linux*)     sudo shutdown -h +5 "Выключение через 5 минут" ;;
+        Darwin*)    sudo shutdown -h +5 ;;
+        FreeBSD*)   sudo shutdown -p +5 ;;
+        CYGWIN*|MINGW*|MSYS*)
+                    shutdown /s /t 300 /c "Выключение через 5 минут" ;;
+        *)          echo "Неизвестная ОС" ;;
+    esac
+
+2. Выключение по условию:
+    # Linux: выключить если нет пользователей
+    if who | grep -q .; then
+        echo "Есть пользователи"
+    else
+        sudo shutdown -h now
+    fi
+
+3. Удаленное выключение:
+    # Linux к Linux
+    ssh user@remote "sudo shutdown -h now"
+
+    # Windows к Windows
+    shutdown /s /m \\REMOTEPC /t 0
+
+Важные предупреждения
+
+1. Права:
+        Linux/macOS/FreeBSD: нужен sudo или root
+        Windows: нужны права администратора
+2. Сохранение данных: Всегда сохраняйте работу перед выключением
+3. Сетевые службы: Предупреждайте пользователей сетевых служб
+4. Обратный отсчет: На Windows таймер работает в секундах, на UNIX — в минутах
+5. Отмена: У вас есть только 1 минута для отмены на некоторых системах

@@ -1,0 +1,82 @@
+Инструкция по git
+
+Настройка:
+git config --global user.name — установить имя
+git config --global user.email — установить email
+git config --global core.editor — установить редактор
+
+Создание/клонирование:
+git init — инициализировать репозиторий
+git clone URL — клонировать репозиторий
+
+Статус:
+git status — показать статус
+git status -s — краткий статус
+
+Добавление:
+git add file — добавить файл в индекс
+git add . — добавить все файлы
+git add -A — добавить все изменения
+git add -p — интерактивное добавление
+
+Коммиты:
+git commit -m "message" — создать коммит
+git commit -am "message" — добавить и закоммитить
+git commit --amend — исправить последний коммит
+
+История:
+git log — показать историю
+git log --oneline — краткая история
+git log --graph — история с графом
+git log -p — история с изменениями
+git log --stat — история со статистикой
+
+Ветки:
+git branch — список веток
+git branch name — создать ветку
+git checkout branch — переключиться на ветку
+git checkout -b branch — создать и переключиться
+git merge branch — слить ветку
+git branch -d branch — удалить ветку
+git branch -D branch — принудительно удалить
+
+Удалённые репозитории:
+git remote add origin URL — добавить удалённый репозиторий
+git remote -v — список удалённых репозиториев
+git push origin branch — отправить изменения
+git push -u origin branch — отправить и установить upstream
+git pull origin branch — получить изменения
+git fetch origin — получить изменения без слияния
+git remote remove origin — удалить удалённый репозиторий
+
+Отмена изменений:
+git restore file — отменить изменения в файле
+git restore --staged file — убрать из индекса
+git reset HEAD~ — отменить последний коммит
+git reset --hard HEAD — сбросить всё к последнему коммиту
+git revert commit — отменить коммит новым коммитом
+
+Сравнение:
+git diff — показать изменения
+git diff --staged — изменения в индексе
+git diff commit1 commit2 — сравнить коммиты
+
+Хранение:
+git stash — временно сохранить изменения
+git stash pop — восстановить изменения
+git stash list — список сохранений
+git stash apply — применить сохранение
+
+Теги:
+git tag — список тегов
+git tag v1.0 — создать тег
+git tag -a v1.0 -m "message" — создать аннотированный тег
+git push origin --tags — отправить теги
+
+Подмодули:
+git submodule add URL — добавить подмодуль
+git submodule update --init — инициализировать подмодули
+
+Очистка:
+git clean -fd — удалить неотслеживаемые файлы
+git gc — сборка мусора

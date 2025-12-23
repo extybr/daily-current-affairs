@@ -1,0 +1,187 @@
+Инструкция по iconv
+
+Основной синтаксис:
+iconv -f из_кодировки -t в_кодировка файл
+iconv -f UTF-8 -t WINDOWS-1251 file.txt
+
+Основные опции:
+-f кодировка — исходная кодировка
+-t кодировка — целевая кодировка
+-l — список всех поддерживаемых кодировок
+-c — молча пропускать неконвертируемые символы
+-s — подавить предупреждения
+-o файл — выходной файл
+
+Распространенные кодировки:
+UTF-8 — Unicode 8-bit
+UTF-16 — Unicode 16-bit
+UTF-32 — Unicode 32-bit
+ASCII — US-ASCII
+ISO-8859-1 / LATIN1 — Западноевропейская
+ISO-8859-5 — Кириллица
+WINDOWS-1251 — Windows кириллица
+KOI8-R — Русская KOI8
+CP866 — DOS/OEM кириллица
+CP1251 — то же что WINDOWS-1251
+SHIFT-JIS — Японская
+GBK / GB2312 — Китайская
+
+Примеры:
+
+1. Базовая конвертация:
+    iconv -f WINDOWS-1251 -t UTF-8 win.txt > utf8.txt
+    iconv -f CP1251 -t UTF-8 file.txt
+
+2. Конвертация на месте:
+    iconv -f KOI8-R -t UTF-8 koi8.txt -o utf8.txt
+    # или
+    iconv -f KOI8-R -t UTF-8 < koi8.txt > utf8.txt
+
+3. Определение кодировки:
+    file -i file.txt      # MIME тип с кодировкой
+    chardetect file.txt   # через python-chardet
+
+4. Список кодировок:
+    iconv -l              # все доступные кодировки
+    iconv -l | grep -i cyrillic  # кириллические кодировки
+
+5. Пропуск ошибок:
+    iconv -f UTF-8 -t ASCII -c file.txt  # пропустить не-ASCII символы
+    iconv -f UTF-8 -t ASCII//TRANSLIT file.txt  # транслитерация
+
+6. Из stdin/stdout:
+    cat file.txt | iconv -f CP1251 -t UTF-8
+    echo "привет" | iconv -f UTF-8 -t KOI8-R
+
+7. Пакетная конвертация:
+    for f in *.txt; do
+        iconv -f CP1251 -t UTF-8 "$f" -o "${f%.txt}.utf8.txt"
+    done
+
+8. Проверка перед конвертацией:
+    # Проверить можно ли сконвертировать
+    iconv -f UTF-8 -t ASCII file.txt >/dev/null && echo "OK" || echo "FAIL"
+
+9. Транслитерация:
+    # Замена отсутствующих символов похожими
+    iconv -f UTF-8 -t ASCII//TRANSLIT file.txt
+    # "café" → "cafe", "naïve" → "naive"
+
+10. Игнорирование ошибок:
+    iconv -f UTF-8 -t WINDOWS-1251//IGNORE file.txt
+
+11. Сохранение BOM (Byte Order Mark):
+    # Добавить BOM для UTF-16/UTF-32
+    echo -ne '\xEF\xBB\xBF' > with_bom.txt  # UTF-8 BOM
+    cat file.txt >> with_bom.txt
+
+12. Удаление BOM:
+    # Удалить UTF-8 BOM
+    tail -c +4 file_with_bom.txt > file_without_bom.txt
+    # или
+    sed '1s/^\xEF\xBB\xBF//' file.txt
+
+13. Конвертация веб-страниц:
+    curl -s http://site.com | iconv -f WINDOWS-1251 -t UTF-8
+
+14. Фикс "кракозябр":
+    # Если файл отображается с кракозябрами
+    iconv -f CP1251 -t UTF-8 krakozyabry.txt > fixed.txt
+    iconv -f KOI8-R -t UTF-8 krakozyabry.txt > fixed.txt
+    iconv -f CP866 -t UTF-8 krakozyabry.txt > fixed.txt
+
+15. Определение и конвертация:
+    # Попробовать несколько кодировок
+    for enc in WINDOWS-1251 KOI8-R CP866; do
+        if iconv -f "$enc" -t UTF-8 file.txt >/dev/null 2>&1; then
+            iconv -f "$enc" -t UTF-8 file.txt > fixed.txt
+            echo "Найдена кодировка: $enc"
+            break
+        fi
+    done
+
+16. Конвертация системных файлов:
+    # Бэкап перед изменением!
+    sudo cp /etc/default/locale /etc/default/locale.backup
+    sudo iconv -f UTF-8 -t ASCII//TRANSLIT /etc/default/locale -o /etc/default/locale
+
+17. Массовая конвертация файлов:
+    find . -name "*.txt" -exec sh -c 'iconv -f CP1251 -t UTF-8 "$1" > "${1%.txt}.utf8.txt"' _ {} \;
+
+18. Конвертация с заменой:
+    # Заменить оригинал
+    iconv -f WINDOWS-1251 -t UTF-8 file.txt -o temp.txt && mv temp.txt file.txt
+
+19. Проверка валидности UTF-8:
+    iconv -f UTF-8 -t UTF-8 file.txt >/dev/null && echo "Valid UTF-8" || echo "Invalid"
+
+20. Специальные кодировки:
+    # UTF-16 для Windows совместимости
+    iconv -f UTF-8 -t UTF-16LE file.txt  # Little Endian
+    iconv -f UTF-8 -t UTF-16BE file.txt  # Big Endian
+
+    # Для Java свойств файлов
+    iconv -f UTF-8 -t ISO-8859-1 messages.properties
+
+Практические сценарии:
+
+1. Исправление русских имен файлов:
+    convmv -r -f WINDOWS-1251 -t UTF-8 --notest *.mp3
+    # convmv для имен файлов, iconv для содержимого
+
+2. Конвертация логов:
+    # Логи от Windows приложений
+    iconv -f CP1251 -t UTF-8 app.log | grep "ошибка"
+
+3. Подготовка для веба:
+    # Все файлы сайта в UTF-8
+    find /var/www -name "*.html" -o -name "*.php" -o -name "*.css" | while read f; do
+        iconv -f WINDOWS-1251 -t UTF-8 "$f" -o "${f}.utf8" && mv "${f}.utf8" "$f"
+    done
+
+4. Конвертация CSV для импорта:
+    iconv -f WINDOWS-1251 -t UTF-8 data.csv | sed 's/;/,/g' > data_utf8.csv
+
+5. Чтение писем:
+    # Письма в разных кодировках
+    cat email.eml | iconv -f KOI8-R -t UTF-8 | less
+
+6. Создание универсального скрипта:
+    #!/bin/bash
+    # convert_to_utf8.sh
+    for file in "$@"; do
+        if [[ -f "$file" ]]; then
+            encoding=$(file -bi "$file" | awk -F= '{print $2}')
+            if [[ "$encoding" != "utf-8" ]]; then
+                echo "Конвертирую $file ($encoding → UTF-8)"
+                iconv -f "$encoding" -t UTF-8 "$file" -o "${file}.utf8"
+                mv "${file}.utf8" "$file"
+            fi
+        fi
+    done
+
+Ошибки и решения:
+    # iconv: illegal input sequence at position 10
+    # ⇒ Неправильная исходная кодировка
+
+    # iconv: conversion error
+    # ⇒ Используйте -c или //TRANSLIT
+
+    # Для файлов с BOM
+    iconv -f UTF-8 -t WINDOWS-1251 <(tail -c +4 file.txt)
+
+Советы:
+    Всегда делайте бэкап перед массовой конвертацией
+    Используйте file -i для определения кодировки
+    Для HTML/XML смотрите meta-теги: <meta charset="...">
+    Текстовые редакторы (vim, emacs) могут определить кодировку лучше
+
+Альтернативы:
+recode — более умный конвертер
+enca — автоматическое определение кодировки
+uconv — ICU конвертер (больше возможностей)
+
+Важно:
+    iconv не меняет имена файлов, только содержимое
+    Для изменения имен файлов используйте convmv
+    Некоторые кодировки могут терять информацию при конвертации

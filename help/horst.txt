@@ -1,7 +1,5 @@
 https://github.com/br101/horst
 
-
-
 iw wlan0 set type monitor
 ifconfig wlan0 up
 iw wlan0 set channel 6

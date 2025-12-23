@@ -1,0 +1,98 @@
+Инструкция по sudo
+
+Основное использование:
+sudo команда — выполнить команду с правами root
+sudo -s — запустить shell с правами root
+sudo -i — запустить login shell как root
+sudo su — переключиться на root (устаревший способ)
+
+Пользователи и группы:
+sudo -u пользователь команда — выполнить как указанный пользователь
+sudo -g группа команда — выполнить с указанной группой
+sudo -u www-data ls — выполнить ls как пользователь www-data
+
+Настройки окружения:
+sudo -E команда — сохранить окружение пользователя
+sudo -H команда — установить HOME в домашнюю директорию root
+sudo --set-home команда — то же что -H
+
+Листинг и проверка:
+sudo -l — показать доступные команды
+sudo -ll — подробный список доступных команд
+sudo -v — обновить timestamp sudo (продлить аутентификацию)
+sudo -k — сбросить timestamp sudo (завершить сессию)
+
+Файлы конфигурации:
+sudo visudo — редактировать конфигурацию sudo (/etc/sudoers)
+sudo cat /etc/sudoers — посмотреть конфигурацию (лучше через visudo)
+
+Псевдонимы:
+В /etc/sudoers:
+Cmnd_Alias — алиасы команд
+User_Alias — алиасы пользователей
+Host_Alias — алиасы хостов
+Runas_Alias — алиасы пользователей для запуска
+
+Без пароля:
+В /etc/sudoers:
+пользователь ALL=(ALL) NOPASSWD: ALL — без пароля для всех команд
+
+Ограниченный доступ:
+В /etc/sudoers:
+пользователь ALL=(ALL) /usr/bin/apt, /usr/bin/systemctl — только конкретные команды
+
+Переменные окружения:
+sudo env_keep += "переменная" — сохранять переменные окружения
+
+Примеры использования:
+sudo apt update — обновить пакеты как root
+sudo systemctl restart nginx — перезапустить nginx
+sudo -u postgres psql — запустить psql как пользователь postgres
+sudo -g staff id — показать ID с группой staff
+sudo -s — получить root shell
+sudo -i — получить login shell root (загружает профиль)
+sudo !! — выполнить предыдущую команду с sudo
+sudo -l — что я могу делать через sudo
+sudo -v — продлить сессию sudo
+sudo -k — завершить сессию sudo
+sudo shutdown -h now — выключить систему
+sudo crontab -e -u пользователь — редактировать crontab другого пользователя
+
+Таймстамп:
+По умолчанию sudo запоминает аутентификацию на 15 минут
+timestamp_timeout=число в /etc/sudoers — изменить время
+
+Логирование:
+/var/log/auth.log — логи sudo (Debian/Ubuntu)
+/var/log/secure — логи sudo (RHEL/CentOS)
+
+Безопасность:
+    sudo -- — разделитель опций sudo и команды
+    sudoedit файл — редактирование файла через sudo
+
+    Примеры в /etc/sudoers:
+    # Разрешить пользователю запускать apt без пароля
+    user ALL=(ALL) NOPASSWD: /usr/bin/apt
+
+    # Разрешить группе admin все команды
+    %admin ALL=(ALL) ALL
+
+    # Разрешить пользователю запускать команды от имени www-data
+    user ALL=(www-data) ALL
+    
+Проверка прав:
+sudo -U пользователь -l — показать права другого пользователя
+
+Вход в систему:
+sudo login — войти как root
+
+Переменные:
+sudo EDITOR=vim visudo — указать редактор для visudo
+
+Отладка:
+sudo -u пользователь -i — login shell как другой пользователь
+
+Важно:
+    Никогда не редактируйте /etc/sudoers напрямую, используйте visudo
+    sudo su - — получить окружение root
+    Разница между sudo -s и sudo -i: -i загружает .profile, -s нет

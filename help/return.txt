@@ -1,0 +1,206 @@
+Инструкция по return
+
+Основной синтаксис:
+return [n] — выйти из функции с кодом возврата n (0-255)
+return — выйти с кодом 0 (успех)
+
+Коды возврата:
+0 — успех (true)
+1-255 — ошибка (false, обычно 1)
+$? — получить код возврата последней команды/функции
+
+Использование в функциях:
+    function myfunc() {
+        # код функции
+        return 0  # успешное завершение
+    }
+
+Примеры:
+    # Простая функция с return
+    success() {
+        echo "Выполняю работу..."
+        return 0
+    }
+
+success
+echo "Код возврата: $?"  # 0
+
+    # Функция с проверкой аргументов
+    check_file() {
+        if [[ ! -f "$1" ]]; then
+            echo "Файл не существует: $1"
+            return 1
+        fi
+        return 0
+    }
+
+check_file "/etc/passwd"
+echo "Код: $?"  # 0
+
+check_file "/nonexistent"
+echo "Код: $?"  # 1
+
+    # Возврат разных кодов
+    status() {
+        if [[ "$1" == "ok" ]]; then
+            return 0
+        elif [[ "$1" == "warn" ]]; then
+            return 1
+        else
+            return 2
+        fi
+    }
+
+status "ok" && echo "OK"
+status "warn" || echo "Предупреждение"
+
+Возврат значений (не данных):
+return возвращает только числовой код, НЕ данные
+Для возврата данных используйте:
+    echo + захват вывода
+    Глобальные переменные
+    Массивы
+
+Пример возврата данных:
+    # НЕПРАВИЛЬНО (так не работает):
+    get_data() {
+        local result="данные"
+        return "$result"  # ОШИБКА: ожидается число
+    }
+
+    # ПРАВИЛЬНО:
+    get_data() {
+        echo "данные"
+    }
+
+    result=$(get_data)
+
+Код возврата в условиях:
+    is_even() {
+        if (( $1 % 2 == 0 )); then
+            return 0  # true
+        else
+            return 1  # false
+        fi
+    }
+
+    if is_even 4; then
+        echo "Четное"
+    else
+        echo "Нечетное"
+    fi
+
+Цепочки вызовов:
+    func1() {
+        return 1
+    }
+
+    func2() {
+        func1
+        local ret=$?
+        if [[ $ret -ne 0 ]]; then
+            return $ret
+        fi
+        # остальной код...
+    }
+
+Возврат из скрипта vs функции:
+return — только из функций
+exit — из всего скрипта
+
+Ошибка использования:
+    # Вне функции вызовет ошибку:
+    # return: can only `return' from a function or sourced script
+
+Специальные коды:
+126 — команда найдена, но не исполняемая
+127 — команда не найдена
+128+n — завершение сигналом n (например, 130 = SIGINT, 137 = SIGKILL)
+
+Пример обработки ошибок:
+    process() {
+        if [[ -z "$1" ]]; then
+            echo "Ошибка: нет аргумента" >&2
+            return 1
+        fi
+        
+        # Основная логика
+        echo "Обрабатываю: $1"
+        
+        if [[ ! -d "/tmp" ]]; then
+            return 2
+        fi
+        
+        return 0
+    }
+
+process "данные"
+case $? in
+    0) echo "Успех" ;;
+    1) echo "Ошибка аргумента" ;;
+    2) echo "Ошибка директории" ;;
+    *) echo "Неизвестная ошибка" ;;
+esac
+
+Возврат в цикле:
+    find_first() {
+        for item in "$@"; do
+            if [[ "$item" == "искомое" ]]; then
+                echo "Найдено: $item"
+                return 0
+            fi
+        done
+        return 1
+    }
+
+Неявный return:
+Функция возвращает код последней выполненной команды:
+    implicit_return() {
+        ls /nonexistent  # вернет код 2
+    }
+
+    implicit_return
+    echo "Код: $?"  # 2
+
+Ловушка return:
+    trap 'echo "Функция вернула $?"' RETURN
+
+Возврат из source-скрипта:
+    # sourced.sh
+    if [[ "$1" == "exit" ]]; then
+        return 1  # выйти из sourced скрипта
+    fi
+
+    # main.sh
+    source ./sourced.sh "exit"
+    echo "Продолжаем выполнение main.sh"
+
+Проверка кода в одной строке:
+    myfunc && echo "Успех" || echo "Ошибка"
+
+Возврат с сообщением:
+    error() {
+        echo "Ошибка: $1" >&2
+        return 1
+    }
+
+    validate() {
+        [[ -z "$1" ]] && error "Пустой аргумент" && return
+        # или просто: [[ -z "$1" ]] && return 1
+    }
+
+Логирование возврата:
+    logged_func() {
+        local result=0
+        
+        # код...
+        
+        echo "Функция завершилась с кодом: $result" >&2
+        return $result
+    }
+
+Важно:
+    return работает только в функциях или source-скриптах
+    Не путать с exit (завершает весь скрипт)
+    Коды 0-255, где 0 = успех
+    Для передачи данных используйте echo или переменные

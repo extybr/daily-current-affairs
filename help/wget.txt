@@ -1,0 +1,79 @@
+Инструкция по wget
+
+Основные опции:
+wget URL — скачать файл
+wget -O имя_файла URL — сохранить под указанным именем
+wget -P директория URL — сохранить в указанную директорию
+
+Продолжение загрузки:
+wget -c URL — продолжить прерванную загрузку
+
+Фоновый режим:
+wget -b URL — фоновая загрузка
+wget -q — тихий режим (без вывода)
+
+Рекурсивная загрузка:
+wget -r URL — рекурсивная загрузка
+wget -l глубина URL — ограничить глубину рекурсии
+wget -np URL — не подниматься выше начального URL
+
+Ограничения:
+wget --limit-rate=скорость URL — ограничить скорость (например 100k, 1m)
+wget -w секунды URL — пауза между загрузками
+
+Ограничение по времени:
+wget -T секунды URL — таймаут соединения
+wget --tries=число URL — количество попыток
+
+Аутентификация:
+wget --user=имя --password=пароль URL — HTTP аутентификация
+wget --http-user=имя --http-password=пароль URL — HTTP Basic auth
+
+Прокси:
+wget -e use_proxy=yes -e http_proxy=адрес URL — использовать прокси
+
+Заголовки:
+wget --header="Заголовок: значение" URL — добавить заголовок
+wget --user-agent="агент" URL — изменить User-Agent
+
+Проверка сертификатов:
+wget --no-check-certificate URL — не проверять SSL сертификаты
+
+Зеркалирование:
+wget -m URL — зеркалирование сайта
+
+Ограничение типов файлов:
+wget -A "*.jpg,*.png" URL — загружать только указанные расширения
+wget -R "*.gif,*.bmp" URL — исключить указанные расширения
+
+Примеры:
+wget https://example.com/file.zip — скачать файл
+wget -O archive.zip https://example.com/file.zip — сохранить как archive.zip
+wget -P ~/downloads https://example.com/file.zip — сохранить в downloads
+wget -c https://example.com/large.iso — продолжить загрузку
+wget -bq https://example.com/file.zip — фоновая загрузка без вывода
+wget -r -l 2 https://example.com/ — рекурсивно на глубину 2
+wget -r -np https://example.com/dir/ — не подниматься выше dir
+wget --limit-rate=100k https://example.com/file.iso — ограничить скорость 100 КБ/с
+wget -w 2 https://example.com/page{1..10}.html — с паузой 2 секунды
+wget --user=admin --password=pass https://example.com/secure/ — с аутентификацией
+wget --header="Authorization: Bearer TOKEN" https://api.example.com/data — с токеном
+wget -A "*.pdf" https://example.com/documents/ — только PDF файлы
+wget -R "*.tmp,*.temp" https://example.com/ — исключить временные файлы
+wget -m https://example.com/ — зеркалировать сайт
+wget -T 30 --tries=5 https://example.com/file — таймаут 30 сек, 5 попыток
+
+Пакетная загрузка:
+wget -i файл_со_списком_URL.txt — загрузить из файла со списком URL
+
+Проверка без загрузки:
+wget --spider URL — проверить доступность без загрузки
+
+Информация о файле:
+wget --server-response URL — показать заголовки ответа сервера
+
+Загрузка FTP:
+wget ftp://user:pass@server/file.zip — загрузка с FTP
+
+Пример зеркалирования:
+wget -mkEpnp https://example.com/ — полное зеркалирование с преобразованием ссылок

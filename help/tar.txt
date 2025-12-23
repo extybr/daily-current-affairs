@@ -1,0 +1,88 @@
+Инструкция по tar
+
+Основные операции:
+tar -c — создать архив (create)
+tar -x — извлечь архив (extract)
+tar -t — просмотреть содержимое (list)
+tar -r — добавить файлы в архив
+tar -u — обновить файлы в архиве
+
+Архивация (создание):
+tar -cf архив.tar файлы — создать tar архив
+tar -czf архив.tar.gz файлы — создать сжатый gzip архив
+tar -cjf архив.tar.bz2 файлы — создать сжатый bzip2 архив
+tar -cJf архив.tar.xz файлы — создать сжатый xz архив
+tar -caf архив.tar.сжатие файлы — автоматическое определение сжатия
+
+Распаковка:
+tar -xf архив.tar — распаковать tar архив
+tar -xzf архив.tar.gz — распаковать gzip архив
+tar -xjf архив.tar.bz2 — распаковать bzip2 архив
+tar -xJf архив.tar.xz — распаковать xz архив
+tar -xaf архив.tar.сжатие — распаковать с автоопределением сжатия
+
+Просмотр:
+tar -tf архив.tar — список файлов в архиве
+tar -tzf архив.tar.gz — список в gzip архиве
+tar -tvf архив.tar — подробный список с атрибутами
+
+Опции:
+tar -v — подробный вывод (verbose)
+tar -p — сохранять права доступа
+tar --same-owner — сохранять владельца (для root)
+tar -k — не перезаписывать существующие файлы
+tar -C директория — сменить директорию перед операцией
+tar --exclude="шаблон" — исключить файлы по шаблону
+tar -h — следовать симлинкам (сохранять как обычные файлы)
+tar --strip-components=N — удалить N ведущих компонентов путей
+tar -P — сохранять абсолютные пути
+tar -m — не сохранять время модификации
+
+Примеры создания:
+tar -cvf backup.tar /home/user/ — создать архив домашней директории
+tar -czvf backup.tar.gz /var/log/ — создать сжатый gzip архив логов
+tar -cjvf backup.tar.bz2 /etc/ — создать bzip2 архив конфигов
+tar -cJvf backup.tar.xz /usr/share/doc/ — создать xz архив документации
+tar -cvf archive.tar --exclude="*.tmp" directory/ — исключить временные файлы
+tar -cvf files.tar file1.txt file2.txt dir/ — несколько файлов и директорий
+
+Примеры распаковки:
+tar -xvf archive.tar — распаковать с подробным выводом
+tar -xzvf archive.tar.gz — распаковать gzip архив
+tar -xjvf archive.tar.bz2 — распаковать bzip2 архив
+tar -xJvf archive.tar.xz — распаковать xz архив
+tar -xvf archive.tar -C /target/dir/ — распаковать в указанную директорию
+tar -xvf archive.tar file1.txt — извлечь только конкретный файл
+tar -xvf archive.tar --wildcards "*.txt" — извлечь только txt файлы
+tar -xvf archive.tar --strip-components=1 — удалить первый компонент пути
+
+Примеры просмотра:
+tar -tvf archive.tar — подробный список содержимого
+tar -tzf archive.tar.gz — список файлов в gzip архиве
+tar -tf archive.tar | grep pattern — поиск файлов в архиве
+
+Добавление/обновление:
+tar -rvf archive.tar newfile.txt — добавить файл в существующий архив
+tar -uvf archive.tar changedfile.txt — обновить файл в архиве
+
+Специальные операции:
+tar -c dir/ | gzip > archive.tar.gz — создание через pipe
+tar -xzf archive.tar.gz -O file.txt — извлечь файл в stdout
+tar -czf - dir/ | ssh host "tar -xzf -" — архивация и передача по SSH
+tar -cf /dev/null --files-from=/dev/null — создать пустой архив
+
+Резервное копирование:
+tar -cpzf backup-$(date +%Y%m%d).tar.gz --exclude=/backup* / — полный бэкап системы
+
+Инкрементальный бэкап:
+tar -czf backup-full.tar.gz --listed-incremental=snapshot.snar /data — первый бэкап
+tar -czf backup-inc.tar.gz --listed-incremental=snapshot.snar /data — инкрементальный
+
+Проверка целостности:
+tar -tzf archive.tar.gz > /dev/null && echo "OK" — проверка архива
+
+Массовые операции:
+find . -name "*.log" -type f | tar -czvf logs.tar.gz -T - — архив найденных файлов
+
+Сохранение атрибутов:
+tar --acls --xattrs -cpzf backup.tar.gz /important/data — с ACL и расширенными атрибутами

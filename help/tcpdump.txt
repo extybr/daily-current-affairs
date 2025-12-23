@@ -1,0 +1,87 @@
+Инструкция по tcpdump
+
+Основные опции:
+tcpdump -i интерфейс — указать сетевой интерфейс
+tcpdump -i any — все интерфейсы
+tcpdump -D — список доступных интерфейсов
+
+Фильтрация:
+tcpdump host адрес — фильтр по хосту
+tcpdump net сеть — фильтр по сети
+tcpdump port порт — фильтр по порту
+tcpdump src host адрес — источник
+tcpdump dst host адрес — назначение
+tcpdump src port порт — порт источника
+tcpdump dst port порт — порт назначения
+
+Протоколы:
+tcpdump tcp — только TCP трафик
+tcpdump udp — только UDP трафик
+tcpdump icmp — только ICMP трафик
+tcpdump arp — только ARP трафик
+
+Вывод:
+tcpdump -n — не преобразовывать адреса в имена
+tcpdump -nn — не преобразовывать адреса И порты
+tcpdump -v — подробный вывод
+tcpdump -vv — очень подробный вывод
+tcpdump -vvv — максимально подробный вывод
+tcpdump -q — тихий режим (меньше вывода)
+tcpdump -t — не выводить временные метки
+tcpdump -tttt — вывод даты и времени
+tcpdump -X — hex и ASCII вывод
+tcpdump -XX — hex и ASCII вывод (заголовки тоже)
+tcpdump -A — ASCII вывод
+
+Запись/чтение:
+tcpdump -w файл — записать в файл (pcap)
+tcpdump -r файл — читать из файла
+tcpdump -G секунды — ротация файлов по времени
+tcpdump -W количество — количество файлов для ротации
+tcpdump -C размер_МБ — ротация по размеру
+
+Лимиты:
+tcpdump -c количество — захватить N пакетов и выйти
+tcpdump -s snaplen — длина захвата (0 = весь пакет)
+
+Фильтры выражений:
+tcpdump 'протокол and условие' — логическое И
+tcpdump 'протокол or условие' — логическое ИЛИ
+tcpdump 'not условие' — логическое НЕ
+
+Примеры фильтров:
+tcpdump port 80 — HTTP трафик
+tcpdump port 443 — HTTPS трафик
+tcpdump host 192.168.1.1 — трафик с/на хост
+tcpdump src 192.168.1.100 — трафик от хоста
+tcpdump dst 192.168.1.100 — трафик к хосту
+tcpdump net 192.168.1.0/24 — трафик в сети
+tcpdump tcp port 22 — SSH трафик
+tcpdump udp port 53 — DNS трафик
+tcpdump icmp — ping и ICMP
+tcpdump 'tcp[tcpflags] & tcp-syn != 0' — только SYN пакеты
+tcpdump 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)' — HTTP данные
+
+Примеры команд:
+tcpdump -i eth0 — захват на интерфейсе eth0
+tcpdump -i eth0 -c 10 — захватить 10 пакетов
+tcpdump -i any -n port 80 — HTTP без разрешения имён
+tcpdump -i wlan0 -w capture.pcap — записать в файл
+tcpdump -r capture.pcap — прочитать из файла
+tcpdump -i eth0 -s 0 -w file.pcap — захватить полные пакеты
+tcpdump -i eth0 -G 3600 -w capture-%H-%M.pcap — ротация каждый час
+
+Комбинации:
+tcpdump -i eth0 -nn -vv -X — максимальная детализация
+tcpdump -i lo port 5432 — PostgreSQL на loopback
+tcpdump -i eth0 'port 443 and host google.com' — HTTPS к Google
+
+БПФ фильтры:
+tcpdump 'tcp[13] & 2 != 0' — SYN флаг
+tcpdump 'tcp[13] & 16 != 0' — ACK флаг
+tcpdump 'tcp[13] = 18' — SYN-ACK пакеты
+tcpdump 'icmp[0] = 8' — ICMP echo request
+
+Полезные комбинации:
+tcpdump -l | grep что-то — буферизованный вывод для grep
+tcpdump -i eth0 -w - | tcpdump -r - — цепочка tcpdump

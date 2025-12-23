@@ -7,7 +7,7 @@ ________
 
 firefox, brave, links  (web browsers)
 firefox --version
-mc   (Визуальная оболочка для Unix-подобных систем)
+mc  (Визуальная оболочка для Unix-подобных систем)
 fish  (the friendly interactive shell)
 ranger  (консольный visual file manager)
 yazi  (консольный visual file manager)
@@ -85,6 +85,8 @@ nvitop  (https://github.com/XuehaiPan/nvitop)
 conky  (A system monitor for X)
 lazygit  (это терминальный псевдографический интерфейс (TUI) для Git)
 lazydocker  (это терминальный псевдографический интерфейс (TUI) для Docker)
+sshfs  (клиент файловой системы на основе FUSE для монтирования удалённых каталогов через SSH-соединение)
+sshfs myuser@mycomputer:/remote/path /local/path -C -p 9876
 jq  (Command-line JSON processor)
 yq  (Command-line YAML processor)
 cat .gitlab-ci.yml | yq
@@ -279,6 +281,8 @@ dumpe2fs  (dump ext2/ext3/ext4 file system information)
 dumpe2fs -h /dev/sda1
 wipefs  (wipe a signature from a device)
 wipefs --all /dev/sda  (очищает диск, удаление структуры)
+fusermount3  (mount and unmount FUSE filesystems)
+fusermount3 -u /local/path  (размонтировать удаленную систему)
 mountpoint  (see if a directory or file is a mountpoint)
 mountpoint /path/directory
 mkfs  (build a Linux filesystem / Creates a file system on a partition or device)
@@ -1282,6 +1286,9 @@ lsmem  (list the ranges of available memory with their online status)
 hwinfo  (probe for hardware)
 hwinfo --short
 hwinfo --short --cpu
+cpupower  (Shows and sets processor power related values)
+sudo cpupower frequency-set -g powersave
+sudo cpupower frequency-set -g perfomance
 lshw  (list hardware)
 lshw -class processor
 sudo lshw -C display

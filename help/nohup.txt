@@ -1,0 +1,113 @@
+Инструкция по nohup
+
+Основной синтаксис:
+nohup команда — запустить команду, игнорируя SIGHUP
+nohup команда & — запустить в фоне
+nohup команда > файл 2>&1 & — с перенаправлением вывода
+
+Перенаправление вывода:
+По умолчанию вывод идет в nohup.out в текущей директории
+nohup команда > файл — указать файл для stdout
+nohup команда > файл 2>&1 — stdout и stderr в один файл
+nohup команда > файл 2> файл_ошибок — разделить вывод и ошибки
+nohup команда > /dev/null 2>&1 — подавить весь вывод
+
+Фоновый режим:
+nohup команда & — запустить в фоне
+nohup команда & echo $! > pid.txt — сохранить PID процесса
+
+Примеры:
+nohup ./script.sh — запустить скрипт
+nohup python app.py & — запустить Python приложение в фоне
+nohup java -jar app.jar > app.log 2>&1 & — Java приложение с логом
+nohup mysqldump database > backup.sql 2> error.log & — бэкап БД
+nohup ./server --port 8080 > server.log 2>&1 & — сервер на порту 8080
+nohup tail -f /var/log/syslog > syslog_tail.log 2>&1 & — следить за логом
+nohup wget http://example.com/file.iso & — скачивание в фоне
+nohup rsync -av source/ dest/ > rsync.log 2>&1 & — синхронизация
+
+Проверка процессов:
+ps aux | grep команда — найти процесс
+jobs — показать фоновые задачи (только в текущей сессии)
+
+Завершение:
+kill PID — послать SIGTERM
+kill -9 PID — принудительно завершить
+
+Сохранение PID:
+    nohup ./long_task.sh > task.log 2>&1 &
+    echo $! > task.pid
+
+Перезапуск при падении:
+    nohup ./restart_wrapper.sh &
+    # где restart_wrapper.sh:
+    while true; do
+        ./actual_program
+        sleep 5
+    done
+
+Множественные команды:
+    nohup bash -c 'cmd1 && cmd2' > output.log 2>&1 &
+    
+Сценарии использования:
+nohup ./update.sh & — запуск обновлений
+nohup make & — сборка проекта
+nohup ./monitor.sh > /var/log/monitor.log 2>&1 & — мониторинг
+nohup ./import_data.py > import.log 2>&1 & — импорт данных
+
+Ограничения:
+    nohup игнорирует только SIGHUP
+    Другие сигналы (SIGTERM, SIGKILL) все еще работают
+    Процесс может быть завершен системой или другими способами
+
+Комбинации:
+(nohup команда > файл 2>&1 &) — запуск в подпроцессе
+setsid команда — альтернатива nohup (запускает в новой сессии)
+
+Проверка вывода:
+tail -f nohup.out — следить за выводом
+tail -f файл.log — если указали свой файл
+
+Запуск из cron:
+В cron команды по умолчанию защищены от SIGHUP, но nohup добавляет дополнительную защиту
+
+SSH сессии:
+При разрыве SSH соединения процессы получают SIGHUP
+nohup предотвращает завершение таких процессов
+
+Пример скрипта:
+    #!/bin/bash
+    # start_service.sh
+    nohup ./service_binary \
+        --config /etc/service.conf \
+        --log /var/log/service.log \
+        > /var/log/service_startup.log 2>&1 &
+    echo $! > /var/run/service.pid
+
+Подавление вывода полностью:
+nohup команда > /dev/null 2>&1 & — ничего не логировать
+
+Перенаправление в syslog:
+    nohup команда 2>&1 | logger -t "МояПрограмма" &
+
+Запуск от другого пользователя:
+sudo -u пользователь nohup команда &
+
+Проверка работы:
+    nohup sleep 3600 &
+    ps -p $! -o pid,cmd
+
+Завершение всех nohup процессов:
+    pkill -f "команда"
+    # или
+    kill $(ps aux | grep 'команда' | grep -v grep | awk '{print $2}')
+
+Важно:
+    После запуска с nohup & можно сразу закрывать терминал
+    Процесс продолжит работу под init/systemd как orphan
+    Для демонизации лучше использовать systemd или специализированные утилиты
+
+Альтернативы:
+disown — если процесс уже запущен
+screen/tmux — для интерактивных процессов
+systemd — для системных служб

@@ -1,0 +1,123 @@
+Инструкция по dmesg
+
+Основные опции:
+dmesg — все сообщения ядра
+dmesg -H — человеко-читаемый вывод (с временными метками)
+dmesg -T — показать локальное время вместо timestamp
+dmesg -x — добавить пояснения уровней логгирования
+dmesg -w — следить за новыми сообщениями (watch)
+dmesg -W — следить (альтернатива -w)
+
+Уровни логгирования:
+dmesg -l emerg — emergency (0)
+dmesg -l alert — alert (1)
+dmesg -l crit — critical (2)
+dmesg -l err — error (3)
+dmesg -l warning — warning (4)
+dmesg -l notice — notice (5)
+dmesg -l info — info (6)
+dmesg -l debug — debug (7)
+dmesg -l info,err — несколько уровней
+
+Фильтрация:
+dmesg | grep -i error — поиск ошибок
+dmesg | grep -E "usb|eth|wlan" — USB или сетевые устройства
+dmesg --facility=kern — только kernel facility
+dmesg --facility=user — user facility
+dmesg --color=always — цветной вывод
+
+Лимиты вывода:
+dmesg | tail -20 — последние 20 сообщений
+dmesg | head -50 — первые 50 сообщений
+dmesg -n 1 — установить уровень консольного логгирования (1=минимальный)
+
+Время:
+dmesg --ctime — показать человеко-читаемое время
+dmesg --time-format iso — ISO формат времени
+dmesg --since "10 minutes ago" — сообщения за последние 10 минут
+
+Буфер:
+dmesg -s размер — использовать буфер указанного размера
+dmesg -c — прочитать и очистить буфер ядра
+dmesg -C — очистить буфер ядра
+dmesg -r — raw формат вывода (без обработки)
+dmesg -S — использовать syslog вместо /dev/kmsg
+
+Примеры:
+dmesg — все сообщения ядра
+dmesg -H — с человеко-читаемыми временными метками
+dmesg -T — с локальным временем
+dmesg -w — следить за новыми сообщениями ядра
+dmesg -l err — только ошибки
+dmesg -l err,crit,alert,emerg — критические ошибки и выше
+dmesg | grep -i "memory\|ram" — информация о памяти
+dmesg | grep -i "usb" — USB устройства
+dmesg | grep -i "eth[0-9]\|enp[0-9]" — сетевые интерфейсы
+dmesg | grep -i "ata\|sata\|scsi" — диски и контроллеры
+dmesg | grep -i "error\|fail\|warning" — ошибки и предупреждения
+dmesg -c — прочитать и очистить буфер
+dmesg --since "2024-03-15 09:00:00" — сообщения с указанного времени
+dmesg --follow — следить за новыми сообщениями (как tail -f)
+
+Анализ загрузки:
+dmesg | grep -i "startup\|init\|loading" — процесс загрузки
+dmesg | grep -B5 -A5 "error" — ошибки с контекстом
+
+Устройства:
+dmesg | grep -i "network\|ethernet\|wifi" — сетевое оборудование
+dmesg | grep -i "bluetooth" — bluetooth
+dmesg | grep -i "nvme\|ssd" — NVMe/SSD диски
+
+Производительность:
+dmesg | grep -i "cpu\|processor\|frequency" — информация о CPU
+dmesg | grep -i "thermal\|temperature" — температура
+
+Цветной вывод:
+dmesg --color=auto — автоматическое определение цвета
+dmesg --color=never — без цвета
+
+Сохранение:
+dmesg > dmesg.log — сохранить в файл
+dmesg -T > dmesg_with_time.log — сохранить с временными метками
+
+Сравнение:
+journalctl -k — аналогично dmesg (kernel messages через journal)
+journalctl --dmesg — только сообщения ядра из journal
+
+Очистка:
+Требует прав root:
+sudo dmesg -C — очистить буфер ядра
+
+Установка уровня:
+sudo dmesg -n 7 — включить все уровни логгирования (debug)
+sudo dmesg -n 3 — только emerg, alert, crit, err
+
+Примеры для диагностики:
+dmesg | grep -i "out of memory" — проблемы с памятью
+dmesg | grep -i "segfault\|panic" — критические ошибки ядра
+dmesg | grep -i "firmware" — загрузка firmware
+dmesg | grep -i "radeon\|nvidia\|amdgpu\|intel" — видеодрайверы
+
+Форматирование:
+dmesg --human — человеко-читаемый вывод (аналог -H)
+dmesg --decode — декодировать facility и level
+
+Специальные флаги:
+--raw — не декодировать уровни и facility
+--read-clear — прочитать и очистить (только для /dev/kmsg)
+
+Работа с syslog:
+dmesg -S — читать из syslog вместо ring buffer
+
+Проверка:
+dmesg --version — версия dmesg
+dmesg --help — справка
+
+Комбинации:
+dmesg -HTw — следить с человеко-читаемым временем
+dmesg -l err -T | tail -20 — последние 20 ошибок с локальным временем
+
+Важно:
+    dmesg показывает сообщения кольцевого буфера ядра
+    Буфер ограничен по размеру, старые сообщения перезаписываются
+    Для просмотра логов после загрузки используйте journalctl

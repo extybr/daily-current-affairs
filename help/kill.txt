@@ -1,0 +1,114 @@
+Инструкция по kill
+
+Основной синтаксис:
+kill [опции] PID — отправить сигнал процессу
+
+Сигналы (по умолчанию TERM):
+kill -TERM PID или kill -15 PID — нормальное завершение
+kill -KILL PID или kill -9 PID — принудительное завершение
+kill -HUP PID или kill -1 PID — перезапуск (перечитать конфиг)
+kill -INT PID или kill -2 PID — прерывание (Ctrl+C)
+kill -QUIT PID или kill -3 PID — выход с дампом памяти
+kill -STOP PID или kill -19 PID — приостановка процесса
+kill -CONT PID или kill -18 PID — возобновление процесса
+kill -USR1 PID или kill -10 PID — пользовательский сигнал 1
+kill -USR2 PID или kill -12 PID — пользовательский сигнал 2
+
+Основные сигналы:
+SIGHUP (1) — hangup, перечитать конфигурацию
+SIGINT (2) — interrupt, прерывание (Ctrl+C)
+SIGQUIT (3) — quit, выход с core dump
+SIGKILL (9) — kill, немедленное завершение (нельзя перехватить)
+SIGTERM (15) — terminate, запрос на завершение
+SIGSTOP (19) — stop, приостановка (нельзя перехватить)
+SIGCONT (18) — continue, возобновление
+
+Группы процессов:
+kill -сигнал -PGID — всем процессам группы
+kill -сигнал 0 — всем процессам текущей сессии
+
+Поиск PID:
+pidof имя — найти PID по имени процесса
+pgrep имя — найти PID по имени
+ps aux | grep имя — поиск процессов
+
+Примеры:
+kill 1234 — отправить SIGTERM процессу 1234
+kill -9 1234 — принудительно убить процесс 1234
+kill -HUP 5678 — перезапустить процесс (перечитать конфиг)
+kill -STOP 9101 — приостановить процесс
+kill -CONT 9101 — возобновить процесс
+kill -TERM $(pidof nginx) — завершить nginx
+kill -9 $(pgrep firefox) — убить все firefox процессы
+kill -1 $(cat /var/run/nginx.pid) — послать HUP процессу из pid-файла
+kill -KILL -1234 — убить все процессы группы 1234
+kill -9 0 — убить все процессы текущей сессии (опасно!)
+kill -l — список всех сигналов
+kill -L — таблица сигналов
+
+Специальные PID:
+-1 — все процессы кроме init и самого kill
+0 — все процессы текущей сессии
+-PGID — все процессы группы
+
+Сигналы перезапуска служб:
+kill -HUP $(cat /var/run/sshd.pid) — перезагрузить SSH конфиг
+kill -USR1 $(cat /var/run/nginx.pid) — реоткрыть логи nginx
+
+Проверка:
+После kill проверьте ps aux | grep PID или kill -0 PID
+kill -0 PID — проверить существует ли процесс (0 если да)
+
+Ошибки:
+kill: PID: No such process — процесс не существует
+kill: PID: Operation not permitted — нет прав
+
+Убить все процессы по имени:
+pkill имя — убить по имени
+killall имя — убить все процессы с именем
+
+Примеры с pkill/killall:
+pkill firefox — убить firefox
+pkill -9 -f "python script.py" — убить по полной командной строке
+killall chrome — убить все chrome процессы
+pkill -u пользователь — убить все процессы пользователя
+pkill -U UID — убить по UID
+
+Сигналы отладки:
+SIGTRAP (5) — trace trap, для отладчика
+SIGABRT (6) — abort, аварийное завершение
+SIGBUS (7) — bus error
+SIGFPE (8) — floating point exception
+SIGSEGV (11) — segmentation violation
+
+Пользовательские сигналы:
+SIGUSR1 (10), SIGUSR2 (12) — для пользовательских целей
+
+Восстановимые сигналы:
+SIGSTOP, SIGTSTP (20) — можно возобновить с SIGCONT
+
+Сигналы реального времени:
+SIGRTMIN до SIGRTMAX — сигналы реального времени
+
+Комбинации:
+kill $(ps aux | grep '[p]ython' | awk '{print $2}') — убить python процессы
+kill -9 $(lsof -t /var/log/nginx/access.log) — убить процесс использующий файл
+
+Безопасность:
+SIGKILL (9) — нельзя перехватить, может оставить ресурсы занятыми
+SIGTERM (15) — дает возможность корректно завершиться
+
+В bash:
+$! — PID последнего фонового процесса
+kill $! — убить последний фоновый процесс
+
+Пример завершения скрипта:
+    trap "echo 'Завершаюсь...'; exit" SIGTERM SIGINT
+
+Сигналы терминала:
+SIGTTOU (22) — background write to terminal
+SIGTTIN (21) — background read from terminal
+
+Проверка прав:
+Только root может убить процессы других пользователей
+Пользователь может убивать свои процессы

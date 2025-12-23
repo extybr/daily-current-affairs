@@ -1,0 +1,95 @@
+Инструкция по dd
+
+Основной синтаксис:
+dd if=вход of=выход
+
+Источник/назначение:
+dd if=/dev/zero — нули
+dd if=/dev/urandom — случайные данные
+dd if=/dev/sda — чтение диска
+dd of=/dev/sdb — запись на диск
+
+Размеры:
+dd bs=размер — размер блока
+dd count=число — количество блоков
+dd skip=число — пропустить блоков во входе
+dd seek=число — пропустить блоков в выводе
+
+Единицы измерения:
+b — 512 байт
+k — 1024 байта
+M — 1024*1024 байта
+G — 1024*1024*1024 байта
+KB — 1000 байт
+MB — 1000*1000 байт
+
+Опции:
+dd conv=опции — преобразования:
+conv=notrunc — не обрезать выходной файл
+conv=noerror — продолжать при ошибках
+conv=sync — дополнить блоки нулями
+conv=fsync — синхронизировать перед завершением
+
+Статус:
+dd status=progress — показывать прогресс
+dd status=none — не показывать статус
+
+Примеры:
+dd if=/dev/sda of=/dev/sdb — клонирование диска
+dd if=/dev/sda of=backup.img — создать образ диска
+dd if=backup.img of=/dev/sda — восстановить из образа
+dd if=/dev/zero of=file.bin bs=1M count=100 — создать файл 100МБ из нулей
+dd if=/dev/urandom of=random.bin bs=1M count=10 — 10МБ случайных данных
+dd if=/dev/sda bs=512 count=1 of=mbr.bin — сохранить MBR
+dd if=mbr.bin of=/dev/sda bs=512 count=1 — восстановить MBR
+dd if=/dev/cdrom of=image.iso — создать ISO образ CD
+dd if=file.bin of=/dev/null — тест скорости чтения
+dd if=/dev/zero of=/dev/sdb bs=4M status=progress — затереть диск нулями
+dd if=/dev/sda skip=1000 bs=512 count=1 — пропустить первые 1000 секторов
+dd if=largefile.bin of=smallfile.bin bs=1M count=10 — извлечь первые 10МБ
+
+Конвертации:
+dd conv=ucase — в верхний регистр
+dd conv=lcase — в нижний регистр
+dd conv=swab — поменять байты местами
+
+Специальные случаи:
+dd if=/dev/mem bs=1k skip=768 count=256 2>/dev/null — чтение памяти
+
+Запись на CD/DVD:
+dd if=image.iso of=/dev/cdrom — запись ISO
+
+Шифрование:
+dd if=/dev/sda | gzip > backup.img.gz — сжатый бэкап
+dd if=/dev/sda | openssl enc -aes-256-cbc > backup.enc — зашифрованный бэкап
+
+Восстановление данных:
+dd if=/dev/sda of=recovered.bin bs=512 skip=12345 count=1 — извлечь сектор
+
+Тест производительности:
+dd if=/dev/zero of=testfile bs=1G count=1 oflag=dsync — тест записи с sync
+dd if=/dev/zero of=testfile bs=1G count=1 oflag=direct — прямой доступ
+
+Очистка диска:
+dd if=/dev/zero of=/dev/sda bs=4M — один проход нулями
+dd if=/dev/urandom of=/dev/sda bs=4M — случайные данные (безопасное удаление)
+
+Разделы:
+dd if=/dev/sda1 of=partition.img — образ раздела
+
+Сетевые операции:
+dd if=/dev/sda | nc host port — отправка образа по сети
+nc -l -p port | dd of=/dev/sdb — получение образа по сети
+
+Резервное копирование MBR:
+dd if=/dev/sda of=mbr_backup.bin bs=512 count=1
+dd if=mbr_backup.bin of=/dev/sda bs=512 count=1
+
+Ошибки:
+dd if=/dev/sda conv=noerror,sync of=/dev/sdb — игнорировать bad sectors
+
+Потоковая обработка:
+cat input.bin | dd bs=1M | gzip > output.gz — через пайпы
+
+Проверка:
+dd if=input of=output && rm input — удалить оригинал после успешного копирования

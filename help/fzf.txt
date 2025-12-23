@@ -1,0 +1,253 @@
+Инструкция по fzf (fuzzy finder)
+
+Основные опции запуска:
+fzf — интерактивный поиск из stdin
+fzf --query "начальный запрос" — с начальным поиском
+fzf --multi — разрешить множественный выбор
+fzf --preview "команда" — показать preview выбранного
+fzf --bind клавиши:действие — кастомные привязки клавиш
+
+Поиск и фильтрация:
+fzf --exact — точный поиск (без fuzzy)
+fzf --case-sensitive — учитывать регистр
+fzf --tac — показать вход в обратном порядке
+fzf --no-sort — не сортировать результаты
+fzf --filter "текст" — неинтерактивный фильтр
+
+Выбор и действия:
+fzf --select-1 — автоматически выбрать если 1 результат
+fzf --exit-0 — выйти если нет результатов
+fzf --print-query — вывести запрос перед результатами
+fzf --expect клавиши — ожидать дополнительные клавиши выбора
+
+Интерфейс:
+fzf --height N% — высота в процентах
+fzf --layout=reverse — список снизу вверх
+fzf --border — показать границу
+fzf --ansi — интерпретировать ANSI коды
+fzf --color тема — цветовая схема
+
+История:
+fzf --history файл — сохранять историю поиска
+fzf --history-size N — размер истории
+
+Примеры:
+
+1. Простой поиск файлов:
+    find . -type f | fzf
+
+2. Множественный выбор:
+    ls | fzf --multi
+    # Выбор: Tab, множественный: Shift+Tab, все: Ctrl+A
+
+3. С preview:
+    # Просмотр файлов
+    fzf --preview 'cat {}' --preview-window right:60%
+
+    # Просмотр изображений (если есть kitty или терминал с поддержкой)
+    fzf --preview 'kitty +kitten icat --clear --transfer-mode file {}'
+
+    # Git diff preview
+    git diff --name-only | fzf --preview 'git diff {}'
+
+4. Поиск процессов:
+    ps aux | fzf --multi --header-lines=1 --preview 'echo {}'
+
+5. Поиск в истории команд:
+    history | fzf --tac --no-sort
+    # или использовать Ctrl+R (встроено в bash)
+
+6. Поиск с начальным запросом:
+    ls | fzf --query ".txt"  # начать поиск .txt файлов
+
+7. Привязки клавиш:
+    # Кастомные действия
+    ls | fzf --bind 'ctrl-d:preview-page-down,ctrl-u:preview-page-up'
+
+    # Открыть файл в редакторе при нажатии Enter
+    ls | fzf --bind 'enter:execute(vim {})+abort'
+
+8. Git branches:
+    git branch | fzf --header "Выберите ветку" | xargs git checkout
+
+9. Kill process:
+    ps aux | fzf --multi | awk '{print $2}' | xargs kill -9
+
+10. Поиск в man pages:
+    man -k . | fzf --preview 'man {1}' | awk '{print $1}' | xargs man
+
+11. Поиск файлов с find:
+    find . -type f | fzf --preview 'head -100 {}'
+
+12. Закладки:
+    echo -e "~/projects\n~/downloads\n/etc" | fzf --height 40% --reverse
+
+13. Поиск в SSH хостах:
+    grep "^Host" ~/.ssh/config | awk '{print $2}' | fzf --header "SSH хост"
+
+14. Неинтерактивный фильтр:
+    ls | fzf --filter "txt"  # выводит только файлы с "txt"
+
+15. Цветовая схема:
+    ls | fzf --color=bg+:24,fg+:bold
+
+16. Preview с синтаксической подсветкой:
+    fzf --preview 'bat --color=always {}'
+
+Практические комбинации:
+
+1. Открыть файл в редакторе:
+    vim $(fzf)
+    # или
+    fzf --bind 'enter:execute(vim {})+abort'
+
+2. Изменить директорию:
+    cd $(find . -type d | fzf)
+
+3. Поиск и выполнение команды:
+    history | fzf | cut -d' ' -f4- | bash
+
+4. Git commit hash:
+    git log --oneline | fzf | cut -d' ' -f1
+
+5. Docker контейнеры:
+    docker ps | fzf --header-lines=1
+
+6. Поиск по содержанию файлов:
+    grep -r "pattern" . | fzf --delimiter : --preview 'bat --color=always {1}'
+
+7. Системные сервисы:
+    systemctl list-unit-files | fzf --header-lines=1
+
+8. Поиск пакетов (apt):
+    apt list | fzf --header-lines=1
+
+9. Копировать файл:
+    cp $(fzf) ~/backup/
+
+10. Удалить файлы:
+    rm $(fzf --multi)
+
+Кастомные скрипты с fzf:
+
+1. Функция поиска файлов:
+    ff() {
+        local file
+        file=$(find . -type f | fzf --preview 'bat --color=always {}')
+        [[ -n "$file" ]] && echo "$file"
+    }
+
+2. Поиск и переход в директорию:
+    fd() {
+        local dir
+        dir=$(find . -type d | fzf)
+        [[ -n "$dir" ]] && cd "$dir"
+    }
+
+3. Поиск в истории с временем:
+    fh() {
+        local cmd
+        cmd=$(history | fzf --tac --no-sort | sed 's/^ *[0-9]* *//')
+        [[ -n "$cmd" ]] && echo "$cmd"
+    }
+    
+4. Git branch switcher:
+    gbs() {
+        git branch | fzf --header "Выберите ветку" | xargs git checkout
+    }
+
+5. Просмотр логов:
+    flog() {
+        local log
+        log=$(find /var/log -type f -name "*.log" | fzf)
+        [[ -n "$log" ]] && tail -f "$log"
+    }
+
+6. Поиск и установка пакетов:
+    fpkg() {
+        apt search . | fzf --multi --header-lines=1 | awk '{print $1}' | xargs sudo apt install -y
+    }
+
+7. SSH соединение:
+    fssh() {
+        local host
+        host=$(grep "^Host" ~/.ssh/config | awk '{print $2}' | fzf)
+        [[ -n "$host" ]] && ssh "$host"
+    }
+
+8. Docker exec:
+    fdexec() {
+        local container
+        container=$(docker ps | fzf --header-lines=1 | awk '{print $1}')
+        [[ -n "$container" ]] && docker exec -it "$container" bash
+    }
+
+9. Поиск по man pages:
+    fman() {
+        man -k . | fzf --preview 'man {1}' | awk '{print $1}' | xargs man
+    }
+
+10. Универсальный поисковик:
+    search() {
+        case $1 in
+            f) find . -type f | fzf ;;
+            d) find . -type d | fzf ;;
+            p) ps aux | fzf --header-lines=1 ;;
+            g) git status --short | fzf ;;
+            *) echo "Использование: search [f|d|p|g]" ;;
+        esac
+    }
+
+Интеграция с shell:
+
+В ~/.bashrc:
+    # CTRL-T - поиск файлов
+    bind '"\C-t": " \C-u \C-a\C-k$(find . -type f | fzf)\e\C-e\C-y\C-a\C-y\ey\C-h"'
+
+    # CTRL-R - поиск в истории (улучшенный)
+    bind '"\C-r": " \C-e\C-u$(history | fzf --tac --no-sort)\e\C-m"'
+
+    # ALT-C - смена директории
+    bind '"\ec": " \C-e\C-u$(find . -type d | fzf)\e\C-m"'
+
+Расширенные preview:
+    # JSON файлы
+    fzf --preview 'jq . {}'
+
+    # CSV файлы
+    fzf --preview 'column -t -s, {} | head -20'
+
+    # Markdown
+    fzf --preview 'glow {}'
+
+    # Изображения (терминал должен поддерживать)
+    fzf --preview 'chafa {}'
+
+Кастомные темы:
+    # Solarized dark
+    export FZF_DEFAULT_OPTS='--color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75,fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07,marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07'
+
+Важные сочетания клавиш:
+    Ctrl+C, Esc — выход
+    Enter — выбрать
+    Tab — выбрать несколько
+    Shift+Tab — выбрать несколько (toggle)
+    Ctrl+A — выбрать все
+    Ctrl+D — отменить все
+    Ctrl+W — удалить слово
+    Ctrl+U — удалить строку
+    Ctrl+K/Ctrl+J — навигация
+
+Установка:
+    # Ubuntu/Debian
+    sudo apt install fzf
+
+    # macOS
+    brew install fzf
+
+    # Arch
+    sudo pacman -S fzf
+
+    # Из source
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install

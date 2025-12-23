@@ -1,0 +1,78 @@
+Инструкция по sqlite3
+
+Запуск:
+sqlite3 — запустить интерактивную оболочку
+sqlite3 file.db — открыть/создать базу данных
+sqlite3 -help — показать справку
+
+Вывод:
+.mode MODE — установить режим вывода (csv, column, html, insert, line, list, tabs, tcl)
+.headers on/off — показать/скрыть заголовки столбцов
+.nullvalue TEXT — как отображать NULL значения
+.width NUM1 NUM2... — установить ширину столбцов
+
+Информация:
+.databases — показать подключенные базы данных
+.tables ?PATTERN? — список таблиц
+.schema ?TABLE? — показать схему таблиц
+.indexes ?TABLE? — показать индексы
+.fullschema — полная схема БД
+
+Импорт/Экспорт:
+.import FILE TABLE — импортировать данные из файла в таблицу
+.dump ?TABLE? — дамп БД в SQL
+.output FILE — перенаправить вывод в файл
+.read FILE — выполнить SQL из файла
+.backup ?DB? FILE — создать резервную копию
+
+Файлы:
+.open ?FILE? — открыть БД
+.save FILE — сохранить БД в файл
+
+Настройки:
+.prompt MAIN CONTINUE — изменить приглашение
+.separator COL ROW — изменить разделители
+.timer on/off — включить/выключить таймер выполнения
+.stats on/off — статистика выполнения
+.echo on/off — эхо команд
+
+Выход:
+.exit — выйти
+.quit — выйти
+.q — выйти
+
+Важные команды SQL:
+SELECT * FROM table; — выбрать данные
+CREATE TABLE table (col TYPE); — создать таблицу
+INSERT INTO table VALUES (...); — вставить данные
+UPDATE table SET col=value WHERE ...; — обновить данные
+DELETE FROM table WHERE ...; — удалить данные
+
+Специальные команды:
+.shell CMD — выполнить команду ОС
+.system CMD — выполнить команду ОС
+.once ?OPTIONS? ?FILE? — выполнить следующий запрос и вывести в файл
+.limit ?LIMIT? ?VAL? — установить лимит вывода
+.changes on/off — показывать количество изменённых строк
+
+Форматы вывода:
+.mode csv — CSV формат
+.mode column — табличный формат
+.mode list — список с разделителем
+.mode json — JSON вывод
+.mode markdown — Markdown таблица
+.mode quote — строки в кавычках
+
+Проверка:
+.check — проверить целостность БД
+.integrity-check — полная проверка целостности
+
+Прочее:
+.recover — восстановить повреждённую БД
+.clone NEWDB — клонировать БД
+.restore ?DB? FILE — восстановить БД из файла
+.filectrl CMD ... — управление файлами БД
+
+Примеры:
+  sqlite3 test.db "SELECT * FROM users;" — выполнить команду без входа в оболочку
+  sqlite3 -csv -header test.db "SELECT * FROM users;" — вывести в CSV с заголовками

@@ -1,0 +1,89 @@
+Инструкция по iw
+
+Информация:
+iw dev — список беспроводных интерфейсов
+iw list — детальная информация о WiFi карте
+iw phy — информация о физических устройствах
+iw dev интерфейс info — информация о конкретном интерфейсе
+iw dev интерфейс link — информация о текущем подключении
+iw dev интерфейс station dump — статистика по клиентам (для точки доступа)
+
+Сканирование сетей:
+iw dev интерфейс scan — сканировать WiFi сети
+iw dev интерфейс scan freq 2412 — сканировать на конкретной частоте
+iw dev интерфейс scan ssid "имя сети" — сканировать конкретную сеть
+
+Управление интерфейсами:
+iw dev интерфейс set type тип — изменить тип интерфейса
+iw phy радио interface add имя type тип — создать виртуальный интерфейс
+iw dev интерфейс del — удалить интерфейс
+
+Типы интерфейсов:
+managed — клиент (по умолчанию)
+monitor — мониторный режим
+ap — точка доступа
+adhoc — ad-hoc сеть
+mesh — mesh сеть
+wds — WDS точка
+p2p-client / p2p-go — Wi-Fi Direct
+
+Подключение к сети:
+iw dev интерфейс connect "SSID" — подключиться к открытой сети
+iw dev интерфейс connect "SSID" key 0:пароль — WEP сеть
+iw dev интерфейс connect "SSID" key d:0:пароль — WPA/WPA2 сеть
+
+Настройка точки доступа:
+iw dev интерфейс set type ap — перевести в режим точки доступа
+iw dev интерфейс set txpower limit мощность — установить мощность передачи
+
+Частоты и каналы:
+iw dev интерфейс set freq частота [HT20|HT40+|HT40-] — установить частоту
+iw dev интерфейс set channel номер [HT20|HT40+|HT40-] — установить канал
+iw reg get — показать регуляторные настройки страны
+iw reg set код_страны — установить страну (например US, RU, GB)
+
+Мониторный режим:
+iw dev интерфейс set type monitor — включить мониторный режим
+iw dev интерфейс set freq частота — настроить частоту в мониторном режиме
+
+Примеры:
+iw dev — список WiFi интерфейсов
+iw wlan0 info — информация об интерфейсе wlan0
+iw wlan0 link — статус подключения wlan0
+iw wlan0 scan | grep SSID — найти SSID в результатах сканирования
+iw phy phy0 info — детальная информация о WiFi адаптере
+iw dev wlan0 set type monitor — перевести wlan0 в мониторный режим
+iw dev wlan0 set freq 2412 — настроить на канал 1 (2.4 GHz)
+iw dev wlan0 set channel 6 HT40+ — канал 6 с шириной 40MHz
+iw dev wlan0 connect "MyWiFi" key d:0:MyPassword — подключиться к WPA2 сети
+iw dev wlan0 set txpower limit 20 — установить мощность передачи 20 dBm
+iw dev wlan0 set bitrates legacy-2.4 12 — установить фиксированную скорость 12 Mbps
+iw dev wlan0 station dump — показать подключенных клиентов (если в режиме AP)
+
+Создание виртуальных интерфейсов:
+iw phy phy0 interface add mon0 type monitor — создать мониторный интерфейс
+iw phy phy0 interface add ap0 type ap — создать интерфейс точки доступа
+iw phy phy0 interface add wlan1 type managed — создать второй клиентский интерфейс
+
+Mesh сеть:
+iw dev интерфейс set type mesh — перевести в mesh режим
+iw dev интерфейс mesh join "mesh-net" — присоединиться к mesh сети
+
+Управление мощностью:
+iw dev интерфейс set txpower fixed мощность — фиксированная мощность
+iw dev интерфейс set txpower auto — автоматическая мощность
+
+Отключение:
+iw dev интерфейс disconnect — отключиться от сети
+
+Статистика:
+iw dev интерфейс survey dump — статистика опроса каналов
+
+Советы:
+    Для WPA/WPA2 подключений обычно лучше использовать wpa_supplicant
+    iw работает на уровне mac80211 (ниже чем NetworkManager)
+    Для настройки точки доступа может потребоваться hostapd
+
+Сравнение с iwconfig:
+iw — новый инструмент для современных WiFi (mac80211)
+iwconfig — устаревший, для старых драйверов (Wireless Extensions)

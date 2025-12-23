@@ -1,0 +1,305 @@
+Инструкция по shift (в bash скриптах)
+
+Основной синтаксис:
+shift [n] — сдвинуть позиционные параметры влево на n позиций
+shift — сдвинуть на 1 позицию (по умолчанию)
+
+Что делает:
+Удаляет первый позиционный параметр ($1), $2 становится $1, $3 → $2 и т.д.
+$0 (имя скрипта) не меняется
+$# уменьшается на количество сдвигов
+
+Примеры:
+
+1. Базовый сдвиг:
+    #!/bin/bash
+    # $1 = a, $2 = b, $3 = c
+    echo "До shift: $1 $2 $3"  # a b c
+    shift
+    echo "После shift: $1 $2"  # b c (a удален)
+
+2. Сдвиг на N позиций:
+    #!/bin/bash
+    # Аргументы: 1 2 3 4 5
+    shift 2
+    echo "После shift 2: $1 $2 $3"  # 3 4 5
+
+3. Обработка всех аргументов:
+    #!/bin/bash
+    while [[ $# -gt 0 ]]; do
+        echo "Аргумент: $1"
+        shift
+    done
+
+4. Обработка опций и аргументов:
+    #!/bin/bash
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -f|--file)
+                file="$2"
+                shift 2  # сдвигаем -f и значение
+                ;;
+            -v|--verbose)
+                verbose=1
+                shift
+                ;;
+            *)
+                # Неизвестный аргумент или позиционный
+                args+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+5. Разделение флагов и аргументов:
+    #!/bin/bash
+    flags=()
+    files=()
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -*) flags+=("$1") ;;
+            *) files+=("$1") ;;
+        esac
+        shift
+    done
+
+    echo "Флаги: ${flags[@]}"
+    echo "Файлы: ${files[@]}"
+
+6. Сдвиг с проверкой:
+    #!/bin/bash
+    if [[ $# -lt 2 ]]; then
+        echo "Нужно минимум 2 аргумента"
+        exit 1
+    fi
+    first="$1"
+    shift
+    rest="$@"
+    echo "Первый: $first"
+    echo "Остальные: $rest"
+
+7. Сохранение оригинальных аргументов:
+    #!/bin/bash
+    original_args=("$@")
+
+    # Обрабатываем копию
+    args_copy=("$@")
+    while [[ ${#args_copy[@]} -gt 0 ]]; do
+        echo "${args_copy[0]}"
+        args_copy=("${args_copy[@]:1}")  # сдвиг для массива
+    done
+
+    # $@ не изменился
+    echo "Оригинальные аргументы: $@"
+
+8. Пропуск нескольких аргументов:
+    #!/bin/bash
+    # Пропустить первые 3 аргумента
+    shift 3
+    echo "Оставшиеся: $@"
+
+9. Обработка параметров команды:
+    #!/bin/bash
+    # simulate: grep -r "pattern" /path --include="*.txt"
+    pattern=""
+    path=""
+    includes=()
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -r) recursive=1; shift ;;
+            --include)
+                includes+=("$2")
+                shift 2
+                ;;
+            *)
+                if [[ -z "$pattern" ]]; then
+                    pattern="$1"
+                elif [[ -z "$path" ]]; then
+                    path="$1"
+                fi
+                shift
+                ;;
+        esac
+    done
+
+10. Функция со shift:
+    #!/bin/bash
+    process_args() {
+        local first="$1"
+        shift
+        echo "Первый в функции: $first"
+        echo "Остальные в функции: $@"
+    }
+
+    process_args "$@"
+    echo "В основном скрипте: $@"
+
+11. Множественные сдвиги в цикле:
+    #!/bin/bash
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -o)
+                output="$2"
+                shift 2
+                continue
+                ;;
+            -i)
+                shift
+                while [[ $# -gt 0 ]] && [[ "$1" != -* ]]; do
+                    inputs+=("$1")
+                    shift
+                done
+                continue
+                ;;
+            *)
+                echo "Неизвестный аргумент: $1"
+                exit 1
+                ;;
+        esac
+    done
+
+12. Сдвиг с подсчетом:
+    #!/bin/bash
+    count=0
+    while [[ $# -gt 0 ]]; do
+        ((count++))
+        echo "Аргумент $count: $1"
+        shift
+    done
+    echo "Всего аргументов: $count"
+
+13. Разбор ключ-значение:
+    #!/bin/bash
+    declare -A config
+
+    while [[ $# -gt 0 ]]; do
+        key="${1#-}"  # удаляем ведущий -
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo "Ошибка: нет значения для $key"
+            exit 1
+        fi
+        config[$key]="$1"
+        shift
+    done
+
+    # Использование
+    echo "Host: ${config[host]}"
+    echo "Port: ${config[port]}"
+
+14. Сдвиг в подфункции:
+    #!/bin/bash
+    parse_options() {
+        while [[ $# -gt 0 ]]; do
+            case $1 in
+                -h|--help) show_help; exit 0 ;;
+                -v|--version) show_version; exit 0 ;;
+                *) break ;;
+            esac
+            shift
+        done
+        # Возвращаем оставшиеся аргументы
+        remaining_args=("$@")
+    }
+
+    parse_options "$@"
+    set -- "${remaining_args[@]}"  # устанавливаем новые аргументы
+
+15. Комбинация shift и set:
+    #!/bin/bash
+    # Сохраняем первые 2 аргумента
+    arg1="$1"
+    arg2="$2"
+    shift 2
+    # Теперь $@ содержит оставшиеся аргументы
+
+    # Можно восстановить
+    set -- "$arg1" "$arg2" "$@"
+    echo "Все аргументы: $@"
+
+16. Обработка с дефолтными значениями:
+    #!/bin/bash
+    verbose=0
+    output=""
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -v) verbose=1; shift ;;
+            -o) 
+                output="$2"
+                shift 2
+                ;;
+            --) shift; break ;;  # конец опций
+            -*) echo "Неизвестная опция: $1"; exit 1 ;;
+            *) break ;;  # первый не-опционный аргумент
+        esac
+    done
+
+    # Оставшиеся аргументы (после -- или первого не-опционного)
+    files=("$@")
+
+17. Проверка возможности сдвига:
+    #!/bin/bash
+    n=3
+    if [[ $# -lt $n ]]; then
+        echo "Нельзя сдвинуть на $n, всего $# аргументов"
+        exit 1
+    fi
+    shift $n
+
+18. Сдвиг в массиве аргументов:
+    #!/bin/bash
+    args=("$@")
+    while [[ ${#args[@]} -gt 0 ]]; do
+        echo "Обработка: ${args[0]}"
+        args=("${args[@]:1}")  # аналог shift для массива
+    done
+
+19. Негативный shift (не поддерживается):
+    # НЕ РАБОТАЕТ:
+    shift -1  # ошибка
+    # Для "правого сдвига" используйте:
+    set -- "${@:1:$(($#-1))}"  # удалить последний
+
+20. Практический пример - скрипт с опциями:
+    #!/bin/bash
+    # myscript.sh
+
+    usage() {
+        echo "Использование: $0 [-v] [-f file] аргументы..."
+    }
+
+    verbose=0
+    file=""
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -h|--help) usage; exit 0 ;;
+            -v|--verbose) verbose=1; shift ;;
+            -f|--file)
+                if [[ -z "$2" ]]; then
+                    echo "Ошибка: -f требует аргумент"
+                    exit 1
+                fi
+                file="$2"
+                shift 2
+                ;;
+            --) shift; break ;;
+            -*) echo "Неизвестная опция: $1"; usage; exit 1 ;;
+            *) break ;;
+        esac
+    done
+
+    # Оставшиеся аргументы
+    echo "Файл: $file"
+    echo "Аргументы: $@"
+
+Важно:
+    shift изменяет $1, $2, $3... и $@
+    $0 (имя скрипта) не меняется
+    $# уменьшается
+    После shift удаленные аргументы теряются
+    Используйте массивы для сохранения оригинальных значений
+    Для сложного парсинга лучше использовать getopts или внешние утилиты

@@ -1,0 +1,101 @@
+Инструкция по tee
+
+Основные опции:
+tee файл — записать в файл и вывести в stdout
+tee -a файл — дописать в конец файла (append)
+tee файл1 файл2 — записать в несколько файлов
+tee - — игнорировать ошибки при записи
+
+Стандартный поток ошибок:
+команда 2>&1 | tee файл — записать stdout и stderr
+команда |& tee файл — то же самое (в bash)
+
+Множественные файлы:
+tee файл1 файл2 файл3 — записать в три файла одновременно
+tee /dev/tty файл — вывести на терминал и в файл
+
+Права доступа:
+Требует права на запись в указанные файлы
+Для системных файлов может потребоваться sudo
+
+Примеры:
+ls -la | tee listing.txt — сохранить вывод ls в файл и показать на экране
+dmesg | tee -a system.log — добавить вывод dmesg в лог-файл
+apt update |& tee apt_update.log — сохранить вывод apt с ошибками
+echo "test" | tee file1.txt file2.txt — записать в два файла
+find /etc -name "*.conf" | tee conf_list.txt | wc -l — сохранить и посчитать
+script.sh | tee output.log | grep ERROR — сохранить полный вывод и фильтровать
+sudo tcpdump -i eth0 | tee capture.pcap | less — сохранить дамп и просмотреть
+curl -v example.com |& tee curl_output.txt — сохранить HTTP запрос с заголовками
+rsync -av source/ dest/ | tee rsync.log — логировать процесс rsync
+make 2>&1 | tee build.log — сохранить вывод сборки
+time команда |& tee timing.log — сохранить время выполнения
+
+Игнорирование прерываний:
+tee -i файл — игнорировать сигналы прерывания
+
+Пайплайны:
+генератор | tee >(обработка1) >(обработка2) | финальная_обработка
+ls | tee >(grep .txt) >(grep .pdf) > all_files.txt — разветвление потока
+
+Сочетание с sudo:
+echo "конфиг" | sudo tee /etc/config.conf — записать в системный файл
+sudo dmesg | tee user_dmesg.log — сохранить вывод sudo команды
+
+Разделение вывода:
+команда | tee >(wc -l > count.txt) >(grep error > errors.txt) > full_output.txt
+
+Просмотр и сохранение:
+tail -f /var/log/syslog | tee monitor.log — следить за логом и сохранять
+
+Отладка скриптов:
+    #!/bin/bash
+    set -x
+    команды |& tee debug.log
+    
+Одновременная запись в файл и на экран:
+ping google.com | tee ping_results.txt — видеть пинг и сохранять
+
+Создание логов с временными метками:
+    команда | while read line; do
+        echo "$(date): $line" | tee -a команда.log
+    done
+    
+Многоуровневое логирование:
+    команда | tee >(logger -t TAG) > файл.log
+
+Игнорирование ошибок записи:
+echo "data" | tee --output-error=warn файл — предупреждение вместо ошибки
+echo "data" | tee --output-error=exit файл — выйти при ошибке
+
+Специальные файлы:
+echo "test" | tee /dev/null — отбросить вывод (бесполезно, но работает)
+echo "alert" | tee /dev/tty — гарантированно вывести на терминал
+
+Сжатие на лету:
+команда | tee >(gzip > output.log.gz) | фильтр
+
+Пример полного использования:
+    {
+        echo "=== Начало выполнения ==="
+        date
+        whoami
+        uname -a
+        echo "=== Конец выполнения ==="
+    } | tee -a execution_log.txt | mail -s "Отчет" admin@example.com
+    
+Фильтрация с сохранением сырых данных:
+сырые_данные | tee raw.txt | фильтр | tee filtered.txt | конечная_обработка
+
+Проверка:
+tee --version — версия tee
+tee --help — справка
+
+Важно:
+    tee не буферизует построчно, может быть буферизация
+    Для немедленной записи использовать stdbuf -o0:
+    stdbuf -o0 команда | tee файл
+
+Альтернативы:
+script — запись всей сессии терминала
+pipe — встроенная возможность bash: команда > >(обработка) 2> >(обработка_ошибок)

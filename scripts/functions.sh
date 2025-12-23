@@ -84,7 +84,7 @@ function h/ {
   if [ "$#" -eq 1 ]; then
     htop --filter="$1"
   else
-    htop --filter='outline|http2|xray|amnezia'
+    htop --filter='outline|http2|xray|amnezia|hiddify'
   fi
 }
 

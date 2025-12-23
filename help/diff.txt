@@ -1,0 +1,119 @@
+Инструкция по diff
+
+Основные опции:
+diff файл1 файл2 — сравнить два файла
+diff -u файл1 файл2 — unified формат
+diff -c файл1 файл2 — контекстный формат
+diff -y файл1 файл2 — бок о бок (side-by-side)
+diff -q файл1 файл2 — только показать различаются ли файлы
+
+Форматы вывода:
+-u или --unified — unified diff (стандарт для patch)
+-c или --context — контекстный diff
+-e или --ed — ed script формат
+-n или --rcs — RCS формат
+-y или --side-by-side — параллельные колонки
+
+Контекст:
+-U N или --unified=N — N строк контекста (по умолчанию 3)
+-C N или --context=N — N строк контекста для контекстного формата
+
+Игнорирование:
+-i или --ignore-case — игнорировать регистр
+-w или --ignore-all-space — игнорировать все пробелы
+-b или --ignore-space-change — игнорировать изменения пробелов
+-B или --ignore-blank-lines — игнорировать пустые строки
+-I шаблон — игнорировать строки, совпадающие с шаблоном
+
+Рекурсивное сравнение:
+-r или --recursive — рекурсивно сравнивать директории
+-N или --new-file — считать отсутствующие файлы пустыми
+-q или --brief — только показать различаются ли файлы
+
+Управление выводом:
+-s или --report-identical-files — показать одинаковые файлы
+--color — цветной вывод
+--palette='цвета' — настройка цветов для --color
+
+Патчи:
+-a или --text — обрабатывать все файлы как текстовые
+--label метка — использовать метку вместо имени файла
+-t или --expand-tabs — расширять табуляции в выводе
+
+Сравнение директорий:
+diff dir1 dir2 — сравнить содержимое директорий
+diff -r dir1 dir2 — рекурсивное сравнение
+diff -ru dir1 dir2 — unified diff для директорий
+diff -rq dir1 dir2 — только показать различающиеся файлы
+
+Примеры:
+diff file1.txt file2.txt — простое сравнение
+diff -u old.txt new.txt — unified diff
+diff -c config.conf config_new.conf — контекстный diff
+diff -y file1.txt file2.txt — сравнение бок о бок
+diff -q file1.txt file2.txt — проверить различаются ли файлы
+diff -i file1.txt file2.txt — игнорировать регистр
+diff -w code1.py code2.py — игнорировать пробелы
+diff -r dir1/ dir2/ — сравнить директории
+diff -ru dir1/ dir2/ — unified diff для директорий
+diff -N file1.txt missing.txt — сравнить с отсутствующим файлом
+diff -U 5 old new — 5 строк контекста
+diff -I '^#' file1 file2 — игнорировать комментарии
+diff -b file1 file2 — игнорировать изменения количества пробелов
+diff -B file1 file2 — игнорировать пустые строки
+diff --color file1 file2 — цветной вывод
+diff -s identical1.txt identical2.txt — показать что файлы одинаковы
+
+Создание патча:
+diff -u original.py modified.py > patch.diff — создать патч
+
+Применение патча:
+patch original.py < patch.diff — применить патч
+
+Параллельное сравнение:
+diff -y -W 80 file1.txt file2.txt | less — сравнить с шириной 80 символов
+
+Игнорирование поддиректорий:
+diff -r --exclude='*.tmp' dir1 dir2 — исключить временные файлы
+
+Сравнение с игнорированием концов строк:
+diff --strip-trailing-cr file1 file2 — для Windows/Unix различий
+
+Проверка без вывода различий:
+diff -q file1 file2 && echo "Файлы одинаковы"
+
+Сравнение вывода команд:
+diff <(команда1) <(команда2)
+
+Сводка изменений:
+diff --brief -r dir1 dir2 — краткий отчет о различиях
+
+Расширенный unified diff:
+diff -u --label "Версия 1" --label "Версия 2" v1.txt v2.txt
+
+Цветной unified diff:
+diff -u file1 file2 | colordiff — через colordiff
+
+Игнорирование бинарных файлов:
+diff -r --binary dir1 dir2 — обрабатывать бинарные файлы
+
+Сравнение отсортированных файлов:
+diff <(sort file1) <(sort file2)
+
+Сравнение с обрезанием пробелов:
+diff -w <(sed 's/\s*$//' file1) <(sed 's/\s*$//' file2)
+
+Диагностика:
+diff --version — версия diff
+diff --help — справка
+
+Обозначения в выводе:
+    < — строка из первого файла
+    > — строка из второго файла
+    --- — разделитель
+    @@ -1,5 +1,6 @@ — диапазоны строк в unified diff
+
+Практическое использование:
+diff -u /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak — сравнить конфиг с бэкапом
+git diff — использует формат unified diff
+svn diff — аналогично git diff

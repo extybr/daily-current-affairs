@@ -1,0 +1,198 @@
+Инструкция по paste
+
+Основные опции:
+paste файл1 файл2 — объединить файлы построчно
+paste -s файл — объединить строки файла в одну строку
+paste -d разделитель — указать разделитель
+paste -d список_разделителей — циклически использовать разделители
+
+Разделители:
+paste -d ',' — запятая
+paste -d $'\t' — табуляция (по умолчанию)
+paste -d ':' — двоеточие
+paste -d '|' — вертикальная черта
+paste -d ' \t' — пробел, затем табуляция по очереди
+
+Объединение:
+paste file1 file2 — параллельное объединение (бок о бок)
+paste -s file1 — последовательное объединение (в строку)
+
+Стандартный ввод:
+paste - — читать из stdin
+paste file1 - — объединить файл и stdin
+
+Примеры:
+
+1. Простое объединение:
+    # file1.txt      # file2.txt
+    # line1          # data1
+    # line2          # data2
+
+    paste file1.txt file2.txt
+    # line1    data1
+    # line2    data2
+
+2. Разные разделители:
+    paste -d ',' file1.txt file2.txt
+    # line1,data1
+    # line2,data2
+
+    paste -d ':' file1.txt file2.txt
+    # line1:data1
+    # line2:data2
+
+3. Объединение в строку (-s):
+    echo -e "a\nb\nc" | paste -s
+    # a   b   c
+
+    echo -e "a\nb\nc" | paste -s -d ','
+    # a,b,c
+
+4. Множественные разделители:
+    paste -d ',:' file1.txt file2.txt file3.txt
+    # line1,data1:extra1
+    # line2,data2:extra2
+
+5. Объединение из stdin:
+    echo -e "x\ny\nz" | paste -d ',' file1.txt -
+    # line1,x
+    # line2,y
+    # ,z  (если file1 короче)
+
+6. Создание CSV:
+    paste -d ',' <(seq 1 5) <(echo -e "a\nb\nc\nd\ne")
+    # 1,a
+    # 2,b
+    # 3,c
+    # 4,d
+    # 5,e
+
+7. Объединение с переносом строк:
+    paste -d '\n' file1.txt file2.txt
+    # line1
+    # data1
+    # line2
+    # data2
+
+8. Таблица из списков:
+    paste - - - < <(seq 1 9)
+    # 1    2    3
+    # 4    5    6
+    # 7    8    9
+
+9. Объединение столбцов:
+    cut -d: -f1 /etc/passwd | head -5 | paste -d: - <(seq 1 5)
+    # root:1
+    # daemon:2
+    # bin:3
+    # sys:4
+    # sync:5
+
+10. Создание диапозонов:
+    paste <(seq 1 5) <(seq 10 14) <(seq 20 24)
+    # 1   10  20
+    # 2   11  21
+    # 3   12  22
+    # 4   13  23
+    # 5   14  24
+
+11. Транспонирование (грубое):
+    echo -e "a\nb\nc\nd" | paste - - - -
+    # a   b   c   d
+
+12. Объединение с нумерацией:
+    nl file.txt | paste -d ':' - file.txt
+    # 1:line1
+    # 2:line2
+
+13. Создание пар ключ-значение:
+    paste -d '=' keys.txt values.txt
+    # key1=value1
+    # key2=value2
+
+14. Чтение нескольких stdin:
+    paste <(echo "col1") <(echo "col2") <(echo "col3")
+    # col1    col2    col3
+
+15. Объединение с заполнением:
+    # Если файлы разной длины, paste добавляет пустые поля
+    echo -e "a\nb" > short.txt
+    echo -e "1\n2\n3" > long.txt
+    paste short.txt long.txt
+    # a   1
+    # b   2
+    #     3
+
+16. Создание многострочных записей:
+    paste -d $'\n' -s - - - < data.txt
+    # Группирует по 3 строки в одну запись
+
+Практические примеры:
+
+1. Создание hosts файла:
+    paste -d ' ' <(printf "192.168.1.%d\n" {1..10}) <(echo -e "server1\nserver2\nserver3\nserver4\nserver5\nserver6\nserver7\nserver8\nserver9\nserver10")
+
+2. Объединение логов по времени:
+    paste log1.txt log2.txt | awk '{print $1 ":" $2 "," $3}'
+
+3. Создание HTML таблицы:
+    echo "<table>"
+    paste -d '</td><td>' <(echo -e "a\nb\nc") <(echo -e "1\n2\n3") | sed 's/^/<tr><td>/; s/$/<\/td><\/tr>/'
+    echo "</table>"
+
+4. Слияние колонок из разных источников:
+    paste <(who | cut -d' ' -f1) <(ps aux | grep $(whoami) | head -5 | awk '{print $2}')
+
+5. Создание конфигурации:
+    paste -d '=' <(echo -e "HOST\nPORT\nUSER") <(echo -e "localhost\n5432\npostgres") > config.env
+
+Специальные символы разделителей:
+    # Табуляция (по умолчанию)
+    paste -d $'\t'
+    
+    # Новая строка
+    paste -d $'\n'
+
+    # Null символ
+    paste -d $'\0'
+
+    # Вертикальная табуляция
+    paste -d $'\v'
+
+Обработка пустых строк:
+    # Пустые строки становятся пустыми полями
+    echo -e "a\n\nc" | paste -d ':' - -
+    # a:
+    # :c
+
+Ограничения:
+    Максимальная длина строки зависит от системы
+    Разделители применяются циклически
+    Для сложных преобразований лучше использовать awk
+
+Сочетание с другими командами:
+    # Сортировка и объединение
+    paste <(sort file1) <(sort file2)
+
+    # Фильтрация и объединение
+    paste <(grep "error" log1.txt) <(grep "error" log2.txt)
+
+    # Подсчет и объединение
+    paste <(wc -l *.txt) <(ls *.txt)
+
+Отладка:
+    # Показать разделители явно
+    paste -d '|' file1 file2 | cat -A
+
+Альтернативы:
+    # awk для сложных сценариев
+    awk 'NR==FNR{a[NR]=$0;next} {print a[FNR], $0}' file1 file2
+
+    # join для объединения по ключам
+    join -t $'\t' file1 file2
+
+Важно:
+    paste работает построчно, не по содержимому
+    Файлы читаются параллельно
+    Результат зависит от порядка файлов в аргументах
+    Пустые файлы создают пустые колонки

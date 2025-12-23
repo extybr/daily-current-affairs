@@ -1,0 +1,83 @@
+Инструкция по rsync
+
+Основной синтаксис:
+rsync опции источник назначение
+
+Режимы копирования:
+rsync -a — архивный режим (рекурсивно, сохраняет всё)
+rsync -r — рекурсивное копирование
+rsync -l — копировать симлинки как симлинки
+rsync -p — сохранять права
+rsync -t — сохранять временные метки
+rsync -g — сохранять группу
+rsync -o — сохранять владельца
+rsync -D — сохранять устройства файлы
+
+Архивный режим:
+rsync -a = -rlptgoD (все основные опции)
+
+Вывод информации:
+rsync -v — подробный вывод
+rsync -vv — более подробный
+rsync -z — сжатие при передаче
+rsync -P = --progress --partial
+rsync --progress — показывать прогресс
+rsync --stats — показать статистику
+
+даление файлов:
+rsync --delete — удалять лишние файлы в назначении
+rsync --delete-excluded — удалять исключённые файлы
+rsync --delete-after — удалять после передачи
+rsync --delete-before — удалять перед передачей
+
+Фильтрация:
+rsync --exclude="шаблон" — исключить файлы
+rsync --include="шаблон" — включить файлы
+rsync --exclude-from=файл — исключения из файла
+rsync --include-from=файл — включения из файла
+
+Ограничения:
+rsync --max-size=размер — максимальный размер файла
+rsync --min-size=размер — минимальный размер файла
+rsync --bwlimit=скорость — ограничить скорость (КБ/с)
+
+Сетевое копирование:
+rsync источник пользователь@хост:назначение — копирование на удалённый хост
+rsync пользователь@хост:источник назначение — копирование с удалённого хоста
+rsync -e "ssh -p порт" — указать SSH порт
+
+Сравнение:
+rsync -n — тестовый прогон (dry-run)
+rsync -i — показать изменения в выводе
+rsync -c — сравнивать по checksum (медленнее)
+rsync -u — обновлять только более новые файлы
+
+Специальные опции:
+rsync --links — копировать симлинки
+rsync -H — сохранять hard links
+rsync -S — эффективная обработка sparse файлов
+rsync -x — не выходить за пределы файловой системы
+
+Примеры:
+rsync -av /source/ /dest/ — архивное копирование
+rsync -avz /local/ user@remote:/backup/ — сжатое копирование на удалённый хост
+rsync -av --delete /src/ /backup/ — синхронизация с удалением лишнего
+rsync -av --exclude="*.tmp" /src/ /dest/ — исключить временные файлы
+rsync -av --exclude-from=exclude.txt /src/ /dest/ — исключения из файла
+rsync -av --max-size="100M" /src/ /dest/ — только файлы до 100 МБ
+rsync -av --bwlimit=1000 /src/ user@host:/dest/ — ограничение скорости 1000 КБ/с
+rsync -av -e "ssh -p 2222" /src/ user@host:/dest/ — SSH на нестандартном порту
+rsync -avn /src/ /dest/ — тестовый прогон без изменений
+rsync -avi /src/ /dest/ — подробный вывод об изменениях
+rsync -av --progress /large/ /backup/ — с индикатором прогресса
+rsync -av --partial /incomplete/ /dest/ — продолжить частично загруженные
+rsync -av --backup --backup-dir=/old/ /src/ /dest/ — бэкап изменённых файлов
+
+Резервное копирование:
+rsync -a --link-dest=/previous_backup /source/ /new_backup/ — инкрементальный бэкап
+
+SSH туннель:
+rsync -av -e "ssh -L 8080:localhost:80" /src/ user@host:/dest/ — с туннелем
+
+Удаление исходных файлов:
+rsync -av --remove-source-files /src/ /dest/ — перемещение файлов

@@ -1,0 +1,118 @@
+Инструкция по journalctl
+
+Основные команды:
+journalctl — все логи (systemd journal)
+journalctl -f — следить за новыми записями (follow)
+journalctl -e — перейти в конец журнала
+journalctl -r — обратный порядок (новые сверху)
+journalctl -n N — последние N строк
+journalctl --since "время" — логи с указанного времени
+journalctl --until "время" — логи до указанного времени
+
+Временные диапазоны:
+journalctl --since "2024-03-15 09:00:00" — с конкретного времени
+journalctl --since "1 hour ago" — с последнего часа
+journalctl --since "yesterday" — со вчера
+journalctl --since "today" — с сегодня
+journalctl --since "2024-01-01" --until "2024-01-31" — за январь 2024
+journalctl -S "09:00" -U "18:00" — с 9:00 до 18:00 сегодня
+
+Фильтрация по службам:
+journalctl -u служба — логи конкретной службы
+journalctl -u nginx — логи nginx
+journalctl -u sshd -f — следить за логинами SSH
+journalctl -u служба --since "1 hour ago" — логи службы за час
+
+Уровни логирования:
+journalctl -p emerg — emergency (0)
+journalctl -p alert — alert (1)
+journalctl -p crit — critical (2)
+journalctl -p err — error (3)
+journalctl -p warning — warning (4)
+journalctl -p notice — notice (5)
+journalctl -p info — info (6)
+journalctl -p debug — debug (7)
+journalctl -p err..warning — диапазон уровней
+
+Поиск:
+journalctl -g "текст" — поиск по регулярному выражению
+journalctl -t идентификатор — по syslog идентификатору
+journalctl _PID=число — по PID процесса
+journalctl _UID=число — по UID пользователя
+journalctl _COMM=имя — по имени команды
+journalctl _EXE=путь — по пути к исполняемому файлу
+journalctl _SYSTEMD_UNIT=служба — по systemd юниту
+
+Поля для фильтрации:
+_HOSTNAME — имя хоста
+_TRANSPORT — transport (syslog, kernel, stdout)
+_BOOT_ID — ID загрузки
+_MACHINE_ID — ID машины
+_CAP_EFFECTIVE — capabilities
+
+Управление журналом:
+journalctl --disk-usage — размер журнала на диске
+journalctl --vacuum-size=размер — очистить до указанного размера
+journalctl --vacuum-time=время — удалить записи старше времени
+journalctl --rotate — ротировать журнал
+
+Формат вывода:
+journalctl -o json — JSON формат
+journalctl -o json-pretty — читаемый JSON
+journalctl -o cat — только сообщения (без метаданных)
+journalctl -o verbose — подробный вывод со всеми полями
+journalctl -o short — короткий формат (по умолчанию)
+journalctl -o short-iso — ISO временные метки
+journalctl -o short-precise — точные временные метки
+journalctl -o short-monotonic — монотонные временные метки
+journalctl -o export — бинарный формат для экспорта
+
+Загрузки:
+journalctl -b — текущая загрузка
+journalctl -b -1 — предыдущая загрузка
+journalctl -b -2 — загрузка -2
+journalctl --list-boots — список всех загрузок
+
+Примеры:
+journalctl -f — следить за системными событиями
+journalctl -u nginx -f — следить за nginx
+journalctl -p err -b — ошибки в текущей загрузке
+journalctl --since "09:00" --until "18:00" — логи рабочего дня
+journalctl -u sshd --since "today" — SSH логи сегодня
+journalctl -k — только kernel сообщения (аналог dmesg)
+journalctl -k -b — kernel сообщения текущей загрузки
+journalctl _PID=1 — логи процесса с PID 1 (systemd)
+journalctl -o json-pretty _UID=1000 — логи пользователя 1000 в JSON
+journalctl -g "error|fail|critical" -p err — поиск ошибок
+journalctl --disk-usage — сколько места занимает журнал
+journalctl --vacuum-size=100M — уменьшить журнал до 100MB
+journalctl --vacuum-time=2weeks — удалить логи старше 2 недель
+
+Поиск проблем:
+journalctl --since "5 min ago" -p warning..emerg — критические за 5 минут
+journalctl -u systemd-modules-load — проблемы с загрузкой модулей
+
+Экспорт:
+journalctl -o json > logs.json — экспорт в JSON
+journalctl --since "yesterday" > yesterday.log — экспорт в файл
+
+Сетевые логи:
+journalctl _TRANSPORT=syslog — только syslog сообщения
+
+Пользовательские журналы:
+journalctl --user — логи пользовательской сессии
+journalctl --user -u служба — пользовательская служба
+
+Отладка:
+journalctl --no-pager — вывод без пейджера
+journalctl -x — добавить пояснения к сообщениям
+journalctl -q — тихий режим (без предупреждений)
+
+Контроль размера:
+/etc/systemd/journald.conf — конфигурация журнала
+SystemMaxUse= — максимальный размер журнала
+SystemKeepFree= — свободное место для сохранения
+
+Примеры анализа:
+journalctl -u docker --since "1 hour ago" | grep -i error — ошибки Docker за час
+journalctl --since "00:00" | wc -l — количество логов сегодня

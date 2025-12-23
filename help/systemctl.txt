@@ -1,0 +1,112 @@
+Инструкция по systemctl
+
+Основные команды управления службами:
+systemctl start служба — запустить службу
+systemctl stop служба — остановить службу
+systemctl restart служба — перезапустить службу
+systemctl reload служба — перезагрузить конфигурацию
+systemctl status служба — статус службы
+systemctl enable служба — включить автозапуск
+systemctl disable служба — выключить автозапуск
+systemctl is-enabled служба — проверка автозапуска
+systemctl is-active служба — проверка активности
+
+Состояния системы:
+systemctl reboot — перезагрузка системы
+systemctl poweroff — выключение системы
+systemctl halt — остановка системы
+systemctl suspend — спящий режим
+systemctl hibernate — гибернация
+systemctl hybrid-sleep — гибридный сон
+
+Информация о службах:
+systemctl list-units — список всех юнитов
+systemctl list-units --type=service — только службы
+systemctl list-unit-files — все файлы юнитов
+systemctl list-units --failed — только упавшие службы
+systemctl list-units --all — все юниты включая неактивные
+systemctl list-timers — все таймеры
+systemctl list-dependencies служба — зависимости службы
+
+Управление юнитами:
+systemctl daemon-reload — перезагрузить конфигурацию systemd
+systemctl daemon-reexec — перезапустить демон systemd
+systemctl reset-failed — сбросить состояние failed
+systemctl kill служба — убить службу сигналом
+systemctl kill -s сигнал служба — убить конкретным сигналом
+
+Журналы:
+journalctl -u служба — логи конкретной службы
+journalctl -u служба -f — следить за логами службы
+journalctl --since "время" --until "время" — логи за период
+journalctl -p приоритет — логи по приоритету (emerg, alert, crit, err, warning, notice, info, debug)
+
+Маскирование:
+systemctl mask служба — заблокировать запуск службы
+systemctl unmask служба — разблокировать службу
+
+Сохранение состояния:
+systemctl isolate multi-user.target — переключиться в multi-user режим
+systemctl isolate graphical.target — переключиться в графический режим
+systemctl get-default — получить цель по умолчанию
+systemctl set-default цель — установить цель по умолчанию
+
+Примеры:
+systemctl start nginx — запустить nginx
+systemctl stop nginx — остановить nginx
+systemctl restart nginx — перезапустить nginx
+systemctl reload nginx — перезагрузить конфигурацию nginx
+systemctl status nginx — статус nginx
+systemctl enable nginx — включить автозапуск nginx
+systemctl disable nginx — выключить автозапуск nginx
+systemctl is-active sshd — активен ли sshd
+systemctl is-enabled sshd — включен ли автозапуск sshd
+systemctl list-units --type=service --state=running — все запущенные службы
+systemctl list-units --type=mount — все монтирования
+systemctl list-units --type=socket — все сокеты
+systemctl daemon-reload — после изменения юнит-файлов
+systemctl reboot — перезагрузить систему
+systemctl poweroff — выключить систему
+journalctl -u nginx -f — следить за логами nginx
+journalctl -u nginx --since "1 hour ago" — логи nginx за последний час
+systemctl mask apache2 — заблокировать apache2
+systemctl unmask apache2 — разблокировать apache2
+
+Управление пользовательскими сессиями:
+systemctl --user start служба — управление пользовательскими службами
+loginctl list-sessions — список активных сессий
+loginctl session-status ID — статус сессии
+
+Информация о системе:
+systemctl show служба — показать все свойства службы
+systemctl show -p свойство служба — конкретное свойство
+systemd-analyze blame — время загрузки служб
+systemd-analyze critical-chain служба — критическая цепочка службы
+
+Таймеры:
+systemctl list-timers --all — все таймеры
+systemctl start timer.timer — запустить таймер
+
+Сокеты:
+systemctl list-sockets — все сокеты
+
+Управление cgroups:
+systemd-cgtop — монитор cgroups
+
+Emergency режим:
+systemctl emergency — переключиться в emergency режим
+systemctl rescue — переключиться в rescue режим
+
+Проверка конфигурации:
+systemd-analyze verify файл.service — проверить юнит-файл
+
+Примеры использования в скриптах:
+    if systemctl is-active --quiet nginx; then
+        echo "Nginx is running"
+    fi
+    
+Перезапуск службы при сбое:
+В юнит-файле:
+    [Service]
+    Restart=always
+    RestartSec=10

@@ -1,0 +1,271 @@
+Инструкция по jq
+
+Основной синтаксис:
+jq фильтр — применить фильтр к JSON
+jq . — pretty print
+jq -r — raw output (без кавычек)
+jq -c — compact output (одна строка)
+
+Формат вывода:
+jq . — красивое форматирование
+jq -r . — сырой вывод (raw)
+jq -c . — компактный (compress)
+jq -M — без цветов (monochrome)
+jq -S — сортировать ключи объекта
+
+Основные фильтры:
+. — весь вход (identity)
+.ключ — значение ключа
+.[] — все элементы массива
+.[индекс] — элемент массива по индексу
+.[начало:конец] — срез массива
+.ключ[] — все элементы массива по ключу
+
+Примеры JSON:
+    {
+      "name": "John",
+      "age": 30,
+      "hobbies": ["reading", "coding"],
+      "address": {
+        "city": "Moscow",
+        "street": "Lenina"
+      }
+    }
+
+Примеры:
+
+1. Pretty print:
+    echo '{"name":"John"}' | jq .
+    cat data.json | jq .
+    curl -s https://api.github.com/users/octocat | jq .
+
+2. Доступ к полям:
+    echo '{"name":"John","age":30}' | jq '.name'    # "John"
+    echo '{"user":{"name":"John"}}' | jq '.user.name'  # "John"
+
+3. Массивы:
+    echo '[1,2,3,4,5]' | jq '.[]'          # все элементы
+    echo '[1,2,3,4,5]' | jq '.[2]'         # 3 (индекс 2)
+    echo '[1,2,3,4,5]' | jq '.[2:4]'       # [3,4] (срез)
+    echo '[1,2,3,4,5]' | jq '.[-1]'        # 5 (последний)
+
+4. Итерация:
+    echo '{"users":[{"name":"John"},{"name":"Jane"}]}' | jq '.users[].name'
+    # "John"
+    # "Jane"
+
+5. Raw output:
+    echo '{"name":"John"}' | jq -r '.name'  # John (без кавычек)
+
+6. Фильтрация:
+    # Фильтр по значению
+    echo '[{"name":"John","age":30},{"name":"Jane","age":25}]' | jq '.[] | select(.age > 28)'
+    # {"name":"John","age":30}
+
+    # Фильтр по ключу
+    echo '{"a":1,"b":2,"c":3}' | jq 'with_entries(select(.key | test("a|b")))'
+
+7. Маппинг:
+    echo '[1,2,3,4,5]' | jq 'map(. * 2)'       # [2,4,6,8,10]
+    echo '[{"x":1},{"x":2}]' | jq 'map(.x)'     # [1,2]
+
+8. Конкатенация:
+    echo '{"a":1,"b":2}' | jq '.a + .b'        # 3
+    echo '["a","b"]' | jq '. + ["c","d"]'      # ["a","b","c","d"]
+
+9. Длина:
+    echo '[1,2,3]' | jq 'length'              # 3
+    echo '{"a":1,"b":2}' | jq 'length'        # 2 (количество ключей)
+    echo '"hello"' | jq 'length'              # 5 (длина строки)
+
+10. Ключи и значения:
+    echo '{"a":1,"b":2}' | jq 'keys'          # ["a","b"]
+    echo '{"a":1,"b":2}' | jq 'keys[]'        # "a" "b"
+    echo '{"a":1,"b":2}' | jq 'values'        # [1,2]
+    echo '{"a":1,"b":2}' | jq 'to_entries'    # [{"key":"a","value":1},{"key":"b","value":2}]
+    echo '{"a":1,"b":2}' | jq 'to_entries[] | "\(.key)=\(.value)"'  # a=1 b=2
+
+11. Условия:
+    echo '{"age":30}' | jq 'if .age > 18 then "adult" else "child" end'  # "adult"
+    echo '5' | jq 'if . % 2 == 0 then "even" else "odd" end'            # "odd"
+
+12. Функции:
+    # Определение функции
+    echo '{"x":5}' | jq 'def add($y): . + $y; add(3)'  # 8
+
+13. Регулярные выражения:
+    echo '"hello world"' | jq 'test("hello")'          # true
+    echo '"hello world"' | jq 'match("(hello)")'       # {"offset":0,"length":5,"string":"hello","captures":[{"offset":0,"length":5,"string":"hello"}]}
+    echo '"hello world"' | jq 'capture("(?<first>hello) (?<second>world)")'  # {"first":"hello","second":"world"}
+
+14. Работа с файлами:
+    jq '.name' data.json                    # из файла
+    jq '.name' data1.json data2.json       # несколько файлов
+    jq -n '{a:1,b:2}'                       # без входных данных
+
+15. Создание JSON:
+    jq -n '{name: "John", age: 30}'        # создание объекта
+    jq -n '[1,2,3,4,5]'                    # создание массива
+    echo '["a","b"]' | jq '{items: .}'     # {"items":["a","b"]}
+
+16. Объединение:
+    echo '{"a":1}' | jq '. * {"b":2}'      # {"a":1,"b":2} (merge)
+    echo '[1,2]' | jq '. + [3,4]'          # [1,2,3,4]
+
+17. Удаление полей:
+    echo '{"a":1,"b":2,"c":3}' | jq 'del(.b)'      # {"a":1,"c":3}
+    echo '{"a":1,"b":2,"c":3}' | jq 'del(.["a","c"])'  # {"b":2}
+
+18. Paths:
+    echo '{"a":{"b":1}}' | jq 'path(.a.b)'          # ["a","b"]
+    echo '{"a":{"b":1}}' | jq 'getpath(["a","b"])'  # 1
+    echo '{"a":1}' | jq 'setpath(["b","c"]; 2)'     # {"a":1,"b":{"c":2}}
+
+Практические примеры:
+
+1. Парсинг API ответов:
+    # GitHub API
+    curl -s https://api.github.com/users/octocat | jq '.login, .public_repos'
+
+    # Погода API
+    curl -s "https://wttr.in/Moscow?format=j1" | jq '.current_condition[0].temp_C'
+
+2. Обработка логов JSON:
+    # Извлечение полей
+    cat log.json | jq '.timestamp, .level, .message'
+
+    # Фильтрация ошибок
+    cat app.log | jq 'select(.level == "ERROR")'
+
+    # Группировка
+    cat access.log | jq -r '.ip' | sort | uniq -c | sort -rn
+
+3. Трансформация данных:
+    # CSV-like вывод
+    echo '[{"name":"John","age":30},{"name":"Jane","age":25}]' | jq -r '.[] | "\(.name),\(.age)"'
+
+    # Переименование полей
+    echo '{"old_name":"John"}' | jq '{name: .old_name}'
+
+    # Flatten массивов
+    echo '{"data":[[1,2],[3,4]]}' | jq '.data | flatten'
+
+4. Агрегация:
+    # Сумма
+    echo '[1,2,3,4,5]' | jq 'add'                  # 15
+
+    # Среднее
+    echo '[1,2,3,4,5]' | jq 'add / length'         # 3
+
+    # Максимум/минимум
+    echo '[1,2,3,4,5]' | jq 'max'                  # 5
+    echo '[1,2,3,4,5]' | jq 'min'                  # 1
+
+# Группировка
+echo '[{"type":"A","val":1},{"type":"B","val":2},{"type":"A","val":3}]' | jq 'group_by(.type)'
+
+5. Поиск:
+    # Найти объект в массиве
+    echo '[{"id":1,"name":"John"},{"id":2,"name":"Jane"}]' | jq '.[] | select(.id == 1)'
+
+    # Проверка существования
+    echo '{"a":1}' | jq 'has("a")'                # true
+    echo '{"a":1}' | jq 'has("b")'                # false
+
+6. Сортировка:
+    echo '[{"name":"John","age":30},{"name":"Jane","age":25}]' | jq 'sort_by(.age)'
+    echo '[{"name":"John","age":30},{"name":"Jane","age":25}]' | jq 'sort_by(.name) | reverse'
+
+7. Уникальность:
+    echo '[1,2,2,3,3,3]' | jq 'unique'            # [1,2,3]
+    echo '[{"id":1},{"id":2},{"id":1}]' | jq 'unique_by(.id)'
+
+8. Вложенные структуры:
+    # Доступ к глубоким полям
+    echo '{"users":[{"profile":{"name":"John"}}]}' | jq '.users[].profile.name'
+
+    # Опциональный доступ (без ошибки если нет поля)
+    echo '{"user":{}}' | jq '.user?.profile?.name'  # null
+
+9. Форматирование дат:
+    echo '{"timestamp":1614589200}' | jq '.timestamp | todate'
+    echo '"2021-03-01T12:00:00Z"' | jq 'fromdate'
+
+10. Работа с числами:
+    echo '10' | jq '. + 5'                    # 15
+    echo '10.5' | jq 'floor'                  # 10
+    echo '10.5' | jq 'ceil'                   # 11
+    echo '10.5' | jq 'round'                  # 11
+    echo '16' | jq 'sqrt'                     # 4
+
+Продвинутые техники:
+
+1. Редукция:
+    echo '[1,2,3,4,5]' | jq 'reduce .[] as $item (0; . + $item)'  # 15
+
+2. Рекурсия:
+    echo '{"a":1,"b":{"c":2}}' | jq '..'      # все значения рекурсивно
+
+3. Try/Catch:
+    echo '"not a number"' | jq 'try tonumber catch "error"'  # "error"
+
+4. Переменные:
+    echo '{"x":5}' | jq '.x as $x | $x * 2'   # 10
+
+5. Модули (--arg, --argjson):
+    jq --arg name "John" '.user = $name' data.json
+    jq --argjson count 42 '.total = $count' data.json
+
+6. Stream формат:
+    jq --stream 'select(length == 2)' large.json  # для больших файлов
+
+7. Кастомные функции:
+    jq 'def multiply($x): . * $x; multiply(3)' <<< '5'  # 15
+
+Полезные one-liners:
+    # Извлечь все email'ы
+    jq -r '.. | .email? // empty'
+
+    # Конвертировать в CSV
+    jq -r '.[] | [.name,.age,.city] | @csv'
+
+    # Подсчитать элементы
+    jq '[.[] | select(.status == "active")] | length'
+
+    # Создать lookup table
+    jq -r 'to_entries[] | "\(.key)=\(.value)"'
+
+    # Фильтровать по regex
+    jq -r '.[] | select(.email | test("@gmail.com$"))'
+
+    # Транспонировать массив
+    jq '[.[] | [.]] | transpose'
+
+    # JSON to YAML (с yq)
+    jq . file.json | yq -y
+
+Справка:
+    jq --help
+    jq --version
+    man jq
+
+Установка:
+    # Ubuntu/Debian
+    sudo apt install jq
+
+    # macOS
+    brew install jq
+
+    # Из source
+    git clone https://github.com/stedolan/jq.git
+    cd jq
+    autoreconf -i
+    ./configure
+    make
+    sudo make install
+
+Важно:
+    jq всегда ожидает валидный JSON на входе
+    Используйте -r для вывода без кавычек
+    Для больших файлов используйте --stream
+    // оператор по умолчанию: .a // "default"

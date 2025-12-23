@@ -1,0 +1,164 @@
+Инструкция по trap
+
+Основной синтаксис:
+trap команда сигналы — установить обработчик сигналов
+trap сигналы — сбросить обработчик сигналов
+trap '' сигналы — игнорировать сигналы
+trap - сигналы — восстановить обработчик по умолчанию
+trap -p — показать текущие trap'ы
+
+Сигналы (имена или номера):
+EXIT (0) — выход из скрипта/функции
+ERR — любая ошибка (код возврата ≠ 0)
+DEBUG — выполнение каждой команды
+RETURN — возврат из функции или источника
+INT (2) — Ctrl+C (SIGINT)
+TERM (15) — SIGTERM
+HUP (1) — SIGHUP
+QUIT (3) — SIGQUIT
+KILL (9) — SIGKILL (нельзя перехватить)
+STOP (19) — SIGSTOP (нельзя перехватить)
+
+Примеры обработчиков:
+trap "echo 'Скрипт завершен'; exit 1" INT TERM — на Ctrl+C и TERM
+trap 'rm -f /tmp/$$.tmp' EXIT — удалить временный файл при выходе
+trap '' INT — игнорировать Ctrl+C
+trap - INT — восстановить обработку Ctrl+C по умолчанию
+trap "echo 'Ошибка!' >&2" ERR — при любой ошибке
+trap 'echo "Строка $LINENO: $BASH_COMMAND"' DEBUG — отладка
+
+Очистка ресурсов:
+    trap cleanup EXIT
+    cleanup() {
+        rm -f "$TEMP_FILE"
+        kill "$BACKGROUND_PID" 2>/dev/null
+    }
+
+Игнорирование сигналов:
+trap '' HUP — игнорировать SIGHUP
+trap '' INT TERM — игнорировать Ctrl+C и TERM
+
+Восстановление обработки:
+trap - HUP INT TERM — восстановить стандартную обработку
+
+Показать текущие trap'ы:
+trap -p — показать все установленные trap'ы
+trap -p INT — показать обработчик INT
+
+Обработка ERR:
+    set -e  # Выход при ошибке
+    trap 'echo "Ошибка в строке $LINENO"' ERR
+    
+Обработка EXIT:
+    trap 'echo "Скрипт выполнен за $SECONDS секунд"' EXIT
+
+Обработка DEBUG:
+    trap 'echo "Выполняется: $BASH_COMMAND"' DEBUG
+
+Обработка RETURN:
+    myfunc() {
+        trap 'echo "Функция завершилась"' RETURN
+        echo "Внутри функции"
+    }
+
+Комбинированные обработчики:
+    trap 'cleanup; exit 1' INT TERM HUP
+
+Пример полного скрипта:
+    #!/bin/bash
+    set -e
+
+    TEMP_FILE="/tmp/myscript.$$.tmp"
+
+    cleanup() {
+        echo "Очистка..."
+        [[ -f "$TEMP_FILE" ]] && rm -f "$TEMP_FILE"
+        echo "Готово."
+    }
+
+    # Установить обработчики
+    trap cleanup EXIT
+    trap 'echo "Прервано пользователем"; exit 1' INT
+    trap 'echo "Получен SIGTERM"; exit 1' TERM
+
+    echo "Создаю временный файл..."
+    touch "$TEMP_FILE"
+
+    # Основной код
+    echo "Работаю..."
+    sleep 10
+    echo "Завершение."
+    
+Игнорирование Ctrl+C в критической секции:
+    critical_section() {
+        trap '' INT  # Игнорировать Ctrl+C
+        # Критический код
+        trap - INT   # Восстановить обработку
+    }
+
+Обработка сигналов в функциях:
+    setup_traps() {
+        trap handle_signal INT TERM HUP
+    }
+
+    handle_signal() {
+        echo "Получен сигнал $1"
+        exit 1
+    }
+
+Сброс всех trap'ов:
+trap - — сбросить все обработчики сигналов
+
+Ловушка для выхода из подпрограммы:
+    subshell() {
+        trap 'echo "Подпроцесс завершен"' EXIT
+        echo "В подпроцессе"
+    }
+
+Отладка с trap:
+    trap 'echo "Ошибка: строка $LINENO, команда: $BASH_COMMAND" >&2' ERR
+
+Игнорирование выхода:
+    trap 'echo "Не выйдешь так легко!"' EXIT
+    # EXIT все равно сработает при нормальном завершении
+    
+Временное отключение trap:
+    trap '' INT  # Игнорировать
+    # Код без реакции на Ctrl+C
+    original_handler=$(trap -p INT)
+    eval "$original_handler"  # Восстановить
+
+Сигналы по умолчанию:
+    INT — прерывание скрипта
+    TERM — завершение скрипта
+    EXIT — всегда выполняется при выходе
+
+Важные моменты:
+    trap работает в текущем процессе/оболочке
+    SIGKILL и SIGSTOP нельзя перехватить
+    Обработчики наследуются в подпроцессах, если не сброшены
+    EXIT срабатывает при любом выходе (exit, конец скрипта, сигнал)
+
+Пример защиты от многократного запуска:
+    LOCKFILE="/tmp/script.lock"
+
+    cleanup() {
+        rm -f "$LOCKFILE"
+    }
+
+    trap cleanup EXIT INT TERM
+
+    if [[ -f "$LOCKFILE" ]]; then
+        echo "Скрипт уже запущен"
+        exit 1
+    fi
+
+    touch "$LOCKFILE"
+    # Основной код
+
+Обработка в циклах:
+    trap 'break' INT  # Выйти из цикла по Ctrl+C
+    while true; do
+        echo "Работаю..."
+        sleep 1
+    done

@@ -1,0 +1,113 @@
+Инструкция по telnet на Windows
+
+Включение telnet (если отключен):
+    Управление компьютером → Службы и приложения → Компоненты Windows
+    → Клиент Telnet (галочка) → OK
+
+Или PowerShell:
+    dism /online /Enable-Feature /FeatureName:TelnetClient
+    
+Основной синтаксис:
+telnet хост порт — подключение к хосту
+telnet — интерактивный режим
+
+Интерактивные команды (после запуска telnet):
+open хост порт — подключиться к хосту
+close — закрыть соединение
+quit или exit — выйти из telnet
+set — настройки соединения
+unset — сбросить настройки
+status — статус соединения
+display — показать текущие параметры
+send — отправить специальные символы
+mode — режим работы
+
+Специальные команды отправки (send):
+send ao — прервать вывод (Abort Output)
+send ayt — "Вы там?" (Are You There)
+send brk — послать Break
+send ec — стереть символ
+send el — стереть строку
+send eof — конец файла (Ctrl+D)
+send escape — послать escape-символ
+send ga — продолжить (Go Ahead)
+send ip — прервать процесс
+send nop — ничего не делать
+send susp — приостановить процесс
+send synch — синхронизация
+
+Настройки (set):
+set localecho — локальное эхо
+set term xterm — тип терминала
+set crlf — отправлять CR+LF
+set escape символ — установить escape-символ (по умолчанию Ctrl+])
+
+Примеры подключения:
+telnet google.com 80 — подключиться к веб-серверу
+    telnet google.com 80
+    GET / HTTP/1.1
+    Host: google.com
+
+(дважды Enter)
+
+telnet mail.ru 25 — SMTP сервер
+telnet pop.gmail.com 995 — POP3 SSL (не работает без шифрования)
+
+Проверка портов:
+telnet localhost 3389 — проверка RDP
+telnet localhost 22 — проверка SSH (обычно не ответит)
+
+Работа с сетевыми устройствами:
+telnet 192.168.1.1 — роутер (часто порт 23)
+telnet switch-ip — коммутатор
+
+HTTP запросы:
+    telnet example.com 80
+    GET / HTTP/1.0
+    Host: example.com
+
+Работа в интерактивном режиме:
+    telnet
+    Microsoft Telnet> open google.com 80
+
+Настройка параметров:
+    telnet
+    set localecho    # видеть что печатаете
+    set crlf         # правильные переводы строк для Windows
+    open host port
+    
+Экранирование:
+Ctrl+] — выйти в командный режим telnet
+(затем ввести quit для выхода)
+
+Пример SMTP:
+    telnet smtp.server.com 25
+    HELO test.com
+    MAIL FROM: <sender@test.com>
+    RCPT TO: <recipient@test.com>
+    DATA
+    Subject: Test
+    This is a test.
+    .
+    QUIT
+
+Пример POP3:
+    telnet pop.server.com 110
+    USER username
+    PASS password
+    LIST
+    RETR 1
+    QUIT
+
+Проблемы и решения:
+    Если "не является внутренней или внешней командой" — включите компонент
+    Для SSL соединений используйте Putty или OpenSSL
+    Для SSH используйте собственно SSH клиент
+
+Альтернативы в Windows 10/11:
+    SSH встроен в PowerShell: ssh user@host
+    Putty — для SSH/Telnet/Serial
+    Windows Terminal — современный терминал
+
+Проверка доступности порта:
+    Test-NetConnection computer -Port port  # PowerShell
