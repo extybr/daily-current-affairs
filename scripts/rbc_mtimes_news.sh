@@ -13,16 +13,22 @@ rbc_news() {
 }
 
 mtimes_rss_news() {
-  news=$(curl -s $PROXY 'https://www.moscowtimes.news/rss/news' | \
-         grep -E '(title>|link>)' | \
-         sed 's/<title>/\\e[36m/g ; s/<link>/\\e[0m/g ; s/<\/title>//g ; s/<\/link>//g ; s/[[:space:]]/ /g' | \
-         tail +4)
-  echo -e "$news"
+  urls=('https://ru.themoscowtimes.com/rss/news' 'https://www.moscowtimes.news/rss/news')
+  for url in "${urls[@]}"; do
+    news=$(curl -s $PROXY --max-time 20 --location "$url" | \
+           grep -E '(title>|link>)' | \
+           sed 's/<title>/\\e[36m/g ; s/<link>/\\e[0m/g ; s/<\/title>//g ; s/<\/link>//g ; s/[[:space:]]/ /g' | \
+           tail +4)
+    if [[ "${news}" ]]; then
+      echo -e "$news" && break
+    fi
+  done
 }
 
 mtimes_main_page_news() {
-  curl -s $PROXY 'https://www.moscowtimes.news/news' | \
-  grep -oP '(title="|\t\t\t<a href=")\K[^"]+' | tail +6 | sed 'N;G' | head -n -20
+  curl -s $PROXY --location 'https://www.moscowtimes.news/news' | \
+  grep -oP '(title="|\t\t\t<a href=")\K[^"]+' | \
+  tail +6 | sed 'N;G' | head -n -20
 }
 
 if [ "$#" -eq 1 ] && [[ "$1" = m ]]; then
