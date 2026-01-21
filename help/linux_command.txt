@@ -117,6 +117,8 @@ gjs  (GNOME Javascript bindings)
 gjs-console
 gapplication list-apps
 baobab  (A graphical disk usage analyzer for the GNOME desktop)
+gnome-shell  (Graphical shell for the GNOME desktop)
+gnome-shell --version
 gnome-maps
 gnome-maps -S 'New York'
 gnome-weather

@@ -36,10 +36,13 @@ curl --trace file — полная трассировка
 curl -x proxy:port — использовать прокси
 curl --proxy-user user:pass — авторизация прокси
 curl --connect-timeout N — таймаут соединения (сек)
+curl --max-time N — таймаут соединения (сек)
 curl -m N — максимальное время выполнения
 
 Безопасность:
 curl -k — игнорировать проверку SSL
+curl --insecure — игнорировать проверку SSL (менее безопасно)
+curl --ssl-no-revoke — отключить проверку отзыва сертификата
 curl --cert file.pem — SSL клиентский сертификат
 curl --key file.key — приватный ключ SSL
 curl --cacert file.pem — CA сертификат
