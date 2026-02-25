@@ -336,6 +336,7 @@ findmnt --real
 smartctl  (Control and Monitor Utility for SMART Disks)
 sudo smartctl --all /dev/sda
 sudo smartctl -i /dev/sda
+sudo smartctl -a /dev/sda  (информация о накопителе)
 lsblk  (list block devices / Lists information about block devices)
 lsblk -f
 lsblk -bo NAME,SIZE,MOUNTPOINTS
@@ -1289,6 +1290,7 @@ hwinfo  (probe for hardware)
 hwinfo --short
 hwinfo --short --cpu
 cpupower  (Shows and sets processor power related values)
+cpupower frequency-info
 sudo cpupower frequency-set -g powersave
 sudo cpupower frequency-set -g perfomance
 lshw  (list hardware)

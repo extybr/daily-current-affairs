@@ -30,8 +30,6 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage &; disown'
-
 # Инициализация системы автодополнения
 autoload -Uz compinit
 compinit
@@ -60,7 +58,7 @@ alias mocp='mocp -T /usr/share/moc/themes/darkdot_theme'
 alias ph="${SCRIPTS_DIRECTORY}/phiola.sh"
 alias mpva='mpv --no-video --ytdl-format=worstaudio "$@"'
 alias 40/="ph http://prmstrm.1.fm:8000/top40"
-alias 90/='ffplay "https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761" -nodisp -volume 3; clear'
+alias 90/='ffplay "https://listen1.myradio24.com/5967" -nodisp -volume 3; clear'
 alias e+='ffplay http://ep256.hostingradio.ru:8052/europaplus256.mp3 -nodisp -volume 3'
 alias gpgd='gpg2 -d ${SAMSUNG_DIRECTORY}/mail.txt.gpg'
 alias gpgd/='gpgd | rg -A10 -B5 $1'
@@ -72,7 +70,6 @@ alias maps=${SCRIPTS_DIRECTORY}'/maps.sh'
 alias wf/='bash -c "cd ${GITHUB_DIRECTORY}/wifi && sudo ./start.sh"'
 alias myssh='bash -c "cd ${GITHUB_DIRECTORY}/remote_control && sudo ./start.sh"'
 alias mpeg='bash -c "cd ${GITHUB_DIRECTORY}/ffmpeg_gui && ./start_linux.sh"'
-alias check='bash -c "cd ${GITHUB_DIRECTORY}/playlist_check && uv run podcast/redbasset_podbean.py"'
 alias j/=${SCRIPTS_DIRECTORY}'/simple-parser-hh.sh'
 alias jj/="${GITHUB_DIRECTORY}/script-parser-HH-led/terminal/job.sh"
 alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'
@@ -84,8 +81,6 @@ alias ti/='pushd && cd ${GITLAB_DIRECTORY}/tradingindex_to_html_sql_csv_json/ &&
 alias ts/=${SCRIPTS_DIRECTORY}'/../time/timestamp.sh'
 alias dt/='echo && date "+%X,%e %B %Yг, %A | %F" && echo && cal | grep -E "$(date '+%e')\b| "'
 alias ct/=${SCRIPTS_DIRECTORY}'/../time/current_time_area_google.sh'
-alias anti=${SCRIPTS_DIRECTORY}'/vpn/antizapret.sh'
-alias nd/='pushd $HOME/my_programs/nodpi && ./nodpi && popd'
 alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
 alias c/=${SCRIPTS_DIRECTORY}'/cheat-command.sh'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
@@ -108,7 +103,15 @@ alias ch/='(){ [[ -n "$1" ]] && chmod u+x *.$1 || echo "Usage: ch/ <extension>" 
 alias ls='ls --color=auto'
 alias ip='ip --color'
 alias grep='grep --color=auto'
-alias py=python3.13
+alias py=python3.14
+
+alias anti=${SCRIPTS_DIRECTORY}'/vpn/antizapret.sh'
+alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage &; disown'
+# alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/hiddify-linux-appimage/./Hiddify.AppImage &; disown'
+# alias nd/='pushd $HOME/my_programs/nodpi && ./nodpi && popd'
+alias nd/='cd $HOME/my_programs/nodpi && ./nodpi &; disown'
+alias rf/='$HOME/my_programs/poskomponos/./run'
+# kp/ nodpi && kp/ sing-box
 
 source ${SCRIPTS_DIRECTORY}/functions.sh
 
