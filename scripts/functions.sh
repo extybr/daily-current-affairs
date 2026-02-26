@@ -90,15 +90,16 @@ function h/ {
 
 function ttk {
   current_dir=$(pwd)
-  cd "${SCRIPTS_DIRECTORY}"/internet_balance
+  cd "${GITHUB_DIRECTORY}"/internet_balance
   ./ttk.sh "$@"
   cd "${current_dir}"
 }
 
 function rt {
   current_dir=$(pwd)
-  cd "${SCRIPTS_DIRECTORY}"/internet_balance
-  ./rt.sh "$@"
+  cd "${GITHUB_DIRECTORY}"/internet_balance
+  # ./rt.sh "$@"
+  uv run rt_playwright_minimal.py
   cd "${current_dir}"
 }
 
@@ -164,10 +165,10 @@ function y/ {
   fi
   ~/bin/yt-dlp -U
   if [ "$#" -eq 2 ] && [ "$2" = 'audio' ]; then
-    ~/bin/yt-dlp --proxy 127.0.0.1:1080 --retries infinite --no-playlist \
+    ~/bin/yt-dlp --proxy 127.0.0.1:8881 --retries infinite --no-playlist \
     --format bestaudio --extract-audio --audio-format mp3 --embed-thumbnail \
     --windows-filenames --force-overwrites --output '%(title)s.%(ext)s' "$1"  # audio.mp3 + thumbnail
-  else ~/bin/yt-dlp --proxy http://127.0.0.1:1080 -S 'res:720,fps' "$1"       # video-720p
+  else ~/bin/yt-dlp --proxy http://127.0.0.1:8881 -S 'res:720,fps' "$1"       # video-720p
     ${SCRIPTS_DIRECTORY}/yt-dlp-rename.py $(pwd)
   fi
 }
