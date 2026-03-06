@@ -13,6 +13,7 @@ curl curlmyip.net
 curl api.ipify.org
 curl ipcalf.com
 curl -s --proxy 127.0.0.1:1080 'https://ipwho.is/?output=json&fields=ip,country,city,region&lang=ru' | jq
+curl -s 'https://api.expf.ru/api/v1/geo' -H 'token: B0A3770E-832D-4076-BBE2-D81C5599EF24' | jq
 
 curl ipaddy.net
 curl eth0.me

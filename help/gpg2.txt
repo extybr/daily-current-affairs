@@ -1,0 +1,410 @@
+Инструкция по gpg2 (GnuPG 2)
+
+Основные понятия
+    Публичный ключ — для шифрования и проверки подписей
+    Приватный ключ — для расшифровки и создания подписей
+    Ключница (keyring) — хранилище ключей
+    Отпечаток (fingerprint) — уникальный идентификатор ключа
+    ID ключа — последние 8-16 символов отпечатка
+
+Основные команды
+
+Управление ключами
+    # Генерация ключей
+    gpg2 --full-generate-key        # интерактивная генерация с вопросами
+    gpg2 --quick-generate-key "Имя <email>"  # быстрая генерация
+    
+    # Создание ключа с параметрами
+    gpg2 --batch --generate-key <<EOF
+        Key-Type: RSA
+        Key-Length: 4096
+        Subkey-Type: RSA
+        Subkey-Length: 4096
+        Name-Real: Имя Пользователя
+        Name-Email: email@example.com
+        Expire-Date: 1y
+        Passphrase: секретная_фраза
+    EOF
+
+        # Просмотр ключей
+        gpg2 --list-keys                 # все публичные ключи
+        gpg2 --list-secret-keys          # все приватные ключи
+        gpg2 --list-public-keys          # публичные ключи (аналог --list-keys)
+        gpg2 --list-keys --keyid-format long  # длинный формат ID
+
+    gpg2 -k                          # краткая форма --list-keys
+    gpg2 -K                          # краткая форма --list-secret-keys
+
+    # Детальная информация о ключе
+    gpg2 --list-keys --fingerprint   # с отпечатками
+    gpg2 --list-packets ключ.asc     # детальный разбор ключа
+    gpg2 --export --export-options export-minimal KEYID | gpg2 --list-packets
+
+    # Удаление ключей
+    gpg2 --delete-key KEYID          # удалить публичный ключ
+    gpg2 --delete-secret-key KEYID   # удалить приватный ключ
+    gpg2 --delete-secret-and-public-key KEYID  # удалить всё
+
+    # Редактирование ключей
+    gpg2 --edit-key KEYID            # интерактивное редактирование
+    # В интерактивном режиме: help - справка, quit - выход
+
+Экспорт и импорт ключей
+    # Экспорт публичного ключа
+    gpg2 --export -a KEYID > public.asc           # ASCII armored
+    gpg2 --export KEYID > public.gpg              # бинарный формат
+    gpg2 --export --export-options export-minimal KEYID > public-min.asc  # минимальный
+
+    # Экспорт приватного ключа (осторожно!)
+    gpg2 --export-secret-key -a KEYID > private.asc
+    gpg2 --export-secret-subkeys -a KEYID > private-sub.asc  # только подключи
+
+    # Импорт ключей
+    gpg2 --import public.asc
+    gpg2 --import private.asc
+
+    # Импорт с ключницы
+    gpg2 --import <(curl -s https://example.com/key.asc)
+    gpg2 --fetch-keys https://example.com/key.asc  # загрузить с URL
+
+    # Получение ключей с сервера
+    gpg2 --keyserver keyserver.ubuntu.com --recv-keys KEYID
+    gpg2 --keyserver hkp://pool.sks-keyservers.net --search-keys "email@example.com"
+    gpg2 --keyserver keys.openpgp.org --locate-keys email@example.com  # найти ключ
+
+Шифрование и дешифрование
+    # Шифрование для одного получателя
+    gpg2 -e -r RECIPIENT файл.txt                 # создаст файл.txt.gpg
+    gpg2 --encrypt --recipient RECIPIENT файл.txt
+
+    # Шифрование для нескольких получателей
+    gpg2 -e -r RECIPIENT1 -r RECIPIENT2 файл.txt
+
+    # Шифрование с паролем (симметричное)
+    gpg2 -c файл.txt                              # запросит пароль
+    gpg2 --symmetric --cipher-algo AES256 файл.txt  # с указанием алгоритма
+    gpg2 -c --passphrase "пароль" файл.txt        # с паролем в командной строке
+
+    # Дешифрование
+    gpg2 -d файл.txt.gpg                          # вывод в stdout
+    gpg2 --decrypt файл.txt.gpg > файл.txt        # сохранить в файл
+
+    # Дешифрование с паролем
+    gpg2 -d --passphrase "пароль" файл.txt.gpg
+
+Подписи и проверка
+    # Создание подписи
+    gpg2 -s файл.txt                              # подписать, создаст файл.txt.gpg
+    gpg2 --sign файл.txt
+
+    # Создание отдельной подписи (detached)
+    gpg2 -b файл.txt                              # создаст файл.txt.sig
+    gpg2 --detach-sign файл.txt
+    gpg2 --detach-sign -a файл.txt                # ASCII armored подпись
+
+    # Создание очищенной подписи (clearsign)
+    gpg2 --clearsign файл.txt                      # текст + подпись в одном файле
+
+    # Проверка подписи
+    gpg2 --verify файл.txt.sig файл.txt           # отдельная подпись
+    gpg2 --verify файл.txt.gpg                    # встроенная подпись
+
+    # Подпись и шифрование одновременно
+    gpg2 --sign --encrypt -r RECIPIENT файл.txt
+
+Экспорт и импорт сертификатов отзыва
+    # Создание сертификата отзыва (на всякий случай)
+    gpg2 --gen-revoke KEYID > revoke.asc
+
+    # Применить сертификат отзыва
+    gpg2 --import revoke.asc
+
+    # Отправить отозванный ключ на сервер
+    gpg2 --send-keys KEYID
+
+    Управление доверием
+    bash
+
+    # Установка уровня доверия
+    gpg2 --edit-key KEYID
+    # trust -> выбрать уровень (1-5)
+
+    # Проверка доверия
+    gpg2 --check-sigs KEYID
+    gpg2 --fingerprint KEYID
+    gpg2 --list-sigs KEYID
+
+Практические примеры
+
+1. Полный цикл создания и использования ключа
+    # 1. Создать ключ
+    gpg2 --full-generate-key
+    # Тип: RSA and RSA
+    # Размер: 4096
+    # Срок: 1y
+    # Имя: Ivan Petrov
+    # Email: ivan@example.com
+    # Passphrase: ********
+
+    # 2. Посмотреть ключи
+    gpg2 -K
+    gpg2 -k
+
+    # 3. Экспортировать публичный ключ
+    gpg2 --export -a ivan@example.com > public.asc
+
+    # 4. Экспортировать приватный ключ (для бэкапа)
+    gpg2 --export-secret-keys -a ivan@example.com > private.asc
+
+    # 5. Зашифровать файл для друга
+    gpg2 -e -r friend@example.com secret.txt
+
+    # 6. Подписать файл
+    gpg2 --clearsign document.txt
+
+    # 7. Расшифровать полученный файл
+    gpg2 -d message.gpg > message.txt
+
+    # 8. Создать сертификат отзыва
+    gpg2 --gen-revoke ivan@example.com > revoke.asc
+
+2. Шифрование для бэкапов
+    #!/bin/bash
+    # encrypt_backup.sh
+    BACKUP_FILE="backup_$(date +%Y%m%d).tar.gz"
+    RECIPIENT="backup@example.com"
+
+    # Создать архив и зашифровать
+    tar -czf - /important/data | gpg2 -e -r "$RECIPIENT" -o "$BACKUP_FILE.gpg"
+
+    # Проверить
+    gpg2 --list-packets "$BACKUP_FILE.gpg" | grep "keyid"
+
+3. Дешифрование с проверкой подписи
+    #!/bin/bash
+    # verify_and_decrypt.sh
+    FILE="$1"
+    SIG_FILE="$FILE.sig"
+
+    # Проверить подпись
+    if gpg2 --verify "$SIG_FILE" "$FILE"; then
+        echo "Подпись верна. Дешифрую..."
+        gpg2 -d "$FILE" > "${FILE%.gpg}"
+    else
+        echo "Ошибка проверки подписи!"
+        exit 1
+    fi
+
+4. Работа с ключами в скриптах
+    #!/bin/bash
+    # gpg_utils.sh
+
+    # Функция шифрования с автоматическим поиском ключа
+    encrypt_to() {
+        local file="$1"
+        local email="$2"
+        
+        # Найти ключ по email
+        local keyid=$(gpg2 --list-keys --with-colons "$email" | \
+                      awk -F: '/^pub:/ {print $5}')
+        
+        if [[ -n "$keyid" ]]; then
+            gpg2 -e -r "$keyid" "$file"
+            echo "Файл зашифрован ключом $keyid"
+        else
+            echo "Ключ для $email не найден"
+            return 1
+        fi
+    }
+
+    encrypt_to "secret.txt" "friend@example.com"
+
+5. Пакетное шифрование файлов
+    #!/bin/bash
+    # encrypt_all.sh
+    RECIPIENT="me@example.com"
+
+    for file in *.txt; do
+        echo "Шифрую $file..."
+        gpg2 -e -r "$RECIPIENT" "$file"
+        # Удалить оригинал после шифрования (опционально)
+        # rm "$file"
+    done
+
+6. Импорт ключей из разных источников
+    #!/bin/bash
+    # import_keys.sh
+
+    # С ключ-сервера
+    gpg2 --keyserver hkps://keys.openpgp.org --recv-keys 0xDEADBEEF
+
+    # Из файла
+    gpg2 --import mykey.asc
+
+    # С URL
+    curl -sL "https://example.com/keys/team.asc" | gpg2 --import
+
+    # Из репозитория
+    gpg2 --fetch-keys "https://example.com/repo-key.gpg"
+
+7. Экспорт ключей для публикации
+    #!/bin/bash
+    # export_for_web.sh
+    KEYID="$1"
+
+    # Экспорт публичного ключа в разных форматах
+    gpg2 --export -a "$KEYID" > "${KEYID}.asc"
+    gpg2 --export --export-options export-minimal -a "$KEYID" > "${KEYID}-minimal.asc"
+    gpg2 --export --export-options backup -a "$KEYID" > "${KEYID}-backup.asc"
+
+    # Создать WKD (Web Key Directory) структуру
+    gpg2 --export "$KEYID" > "pubkey.gpg"
+    gpg2 --with-wkd-hash "$KEYID"
+
+8. Проверка и валидация
+    #!/bin/bash
+    # check_key.sh
+    KEYID="$1"
+
+    # Проверить срок действия
+    expiry=$(gpg2 --list-keys --with-colons "$KEYID" | \
+             awk -F: '/^pub:/ {print $7}')
+    if [[ -n "$expiry" && "$expiry" -lt $(date +%s) ]]; then
+        echo "Ключ просрочен!"
+    else
+        echo "Ключ действителен"
+    fi
+
+    # Проверить подписи
+    gpg2 --check-sigs "$KEYID"
+
+    # Проверить отозван ли ключ
+    gpg2 --list-keys --with-colons "$KEYID" | grep -q "^rvk" && \
+        echo "Ключ отозван!" || echo "Ключ не отозван"
+
+Управление ключницей
+    # Создать резервную копию ключницы
+    tar -czf gnupg-backup.tar.gz ~/.gnupg/
+
+    # Восстановить ключницу
+    tar -xzf gnupg-backup.tar.gz -C ~/
+
+    # Экспорт всех ключей
+    gpg2 --export -a > all-public-keys.asc
+    gpg2 --export-secret-keys -a > all-private-keys.asc
+
+    # Очистка ключницы
+    gpg2 --delete-key KEYID       # удалить один ключ
+    gpg2 --delete-secret-key KEYID
+
+    # Очистка от устаревших ключей
+    gpg2 --list-keys --with-colons | awk -F: '/^pub:/ && $7 && $7 < systime() {print $5}' | \
+        while read key; do
+            gpg2 --delete-key "$key"
+        done
+
+Работа с GPG агентами
+    # Перезапуск gpg-agent
+    gpgconf --reload gpg-agent
+    gpg-connect-agent reloadagent /bye
+
+    # Информация об агенте
+    gpg-connect-agent 'GETINFO version' /bye
+    gpgconf --list-dirs
+
+    # Кэширование пароля
+    gpg2 --cache-passphrase 3600  # кэшировать на час
+
+Расширенные опции
+    # Указать алгоритмы
+    gpg2 -c --cipher-algo AES256 --s2k-digest-algo SHA512 файл.txt
+    gpg2 -e --compress-algo BZIP2 -r KEYID файл.txt
+
+    # Работа с подписями и временными метками
+    gpg2 --verify --ignore-time-conflict файл.sig файл
+    gpg2 --verify --verify-options show-std-notations файл.sig файл
+
+    # Экспорт с определенными опциями
+    gpg2 --export-options export-backup,export-local-sigs
+    gpg2 --import-options import-local-sigs --import key.asc
+
+Конфигурация (gpg.conf)
+    # ~/.gnupg/gpg.conf
+    default-key 0xDEADBEEF
+    keyid-format 0xlong
+    with-fingerprint
+    use-agent
+    personal-cipher-preferences AES256 AES192 AES
+    personal-digest-preferences SHA512 SHA384 SHA256
+    personal-compress-preferences ZLIB BZIP2 ZIP Uncompressed
+    default-preference-list SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP
+    cert-digest-algo SHA512
+    s2k-cipher-algo AES256
+    s2k-digest-algo SHA512
+    charset utf-8
+    fixed-list-mode
+    no-comments
+    no-emit-version
+    keyring ~/.gnupg/pubring.gpg
+
+Переменные окружения
+    export GNUPGHOME=~/.gnupg                    # директория ключницы
+    export GPG_TTY=$(tty)                         # для gpg-agent
+    export GPG_AGENT_INFO                         # информация об агенте
+    export GPGKEY=0xDEADBEEF                      # ключ по умолчанию
+
+Миграция с gpg на gpg2
+    # Экспорт ключей из gpg (версия 1)
+    gpg --export -a > keys.asc
+    gpg --export-secret-keys -a > private-keys.asc
+
+    # Импорт в gpg2
+    gpg2 --import keys.asc
+    gpg2 --import private-keys.asc
+
+    # Перенос ключницы
+    cp -r ~/.gnupg ~/.gnupg.gpg1
+    gpg2 --import ~/.gnupg.gpg1/pubring.gpg
+    gpg2 --import ~/.gnupg.gpg1/secring.gpg
+
+Безопасность и лучшие практики
+    Всегда используйте длинные ключи (4096 бит RSA или ECC)
+    Регулярно обновляйте срок действия ключей
+    Создавайте сертификат отзыва сразу после генерации ключа
+    Храните приватные ключи в безопасном месте
+    Используйте надежные парольные фразы
+    Регулярно проверяйте ключи на серверах
+    Не используйте один ключ для всех целей (подпись и шифрование)
+    Настраивайте сроки истечения ключей
+
+Полезные команды для проверки
+    # Информация о версии
+    gpg2 --version
+    gpg2 --dump-options
+
+    # Проверка статуса
+    gpgconf --check-options
+    gpg-connect-agent 'help' /bye
+
+    # Диагностика
+    gpg2 --card-status                    # информация о смарт-карте
+    gpg2 --with-keygrip -k KEYID          # показать keygrip
+    gpg2 --export-ssh-key KEYID           # экспорт в SSH формат
+
+Интеграция с другими инструментами
+    # Git подпись коммитов
+    git config --global user.signingkey KEYID
+    git config --global commit.gpgsign true
+    git commit -S -m "Подписанный коммит"
+
+    # Email шифрование (mutt)
+    set crypt_use_gpgme=yes
+    set pgp_default_key=KEYID
+
+    # SSH через GPG
+    gpg --export-ssh-key KEYID >> ~/.ssh/authorized_keys
+
+Эта инструкция покрывает большинство задач, связанных с управлением ключами GPG, 
+шифрованием, подписями и верификацией данных. GPG2 является современным стандартом 
+для криптографических операций в Unix-подобных системах.
+
