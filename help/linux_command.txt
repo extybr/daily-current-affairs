@@ -140,6 +140,11 @@ flatpak list
 yay  (AUR Helper written in go)
 yay Syu  (update repo)
 yay Scc  (delete cache)
+faillock  (Tool for displaying and modifying the authentication failure record files)
+sudo faillock --user $USER --reset
+snapper  (Command-line program for filesystem snapshot management)
+sudo snapper list
+sudo snapper delete 281-291
 ____________
 
 java
