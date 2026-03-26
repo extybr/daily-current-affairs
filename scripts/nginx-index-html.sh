@@ -1,8 +1,16 @@
 #!/bin/bash
-# $> ./nginx-index-html.sh
+# $> sudo ./nginx-index-html.sh
 # HACK: для правки после обновления/переустановки системы
 
 HTML_PATH="/usr/share/nginx/html"
+
+function check_path() {
+  if ! grep -m 1 'location / {' /etc/nginx/nginx.conf -A 1 | tail -1 | \
+  grep "$HTML_PATH" &>/dev/null; then
+    echo -e "not found: \033[31m$HTML_PATH\033[0m in nginx.conf"
+    exit
+  fi
+}
 
 function fix_page() {
   if [ -f "${HTML_PATH}"/index.html ]; then
@@ -14,7 +22,7 @@ function fix_page() {
 }
 
 function write_page() {
-echo '<!DOCTYPE html>
+sudo echo '<!DOCTYPE html>
 <html>
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
@@ -44,7 +52,14 @@ html {
 </body>
 </html>
 ' > "${HTML_PATH}"/index.html
+
+if ! [ -f "${HTML_PATH}"/grub-16x9.png ]; then
+  echo 'image not found'
+fi
+
 }
 
-fix_page
+check_path
+# fix_page
+write_page
 

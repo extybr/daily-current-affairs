@@ -83,13 +83,14 @@ alias d/='tty-clock -csb -C 5'  # https://github.com/xorg62/tty-clock
 alias dt/='echo && date "+%X,%e %B %Yг, %A | %F" && echo && cal | grep -E "$(date '+%e')\b| "'
 alias ct/=${SCRIPTS_DIRECTORY}'/../time/current_time_area_google.sh'
 alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
-alias c/=${SCRIPTS_DIRECTORY}'/cheat-command.sh'
+alias c/='(){ [[ "$#" -eq 1 ]] && curl --max-time 10 cheat.sh/"$1" || echo -e "\033[33mОжидалось 1 параметр, а передано $#\033[0m" }'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias wr/=${SCRIPTS_DIRECTORY}'/weather.sh'
 alias os/=${SCRIPTS_DIRECTORY}'/os.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
 alias usd=${SCRIPTS_DIRECTORY}'/usd-btc.sh'
 alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e'
+alias ex/='python <(curl -s 'https://gist.githubusercontent.com/extybr/89884ed4f333e86f25b6d32245862e07/raw/9a3576e42441201807fb83d04881cad4fd421bc3/rate')'
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 alias tel/='telnet mapscii.me'
 alias cd/="pushd ${SCRIPTS_DIRECTORY}"
@@ -99,7 +100,7 @@ alias pspy='~/my_programs/./pspy64'
 alias e/='exiftool $1'
 alias s/='shc -r -f $1'
 alias el/='expr length'  # длина строки
-alias fr/='xclip -o | xargs fragments'
+# alias fr/='xclip -o | xargs fragments'
 alias ch/='(){ [[ -n "$1" ]] && chmod u+x *.$1 || echo "Usage: ch/ <extension>" }'
 alias g/='git status -s'
 alias au/='sudo chmod 666 /dev/ttyUSB0'
@@ -110,9 +111,9 @@ alias py=python3.14
 
 alias anti=${SCRIPTS_DIRECTORY}'/vpn/antizapret.sh'
 # alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage &; disown'
-alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/hiddify-linux-appimage/./Hiddify.AppImage &; disown'
+# alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/hiddify-linux-appimage/./Hiddify.AppImage &; disown'
 # alias nd/='pushd $HOME/my_programs/nodpi && ./nodpi && popd'
-alias nd/='cd $HOME/my_programs/nodpi && ./nodpi &; disown'
+# alias nd/='cd $HOME/my_programs/nodpi && ./nodpi &; disown'
 alias rf/='$HOME/my_programs/poskomponos/./run'
 # kp/ nodpi && kp/ sing-box
 

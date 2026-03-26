@@ -8,7 +8,7 @@ path="$HOME/.local/share/nautilus/scripts"
 setup_nautilus_scripts() {
     gedit='gedit "$1"'
     nvim_gnome_terminal='gnome-terminal --tab -- zsh -c "nvim $1"'
-    nvim_terminator='terminator -g /home/tux/.config/terminator/config --new-tab -e "nvim $1"'
+    nvim_terminator="terminator -g $HOME/.config/terminator/config --new-tab -e \"nvim \$1\""
     zip='zip archive_$(date "+%y-%m-%d_%H-%M-%S").zip "$@"'
     zed='zed "$1"'
 }
