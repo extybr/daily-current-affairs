@@ -17,6 +17,7 @@ cowsay  (configurable speaking/thinking cow (and a bit more))
 ponysay  (cowsay reimplemention for ponies)
 sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
 cmatrix  (command is a matrix program effect that displays green symbols on your terminal)
+genact  (A nonsense activity generator)
 seahorse  (Passwords and Keys)
 virtualbox  (Oracle VM VirtualBox is open source virtualization software that allows users to run multiple operating system on a single device)
 qemu-img  (QEMU disk image utility)
@@ -914,7 +915,6 @@ envsubst  (substitutes environment variables in shell format strings)
 pv  (Monitors the progress of data through a pipeline)
 export  (Sets or exports environment variables)
 xset (Manages X display settings)
-systemd-analyze  (Analyze and debug system manager / Displays system boot performance statistics)
 fwupdmgr  (Firmware update manager for updating hardware firmware)
 fwupdmgr get-history
 sudo cat /dev/input/mouse1 | xxd -c 3 -g 1  (позиция мышки в xxd данных)
@@ -1183,6 +1183,7 @@ netstat -ntuop
 ss  (инструмент, используемый для вывода сетевой статистики / A faster alternative to netstat for displaying network connections)
 ss -4
 ss -tuln  (Lists open network ports (TCP and UDP))
+cat /proc/sys/net/ipv4/ip_forward  (механизм перессылки пакетов, форвадинг)
 nc  (ncat, netcat)  (Concatenate and redirect sockets / A versatile networking tool often used for testing and debugging)
 ncat -l -k --proxy-type http 127.0.0.1 8000
 ncat -lnvp 4321
@@ -1353,6 +1354,7 @@ nvidia-smi -L
 nvidia-smi -q
 nvidia-smi stats -h
 nvidia-smi -q -d SUPPORTED_CLOCKS
+	cat /proc/driver/nvidia/version  (версия драйвера nvidia)
 
 mhwd-kernel -li  (The following kernels are installed in your system)
 uname  (print system information)
@@ -1368,6 +1370,12 @@ lsb_release -i
 sudo dmesg | grep Linux
 
 init  (systemd system and service manager)
+systemd  (systemd system and service manager)
+	ps -p 1 -o comm=  (система инициализации systemd)
+systemd-analyze  (Analyze and debug system manager / Displays system boot performance statistics)
+systemd-analyze security nginx.service
+systemd-analyze blame  (анализ времени загрузки)
+systemd-analyze plot > boot.svg
 dmidecode  (DMI table decoder)
 sudo dmidecode
 sudo dmidecode -t 17,20

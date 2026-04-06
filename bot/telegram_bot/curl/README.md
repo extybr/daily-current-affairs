@@ -28,6 +28,12 @@ curl "https://api.telegram.org/bot'$TG_TOKEN'/sendMessage?chat_id='$TG_USER'&tex
 
 </details>
 
+<details><summary>текст</summary>
+
+curl -s -X POST "https://api.telegram.org/bot'$TG_TOKEN'/sendMessage" -d "chat_id='$TG_USER'" -d "text=Hello" -d "parse_mode=Markdown" >/dev/null
+
+</details>
+
 <details><summary>docker контейнер отправляет сообщение</summary>
 
 docker run --rm curlimages/curl "https://api.telegram.org/bot'$TG_TOKEN'/sendMessage?chat_id='$TG_USER'&text=%D0%9A%D0%B0%D0%BA%20%D0%B4%D0%B5%D0%BB%D0%B0"

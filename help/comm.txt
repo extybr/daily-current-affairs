@@ -1,0 +1,227 @@
+Инструкция по comm
+
+Основной синтаксис:
+comm [опции] файл1 файл2 — сравнить два отсортированных файла
+
+Вывод:
+comm выводит три колонки:
+
+    Колонка 1: строки только в файле1
+    Колонка 2: строки только в файле2
+    Колонка 3: строки в обоих файлах
+
+Основные опции:
+comm -1 — подавить колонку 1 (строки только из файла1)
+comm -2 — подавить колонку 2 (строки только из файла2)
+comm -3 — подавить колонку 3 (строки в обоих файлах)
+comm -12 — показать только строки общие для обоих файлов
+comm -23 — показать только строки из файла1
+comm -13 — показать только строки из файла2
+
+Разделители:
+comm --nocheck-order — не проверять сортировку файлов
+comm --output-delimiter=СТРОКА — изменить разделитель колонок
+
+Примеры:
+
+1. Базовая работа:
+    # file1.txt           # file2.txt
+    # a                   # a
+    # b                   # c
+    # c                   # d
+    # e
+
+    comm file1.txt file2.txt
+    #         a
+    # b
+    #     c
+    #     d
+    # e
+
+2. Только уникальные строки:
+    # Только строки из file1 (не в file2)
+    comm -23 file1.txt file2.txt
+    # b
+    # e
+
+    # Только строки из file2 (не в file1)
+    comm -13 file1.txt file2.txt
+    # d
+
+    # Общие строки
+    comm -12 file1.txt file2.txt
+    # a
+    # c
+
+3. С неотсортированными файлами:
+    # comm ожидает отсортированные файлы
+    comm --nocheck-order unsorted1.txt unsorted2.txt
+
+    # Предварительная сортировка
+    comm <(sort file1.txt) <(sort file2.txt)
+
+4. Работа с разделителями:
+    # Изменить разделитель
+    comm --output-delimiter='|' file1.txt file2.txt
+    # |a
+    # b|
+    # |c
+    # |d
+    # e|
+
+5. Практические примеры:
+    # Сравнение списков пользователей
+    comm -23 <(cut -d: -f1 /etc/passwd | sort) <(cut -d: -f1 /etc/passwd.bak | sort)
+
+    # Найти файлы, которые есть только в одной директории
+    comm -23 <(ls dir1 | sort) <(ls dir2 | sort)
+
+    # Сравнение пакетов в разных системах
+    comm -12 <(apt list --installed 2>/dev/null | cut -d/ -f1 | sort) \
+             <(dpkg -l | grep ^ii | awk '{print $2}' | sort)
+
+    # Разница между двумя конфигурационными файлами
+    comm -3 config1.conf config2.conf
+
+6. Работа с числами:
+    # file1.txt           # file2.txt
+    # 1                   # 1
+    # 2                   # 3
+    # 4                   # 4
+    # 5
+
+    comm -23 file1.txt file2.txt
+    # 2
+    # 5
+
+    comm -13 file1.txt file2.txt
+    # 3
+
+7. Комбинация с другими командами:
+    # Сравнение списков процессов
+    comm -12 <(ps aux | awk '{print $2}' | sort -n) \
+             <(ps aux | awk '{print $2}' | sort -n)
+
+    # Поиск общих слов в двух текстах
+    comm -12 <(cat text1.txt | tr ' ' '\n' | sort -u) \
+             <(cat text2.txt | tr ' ' '\n' | sort -u)
+
+8. Сравнение с diff:
+    # comm показывает построчное сравнение
+    # diff показывает различия в контексте
+
+    # comm - полезен для упорядоченных списков
+    # diff - лучше для текстовых файлов с контекстом
+
+9. Сортировка перед comm:
+    # Сортировка с сохранением оригиналов
+    sort file1.txt > file1.sorted
+    sort file2.txt > file2.sorted
+    comm file1.sorted file2.sorted
+
+    # Сортировка на лету
+    comm <(sort file1.txt) <(sort file2.txt)
+
+10. Игнорирование регистра:
+    # comm не имеет встроенного игнорирования регистра
+    # Нужно предварительно преобразовать
+    comm <(tr '[:upper:]' '[:lower:]' < file1.txt | sort) \
+         <(tr '[:upper:]' '[:lower:]' < file2.txt | sort)
+
+11. Работа с CSV файлами:
+    # Сравнение по первому столбцу
+    cut -d',' -f1 file1.csv | sort > col1.txt
+    cut -d',' -f1 file2.csv | sort > col2.txt
+    comm -12 col1.txt col2.txt
+
+12. Сложные сценарии:
+    # Три файла (через промежуточные сравнения)
+    comm -12 <(comm -12 file1.txt file2.txt) file3.txt
+
+    # Объединение с подсчетом
+    comm file1.txt file2.txt | awk -F'\t' '
+    NF==1 && $1 ~ /^[^\t]/ {print "Только в file1:", $1}
+    NF==2 && $2 ~ /^[^\t]/ {print "Только в file2:", $2}
+    NF==3 {print "В обоих:", $3}'
+
+13. Сравнение с удалением пробелов:
+    # Удалить лишние пробелы перед сравнением
+    comm <(sed 's/^[[:space:]]*//; s/[[:space:]]*$//' file1.txt | sort) \
+         <(sed 's/^[[:space:]]*//; s/[[:space:]]*$//' file2.txt | sort)
+
+14. Полезные скрипты:
+    # Функция для сравнения директорий
+    compare_dirs() {
+        echo "=== Файлы только в $1 ==="
+        comm -23 <(ls "$1" | sort) <(ls "$2" | sort)
+        echo "=== Файлы только в $2 ==="
+        comm -13 <(ls "$1" | sort) <(ls "$2" | sort)
+        echo "=== Общие файлы ==="
+        comm -12 <(ls "$1" | sort) <(ls "$2" | sort)
+    }
+
+    # Использование
+    compare_dirs /path/to/dir1 /path/to/dir2
+
+15. Пример с комментариями:
+    # Найти строки, которых нет в эталонном файле
+    # reference.txt - эталон
+    # current.txt - текущий файл
+
+    # Строки, добавленные в current (которых нет в reference)
+    comm -13 reference.txt current.txt
+
+    # Строки, удаленные из current (которые есть в reference)
+    comm -23 reference.txt current.txt
+
+16. Работа с большими файлами:
+    # comm эффективен для больших файлов
+    # Но требует сортировки
+
+    # Для очень больших файлов
+    sort --parallel=4 -S 50% large1.txt > large1.sorted
+    sort --parallel=4 -S 50% large2.txt > large2.sorted
+    comm large1.sorted large2.sorted
+
+17. Альтернативы comm:
+    # grep -f (медленнее для больших файлов)
+    grep -Fxf file2.txt file1.txt  # строки в обоих файлах
+    grep -Fvxf file2.txt file1.txt # строки только в file1
+
+    # awk
+    awk 'NR==FNR{a[$0];next} $0 in a' file2.txt file1.txt  # общие строки
+
+    # join
+    join <(sort file1.txt) <(sort file2.txt)  # для структурированных данных
+
+18. Проверка наличия строк:
+    # Проверить, все ли строки из file1 присутствуют в file2
+    if [[ -z "$(comm -23 file1.txt file2.txt)" ]]; then
+        echo "Все строки из file1 присутствуют в file2"
+    fi
+
+19. Сравнение с сортировкой по полю:
+    # Сортировка по второму полю
+    comm -23 <(sort -k2 file1.txt) <(sort -k2 file2.txt)
+
+20. Отладка comm:
+    # Проверить сортировку
+    if ! sort -c file1.txt; then
+        echo "file1.txt не отсортирован"
+    fi
+
+# Показать различия в сортировке
+comm --check-order file1.txt file2.txt 2>&1 | grep "not in sorted order"
+
+Справка:
+    comm --help
+    man comm
+
+Важно:
+
+    comm требует отсортированные входные файлы
+    Сравнение построчное, а не по содержимому
+    По умолчанию выводит три колонки, разделенные табуляцией
+    Для неотсортированных файлов используйте --nocheck-order
+    Альтернативы: diff, grep -f, awk, join
+
