@@ -3,7 +3,7 @@ https://ru.wikipedia.org/wiki/GNU_Coreutils
 https://ru.wikipedia.org/wiki/Util-linux
 ________
 
-*** popular programs ***
+📦 Popular Programs & GUI Apps
 
 firefox, brave, links  (web browsers)
 firefox --version
@@ -146,7 +146,8 @@ sudo faillock --user $USER --reset
 snapper  (Command-line program for filesystem snapshot management)
 sudo snapper list
 sudo snapper delete 281-291
-____________
+
+💻 Programming Languages & Development Tools
 
 java
 java -jar ESPlorer.jar
@@ -209,7 +210,7 @@ git clone git@github.com:user/repository.git
 git log --pretty=oneline
 git remote set-url origin git@github.com:user/repository.git
 
-*** crypto ***
+🔐 Crypto & Security
 
 pwgen  (generate pronounceable passwords / Generates random passwords)
 uuidgen  (create a new UUID value / Generates a new universally unique identifier (UUID))
@@ -229,6 +230,9 @@ echo $(echo "SGVsbG8gV29ybGQ=" | base64 -d)
 man ascii  (ASCII character set encoded in octal, decimal, and hexadecimal)
 openssl  (OpenSSL command line program)
 echo | openssl s_client -connect youtube.com:443 2> /dev/null | awk '/-----BEGIN/,/END CERTIFICATE-----/' | openssl x509 -noout -enddate
+mkpasswd  (Overfeatured front end to crypt(3))
+mkpasswd -m yescrypt "mypassword"
+mkpasswd -m yescrypt "mypassword" '$y$j9T$occ48YP6PPriR/fR8SYwf/$zzPa0rCaXdnBZ41/RYncL9ymmQOLNsavTmCc.ZLtHxB'
 gpg  (OpenPGP encryption and signing tool)
 gpg -e text.txt
 gpg -d crypto_text.txt.gpg
@@ -244,7 +248,6 @@ cryptsetup luksFormat /dev/vda2
 cryptsetup luksOpen /dev/vda2 cryptroot
 od  (Displays files in octal, decimal, hexadecimal, or ASCII)
 od -An -N1 -d /dev/urandom
-
 hexdump  (display file contents in hexadecimal, decimal, octal, or ascii)
 hexdump usd-btc.sh > usd-btc.bin
 xxd  (создаёт представление файла в виде шестнадцатеричных кодов или выполняет обратное преобразование / Creates a hex dump of a file or converts a hex dump back to binary)
@@ -254,7 +257,6 @@ xxd 256x64-greyscale-4bit.bmp >256x64-greyscale-4bit.txt
 xxd -r 256x64-greyscale-4bit.txt 256x64-greyscale-4bit.bmp
 shc  (транслятор Bash в C (бинарник из bash скрипта) )
 shc -r -f usd-btc.sh
-
 expr  (evaluate expressions)
 expr length "string"
 expr 5 \* 2
@@ -263,7 +265,7 @@ dc --expression='10 k 5 3 / p'
 bc  (An arbitrary precision calculator language / A command-line calculator)
 echo '5 / 3' | bc
 
-*** disk utils ***
+💾 Disk Utilities
 
 dd  (a powerful tool for disk management / Converts and copies files, useful for creating disk images)
 dcfldd  (modified version of GNU dd)
@@ -328,7 +330,6 @@ resizepart  (tell the kernel about the new size of a partition)
 e4defrag  (online defragmenter for ext4 file system)
 sudo e4defrag -c -v /mnt/hdd  (дефрагментация примонтированного диска, файловая система - ext4)
 blkdiscard  (discard sectors on a device)
-
 udevadm -h  (udev management tool)
 udevadm info -n sdc
 udevadm monitor -k
@@ -358,7 +359,7 @@ sudo lshw -C disk
 inxi -dp
 hdparm  (Configures and displays information about SATA/IDE devices)
 
-*** process utils ***
+⚙️ Process Utilities
 
 pstree  (показывает дерево процессов)
 pstree -p 5552
@@ -421,7 +422,7 @@ fuser  (ищет процессы, использующие указанные �
 sudo fuser --namespace tcp 80
 fuser --kill 80/tcp
 
-*** journal ***
+📋 Journal & Logging
 
 journalctl  (Print log entries from the systemd journal)
 journalctl -u docker
@@ -438,7 +439,7 @@ logger  (enter messages into the system log)
 log  (View, export, and configure logging systems)
 logrotate  (Manages the automatic rotation and compression of log files)
 
-*** history ***
+📜 History & Real-time Monitoring
 
 Ctrl+R  (search pattern command in terminal)
 fc  (Edit the previous command, then run it)
@@ -456,7 +457,6 @@ echo $HISTSIZE
 A=$HISTSIZE; B=$(cat ~/.zhistory | wc -l); if [ $A != $B ]; then echo $(($A-$B)); fi
 
 ** history (in real time) **
-
 journalctl -f _COMM=wpa_supplicant
 tail -f -n 10 ~/.zhistory
 watch -n1 ifstat
@@ -465,7 +465,7 @@ watch -n 5 nmcli dev wifi
 gio monitor -f ./file.log
 gio monitor -d path/folder
 
-*** users ***
+👥 Users & Permissions
 
 lslogins  (display information about known users in the system)
 sudo  (execute a command as another user / Executes a command with superuser privileges)
@@ -532,7 +532,7 @@ chmod  (Changes file or directory permissions)
 chown  (Changes file or directory ownership)
 chage  (Changes user password expiration information)
 
-*** GNU-utils * shell builtin ***
+🐚 GNU Utilities & Shell Builtins
 
 builtin  (это встроенная команда bash)
 builtin echo OK
@@ -651,7 +651,7 @@ mkdir test1 && mkdir test2/test3 && cd test2 && echo Hello >> text.txt
 rmdir  (remove empty directories / Removes directories)
 rm  (remove files or directories / Removes files or directories)
 echo  (display a line of text / Prints text to the terminal or writes text to files)
-echo a{d,c,b}e
+echo a{d,c,e}b
 dirname  (strip last component from file name / Extracts the directory path from a file path)
 dirname ~/PycharmProjects/my_other_projects  (/home/tux/PycharmProjects)
 basename  (strip directory and suffix from filenames)
@@ -927,12 +927,13 @@ dd if=/dev/null of=/var/log/xyz.log
 z=/dev/zero > /var/log/xyz.log
 cp /dev/null /var/log/xyz.log
 
+🔄 System Control & Boot
+
 shutdown  (Halt, power off or reboot the machine)
 shutdown -r now
 poweroff  (Power off, reboot, or halt the machine)
 reboot  (Power off, reboot, or halt the machine)
 halt  (Power off, reboot, or halt the machine)
-
 systemctl  (Control the systemd system and service manager)
 systemctl status
 systemctl | wc -l
@@ -953,7 +954,6 @@ sudo systemctl enable gitlab-runner
 sysctl  (configure kernel parameters at runtime)
 sysctl -a
 sysctl -p
-
 grub-install  (устанавливает загрузчик grub)
 grub-install /dev/sda
 cat /etc/default/grub  (конфигурационный файл загрузчика)
@@ -962,7 +962,6 @@ grub-mkconfig -o /boot/grub/grub.cfg  (переконфигурируем grub)
 sudo cat /boot/grub/grub.cfg
 bootctl  (Control EFI firmware boot settings and manage boot loader)
 sudo bootctl
-
 efibootmgr  (change the UEFI Boot Manager configuration)
 efibootmgr -v | grep Boot | sed 's/HD.*//g' && echo && sudo fdisk -l | grep -i efi && echo && sudo bootctl | tail -n 100
 sudo efibootmgr -v  (список загрузчиков UEFI)
@@ -972,7 +971,7 @@ sudo mount /dev/nvme0n1p1 /mnt
 sudo rm -rf /mnt/EFI/Manjaro/
 sudo umount /mnt
 
-*** package ***
+📦 Package Managers
 
 __arch
 https://wiki.archlinux.org/title/Pacman_(Русский)
@@ -1012,16 +1011,13 @@ apt-get (Installs, updates, or removes packages on Debian-based systems)
 __Red Hat
 yum  (Installs, updates, or removes packages on Red Hat-based systems)
 
-*** schedule ***
+⏰ Schedule & Time
 
 ls /etc/xdg/autostart
 ls ~/.config/autostart
 crontab  (maintains crontab files for individual users / Manages cron jobs for automating tasks)
 crontab -l
 crontab -e
-
-*** time ***
-
 sleep  (delay for a specified amount of time)
 timeout  (run a command with a time limit)
 timeout 5s sleep 10
@@ -1041,7 +1037,7 @@ waitpid  (utility to wait for arbitrary processes)
 wait  (Wait for a process to complete before proceeding)
 uptime  (Displays the system uptime and load average)
 
-*** archive ***
+🗜️ Archive & Compression
 
 tar  (an archiving utility / Archives and extracts files using tar format)
 tar -zcf archive.tar.gz first.txt second.mp3 file.pdf
@@ -1063,7 +1059,7 @@ zip archive.zip first.txt second.mp3 file.pdf
 unzip (Extracts files from a zip archive)
 unzip archive.zip
 
-*** network utils ***
+🌐 Network Utilities
 
 hostname  (show or set system host name / Displays or sets the system’s hostname)
 hostnamectl  (Control the system hostname)
@@ -1288,7 +1284,7 @@ sudo systemctl start systemd-resolved.service
 sudo resolvectl flush-caches
 dnssec-keygen  (DNSSEC key generation tool)
 
-*** hardware info ***
+🖥️ Hardware Information
 
 lstopo  (lstopo-no-graphics)  (Show the topology of the system)
 lsmem  (list the ranges of available memory with their online status)
@@ -1355,7 +1351,6 @@ nvidia-smi -q
 nvidia-smi stats -h
 nvidia-smi -q -d SUPPORTED_CLOCKS
 	cat /proc/driver/nvidia/version  (версия драйвера nvidia)
-
 mhwd-kernel -li  (The following kernels are installed in your system)
 uname  (print system information)
 uname -a
@@ -1368,7 +1363,6 @@ lsb_release  (manual page for FSG lsb_release v2.0)
 lsb_release -r
 lsb_release -i
 sudo dmesg | grep Linux
-
 init  (systemd system and service manager)
 systemd  (systemd system and service manager)
 	ps -p 1 -o comm=  (система инициализации systemd)
@@ -1398,7 +1392,7 @@ cat /proc/interrupts
 cat /proc/net/softnet_stat
 cat /proc/net/udp
 
-*** pdf ***
+📄 PDF Utilities
 
 https://en.wikipedia.org/wiki/List_of_PDF_software
 pdftotext  (Portable Document Format (PDF) to text converter)
@@ -1418,7 +1412,7 @@ cupsfilter  (convert a file to another format using cups filters (deprecated))
 ps2pdf  (Convert PostScript to PDF using ghostscript)
 rsvg-convert  (Render SVG documents to PNG images, or convert them to PDF or PS)
 
-*** cam ***
+📷 Camera & Screencast
 
 ffplay -i /dev/video0 -volume 10
 timeout 10 ffmpeg -i /dev/video0 -f mpeg2video output.mp4
@@ -1433,7 +1427,7 @@ sleep 2 && ffmpeg -y -t 1 -f x11grab -s 1920x1080 -i :0.0 -frames:v 1 -f image2 
 qvidcap
 snapshot
 
-*** namespace ***
+🔮 Namespaces & Containers
 
 unshare (run program in new namespaces)
 sudo unshare -u /bin/bash
@@ -1449,3 +1443,4 @@ sudo nsenter --net=/proc/<PID>/ns/net ip link set veth-container up
 chroot  (run command or interactive shell with special root directory / Changes the root directory for a command or shell)
 chroot path/to/new/root command
 chroot test /bin/bash
+

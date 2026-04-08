@@ -17,7 +17,7 @@ FILES_MANAGER='nautilus'
 if [ "$1" = 'm' ] || [ "$1" = 'fix' ]; then
   CMD='--mount'
 elif [ "$1" = 'u' ]; then
-  CMD='--unmount'
+  CMD='--unmount --force'
 else exit
 fi
 
@@ -49,10 +49,10 @@ else exit
 fi
 
 function crypt {
-  veracrypt $CMD "$SRC" "$TARGET_PATH$TARGET_FOLDER"
+  veracrypt $CMD "$SRC" "$TARGET_PATH$TARGET_FOLDER" --fs-options="force,noatime"
   if [ "$CMD" = "--mount" ]; then
     message='Смонтировано:'
-  elif [ "$CMD" = "--unmount" ]; then
+  elif [ "$CMD" = "--unmount --force" ]; then
     message='Размонтировано:'
   fi
   echo "$message $TARGET_PATH$TARGET_FOLDER"
