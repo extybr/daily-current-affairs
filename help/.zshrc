@@ -45,6 +45,7 @@ export GITLAB_DIRECTORY="${HOME}/PycharmProjects/gitlab"
 export SCRIPTS_DIRECTORY="${GITHUB_DIRECTORY}/daily-current-affairs/scripts"
 export TRACKER_PARSER_DIRECTORY="${GITHUB_DIRECTORY}/tracker_parser"
 export SAMSUNG_DIRECTORY="/run/media/${USER}/Samsung-1TB"
+export DEXP_DIRECTORY="/run/media/${USER}/DEXP-2TB"
 export PLAYLIST_DIRECTORY="${SAMSUNG_DIRECTORY}/Desktop/Radio"
 alias cm/='cmatrix -r'
 alias sl/=${SCRIPTS_DIRECTORY}'/sl.sh'

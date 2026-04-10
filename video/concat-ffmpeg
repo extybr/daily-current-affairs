@@ -1,0 +1,37 @@
+#!/bin/bash
+# ffmpeg склеивание файлов для Nautilus
+
+files=("$@")
+
+if [ ${#files[@]} -eq 0 ]; then
+  zenity --error --text="Не выбрано ни одного файла"
+  exit 1
+fi
+
+first_file="${files[0]}"
+extension="${first_file##*.}"
+
+for file in "${files[@]}"; do
+  if [ "${file##*.}" != "$extension" ]; then
+    zenity --error --text="Файлы имеют разные расширения!\nСклеивание возможно только для файлов одного типа."
+    exit 1
+  fi
+done
+
+trap "echo 'Trapped Ctrl-C'; rm -f concat.txt && exit 1" SIGINT
+
+> concat.txt
+for file in "${files[@]}"; do
+  echo "file '$file'" >> concat.txt
+done
+
+output_file="concat_output.${extension}"
+ffmpeg -f concat -safe 0 -i concat.txt -c copy "$output_file"
+
+if [ $? -eq 0 ]; then
+  zenity --info --text="Склеивание успешно завершено!\nРезультат: $output_file"
+else
+  zenity --error --text="Ошибка при склеивании файлов"
+fi
+
+rm -f concat.txt
