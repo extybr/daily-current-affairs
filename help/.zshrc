@@ -47,6 +47,7 @@ export TRACKER_PARSER_DIRECTORY="${GITHUB_DIRECTORY}/tracker_parser"
 export SAMSUNG_DIRECTORY="/run/media/${USER}/Samsung-1TB"
 export DEXP_DIRECTORY="/run/media/${USER}/DEXP-2TB"
 export PLAYLIST_DIRECTORY="${SAMSUNG_DIRECTORY}/Desktop/Radio"
+alias fs/='bash -c "/usr/bin/wine ${SAMSUNG_DIRECTORY}/../Samsung-500GB/FSViewer/FSViewer.exe >/dev/null 2>&1 &"'
 alias cm/='cmatrix -r'
 alias sl/=${SCRIPTS_DIRECTORY}'/sl.sh'
 alias mo/="$HOME/my_programs/Momoisay/./momoisay -f"  # https://github.com/Mon4sm/momoisay

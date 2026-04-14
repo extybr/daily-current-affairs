@@ -1,0 +1,220 @@
+# 🟢 wine + file.desktop
+# 🟢 https://specifications.freedesktop.org/desktop-entry/latest-single
+
+
+✅ .desktop ✅
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Program
+Comment=wine Program
+Exec=/usr/bin/wine /run/media/$USER/Folder/program.exe
+Icon=$HOME/Images/icon/image.png
+Categories=Network;
+Terminal=false
+StartupWMClass=Program
+GenericName=Program
+Path=$HOME/.cache
+StartupNotify=false
+
+
+✅ bash ✅
+
+✔️ ----------
+
+path="$HOME/program.exe"
+$(command -v wine) $path & disown && exit
+
+✔️ ----------
+
+/usr/bin/wine $HOME/program.exe &!; exit
+
+✔️ ----------
+
+nohup /usr/bin/wine $HOME/program.exe >/dev/null 2>&1 &
+
+✔️ ----------
+
+gio launch $HOME/program.desktop && exit
+
+✔️ ----------
+
+launch() {
+    local desktop_file="$1"
+    local temp_dir="$HOME/.local/share/applications"
+    local temp_name="$(basename "$desktop_file")"
+    
+    cp "$desktop_file" "$temp_dir/$temp_name"
+    gtk-launch "${temp_name%.desktop}"
+    # rm "$temp_dir/$temp_name"
+}
+
+
+launch $HOME/program.desktop
+
+# cp $HOME/program.desktop $HOME/.local/share/applications/
+gtk-launch program.desktop && exit
+
+✔️ ----------
+
+zsh
+bash -c 'path="$HOME/program.exe"; $(command -v wine) $path & disown && exit' && exit
+bash -c '/usr/bin/wine $HOME/program.exe >/dev/null 2>&1 &' && exit
+
+
+✅ python ✅
+
+✔️ ----------
+
+import subprocess
+import os
+
+os.environ['DISPLAY'] = ':0'  # Убеждаемся, что GUI запустится
+subprocess.Popen(
+    ['/usr/bin/wine', '$HOME/program.exe'],
+    stdout=subprocess.DEVNULL,
+    stderr=subprocess.DEVNULL,
+    start_new_session=True  # Отвязываем от терминала
+)
+
+✔️ ----------
+
+import os
+
+# через os.fork (как в C++)
+if os.fork() == 0:
+    subprocess.Popen(['/usr/bin/wine', '$HOME/program.exe'])
+    os._exit(0)
+
+✔️ ----------
+
+import subprocess
+
+subprocess.Popen(['/usr/bin/wine', '$HOME/program.exe'], start_new_session=True)
+
+✔️ ----------
+
+# Через Gio.AppInfo
+#!/usr/bin/env python3
+import gi
+gi.require_version('Gio', '2.0')
+from gi.repository import Gio, GLib
+
+def launch_desktop_file_via_gio(desktop_file_path):
+    app_info = Gio.DesktopAppInfo.new_from_filename(desktop_file_path)
+    if app_info:
+        app_info.launch(None, None)
+        return True
+    return False
+
+launch_desktop_file_via_gio('/path/to/example.desktop')
+
+✔️ ----------
+
+# Через системный вызов (аналог Thunar)
+import subprocess
+
+def launch_desktop_file_direct(desktop_file_path):
+    subprocess.Popen(['/usr/bin/wine', '$HOME/program.exe'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+launch_desktop_file_via_gio('/path/to/example.desktop')
+
+
+✅ C++ ✅
+
+✔️ ----------
+
+#include <unistd.h>
+
+int main() {
+    if (fork() == 0) {
+        execl("/usr/bin/wine", "wine", 
+              "$HOME/program.exe", 
+              nullptr);
+    }
+    return 0;
+}
+
+✔️ ----------
+
+int main() { return !fork() ? execl("/usr/bin/wine", "wine", "$HOME/program.exe", nullptr), 0 : 0; }
+
+✔️ ----------
+
+#include <unistd.h>
+
+int main() {
+    if (fork() == 0) {
+        execl("/usr/bin/wine", "wine", 
+              "$HOME/program.exe", 
+              nullptr);
+    }
+    return 0;
+}
+
+✔️ ----------
+
+#include <cstdlib>
+
+int main() {
+    system("/usr/bin/wine $HOME/program.exe &");
+    return 0;
+}
+
+✔️ ----------
+
+#include <glib.h>
+#include <gio/gio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+// Через GIO DesktopAppInfo
+void launch_desktop_file(const char* desktop_file_path) {
+    GDesktopAppInfo* app_info = g_desktop_app_info_new_from_filename(desktop_file_path);
+    if (app_info) {
+        GError* error = NULL;
+        g_app_info_launch(G_APP_INFO(app_info), NULL, NULL, &error);
+        if (error) {
+            g_printerr("Error: %s\n", error->message);
+            g_error_free(error);
+        }
+        g_object_unref(app_info);
+    }
+}
+
+// Прямой fork + exec (без терминала)
+#include <unistd.h>
+#include <sys/types.h>
+
+void launch_direct_wine() {
+    pid_t pid = fork();
+    
+    if (pid == 0) {
+        // Дочерний процесс
+        setsid();  // Создаем новую сессию, отвязываем от терминала
+        
+        // Перенаправляем stdin/stdout/stderr в /dev/null
+        freopen("/dev/null", "r", stdin);
+        freopen("/dev/null", "w", stdout);
+        freopen("/dev/null", "w", stderr);
+        
+        // Запускаем wine
+        execl("/usr/bin/wine", "wine", 
+              "$HOME/program.exe", 
+              (char*)NULL);
+        
+        _exit(0);  // Если execl вернулся - ошибка
+    }
+    // Родительский процесс не ждет завершения
+}
+
+int main() {
+    // launch_desktop_file("/path/to/example.desktop");
+    launch_direct_wine();
+    return 0;
+}
+
+g++ -o launch_app launch_app.cpp `pkg-config --cflags --libs gio-2.0`
+
+
