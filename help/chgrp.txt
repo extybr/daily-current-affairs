@@ -1,0 +1,310 @@
+Инструкция по chgrp (change group)
+
+Основной синтаксис:
+chgrp [опции] группа файл — изменить группу-владельца файла
+
+Отличия от chown
+    chgrp группа файл           # изменить только группу
+    chown :группа файл          # то же самое через chown
+    chown пользователь:группа   # изменить и пользователя, и группу
+
+Основные опции
+    chgrp -R            # рекурсивно (для директорий)
+    chgrp -v            # подробный вывод (verbose)
+    chgrp -c            # вывод только изменений
+    chgrp -f            # подавить ошибки (force)
+    chgrp -h            # менять группу символической ссылки (не цели)
+    chgrp --dereference # менять группу цели символической ссылки (по умолчанию)
+    chgrp -L            # следовать симлинкам при рекурсии
+    chgrp -P            # не следовать симлинкам при рекурсии (по умолчанию)
+    chgrp --reference=ФАЙЛ_ЭТАЛОН ФАЙЛ  # скопировать группу с другого файла
+    chgrp --from=старая_группа новая_группа файл  # изменить только если текущая группа совпадает
+
+Форматы указания группы
+    chgrp group1 file.txt           # по имени группы
+    chgrp 1001 file.txt             # по GID (числовому ID группы)
+    chgrp "group name" file.txt     # группа с пробелом в кавычках
+
+Примеры
+
+1. Базовое изменение группы
+    # Изменить группу файла
+    sudo chgrp www-data index.html
+    sudo chgrp developers script.sh
+
+    # Изменить группу директории
+    sudo chgrp staff /shared/
+
+2. Рекурсивное изменение
+    # Изменить группу для всей директории
+    sudo chgrp -R developers /project/
+
+    # Изменить группу с подробным выводом
+    sudo chgrp -Rv www-data /var/www/
+
+3. Копирование группы с другого файла
+    # Скопировать группу с template.txt на file.txt
+    sudo chgrp --reference=template.txt file.txt
+
+    # Рекурсивно скопировать группу
+    sudo chgrp -R --reference=template_dir/ target_dir/
+
+4. Условное изменение
+    # Изменить группу только если текущая группа users
+    sudo chgrp --from=users developers file.txt
+
+    # Изменить группу только для файлов с группой users
+    sudo find . -group users -exec chgrp developers {} \;
+
+Практические примеры
+
+1. Веб-сервер
+    # Настройка группы для веб-файлов
+    sudo chgrp -R www-data /var/www/html/
+    sudo chgrp -R www-data /var/log/nginx/
+
+    # Установка прав для загрузок
+    sudo chgrp www-data /var/www/html/uploads/
+    sudo chmod 775 /var/www/html/uploads/
+
+2. Совместная работа над проектом
+    # Создание общей директории для группы developers
+    sudo mkdir -p /project
+    sudo chgrp -R developers /project/
+    sudo chmod 2775 /project/        # setgid для наследования группы
+
+    # Добавление пользователей в группу
+    sudo usermod -a -G developers user1
+    sudo usermod -a -G developers user2
+
+3. Docker
+    # Добавление пользователя в группу docker
+    sudo chgrp docker /var/run/docker.sock
+    sudo usermod -aG docker $USER
+
+    # Настройка прав для Docker volumes
+    sudo chgrp docker /docker/volumes/
+
+4. Системные файлы
+    # Стандартные системные группы
+    sudo chgrp shadow /etc/shadow
+    sudo chgrp adm /var/log/
+    sudo chgrp utmp /var/log/wtmp
+    sudo chgrp mail /var/spool/mail/
+
+Работа с символическими ссылками
+    # Изменить группу ссылки (не цели)
+    sudo chgrp -h group1 symlink
+
+    # Изменить группу цели (по умолчанию)
+    sudo chgrp group1 symlink
+
+    # При рекурсии - не следовать ссылкам (по умолчанию)
+    sudo chgrp -R group1 dir/
+
+    # При рекурсии - следовать ссылкам (осторожно!)
+    sudo chgrp -RL group1 dir/
+
+Проверка и поиск
+    # Просмотр текущей группы
+    ls -l file.txt
+    stat -c "%G %n" file.txt
+    stat --format="%g %n" file.txt
+
+    # Поиск файлов по группе
+    find / -group www-data -type f
+    find /home -group developers
+
+    # Поиск файлов не принадлежащих группе
+    find /var/www ! -group www-data
+
+Массовые операции
+
+1. Изменение группы для всех файлов в директории
+    # Все файлы и директории
+    sudo chgrp -R developers /project/
+
+    # Только файлы
+    find /project -type f -exec sudo chgrp developers {} \;
+
+    # Только директории
+    find /project -type d -exec sudo chgrp developers {} \;
+
+2. Изменение группы для определенных типов файлов
+    # Только .php файлы
+    find /var/www -name "*.php" -exec sudo chgrp www-data {} \;
+
+    # Только .log файлы
+    find /var/log -name "*.log" -exec sudo chgrp adm {} \;
+
+    # Исключая определенные файлы
+    find /project ! -name "*.tmp" -exec sudo chgrp developers {} \;
+
+3. Использование xargs для производительности
+    # Более эффективно для большого количества файлов
+    find /project -type f -print0 | sudo xargs -0 chgrp developers
+
+    # Параллельное выполнение
+    find /project -type f -print0 | sudo xargs -0 -P 4 chgrp developers
+
+Безопасность и ограничения
+
+1. Права доступа
+    # Пользователь может менять группу только на свою
+    chgrp mygroup file.txt        # OK если пользователь в mygroup
+    chgrp othergroup file.txt     # Ошибка если пользователь не в othergroup
+
+    # Только root может менять группу любых файлов
+    sudo chgrp anygroup file.txt  # OK
+
+2. Проверка членства в группе
+    # Проверить группы текущего пользователя
+    groups
+    id -Gn
+
+    # Проверить принадлежность к группе
+    if id -nG | grep -q "developers"; then
+        echo "Пользователь в группе developers"
+    fi
+
+    # Проверить группу файла
+    if [[ $(stat -c "%G" file.txt) == "www-data" ]]; then
+        echo "Файл принадлежит группе www-data"
+    fi
+
+Типовые сценарии
+
+1. Настройка общей директории
+    #!/bin/bash
+    # setup_shared_dir.sh
+    SHARED_DIR="/shared"
+    GROUP_NAME="project_team"
+
+    # Создание директории
+    sudo mkdir -p "$SHARED_DIR"
+
+    # Установка группы
+    sudo chgrp -R "$GROUP_NAME" "$SHARED_DIR"
+
+    # Установка прав с setgid
+    sudo chmod 2775 "$SHARED_DIR"
+
+    # Установка прав по умолчанию для новых файлов
+    sudo chmod g+s "$SHARED_DIR"
+
+    echo "Общая директория настроена для группы $GROUP_NAME"
+
+2. Миграция проекта на другую группу
+    #!/bin/bash
+    # migrate_group.sh
+    OLD_GROUP="oldteam"
+    NEW_GROUP="newteam"
+    PROJECT_DIR="/var/project"
+
+    # Проверка существования групп
+    if ! getent group "$OLD_GROUP" > /dev/null; then
+        echo "Группа $OLD_GROUP не существует"
+        exit 1
+    fi
+
+    # Изменение группы только для файлов старой группы
+    sudo find "$PROJECT_DIR" -group "$OLD_GROUP" -exec chgrp "$NEW_GROUP" {} \;
+
+    echo "Группа файлов изменена с $OLD_GROUP на $NEW_GROUP"
+
+3. Восстановление прав после распаковки
+    # Распаковка архива, созданного другим пользователем
+    tar -xzf archive.tar.gz
+    sudo chgrp -R $(id -gn) extracted_dir/
+    sudo chmod -R ug+rwX extracted_dir/
+
+4. Настройка веб-приложения
+    #!/bin/bash
+    # setup_webapp.sh
+    WEBROOT="/var/www/myapp"
+    WEB_GROUP="www-data"
+
+    # Установка группы для веб-директории
+    sudo chgrp -R "$WEB_GROUP" "$WEBROOT"
+
+    # Настройка прав
+    sudo find "$WEBROOT" -type d -exec chmod 755 {} \;
+    sudo find "$WEBROOT" -type f -exec chmod 644 {} \;
+
+    # Особые права для директории загрузок
+    sudo chgrp "$WEB_GROUP" "$WEBROOT/uploads"
+    sudo chmod 775 "$WEBROOT/uploads"
+
+    echo "Веб-приложение настроено для группы $WEB_GROUP"
+
+Комбинации с другими командами
+
+1. chgrp и chmod вместе
+    # Изменить группу и права
+    sudo chgrp -R developers /project/ && sudo chmod -R 775 /project/
+
+    # Только для файлов
+    sudo find /project -type f -exec chgrp developers {} \; -exec chmod 664 {} \;
+
+    # Только для директорий
+    sudo find /project -type d -exec chgrp developers {} \; -exec chmod 2775 {} \;
+
+2. Использование с find для сложных условий
+    # Изменить группу для файлов, измененных за последний час
+    sudo find /project -type f -mmin -60 -exec chgrp developers {} \;
+
+    # Изменить группу для файлов больше 10MB
+    sudo find /project -type f -size +10M -exec chgrp bigfiles {} \;
+
+Отладка
+    # Подробный вывод
+    sudo chgrp -v developers file.txt
+    # changed group of 'file.txt' from users to developers
+
+    # Только изменения
+    sudo chgrp -c developers file.txt
+
+    # Игнорировать ошибки
+    sudo chgrp -f developers /nonexistent/file
+
+    # Показать что изменится (dry-run с find)
+    sudo find /project -type f -printf "sudo chgrp developers %p\n"
+
+Переменные окружения
+    # Использование переменных
+    GROUP_NAME="developers"
+    sudo chgrp -R "$GROUP_NAME" /project/
+
+    # Получение текущей группы
+    CURRENT_GROUP=$(id -gn)
+    sudo chgrp -R "$CURRENT_GROUP" /tmp/work/
+
+    # Использование GID
+    GID=$(id -g user1)
+    sudo chgrp "$GID" file.txt
+
+Ошибки и решения
+    # Ошибка: Operation not permitted
+    # Решение: использовать sudo или проверить членство в группе
+    sudo chgrp group file.txt
+
+    # Ошибка: invalid group
+    # Решение: проверить существование группы
+    getent group groupname
+
+    # Ошибка: read-only file system
+    # Решение: проверить монтирование ФС
+    mount | grep "ro,"
+
+    # Ошибка: No such file or directory
+    # Решение: проверить существование файла
+    ls -la file.txt
+
+Важные моменты
+    Только root может менять группу любых файлов
+    Пользователь может менять группу только своих файлов на свою группу
+    Используйте -R осторожно, особенно на корневых директориях
+    Для массовых операций используйте find + xargs для производительности
+    Символические ссылки по умолчанию следуют до цели
+    setgid бит (g+s) полезен для наследования группы в директориях
+    Всегда проверяйте права перед выполнением chgrp -R

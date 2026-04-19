@@ -1,0 +1,303 @@
+Инструкция по chown (change owner)
+
+Основной синтаксис:
+chown [опции] пользователь[:группа] файл — изменить владельца и/или группу файла
+
+Форматы указания владельца/группы:
+    chown пользователь файл              # только владелец
+    chown :группа файл                   # только группа
+    chown пользователь:группа файл       # владелец и группа
+    chown пользователь: файл             # владелец и группа=владельцу
+    chown : файл                         # игнорируется (ничего не меняет)
+
+Основные опции
+    chown -R            # рекурсивно (для директорий)
+    chown -v            # подробный вывод (verbose)
+    chown -c            # вывод только изменений
+    chown -f            # подавить ошибки (force)
+    chown --reference=ФАЙЛ_ЭТАЛОН ФАЙЛ  # скопировать владельца/группу
+    chown -h            # менять владельца символической ссылки (не цели)
+    chown --dereference # менять владельца цели символической ссылки (по умолчанию)
+    chown -L            # следовать симлинкам при рекурсии
+    chown -P            # не следовать симлинкам при рекурсии (по умолчанию)
+    chown --from=старый_владелец:старая_группа новый_владелец:новая_группа файл
+
+Примеры
+
+1. Изменение владельца
+    # Изменить только владельца
+    sudo chown user1 file.txt
+    sudo chown www-data index.html
+
+    # Изменить владельца рекурсивно
+    sudo chown -R user1 /home/user1/
+
+2. Изменение группы
+    # Изменить только группу
+    sudo chown :group1 file.txt
+    sudo chown :www-data index.html
+
+    # Изменить группу рекурсивно
+    sudo chown -R :developers /project/
+
+3. Изменение владельца и группы
+    # Изменить владельца и группу
+    sudo chown user1:group1 file.txt
+    sudo chown www-data:www-data index.html
+
+    # Рекурсивно
+    sudo chown -R user1:group1 /home/user1/
+
+4. Установка группы равной владельцу
+    # Группа станет такой же, как владелец
+    sudo chown user1: file.txt
+
+5. Копирование владельца/группы с другого файла
+    # Скопировать владельца и группу
+    sudo chown --reference=template.txt file.txt
+
+    # Скопировать только владельца
+    sudo chown --reference=template.txt --dereference file.txt
+
+6. Условное изменение
+    # Изменить только если текущий владелец user1
+    sudo chown --from=user1 user2 file.txt
+
+    # Изменить только если текущий владелец user1 и группа group1
+    sudo chown --from=user1:group1 user2:group2 file.txt
+
+Практические примеры
+
+1. Веб-сервер
+    # Настройка прав для сайта
+    sudo chown -R www-data:www-data /var/www/html/
+    sudo chown -R www-data:www-data /var/log/nginx/
+
+    # Безопасная настройка с разными владельцами
+    sudo chown -R root:root /var/www/html/           # системные файлы
+    sudo chown -R www-data:www-data /var/www/html/uploads/  # загрузки
+
+2. Домашняя директория пользователя
+    # Восстановление прав после создания
+    sudo chown -R user:user /home/user/
+
+    # Скрытые файлы
+    sudo chown user:user /home/user/.*
+
+3. Проект для разработки
+    # Общий проект для группы developers
+    sudo chown -R lead:developers /project/
+    sudo chown -R developer:developers /project/src/
+
+4. Docker
+    # Передача прав на сокет Docker
+    sudo chown user:docker /var/run/docker.sock
+
+    # Права на volumes
+    sudo chown -R 1000:1000 /docker/volumes/data/
+
+5. Системные файлы
+    # Изменение владельца конфигурационных файлов
+    sudo chown root:root /etc/shadow
+    sudo chown root:root /etc/passwd
+    sudo chown root:root /etc/sudoers
+
+    # Изменение владельца логов
+    sudo chown syslog:adm /var/log/syslog
+    sudo chown www-data:www-data /var/log/nginx/
+
+Рекурсивные операции
+
+1. Базовое рекурсивное изменение
+    # Изменить всё в директории
+    sudo chown -R user:group /path/to/dir/
+
+2. Изменение только файлов или только директорий
+    # Только файлы
+    find /path -type f -exec sudo chown user:group {} \;
+
+    # Только директории
+    find /path -type d -exec sudo chown user:group {} \;
+
+    # Используя xargs
+    find /path -type f -print0 | sudo xargs -0 chown user:group
+
+3. Исключение определенных файлов
+    # Исключить скрытые файлы
+    find /path ! -path '*/.*' -exec sudo chown user:group {} \;
+
+    # Исключить по имени
+    find /path ! -name "*.tmp" -exec sudo chown user:group {} \;
+
+Работа с символическими ссылками
+    # Изменить владельца ссылки (не цели)
+    sudo chown -h user link
+
+    # Изменить владельца цели (по умолчанию)
+    sudo chown user link
+
+    # При рекурсии - не следовать ссылкам (по умолчанию)
+    sudo chown -R user dir/
+
+    # При рекурсии - следовать ссылкам (осторожно!)
+    sudo chown -RL user dir/
+
+Комбинации с другими командами
+    # Изменение владельца результатов поиска
+    find /var/www -name "*.php" -exec sudo chown www-data:www-data {} \;
+
+    # Изменение владельца с проверкой существования
+    [ -f file.txt ] && sudo chown user:group file.txt
+
+    # Изменение владельца с помощью sudo
+    sudo chown -R user:group /path/ || echo "Ошибка изменения прав"
+
+    # Массовое изменение на основе списка
+    while read file; do
+        sudo chown user:group "$file"
+    done < filelist.txt
+
+Безопасность
+
+1. Ограничения
+    # Обычный пользователь может менять владельца только своих файлов
+    chown otheruser file.txt  # Ошибка: Operation not permitted
+
+    # Только root может менять владельца чужих файлов
+    sudo chown otheruser file.txt  # OK
+
+    # Группу можно менять на свою или дополнительную
+    chown :group1 file.txt  # OK если пользователь в group1
+
+2. Опасные операции
+    # Никогда не делайте
+    sudo chown -R user:group /
+    sudo chown -R user:group /etc
+    sudo chown -R user:group /bin
+    sudo chown user:group /etc/sudoers
+
+    # Проверка перед опасными операциями
+    echo "Будет изменено:"
+    find /var/www -type f -name "*.php"
+    read -p "Продолжить? (y/n) " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        sudo find /var/www -type f -name "*.php" -exec chown www-data:www-data {} \;
+    fi
+
+Проверка текущего владельца
+    # Просмотр владельца и группы
+    ls -l file.txt
+    stat -c "%U:%G %n" file.txt
+    stat --format="%u:%g %n" file.txt
+
+    # Поиск файлов по владельцу
+    find / -user user1 -type f
+    find / -group group1
+
+    # Поиск файлов не принадлежащих пользователю
+    find / ! -user user1
+
+Типовые сценарии
+
+1. Настройка веб-проекта
+    # Создание проекта
+    sudo mkdir -p /var/www/project
+    sudo chown -R www-data:www-data /var/www/project
+    sudo chmod -R 755 /var/www/project
+
+2. Восстановление после распаковки архива
+    # После распаковки tar от root
+    sudo tar -xzf archive.tar.gz
+    sudo chown -R user:group extracted_dir/
+
+3. Миграция пользователя
+    # Перемещение домашней директории нового пользователя
+    sudo chown -R newuser:newuser /home/newuser/
+    sudo chown -R newuser:newuser /var/spool/mail/newuser
+
+4. Общий доступ к файлам
+    # Настройка для группы
+    sudo chown -R root:shared /shared/
+    sudo chmod 2775 /shared/              # setgid для наследования группы
+    sudo find /shared -type f -exec chmod 664 {} \;
+
+5. Исправление прав после сбоя
+    # Восстановление системных прав
+    sudo chown root:root /etc/passwd /etc/shadow /etc/group
+    sudo chown root:shadow /etc/shadow
+    sudo chown root:root /etc/sudoers
+    sudo chown root:adm /var/log/
+
+Продвинутые техники
+
+1. Изменение только если владелец соответствует условию
+    # Только для файлов владельца user1
+    sudo find . -user user1 -exec chown user2 {} \;
+
+    # Только для файлов группы group1
+    sudo find . -group group1 -exec chown :group2 {} \;
+
+2. Сохранение и восстановление владельцев
+    # Сохранение списка владельцев
+    find /path -printf "%u:%g %p\n" > owners.txt
+
+    # Восстановление
+    while read owner file; do
+        sudo chown "$owner" "$file"
+    done < owners.txt
+
+3. Изменение владельца с шаблоном
+    # Изменить владельца для файлов, начинающихся с "backup"
+    sudo chown user:group backup*
+
+    # С помощью find
+    sudo find . -name "backup*" -exec chown user:group {} \;
+
+4. Параллельное изменение (для больших директорий)
+    # Используя parallel
+    find /large/dir -type f | parallel -j 4 sudo chown user:group {}
+
+Отладка
+    # Подробный вывод
+    sudo chown -v user:group file.txt
+    # changed ownership of 'file.txt' from root:root to user:group
+
+    # Только изменения
+    sudo chown -c user:group file.txt
+
+    # Игнорировать ошибки
+    sudo chown -f user:group /nonexistent/file
+
+    # Показать что изменится (dry-run с find)
+    find /path -type f -printf "sudo chown user:group %p\n"
+
+Переменные окружения
+    # Использование переменных
+    OWNER="www-data"
+    GROUP="www-data"
+    sudo chown -R ${OWNER}:${GROUP} /var/www/
+
+    # Получение текущего пользователя
+    CURRENT_USER=$(whoami)
+    sudo chown ${CURRENT_USER}:${CURRENT_USER} file.txt
+
+Ошибки и решения
+    # Ошибка: Operation not permitted
+    # Решение: использовать sudo
+
+    # Ошибка: invalid user
+    # Решение: проверить существование пользователя
+    id username
+
+    # Ошибка: recursive directory loop
+    # Решение: использовать -P для симлинков
+    sudo chown -RP user:group dir/
+
+Важные моменты:
+    Только root может менять владельца файлов
+    Обычный пользователь может менять группу только на свою
+    Будьте осторожны с -R на корневых директориях
+    Символические ссылки по умолчанию следуют до цели
+    Используйте --from для условного изменения
+    Всегда проверяйте права перед выполнением chown -R
+    Для системных файлов сохраняйте стандартных владельцев
