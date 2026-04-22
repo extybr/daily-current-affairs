@@ -631,7 +631,6 @@ file myfile.txt
 file my_directory
 file -ih mylink.txt
 ipcs  (show information on IPC facilities)
-xrandr  (Configures display screen resolution, rotation, and reflection)
 readelf  (display information about ELF files)
 readelf -dh /bin/bash
 rg  (ripgrep: recursively search the current directory for lines matching a pattern)
@@ -739,6 +738,10 @@ glxinfo  (тестирование производительности граф
 glxinfo | grep -i "direct rendering"
 glxgears  (Проверка производительности 3D-ускорение)
 glxgears -info
+xprop  (property displayer for X)
+xdpyinfo  (display information utility for X)
+xrandr  (Configures display screen resolution, rotation, and reflection)
+eglinfo  (Display platform EGL information)
 rev  (reverse lines characterwise)
 echo "Hello World" | rev
 xdg-open  (opens a file or URL in the user's preferred application)
@@ -873,7 +876,6 @@ info ls
 readlink  (print resolved symbolic links or canonical file names)
 readlink -f .bashrc
 column (Formats output into columns)
-xdpyinfo  (display information utility for X)
 nm  (list symbols from object files)
 nm -D /bin/ls
 ar  (Create, modify, and extract from Unix archives. Typically used for static libraries (`.a`) and Debian packages (`.deb`))
@@ -1345,6 +1347,7 @@ cat /sys/class/power_supply/BAT0/capacity  (заряд батареи аккум
 cat /sys/class/thermal/thermal_zone*/temp
 cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input
 paste <(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_label) <(cat /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input) | column -s $'\t' -t | sed 's/\(.\)..$/.\1°C/'
+nvidia-settings  (configure the NVIDIA graphics driver)
 nvidia-smi  (NVIDIA System Management Interface program)
 nvidia-smi -L
 nvidia-smi -q

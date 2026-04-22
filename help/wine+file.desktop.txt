@@ -1,6 +1,6 @@
 # 🟢 wine + file.desktop
 # 🟢 https://specifications.freedesktop.org/desktop-entry/latest-single
-# 🟢 file.desktop path: /home/tux/.local/share/applications, /usr/share/applications
+# 🟢 file.desktop path: /home/$USER/.local/share/applications, /usr/share/applications
 
 
 ✅ .desktop ✅

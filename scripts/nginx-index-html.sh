@@ -2,6 +2,11 @@
 # $> sudo ./nginx-index-html.sh
 # HACK: для правки после обновления/переустановки системы
 
+if [[ $EUID -ne 0 ]]; then
+    echo -e "Запустите скрипт с sudo: \033[36msudo $0\033[0m" >&2
+    exit 1
+fi
+
 HTML_PATH="/usr/share/nginx/html"
 
 function check_path() {
@@ -22,7 +27,7 @@ function fix_page() {
 }
 
 function write_page() {
-sudo echo '<!DOCTYPE html>
+echo '<!DOCTYPE html>
 <html>
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
