@@ -18,8 +18,11 @@ ponysay  (cowsay reimplemention for ponies)
 sl  (display animations aimed to correct users who accidentally enter sl instead of ls)
 cmatrix  (command is a matrix program effect that displays green symbols on your terminal)
 genact  (A nonsense activity generator)
+strace  (trace system calls and signals)
+strace -e trace=process df -hT >/dev/null
 seahorse  (Passwords and Keys)
 virtualbox  (Oracle VM VirtualBox is open source virtualization software that allows users to run multiple operating system on a single device)
+	VBoxManage startvm "Win10_free" --type headless  (Запустить VirtualBox VM (использует /dev/vboxdrv))
 qemu-img  (QEMU disk image utility)
 qemu-img create /media/username/MyDrive/myWindows.img 30G
 qemu-img info FLASH-16G.img
@@ -44,6 +47,8 @@ shortwave  (radio stations)
 mocp  (Console audio player)
 cmus  (консольный C* Music Player)
 ffmpeg  (ffmpeg media converter)
+ffmpeg -formats
+ffmpeg -codecs
 ffplay  (консольный FFplay media player)
 ffplay ./Audio/'Bad Boys Blue - My Star.flac' -nodisp -autoexit
 ./fmedia http://ep256.hostingradio.ru:8052/europaplus256.mp3 -o radio.mp3 --stream-copy --out-cop
@@ -129,6 +134,8 @@ gnome-firmware
 gnome-photos
 gnome-session  (Start the GNOME desktop environment)
 gnome-extensions  (Command line tool for managing GNOME extensions)
+gnome-usage
+gnome-system-monitor
 gsettings  (GSettings configuration tool)
 gio  (GIO commandline tool)
 gio help copy
@@ -264,6 +271,7 @@ dc  (an arbitrary precision calculator)
 dc --expression='10 k 5 3 / p'
 bc  (An arbitrary precision calculator language / A command-line calculator)
 echo '5 / 3' | bc
+cat /dev/urandom | tr -dc 'A-Za-z0-9!@#$%' | head -c 16; echo  (Сгенерировать пароль (16 символов))
 
 💾 Disk Utilities
 
@@ -354,6 +362,7 @@ df  (report file system space usage / Displays disk space usage)
 df -hT
 hwinfo --short --disk --partition
 cat /etc/fstab
+    sudo blkid -o list
 ls -l /dev | grep "^b"
 sudo lshw -C disk
 inxi -dp
@@ -431,6 +440,7 @@ dmesg  (print or control the kernel ring buffer)
 sudo dmesg | rg usb
 sudo dmesg -WH  (в режиме реального времени смотрит лог ядра системы: подключаемые устройства, сетевые правила)
 dmesg | tail  (Displays recent kernel messages (useful for hardware or system errors))
+sudo cat /dev/kmsg  (Просмотр сообщений ядра в реальном времени)
 last  (show a listing of last logged in users)
 last -h  (last -a, last -i)  (show a listing of last logged in users)
 lastb  (show a listing of last logged in users / Shows failed login attempts)
@@ -438,6 +448,7 @@ lastlog  (reports the most recent login of all users or of a given user)
 logger  (enter messages into the system log)
 log  (View, export, and configure logging systems)
 logrotate  (Manages the automatic rotation and compression of log files)
+cat /dev/full > test.log  (Протестировать обработку ошибки "нет места")
 
 📜 History & Real-time Monitoring
 
@@ -674,7 +685,6 @@ shuf  (generate random permutations / Shuffles lines of text in random order)
 echo $RANDOM
 echo "BASH_SOURCE: ${BASH_SOURCE[0]}"
 factor  (Prints the prime factors of a given number / factor numbers)
-od -An -N1 -d /dev/urandom
 python -c "import random; print(random.randint(1, 100))"
 resize  (set environment and terminal settings to current xterm window size)
 nroff  (format documents with groff for TTY (terminal) devices)
@@ -828,6 +838,7 @@ xhost  (server access control program for X)
 truncate  (shrink or extend the size of a file to the specified size)
 truncate --size +50M filename
 truncate -s 16034824192 usb.img
+chvt  (change foreground virtual terminal)
 tty  (print the file name of the terminal connected to standard input)
 xterm  (terminal emulator for X)
 link  (call the link function to create a link to a file)
@@ -838,6 +849,7 @@ view .bash_history  (vi, vim, nvim)
 vmstat  (Report virtual memory statistics)
 vmstat -d
 vmstat -S M -s
+zramctl  (set up and control zram devices)
 zcat  (compress or expand files)
 bzcat  (decompresses files to stdout)
 xzcat (Compress or decompress .xz and .lzma files)
@@ -994,6 +1006,8 @@ cat /etc/pacman.conf
 cat /etc/pacman.d/mirrorlist
 paccache  (flexible pacman cache cleaning utility)
 paccache -r  (Очистка кэша пакетов)
+paccache -dvk1  (Пробный запуск: посмотреть, что будет удалено, если оставить 1 версию)
+sudo paccache -rvk1  (Реально удалить, оставив 1 последнюю версию каждого установленного пакета)
 pactree  (package dependency tree viewer)
 pactree docker  (Дерево зависимостей пакета)
 pactree -r mpv  (список пакетов, которые сами зависят от указанного)
@@ -1002,8 +1016,10 @@ pacman-mirrors -f 10
 pacman-mirrors --fasttrack
 https://wiki.manjaro.org/index.php/Pamac/ru
 https://wiki.manjaro.org/index.php/Arch_User_Repository/ru
-pamac-manager
-pamac -h  (package manager utility)
+octopi  (Графический интерфейс Pacman)
+octopi-cachecleaner  (графическая обёртка для консольной утилиты paccache - менеджер чистки кэша)
+pamac-manager  (менеджер пакетов Манджаро)
+pamac  (графический менеджер пакетов для Arch Linux и производных дистрибутивов, основанный на библиотеке libalpm)
 pamac search virtualbox
 pamac install base-devel git
 makepkg -si  (package build utility)
@@ -1427,8 +1443,10 @@ ffmpeg -f x11grab -s 1920x1080 -r 25 -i :0.0 -vcodec qtrle screencast.mov
 ffmpeg -y -t 1 -f video4linux2 -s 1920x1080 -i /dev/video0 -frames:v 1 -f image2 screen.png &> /dev/null
 ffmpeg -y -t 1 -f x11grab -i :0.0 -frames:v 1 -f image2 screen.png
 sleep 2 && ffmpeg -y -t 1 -f x11grab -s 1920x1080 -i :0.0 -frames:v 1 -f image2 screen.png
-qvidcap
+qvidcap  (A v4l2 video capture viewer)
 snapshot
+v4l2-ctl  (An application to control video4linux drivers)
+v4l2-ctl --all
 
 🔮 Namespaces & Containers
 

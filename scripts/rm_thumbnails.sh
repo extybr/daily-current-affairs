@@ -8,6 +8,7 @@ set -euo pipefail
 trash_clean() {
   # очистка корзины
   find ~/.local/share/Trash -type f -delete 2>/dev/null
+  # gio trash --empty
   # rm -rf ~/.local/share/Trash/{files,info}/*(N)  # альтернативная команда для zsh
   echo -e "Cleaned: \033[36mTrash\033[0m"
 }

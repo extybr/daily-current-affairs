@@ -1,5 +1,5 @@
 #!/bin/bash
-# $> ./onlyin.sh file1.txt file2.txt
+# $> ./search_uniq_strings.sh file1.txt file2.txt
 # Поиск уникальных строк в двух файлах
 
 if [ "$#" -ne 2 ]; then
