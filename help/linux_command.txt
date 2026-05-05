@@ -170,6 +170,7 @@ as  (the portable GNU assembler)
 gs  (Ghostscript (PostScript and PDF language interpreter and previewer))
 lua  (Lua interpreter)
 go  (Go is a tool for managing Go source code)
+go tool dist list
 gopls  (Language server for Go programming language)
 sqlite3  (A command line interface for SQLite version 3)
 sqlite3 _hh-trudvsem_.db
@@ -739,6 +740,7 @@ eject  (eject removable media)
 pr  (convert text files for printing / Converts text files for printing, adding headers and footers)
 man pr
 man  (Displays the manual page for a command)
+perldoc  (1perl / Look up Perl documentation in Pod format)
 ionice  (set or get process I/O scheduling class and priority)
 ionice -p$(pgrep firefox)
 ionice -c2 -n0 bash
@@ -831,6 +833,7 @@ hash  (hash is a shell builtin)
 rhash  (calculate/check CRC32, MD5, SHA1, GOST, TTH, BTIH or other message digests)
 rhash -r --sha256 directory/ > directory.sha256
 rhash --sha3-256 --message 'message'
+rehash  (1ssl / OpenSSL application commands)
 paste  (merge lines of files / Merges lines of files side by side)
 ls | paste - - -
 fallocate  (Preallocates space to a file / preallocate or deallocate space to a file)
@@ -1229,6 +1232,7 @@ rtl_sdr -f 433000000
 rtl_sdr 433
 rtl_433 -C si
 rtl_433 -f 868M -s 1024k
+rtl_433 -Y classic -s 250k
 rtl_fm  (a simple FM demodulator for RTL2832 based DVB-T receivers)
 rtl_fm -f 106.3e6 -M wbfm -s 200000 -r 9000 - | aplay -f S16_LE
 ufw  (program for managing a netfilter firewall)
@@ -1405,7 +1409,6 @@ kmod  (Program to manage Linux Kernel modules / Interfaces with kernel modules f
 modprobe  (Add and remove modules from the Linux Kernel)
 sudo modprobe <module_name>
 dkms  (Dynamic Kernel Module Support)
-lsns  (list namespaces / Lists all active Linux namespaces)
 cat /proc/softirqs
 cat /proc/interrupts
 cat /proc/net/softnet_stat
@@ -1464,4 +1467,5 @@ sudo nsenter --net=/proc/<PID>/ns/net ip link set veth-container up
 chroot  (run command or interactive shell with special root directory / Changes the root directory for a command or shell)
 chroot path/to/new/root command
 chroot test /bin/bash
-
+lsns  (list namespaces / Lists all active Linux namespaces)
+ls -l /proc/$$/ns
