@@ -746,6 +746,7 @@ ionice -p$(pgrep firefox)
 ionice -c2 -n0 bash
 nice  (run a program with modified scheduling priority / Runs a command with a modified scheduling priority)
 vulkaninfo  (диагностика графического стека)
+vulkaninfo --summary | grep deviceName | awk -F= '{print $2}'  (встроенные видеокарты)
 glxinfo  (тестирование производительности графического ускорителя)
 glxinfo | grep -i "direct rendering"
 glxgears  (Проверка производительности 3D-ускорение)

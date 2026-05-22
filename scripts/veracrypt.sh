@@ -50,7 +50,10 @@ else exit
 fi
 
 function crypt {
-  veracrypt $CMD "$SRC" "$TARGET_PATH$TARGET_FOLDER" --fs-options="force,noatime"
+  if [ "$TARGET_FOLDER" = 'veracrypt1' ]; then
+    veracrypt $CMD "$SRC" "$TARGET_PATH$TARGET_FOLDER" --fs-options="noatime"
+  else veracrypt $CMD "$SRC" "$TARGET_PATH$TARGET_FOLDER" --fs-options="force,noatime"
+  fi
   if [ "$CMD" = "--mount" ]; then
     message='Смонтировано:'
   elif [ "$CMD" = "--unmount --force" ]; then

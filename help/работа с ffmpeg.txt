@@ -70,7 +70,7 @@ file File2.mkv
 	touch concat.txt && echo "file '$output_1'\nfile '$output_2'" > concat.txt &&
 	ffmpeg -f concat -i concat.txt -c copy output.mp4
 
-Копирование потоковСохранить оригинальные кодеки и скопировать их как есть:
+Копирование потоков. Сохранить оригинальные кодеки и скопировать их как есть:
 -c copy — сохранить видеокодек и аудиокодек,
 -c:v copy — сохранить только видеокодеки,
 -c:a copy — сохранить только аудиокодеки.
@@ -105,6 +105,19 @@ file File2.mkv
     ffmpeg -i input.mp4 -vf "transpose=2,transpose=2" -c:a copy output.mp4
     90° по часовой + зеркальное отражение:
     ffmpeg -i input.mp4 -vf "transpose=3" -c:a copy output.mp4
+
+ffmpeg -i input.mkv -c:v libx264 -crf 28 -preset slow output.mp4
+    -i input.mkv - входной файл (mkv, avi, mov, mp4 и др.)
+    -c:v libx264 - кодек H.264 - работает на любом CPU
+    -crf 28 - качество:0 (лучшее) -> 51 (сильное сжатие) 
+
+ffmpeg -i input.mkv -c:v hevc_nvenc -preset p6 -cq 26 output.mp4
+    -c:v hevc_nvenc H.265 - баланс скорости и сжатия
+    -cq - аналог CRF, но для GPU-кодеков
+
+ffmpeg -i input.mkv -c:v av1_nvenc -preset p7 -tune uhq -rc vbr -cq 35 -multipass fullres output.mp4
+    -c:v av1_nvenc AV1 - лучшее сжатие, нужна RTX 40XX
+    -multipass fullres - два прохода, лучше качество
 
 ___________________  склеить видеофайлы без ошибок  ___________________
 
