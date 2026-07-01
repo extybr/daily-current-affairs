@@ -103,7 +103,7 @@ alias el/='expr length'  # длина строки
 # alias fr/='xclip -o | xargs fragments'
 alias ch/='(){ [[ -n "$1" ]] && chmod u+x *.$1 || echo "Usage: ch/ <extension>" }'
 alias g/='git status -s'
-alias au/='sudo chmod 666 /dev/ttyUSB0'
+alias au/='sudo chmod 666 $(ls /dev/tty* | grep -E 'tty...0')'  # /dev/ttyUSB0
 alias ls='ls --color=auto'
 alias ip='ip --color'
 alias grep='grep --color=auto'
