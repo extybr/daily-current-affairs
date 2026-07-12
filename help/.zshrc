@@ -52,6 +52,7 @@ alias cm/='cmatrix -r'
 alias sl/=${SCRIPTS_DIRECTORY}'/sl.sh'
 alias mo/="$HOME/my_programs/Momoisay/./momoisay -f"  # https://github.com/Mon4sm/momoisay
 alias merry="$HOME/my_programs/tree-christmas.sh"
+alias pfa/="$HOME/my_programs/PEACE-FOR-ALL.sh"
 alias po/='ponysay "Hello, Linux" 2> /dev/null'  # https://github.com/erkin/ponysay
 alias tux='cowsay -f tux LINUX - Good !!!'
 alias bsd='echo "\e[31m$(cowsay -f daemon Отдавай все свои биткоины !!!)"'
@@ -59,7 +60,7 @@ alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Тебя поджарить
 alias mocp='mocp -T /usr/share/moc/themes/darkdot_theme'
 alias ph="${SCRIPTS_DIRECTORY}/phiola.sh"
 alias mpva='mpv --no-video --ytdl-format=worstaudio "$@"'
-alias 40/="ph http://prmstrm.1.fm:8000/top40"
+alias rh/="ph http://retro.volna.top/Retro"
 alias 90/='ffplay "https://listen1.myradio24.com/5967" -nodisp -volume 3; clear'
 alias e+='ffplay http://ep256.hostingradio.ru:8052/europaplus256.mp3 -nodisp -volume 3'
 alias gpgd='gpg2 -d ${SAMSUNG_DIRECTORY}/mail.txt.gpg'

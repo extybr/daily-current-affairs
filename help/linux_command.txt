@@ -83,7 +83,7 @@ bat  (a cat(1) clone with syntax highlighting and Git integration)
 tmux  (Terminal multiplexer for managing multiple terminal sessions)
 neofetch  (A fast, highly customizable system info script)
 fastfetch  (Fastfetch is a neofetch-like tool for fetching system information and displaying it prettily)
-ncdu. duc, gdu, duf  (консольный Disk Usage / Disk usage analyzer with a user-friendly interface)
+ncdu. duc, dust, gdu, duf  (консольный Disk Usage / Disk usage analyzer with a user-friendly interface)
 sampler  (https://github.com/sqshq/sampler)
 pspy64 (https://github.com/DominicBreuker/pspy)
 zenith  (https://github.com/bvaisvil/zenith)
@@ -99,6 +99,10 @@ cat .gitlab-ci.yml | yq
 jc  (converts the output of many commands, file-types, and strings to JSON or YAML)
 echo $(jc -p nmcli con show) | jq -r '.[0].uuid'
 jc -p ss -4
+rclone  (rsync for cloud storage)
+obsidian  (A powerful knowledge base that works on top of a local folder of plain text Markdown files)
+obs-studio  (Free, open source software for live streaming and recording)
+croc  (Easily and securely send things from one computer to another)
 mail  (mailx)  (send and receive Internet mail)
 echo "sample message" | mail -s "sample mail subject" my@gmail.com 
 mailx -s "subject" my@gmail.com
@@ -391,6 +395,11 @@ iftop  (display bandwidth usage on an interface by host)
 sudo iftop -i enp4s0f1 
 sudo iotop  (simple top-like I/O monitor / Displays real-time disk I/O usage by processes)
 iotop-c  (new version iotop)
+ioping  (Simple disk I/0 latency measuring tool)
+fio  (Scriptable I/O tool for storage benchmarks and drive testing)
+rmlint  (remove duplicates and other lint (without-gui))
+rmlint-shredder-git  (Graphical user interface for rmlint)
+progress  (Shows running coreutils basic commands and displays stats)
 sudo iptraf-ng -i enp4s0f1
 glances  (An eye on your system)
 pgrep  (look up, signal, or wait for processes based on name and other attributes / Searches for processes by name)

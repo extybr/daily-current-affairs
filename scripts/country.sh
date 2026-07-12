@@ -6,17 +6,16 @@
 # Запуск радиостанции или плейлиста по выбору
 
 music_url=${PLAYLIST_DIRECTORY}"/music.m3u"
-radio_country="http://prmstrm.1.fm:8000"
 
 case "$1" in
 1)
-ffplay "${radio_country}/acountry" -volume 3 -nodisp
+ffplay "https://stream.revma.ihrhls.com/zc1497" -volume 3 -nodisp
 ;;
 2)
-ffplay "${radio_country}/ccountry" -volume 3 -nodisp
+ffplay "https://ais-sa2.cdnstream1.com/1976_128.mp3" -volume 3 -nodisp
 ;;
 3)
-ffplay "${radio_country}/country" -volume 3 -nodisp
+ffplay "http://26343.live.streamtheworld.com/977_COUNTRY_SC" -volume 3 -nodisp
 ;;
 v)
 vlc "${music_url}"
