@@ -130,13 +130,6 @@ function tt/ {
   cd "${current_dir}"
 }
 
-function cre/ {
-  current_dir=$(pwd)
-  cd ${GITHUB_DIRECTORY}/youtube_latest_videos
-  python curl_re.py "$@"
-  cd "${current_dir}"
-}
-
 function ri/ {
   current_dir=$(pwd)
   cd "${TRACKER_PARSER_DIRECTORY}"

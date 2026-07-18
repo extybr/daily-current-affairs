@@ -11,10 +11,11 @@ yellow="\e[33m"
 normal="\e[0m"
 red="\e[31m"
 
+TkinterMapViewFolder="${GITLAB_DIRECTORY}/temp_projects/TkinterMapView"
 file_map='https://github.com/TomSchimansky/TkinterMapView/blob/main/examples/map_with_customtkinter.py'
 requirements='https://github.com/TomSchimansky/TkinterMapView/blob/main/requirements.txt'
 
-if ! [[ -d ~/PycharmProjects/temp/TkinterMapView ]]; then 
+if ! [[ -d "${TkinterMapViewFolder}" ]]; then 
   echo -e "${red}not found${normal} folder <${white}TkinterMapView${normal}>"
   echo -e "${blue}wget${normal} ${file_map}\n${blue}wget${normal} ${requirements}"
   echo -e "'${white}pip install -r requirements.txt${normal}' or '${white}pip install tkintermapview${normal}'"
@@ -25,7 +26,7 @@ if ! [[ -d ~/PycharmProjects/temp/TkinterMapView ]]; then
   exit 0
 fi
 
-cd ~/PycharmProjects/temp/TkinterMapView
+cd "${TkinterMapViewFolder}"
 
 map() {
   #.venv/bin/python main.py

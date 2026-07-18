@@ -46,6 +46,7 @@ arduino  (Integrated development environment for Arduino boards)
 shortwave  (radio stations)
 mocp  (Console audio player)
 cmus  (консольный C* Music Player)
+mpg123  (play audio MPEG 1.0/2.0/2.5 stream (layers 1, 2 and 3))
 ffmpeg  (ffmpeg media converter)
 ffmpeg -formats
 ffmpeg -codecs
@@ -847,6 +848,7 @@ rehash  (1ssl / OpenSSL application commands)
 paste  (merge lines of files / Merges lines of files side by side)
 ls | paste - - -
 fallocate  (Preallocates space to a file / preallocate or deallocate space to a file)
+sudo fallocate -l 4G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile  (включение swap-RAM, если машина имеет менее 4 ГБ ОЗУ)
 xhost  (server access control program for X)
 truncate  (shrink or extend the size of a file to the specified size)
 truncate --size +50M filename
@@ -945,6 +947,8 @@ xset (Manages X display settings)
 fwupdmgr  (Firmware update manager for updating hardware firmware)
 fwupdmgr get-history
 sudo cat /dev/input/mouse1 | xxd -c 3 -g 1  (позиция мышки в xxd данных)
+setfont  (load EGA/VGA console screen font / ls /usr/share/kbd/consolefonts)
+setfont ter-c22n
 
 mknod  (make block or character special files)
 mknod FILE c 1 5  (/dev/zero)

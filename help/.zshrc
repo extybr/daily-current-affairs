@@ -86,6 +86,8 @@ alias ct/=${SCRIPTS_DIRECTORY}'/../time/current_time_area_google.sh'
 alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
 alias c/='(){ [[ "$#" -eq 1 ]] && curl --max-time 10 cheat.sh/"$1" || echo -e "\033[33mОжидалось 1 параметр, а передано $#\033[0m" }'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
+alias yt/="${GITHUB_DIRECTORY}/youtube_latest_videos/youtu_latest_videos.sh $1"
+alias cre/='(){ curd=$(pwd); cd ${GITHUB_DIRECTORY}/youtube_latest_videos && python curl_re.py $@ && cd $curd }'
 alias wr/=${SCRIPTS_DIRECTORY}'/weather.sh'
 alias os/=${SCRIPTS_DIRECTORY}'/os.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
@@ -111,6 +113,7 @@ alias grep='grep --color=auto'
 alias py=python3.14
 
 alias anti=${SCRIPTS_DIRECTORY}'/vpn/antizapret.sh'
+alias anti/=${SCRIPTS_DIRECTORY}'/vpn/./antidpi_check_upd.sh'
 # alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage &; disown'
 # alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/hiddify-linux-appimage/./Hiddify.AppImage &; disown'
 # alias nd/='pushd $HOME/my_programs/nodpi && ./nodpi && popd'

@@ -34,6 +34,9 @@ case "$1" in
   mo) check_install mocp
       mocp -S && mocp -l -v 20 "$link"
   ;;
+  mpg) check_install mpg123
+      mpg123 "$link"
+  ;;
   ph) phiola="$HOME/my_programs/phiola-2/./phiola"
       check_path "$phiola"
       "$phiola" "$link"
