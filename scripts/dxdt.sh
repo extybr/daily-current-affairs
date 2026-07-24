@@ -1,8 +1,8 @@
 #!/bin/bash
 # $> ./dxdt.sh
-# Парсинг RSS сайта dxdt.ru
+# Парсинг RSS сайта dxdt.blog
 
-request=$(curl -s 'https://dxdt.ru/feed/' | \
+request=$(curl -s 'https://dxdt.blog/feed/' | \
           grep -E '(<title>|<link>|<pubDate>)' | \
           sed "s/<title>/\\\e[36m/g ; s/<\/title>/\\\e[0m/g ; \
           s/<link>/\\\e[33m/g ; s/<\/link>/\\\e[0m/g ; \

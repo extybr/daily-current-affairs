@@ -92,6 +92,8 @@ nvitop  (https://github.com/XuehaiPan/nvitop)
 conky  (A system monitor for X)
 lazygit  (это терминальный псевдографический интерфейс (TUI) для Git)
 lazydocker  (это терминальный псевдографический интерфейс (TUI) для Docker)
+podman  (A tool for managing OCI containers and pods)
+firejail  (Linux namespaces sandbox program)
 sshfs  (клиент файловой системы на основе FUSE для монтирования удалённых каталогов через SSH-соединение)
 sshfs myuser@mycomputer:/remote/path /local/path -C -p 9876
 jq  (Command-line JSON processor)

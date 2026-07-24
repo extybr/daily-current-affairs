@@ -11,6 +11,7 @@ setup_nautilus_scripts() {
     nvim_terminator="terminator -g $HOME/.config/terminator/config --new-tab -e \"nvim \$1\""
     zip='zip archive_$(date "+%y-%m-%d_%H-%M-%S").zip "$@"'
     zed='zed "$1"'
+    hashsum=''
 }
 
 # Получаем переменные из функции
@@ -34,6 +35,17 @@ for var_name in $variables; do
     chmod +x "$path/$var_name"
     echo "Создан скрипт: $var_name"
 done
+
+# создаем скрипт hashsum
+hasher() {
+  hashsum="md5hash=\$(md5sum \"\$1\" | awk '{print \$1}')
+sha256hash=\$(sha256sum \"\$1\" | awk '{print \$1}')
+sha512hash=\$(sha512sum \"\$1\" | awk '{print \$1}')
+zenity --info --title=\"\$1\" --text=\"md5:\\\n\$md5hash\\\n\\\nsha256:\\\n\$sha256hash\\\n\\\nsha512:\\\n\$sha512hash\""
+  echo -e "$hashsum" >> "$1/hashsum"
+}
+
+hasher "$path"
 
 echo "Готово! Скрипты созданы в $path"
 

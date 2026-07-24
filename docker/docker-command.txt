@@ -63,6 +63,9 @@ docker system prune
 docker system prune -a  # удалить все образы, за исключением тех, у которых есть работающие контейнеры
 docker container prune
 
+docker info
+docker system df  # проверить занятое место
+docker system df -v
 docker exec -it 6779 bash
 docker stats 6779
 docker port 160e1
