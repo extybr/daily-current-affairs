@@ -37,7 +37,8 @@ wget "https://downloads.openwrt.org/releases/$tag/targets/bcm27xx/bcm2710/openwr
 # wget "$ext4_factory"  # или так: скачиваем образ openwrt для rpi-3
 
 # записать openwrt-$tag-bcm27xx-bcm2710-rpi-3-ext4-factory.img на microSD
-sudo "$HOME/my_programs/./RaspberryPiImager_2.0.0_amd64.AppImage"
+# sudo "$HOME/my_programs/./RaspberryPiImager_2.0.0_amd64.AppImage"
+sudo "$HOME/my_programs/./balenaEtcher-1.18.11-x64.AppImage"
 
 ssh root@192.168.2.1  # подключаемся к RaspberryPi по ssh на openwrt-rpi-3
 # https://github.com/StressOzz/Zapret-Manager
@@ -55,8 +56,8 @@ ssh root@192.168.2.1  # подключаемся к RaspberryPi по ssh на op
 # sh <(wget -O - https://raw.githubusercontent.com/itdoginfo/podkop/refs/heads/main/install.sh)
 
 # установка неподписанного пакета на примере установки youtubeUnblock
-# wget https://github.com/Waujito/youtubeUnblock/releases/download/v1.3.1/youtubeUnblock-1.3.1-1-4a223b0-aarch64_cortex-a53-openwrt-25.12.apk
-# apk add --allow-untrusted youtubeUnblock-1.3.1-1-4a223b0-aarch64_cortex-a53-openwrt-25.12.apk
+# wget https://github.com/Waujito/youtubeUnblock/releases/download/v1.3.1/youtubeUnblock-1.3.1-1-4a223b0-aarch64_cortex-a53-openwrt-25.12.apk -O youtubeUnblock.apk
+# apk add --allow-untrusted youtubeUnblock.apk
 # ответ системы:
 # (1/1) Installing youtubeUnblock (1.3.1~4a223b0-r1)
 #  Executing youtubeUnblock-1.3.1~4a223b0-r1.post-install

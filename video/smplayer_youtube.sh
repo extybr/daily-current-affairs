@@ -20,7 +20,7 @@ getUrl() {
 }
 
 # запускаем плеер с полученной прямой ссылкой
-nohup smplayer $(getUrl) 2>/dev/null &>/dev/null &
+nohup smplayer $(getUrl) &>/dev/null &
 
 # убиваем (с задержкой) терминальную сессию, которая запустила плеер
 sleep 3 && pkill -1 -t $(echo $(ls -l $(tty)) | awk '{print $10}' | sed 's/\/dev\///') 

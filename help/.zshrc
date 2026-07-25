@@ -88,6 +88,7 @@ alias c/='(){ [[ "$#" -eq 1 ]] && curl --max-time 10 cheat.sh/"$1" || echo -e "\
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias yt/="${GITHUB_DIRECTORY}/youtube_latest_videos/youtu_latest_videos.sh $1"
 alias cre/='(){ curd=$(pwd); cd ${GITHUB_DIRECTORY}/youtube_latest_videos && python curl_re.py $@ && cd $curd }'
+alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'
 alias wr/=${SCRIPTS_DIRECTORY}'/weather.sh'
 alias os/=${SCRIPTS_DIRECTORY}'/os.sh'
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
@@ -98,6 +99,7 @@ alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 alias tel/='telnet mapscii.me'
 alias cd/="pushd ${SCRIPTS_DIRECTORY}"
 alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../help/linux_command.txt"
+alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'
 # alias sampler='sampler -c ~/my_programs/config.yml'
 alias pspy='~/my_programs/./pspy64'
 alias e/='exiftool $1'
@@ -107,6 +109,7 @@ alias el/='expr length'  # длина строки
 alias ch/='(){ [[ -n "$1" ]] && chmod u+x *.$1 || echo "Usage: ch/ <extension>" }'
 alias g/='git status -s'
 alias au/='sudo chmod 666 $(ls /dev/tty* | grep -E 'tty...0')'  # /dev/ttyUSB0
+alias num/=${SCRIPTS_DIRECTORY}'/convert_number.py $1'
 alias ls='ls --color=auto'
 alias ip='ip --color'
 alias grep='grep --color=auto'
