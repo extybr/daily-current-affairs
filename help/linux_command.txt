@@ -1136,6 +1136,7 @@ arp  (address resolution protocol / Displays or modifies the system's ARP table)
 arp -vn
 arping  (send ARP REQUEST to a neighbour host)
 mtr  (Combines the functionality of traceroute and ping into one tool)
+mtr google.com
 net  (Tool for administration of Samba and remote CIFS servers)
 net status sessions
 networkctl  (Query or modify the status of network links)

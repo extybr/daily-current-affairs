@@ -19,6 +19,8 @@ elif curl -s localhost:10808 &> /dev/null; then
   proxy="--proxy localhost:10808"  # xray-proxy
 elif curl -s localhost:8080 &> /dev/null; then
   proxy="--proxy localhost:8080"
+elif curl -s 192.168.2.1:1080 &> /dev/null; then
+  proxy="--proxy 192.168.2.1:1080"
 else addr_proxy
 # FIXME: else proxy="--proxy n.thenewone.lol:29976"
 fi

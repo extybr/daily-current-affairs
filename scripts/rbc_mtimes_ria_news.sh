@@ -8,7 +8,7 @@ proxy='--proxy 127.0.0.1:1080'
 source "${SCRIPTS_DIRECTORY/'~'/$HOME}"/proxy.sh 1> /dev/null
 
 rbc_news() {
-  # полупропаганда (True + False = False)
+  # полупропаганда (true && false = false)
   news=$(curl -s 'https://rssexport.rbc.ru/rbcnews/news/30/full.rss' | \
          grep -oP "<title>[^/]+]" | \
          sed 's/<title><!\[CDATA\[//g ; s/]]//g')
