@@ -15,3 +15,5 @@ for number in {0..9}; do
   echo -e "${date[$number]}\n${blue}${version[$number]}${normal}"
 done
 
+echo -e "\n${blue}https://www.python.org/ftp/python/index-windows.json${normal}"
+curl -s 'https://www.python.org/ftp/python/index-windows.json' | jq -r '.versions.[]."sort-version"' | uniq

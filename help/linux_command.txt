@@ -833,6 +833,8 @@ getconf CHILD_MAX
 getconf -a
 export
 install  (copy files and set attributes)
+install --owner user path/to/source_file1 path/to/source_file2
+sudo install -o root -g root -m 644 path/to/source_file1 path/to/source_file2
 exec bash
 return 127
 exit 0

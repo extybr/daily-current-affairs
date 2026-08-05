@@ -35,5 +35,14 @@ request_v2() {
   done
 }
 
+openwrt() {
+  version=$(curl -s "https://downloads.openwrt.org/.versions.json" | jq -r '.stable_version')
+  en_release_date=$(curl -s --location 'https://downloads.openwrt.org/releases' | grep "$version" | grep -oP '<td class="d">\K[^<]+')
+  release_date=$(date -d "$en_release_date" +"%Y-%m-%d %H:%M:%S")
+  printf "\e]8;;https://downloads.openwrt.org/releases\e\\\\\e[35m%-14s\e[0m\e]8;;\e\\ | тэг: \e[36m%-18s\e[0m | дата: \e[36m%s\e[0m\n" \
+      "openwrt" "${version}" "$release_date"
+}
+
 # request_v1
 request_v2
+openwrt
