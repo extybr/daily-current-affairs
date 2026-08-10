@@ -2,26 +2,65 @@
 # $> ./smplayer_youtube.sh https://youtu.be/3i1QzPPCNzk
 # Запуск smplayer с прямой ссылкой youtube (не лучшее качество)
 
-# проверяем есть ли валидная ссылка
-if [[ "$#" -ne 1 ]] || ! [[ "$1" =~ ^("https://www.youtube.com/"|"https://youtube.com/"|"https://youtu.be") ]]; then
-  echo -e "*** \033[31mОжидалась ссылка на youtube-видео\033[0m ***" && exit
+# проверка аргументов
+if [[ $# -ne 1 ]]; then
+  echo "❌ Укажите одну ссылку на YouTube"
+  exit 1
 fi
 
-# получаем id-видео
-url=$(echo "$1" | sed 's/https:\/\/// ; s/www\.// ; s/youtube\.com\/// ; s/youtu\.be\/// ; s/watch?v=//')
+# извлечение ID видео
+VIDEO_ID=$(echo "$1" | sed -E 's/.*(v=|be\/)([a-zA-Z0-9_-]{11}).*/\2/')
+if [[ -z "$VIDEO_ID" ]]; then
+  echo "❌ Не удалось извлечь ID видео из ссылки"
+  exit 1
+fi
 
-# получаем прямую ссылку
-getUrl() {
-  curl "https://www.youtube.com/youtubei/v1/player" \
-  --silent \
-  --request POST \
-  --json "{'videoId':\"$url\",'context':{'client':{'clientName':'ANDROID','clientVersion':'21.02.35','androidSdkVersion':30,'userAgent':'com.google.android.youtube/21.02.35(Linux;U;Android11)gzip','osName':'Android','osVersion':'11'}}}" \
-  | jq -r ".streamingData.formats.[0].url"
+# диагностика 
+run_diagnostic() {
+    echo -e "\033[35m🔍 Диагностика Google CDN\033[0m"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    
+    echo -e "\033[1;33m▶ IPv4:\033[0m"
+    curl -4 -s -o /dev/null -w "  Статус: %{http_code}  (%{time_total}с)\n" \
+        "https://redirector.googlevideo.com/report_mapping?di=no" 2>/dev/null
+    
+    echo -e "\033[1;33m▶ Текущий хост:\033[0m"
+    curl -s "https://redirector.googlevideo.com/report_mapping?di=no" 2>/dev/null | \
+        head -1 | awk '{print "  " $0}'
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 }
 
-# запускаем плеер с полученной прямой ссылкой
-nohup smplayer $(getUrl) &>/dev/null &
+# получение прямой ссылки
+get_video_url() {
+  local url=$(curl -s -X POST "https://www.youtube.com/youtubei/v1/player" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "videoId": "'"$VIDEO_ID"'",
+      "context": {
+        "client": {
+          "clientName": "ANDROID",
+          "clientVersion": "21.02.35",
+          "androidSdkVersion": 30,
+          "osName": "Android",
+          "osVersion": "11"
+        }
+      }
+    }' | jq -r '.streamingData.formats.[0].url')
 
-# убиваем (с задержкой) терминальную сессию, которая запустила плеер
-sleep 3 && pkill -1 -t $(echo $(ls -l $(tty)) | awk '{print $10}' | sed 's/\/dev\///') 
+  if [[ -z "$url" ]]; then
+    echo "❌ Не удалось получить ссылку" >&2
+    exit 1
+  fi
+  echo "$url"
+}
 
+run_diagnostic  # запускаем диагностику
+
+VIDEO_URL=$(get_video_url)
+echo -e "✍️  Прямая ссылка на хост: \033[35mhttps://$(echo "$VIDEO_URL" | awk -F/ '{print $3}')\033[0m"
+echo "✅ Ссылка получена, запуск smplayer..."
+
+# запуск плеера в фоне
+smplayer "$VIDEO_URL" &>/dev/null & disown
+
+echo -e "🎬 Плеер запущен (PID: \033[35m$!\033[0m)"

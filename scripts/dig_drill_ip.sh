@@ -1,15 +1,29 @@
 #!/bin/bash
-####################################
-# $> ./dig_drill_ip.sh rutor.info  #
-####################################
+########################################
+# $> ./dig_drill_ip.sh rutor.info      #
+# $> ./dig_drill_ip.sh rutor.info more #
+########################################
 # HACK: IP address determination tracing blocked and not blocked IP addresses
 
 blue="\033[36m"
 red='\033[31m'
 normal="\033[0m"
 
-if [ $# -ne 1 ]; then
-  echo -e " ${red}1${normal} parameter was expected, but ${red}$#${normal} were passed"
+opencck() {
+  curl -s "https://iplist.opencck.org/?format=json&site=$1" | jq
+}
+
+if [ "$#" -eq 2 ]; then
+  opencck "$1" && exit 0
+fi
+
+if [ "$#" -ne 1 ]; then
+  echo -e " ${red}1 or 2${normal} parameter was expected, but ${red}$#${normal} were passed"
+  echo " Example:"
+  echo -e "  ${blue}./dig_drill_ip.sh rutor.info"
+  echo -e "  ./dig_drill_ip.sh rutracker.org more"
+  echo -e "  ./dig_drill_ip.sh youtube.com m | less"
+  echo -e "  ./dig_drill_ip.sh x.com m | more${normal}"
   exit 0
 fi
 
@@ -25,7 +39,7 @@ cmd_nslookup() {
   if [ "$?" = '124' ]; then
     echo 'timeout'
     cmd_nslookup "$1"
-  else ip_addr=$(echo "${request}" | grep 'Address:' | grep -v '192.168.' | cut -d " " -f 2)
+  else ip_addr=$(echo "${request}" | grep 'Address:' | grep -vE '(192|127)' | awk '{print $2}')
   fi
 }
 
@@ -39,33 +53,32 @@ cmd_drill() {
 }
 
 cmd_dig() {
-  # request=$(timeout 3 dig +trace "$1" @8.8.8.8)  # long time
+  # timeout 3 dig +trace "$1" @8.8.8.8 | grep -E "^$1" | grep -w 'A' | tr -d '\t' | cut -d 'A' -f 2  # long time
   request=$(timeout 3 dig +nocmd +noall +answer "$1")
   if [ "$?" = '124' ]; then
     echo 'timeout'
     cmd_dig "$1"
-  else ip_addr=$(echo "${request}" | grep -E "^$1" | grep -w 'A' | tr -d '\t' | cut -d 'A' -f 2)
+  else ip_addr=$(echo "${request}" | awk '{print $5}')
   fi
 }
 
-if command -V dig &> /dev/null; then
+if command -v dig &> /dev/null; then
   cmd_dig "$1"
-  check "$1" "${ip_addr}"
-elif command -V drill &> /dev/null; then
+elif command -v drill &> /dev/null; then
   cmd_drill "$1"
-  check "$1" "${ip_addr}"
-elif command -V nslookup &> /dev/null; then
+elif command -v nslookup &> /dev/null; then
   cmd_nslookup "$1"
-  check "$1" "${ip_addr}"
 else echo -e "command ${blue}dig${normal}, ${blue}drill${normal} and ${blue}nslookup${normal} ${red}not found${normal}"
   exit 0
 fi
 
-IFS=$'\n'
-for word in ${ip_addr}
-do
-  if [ $(echo "${word}" | wc -w) = '1' ]; then
-    echo -e "${blue}${word}${normal}"
-  fi
-done
+check_err() {
+  for addr in $1; do
+    if ! [[ $(echo "${addr}" | wc -w) -eq 1 ]]; then
+      echo -e "${red}errors${normal}" && exit 1
+    fi
+  done
+}
+
+check "$1" "${ip_addr}" && check_err "${addr}" && echo -e "${blue}${ip_addr}"
 
