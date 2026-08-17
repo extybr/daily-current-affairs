@@ -70,7 +70,8 @@ crypt
 
 # Исправление повреждения файловой системы
 function fix_disk {
-  if ! command -v ntfsfix &> /dev/null; then echo 'ntfs-3g not installed' && return 1; fi
+  # ntfsfix была в пакете ntfs-3g, теперь в ntfsprogs
+  if ! command -v ntfsfix &> /dev/null; then echo 'ntfsprogs not installed' && return 1; fi
   if ! [ -L "$MAPPER" ]; then echo "Отсутствует: $MAPPER" && return 1; fi
   sudo umount "$MAPPER"
   sudo ntfsfix "$MAPPER"

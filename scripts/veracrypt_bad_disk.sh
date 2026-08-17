@@ -12,6 +12,9 @@ disk_mount_fs_none() {
 }
 
 disk_check_and_fix() {
+  # Проверка установки ntfsprogs, ntfsfix в комплекте
+  if ! command -v ntfsfix &> /dev/null; then echo 'ntfsprogs not installed' && return 1; fi
+  
   # Проверка - после открытия тома (но до монтирования):
   sudo ntfsfix "$SOURCE_PATH$TARGET_FOLDER"
 

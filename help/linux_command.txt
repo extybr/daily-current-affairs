@@ -239,6 +239,8 @@ echo -n "Hello World" | sha256sum
 echo -n "Hello World" | shasum -a 256
 md5sum  (compute and check MD5 message digest / Computes and verifies MD5 hashes)
 echo -n "Hello World" | md5sum
+b2sum  (compute and check BLAKE2 message digest)
+echo -n "Hello World" | b2sum
 base64  (base64 encode/decode data and print to standard output)
 echo -n "Hello World" | base64
 echo $(echo "SGVsbG8gV29ybGQ=" | base64 -d)

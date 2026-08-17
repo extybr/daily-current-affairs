@@ -42,7 +42,8 @@ hasher() {
 sha1hash=\$(sha1sum \"\$1\" | awk '{print \$1}')
 sha256hash=\$(sha256sum \"\$1\" | awk '{print \$1}')
 sha512hash=\$(sha512sum \"\$1\" | awk '{print \$1}')
-zenity --info --title=\"\$1\" --text=\"md5:\\\n\$md5hash\\\n\\\nsha1:\\\n\$sha1hash\\\n\\\nsha256:\\\n\$sha256hash\\\n\\\nsha512:\\\n\$sha512hash\""
+b2hash=\$(b2sum \"\$1\" | awk '{print \$1}')
+zenity --info --title=\"\$1\" --text=\"md5:\\\n\$md5hash\\\n\\\nsha1:\\\n\$sha1hash\\\n\\\nsha256:\\\n\$sha256hash\\\n\\\nsha512:\\\n\$sha512hash\\\n\\\nblake2:\\\n\$b2hash\""
   echo -e "$hashsum" >> "$1/hashsum"
 }
 

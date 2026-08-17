@@ -49,27 +49,6 @@ function kp/ {
   done
 }
 
-function x/ {
-  if (( "$#" > 0 )) && [ "$1" = 'k' ]; then
-    # "${SCRIPTS_DIRECTORY}/vpn/xray_key_change.sh"
-    echo '*** изменение ключей отключено ***'
-  elif (( "$#" == 1 )) && [[ "$1" =~ ^(vless://) ]]; then
-    "${SCRIPTS_DIRECTORY}/vpn/xray_config_fix.sh" "$1"
-    "${SCRIPTS_DIRECTORY}/vpn/xray-service-fix.sh"
-  else
-    source "${SCRIPTS_DIRECTORY}/vpn/xray_key_name.sh"
-    echo -n "xray: "
-    python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder "${key_name}"
-    prefix="%16%03%01%00%C2%A8%01%01#"
-    source "$HOME/my_programs/outline-sdk/outline.key"
-    o_key_name=$(echo "${outline_key}" | \
-                 grep -oP "${prefix}[^>]+" | \
-                 sed "s/${prefix}//")
-    echo -n "outline: "
-    python "${SCRIPTS_DIRECTORY}/url_coder.py" decoder "${o_key_name}"
-  fi
-}
-
 function h/ {
   if [ "$#" -eq 1 ]; then
     htop --filter="$1"
@@ -186,5 +165,11 @@ function ctd/ {
   cd ${GITHUB_DIRECTORY}/connect_to_databases
   venv/bin/python main.py
   cd "${current_dir}"
+}
+
+function ssl/ {
+  echo | openssl s_client -connect $1:443 | openssl x509 -noout -enddate | grep notAfter
+  openssl s_client -connect $1:443 -servername $1 -verify_return_error &> /dev/null \
+  && echo -e "*** \033[1;32mДоверенный\033[0m ***" || echo -e "*** \033[1;31mНЕ доверенный\033[0m ***"
 }
 

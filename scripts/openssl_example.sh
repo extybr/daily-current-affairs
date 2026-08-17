@@ -1,6 +1,11 @@
 #!/bin/bash
 # Варианты использования openssl
 
+function speedTestHash {
+  # Проверка скорости алгоритмов хэширования и вывод результатов замера скорости
+  openssl speed -evp blake2b512 sha256 sha512
+}
+
 function cryptArchive {
   # Шифруем архив
   openssl enc -aes-256-cbc -pbkdf2 -in files_archive.tar.gz -out archive_file_crypt.env
@@ -47,6 +52,8 @@ function getCertificate {
 function certAspire {
   # Срок истекания сетификата сайта
   getCertificate | openssl x509 -noout -enddate
+  # Срок начала и истекания сетификата сайта
+  getCertificate | openssl x509 -noout -issuer -subject -dates
 }
 
 getCertificate > google.cert
