@@ -292,6 +292,8 @@ sudo fdisk -l
 sudo fdisk -l /dev/sda
 sfdisk  (display or manipulate a disk partition table)
 sudo sfdisk –d /dev/sda > sda-table
+sudo sfdisk -d /dev/nvme0n1 > ~/backup_table_$(date +%Y%m%d).txt  (backup таблицы разделов диска)
+sudo sfdisk /dev/nvme0n1 < ~/backup_table_*.txt  (восстановление таблицы разделов диска)
 fsck --help  (check and repair a Linux filesystem)
 cfdisk  (display or manipulate a disk partition table)
 cfdisk /dev/vda
@@ -322,6 +324,8 @@ mkfs.vfat  (create an MS-DOS FAT filesystem)
 mount.ntfs-3g  (Third Generation Read/Write NTFS Driver)
 ntfs-3g  (Third Generation Read/Write NTFS Driver)
 ntfs-3g /dev/dm-0 /mnt/disk
+ntfsfix  (fix common errors and force Windows to check NTFS)
+ntfsfixboot  (adjust filesystem geometry for a NTFS partition)
 lvm  (LVM2 tools)
 pvdisplay  (Display various attributes of physical volume(s))
 vgdisplay  (Display volume group information)

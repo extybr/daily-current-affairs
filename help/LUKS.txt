@@ -1,0 +1,17 @@
+nvme0n1p2 LUKS-раздел:
+
+Открыть и смонтировать:
+    sudo cryptsetup luksOpen /dev/nvme0n1p2 mysecure
+    sudo mkdir -p /mnt/secure
+    sudo mount /dev/mapper/mysecure /mnt/secure
+
+Закрыть после работы:
+    sudo umount /mnt/secure
+    sudo cryptsetup luksClose mysecure
+
+Узнать статус LUKS:
+    sudo cryptsetup status mysecure
+
+ls /dev/mapper/mysecure
+ls -lia /dev/mapper/luks-*
+
