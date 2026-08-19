@@ -1,12 +1,17 @@
 #!/bin/bash
-# $> ./video_url_json.sh https://youtu.be/wjSyUaiXKp0
-# $> ./video_url_json.sh https://youtu.be/wjSyUaiXKp0 s
-# Данные в json-формате на видео youtube (+субтитры опционально), rutube, vkvideo
+# $> ./video_url_json.sh https://youtu.be/wjSyUaiXKp0      # вывести данные  (youtube, rutube, vkvideo)
+# $> ./video_url_json.sh https://youtu.be/wjSyUaiXKp0 s    # вывести ссылку на субтитры (только для youtube)
+# $> ./video_url_json.sh https://youtu.be/wjSyUaiXKp0 s r  # вывести ссылку и прочитать субтитры (только для youtube)
+# Данные в json-формате на видео youtube (+субтитры), rutube, vkvideo
 
 # субтитры youtube-видео
-if [[ "$#" -eq 2 ]] && [[ "$1" =~ ^('https://youtu'|'https://www.youtu') ]] && [[ "$2" == 's' ]]; then
-  $HOME/bin/./yt-dlp --dump-json "$1" 2>/dev/null \
-  | jq -r '.automatic_captions.ru.[] | select(.ext == "srt").url'
+if ( [[ "$#" -eq 2 ]] || [[ "$#" -eq 3 ]] ) && [[ "$1" =~ ^('https://youtu'|'https://www.youtu') ]] && [[ "$2" == 's' ]]; then
+  sub_url=$($HOME/bin/./yt-dlp --dump-json "$1" 2>/dev/null | jq -r '.automatic_captions.ru.[] | select(.ext == "srt").url')
+  echo "$sub_url"
+  if [[ "$#" -eq 3 ]] && [[ "$3" == 'r' ]]; then
+    # читаем субтитры / начиная с третьей, выводим каждую четвертую строку и склеиваем каждые 4 строки
+    echo && curl -s "$sub_url" | awk 'NR%4==3 {s=s? s" "$0: $0; if(++c%4==0){print s; s=""}} END{if(s) print s}'
+  fi
   exit 0
 fi
 

@@ -38,12 +38,16 @@ done
 
 # создаем скрипт hashsum
 hasher() {
-  hashsum="md5hash=\$(md5sum \"\$1\" | awk '{print \$1}')
+  hashsum="crc32hash=\$(cksum -a crc \"\$1\" | awk '{print \$1}')
+md5hash=\$(md5sum \"\$1\" | awk '{print \$1}')
 sha1hash=\$(sha1sum \"\$1\" | awk '{print \$1}')
 sha256hash=\$(sha256sum \"\$1\" | awk '{print \$1}')
+sha384hash=\$(sha384sum \"\$1\" | awk '{print \$1}')
 sha512hash=\$(sha512sum \"\$1\" | awk '{print \$1}')
 b2hash=\$(b2sum \"\$1\" | awk '{print \$1}')
-zenity --info --title=\"\$1\" --text=\"md5:\\\n\$md5hash\\\n\\\nsha1:\\\n\$sha1hash\\\n\\\nsha256:\\\n\$sha256hash\\\n\\\nsha512:\\\n\$sha512hash\\\n\\\nblake2:\\\n\$b2hash\""
+zenity --info --title=\"\$1\" --text=\"crc32:\\\n\$crc32hash\\\n\\\nmd5:\\\n\$md5hash\\\n
+sha1:\\\n\$sha1hash\\\n\\\nsha384:\\\n\$sha384hash\\\n\\\nsha256:\\\n\$sha256hash\\\n
+sha512:\\\n\$sha512hash\\\n\\\nblake2:\\\n\$b2hash\""
   echo -e "$hashsum" >> "$1/hashsum"
 }
 
