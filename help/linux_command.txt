@@ -78,6 +78,7 @@ ex  (text editor)
 nvim  (edit text)
 nvim-qt  (Neovim Qt)
 micro  (A modern and intuitive terminal-based text editor)
+glow  (Render Markdown in the terminal)
 helix  (A post-modern modal text editor)
 zed  (A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter)
 bat  (a cat(1) clone with syntax highlighting and Git integration)
@@ -157,9 +158,6 @@ yay Syu  (update repo)
 yay Scc  (delete cache)
 faillock  (Tool for displaying and modifying the authentication failure record files)
 sudo faillock --user $USER --reset
-snapper  (Command-line program for filesystem snapshot management)
-sudo snapper list
-sudo snapper delete 281-291
 
 💻 Programming Languages & Development Tools
 
@@ -196,6 +194,9 @@ isql  (iusql; unixODBC interactive SQL command-line tools)
 sqlitebrowser --version  (DB Browser for SQLite)
 nginx  (HTTP and reverse proxy server, mail proxy server)
 nginx -V 2>&1 | grep -o with-http_stub_status_module
+pydoc  (Display offline Python documentation)
+pydoc list
+pydoc print
 python  (an interpreted, interactive, object-oriented programming language)
 if ! command -v python &>/dev/null; then echo "Python not installed"; else echo "Python installed"; fi
 pypy  (A Python implementation written in Python, JIT enabled)
@@ -381,6 +382,14 @@ ls -l /dev | grep "^b"
 sudo lshw -C disk
 inxi -dp
 hdparm  (Configures and displays information about SATA/IDE devices)
+snapper  (Command-line program for filesystem snapshot management)
+sudo snapper list
+sudo snapper delete 281-291
+btrfs-assistant  (ассистент файловой системы btrfs, снэпшоты)
+btrfs  (a toolbox to manage btrfs filesystems)
+btrfs-image  (create/restore an image of the filesystem)
+btrfsck  (check or repair a btrfs filesystem)
+btrfs subvolume list /
 
 ⚙️ Process Utilities
 
@@ -567,6 +576,11 @@ chage  (Changes user password expiration information)
 builtin  (это встроенная команда bash)
 builtin echo OK
 bindkey  (Add keybindings to Z-Shell)
+bindkey -r '^L'  (Удалить привязку Ctrl+L)
+bindkey '^K' clear-screen  (Назначить Ctrl+K)
+	Чтобы узнать код любой клавиши: cat -v
+bindkey -l  (View keymaps)
+bindkey -M main  (View the hotkey in a keymap)
 let  (Evaluate arithmetic expressions in shell)
 let "result = 3 + 9" && echo "$result"
 startx  (initialize an X session)
@@ -613,6 +627,7 @@ find  (search for files in a directory hierarchy)
 find *.txt
 fd  (find entries in the filesystem)
 fd my_video
+fd --type f --hidden --strip-cwd-prefix
 free  (Display amount of free and used memory in the system / Displays memory usage)
 free -h
 head  (output the first part of files / Displays the first few lines of a file)
@@ -667,6 +682,7 @@ rg  (ripgrep: recursively search the current directory for lines matching a patt
 rga  (ripgrep-all, ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.)
 grep (egrep, fgrep, bzgrep)  (grep: print lines that match patterns / Searches for a specific pattern in files)
 zgrep  (search possibly compressed files for a regular expression)
+zstdgrep  (print lines matching a pattern in zstandard-compressed files)
 ln  (make links between files / Creates hard or symbolic links to files)
 ln -s test.txt soft_link_test.txt
 ln test.txt hard_link_test.txt
@@ -754,17 +770,24 @@ aplay -l
 aplay radio.wav
 aplay -d 10 radio.wav
 aplay -D sysdefault:CARD=PCH radio.wav
+pavucontrol  (audio volume control)
 eject  (eject removable media)
 pr  (convert text files for printing / Converts text files for printing, adding headers and footers)
 man pr
 man  (Displays the manual page for a command)
 perldoc  (1perl / Look up Perl documentation in Pod format)
+nice  (run a program with modified scheduling priority / Runs a command with a modified scheduling priority)
+nice -n niceness_value command
+renice -h  (alter priority of running processes / Alters the priority of running processes)
+renice -n niceness_value -p pid
 ionice  (set or get process I/O scheduling class and priority)
 ionice -p$(pgrep firefox)
 ionice -c2 -n0 bash
-nice  (run a program with modified scheduling priority / Runs a command with a modified scheduling priority)
+ionice -c scheduling_class -n priority command
+nice -n 19 ionice -c 3 tar -czf backup.tgz /var
 vulkaninfo  (диагностика графического стека)
 vulkaninfo --summary | grep deviceName | awk -F= '{print $2}'  (встроенные видеокарты)
+hashcat -I && vulkaninfo --summary 2>/dev/null | grep Devices -A 30  (больше информации по видеокартам и драйверам)
 glxinfo  (тестирование производительности графического ускорителя)
 glxinfo | grep -i "direct rendering"
 glxgears  (Проверка производительности 3D-ускорение)
@@ -784,7 +807,6 @@ realpath  (print the resolved path)
 realpath -PLm *
 rename  (rename files / Renames files using a regular expression)
 rename 'Empty File' 'Not Empty File' *
-renice -h  (alter priority of running processes / Alters the priority of running processes)
 reset  (terminal initialization)
 resolvconf -h  (a framework for managing multiple DNS configurations)
 script  (make typescript of terminal session)
@@ -954,6 +976,8 @@ aa-status  (display various information about the current AppArmor policy)
 pmap  (Reports memory map of a process)
 envsubst  (substitutes environment variables in shell format strings)
 pv  (Monitors the progress of data through a pipeline)
+sleep 10 | pv -t
+timeout 10 yes | pv -cN 1 | pv -cN 2 >/dev/null
 export  (Sets or exports environment variables)
 xset (Manages X display settings)
 fwupdmgr  (Firmware update manager for updating hardware firmware)
@@ -1033,6 +1057,10 @@ pacman -Sg gnome  (список пакетов, принадлежащих к г
   Команды pacman -Q --help, pacman -S --help и pacman -F --help выведут список возможных опций для этих флагов. 
 cat /etc/pacman.conf
 cat /etc/pacman.d/mirrorlist
+reflector  (retrieve and filter the latest Pacman mirrorlist)
+sudo reflector --sort rate --save /etc/pacman.d/mirrorlist  (Get all mirrors, sort for download speed and save them)
+reflector --country Germany --protocol https  (Only get German HTTPS mirrors)
+reflector --latest 10  (Only get the 10 recently sync'd mirrors)
 paccache  (flexible pacman cache cleaning utility)
 paccache -r  (Очистка кэша пакетов)
 paccache -dvk1  (Пробный запуск: посмотреть, что будет удалено, если оставить 1 версию)
@@ -1043,6 +1071,8 @@ pactree -r mpv  (список пакетов, которые сами завис
 pacman-mirrors  (generate pacman mirrorlist for Manjaro Linux)
 pacman-mirrors -f 10
 pacman-mirrors --fasttrack
+paru  (AUR helper and pacman wrapper)
+paru -Si telegram-desktop  (Get information about a package)
 https://wiki.manjaro.org/index.php/Pamac/ru
 https://wiki.manjaro.org/index.php/Arch_User_Repository/ru
 octopi  (Графический интерфейс Pacman)
@@ -1077,6 +1107,10 @@ date  (print or set the system date and time / Displays or sets the system date 
 timedatectl  (Control the system time and date / Manages system time and date settings)
 sudo timedatectl set-ntp false && sudo ntpdate -s 10.10.11.31
 hwclock  (time clocks utility)
+	ls /usr/share/zoneinfo/Asia
+	ls -lia /etc/localtime
+	ln -sf /usr/share/zoneinfo/Asia/Vladivostok /etc/localtime
+hwclock -w  (set the RTC from the system time)
 times  (специальная встроенная команда bash)
 time  (ключевое слово командного процессора)
 time command
@@ -1477,6 +1511,8 @@ ffmpeg -f x11grab -s 1920x1080 -r 25 -i :0.0 -vcodec qtrle screencast.mov
 ffmpeg -y -t 1 -f video4linux2 -s 1920x1080 -i /dev/video0 -frames:v 1 -f image2 screen.png &> /dev/null
 ffmpeg -y -t 1 -f x11grab -i :0.0 -frames:v 1 -f image2 screen.png
 sleep 2 && ffmpeg -y -t 1 -f x11grab -s 1920x1080 -i :0.0 -frames:v 1 -f image2 screen.png
+mpv av://v4l2:/dev/video0 --fullscreen --demuxer-lavf-o=input_format=mjpeg,framerate=30 --profile=low-latency --untimed
+mpv av://v4l2:/dev/video0 --fullscreen --demuxer-lavf-o=input_format=mjpeg,framerate=30 --profile=low-latency --untimed -o file.mp4
 qvidcap  (A v4l2 video capture viewer)
 snapshot
 v4l2-ctl  (An application to control video4linux drivers)
@@ -1500,3 +1536,6 @@ chroot path/to/new/root command
 chroot test /bin/bash
 lsns  (list namespaces / Lists all active Linux namespaces)
 ls -l /proc/$$/ns
+arch-chroot  (доступна в live-среде arch-дистрибутивов)
+fakeroot  (run a command in an environment faking root privileges for file manipulation)
+fakeroot -s path/to/file -- command command_arguments

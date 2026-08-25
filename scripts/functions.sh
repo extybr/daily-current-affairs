@@ -136,14 +136,34 @@ function y/ {
   fi
 }
 
-function hx/ {
-  item=$(dir -1 | fzf --prompt=" helix  " --height=~50% --layout=reverse --border --exit-0)
+function fz/ {
+  printf '\033[H'  # аналог Ctrl+L
+  item=$(ls -1 -a | fzf --query "$1" --prompt=" $1 " --height=~100% --layout=reverse --border \
+                    --preview 'bat --style=numbers --color=always {}' --exit-0)
   if [[ -z "${item}" ]]; then
     echo "Nothing selected"
     return 0
   else
-    helix "${item}"
+    if [[ -d "${item}" ]]; then
+      # xdg-open "${item}"
+      # cd "${item}" && fd --type f --hidden --strip-cwd-prefix
+      cd "${item}" && fz/
+    elif [[ -f "${item}" ]] && ( [[ $(exiftool "${item}" | grep 'MIME Type' | grep -w text) ]] || [[ "${item#*.}" = 'json' ]] ); then
+      bat "${item}"
+    elif [[ -f "${item}" ]] && [[ "${item}" =~ ('jpg'|'png'|'bmp')$ ]]; then
+      exiftool "${item}" && xdg-open "${item}"
+    else 
+      # echo "\e[36m${item}"
+      # ls -lia "${item}" | rg "${item}" && file "${item}"
+      exiftool "${item}"
+    fi
   fi
+}
+
+function hi/ {
+  printf '\033[H'  # аналог Ctrl+L
+  item=$(cat "$HISTFILE" | tac | fzf --query "$1" --prompt=" history " --height=~70% --layout=reverse --border --exit-0)
+  echo "${item#*;}"
 }
 
 btc () {

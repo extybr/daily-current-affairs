@@ -74,16 +74,17 @@ alias wf/='bash -c "cd ${GITHUB_DIRECTORY}/wifi && sudo ./start.sh"'
 alias myssh='bash -c "cd ${GITHUB_DIRECTORY}/remote_control && sudo ./start.sh"'
 alias mpeg='bash -c "cd ${GITHUB_DIRECTORY}/ffmpeg_gui && ./start_linux.sh"'
 alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'
-alias rgh/='cat ~/.zhistory | rg $1'
+alias rgh/='cat $HISTFILE | rg $1'
 alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
 alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'
-alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
 alias ti/='pushd && cd ${GITLAB_DIRECTORY}/tradingindex_to_html_sql_csv_json/ && uv run trading-index.py && popd'
 alias ts/=${SCRIPTS_DIRECTORY}'/../time/timestamp.sh'
 alias d/='tty-clock -csb -C 5'  # https://github.com/xorg62/tty-clock
 alias dt/='echo && date "+%X,%e %B %Yг, %A | %F" && echo && cal | grep -E "$(date '+%e')\b| "'
 alias ct/=${SCRIPTS_DIRECTORY}'/../time/current_time_area_google.sh'
 alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
+alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
+alias ipi/='(){ curl -s "ipinfo.io/$1" | jq }'
 alias c/='(){ [[ "$#" -eq 1 ]] && curl --max-time 10 cheat.sh/"$1" || echo -e "\033[33mОжидалось 1 параметр, а передано $#\033[0m" }'
 alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
 alias yt/="${GITHUB_DIRECTORY}/youtube_latest_videos/youtu_latest_videos.sh $1"
@@ -98,6 +99,7 @@ alias ex/='python <(curl -s 'https://gist.githubusercontent.com/extybr/89884ed4f
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
 alias tel/='telnet mapscii.me'
 alias cd/="pushd ${SCRIPTS_DIRECTORY}"
+alias ll/='(){ if [[ "$#" -eq 1 ]]; then eza "$1" --tree --icons; else eza "$(pwd)" --tree --icons; fi }'
 alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../help/linux_command.txt"
 alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'
 # alias sampler='sampler -c ~/my_programs/config.yml'
@@ -114,6 +116,10 @@ alias ls='ls --color=auto'
 alias ip='ip --color'
 alias grep='grep --color=auto'
 alias py=python3.14
+alias p/='(){ python3 -c "print(f\"{eval(\"$*\"):.10g}\")" }'
+alias gc/='(){ gnome-calculator -s "$*" }'
+alias q/='(){ qalc "$*" }'
+alias py/='(){ pydoc "$1" | bat -l py }'
 
 alias anti=${SCRIPTS_DIRECTORY}'/vpn/antizapret.sh'
 alias anti/=${SCRIPTS_DIRECTORY}'/vpn/./antidpi_check_upd.sh'
@@ -121,7 +127,7 @@ alias anti/=${SCRIPTS_DIRECTORY}'/vpn/./antidpi_check_upd.sh'
 # alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/hiddify-linux-appimage/./Hiddify.AppImage &; disown'
 # alias nd/='pushd $HOME/my_programs/nodpi && ./nodpi && popd'
 # alias nd/='cd $HOME/my_programs/nodpi && ./nodpi &; disown'
-alias rf/='$HOME/my_programs/poskomponos/./run'
+# alias rf/='$HOME/my_programs/poskomponos/./run'
 # kp/ nodpi && kp/ sing-box
 
 source ${SCRIPTS_DIRECTORY}/functions.sh
