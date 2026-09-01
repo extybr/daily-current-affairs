@@ -695,6 +695,9 @@ mkdir  (make directories / Creates a new directory)
 mkdir test1 && mkdir test2/test3 && cd test2 && echo Hello >> text.txt
 rmdir  (remove empty directories / Removes directories)
 rm  (remove files or directories / Removes files or directories)
+rm -i file.txt  (спросить перед удалением)
+yes | rm -i file.txt  (спросить перед удалением и сразу ответить да)
+rm -f file.txt  (удаление файла с игнорированием вопросов)
 echo  (display a line of text / Prints text to the terminal or writes text to files)
 echo a{d,c,e}b
 dirname  (strip last component from file name / Extracts the directory path from a file path)
@@ -1362,7 +1365,7 @@ tc  (show / manipulate traffic control settings)
 
 Настройка локального кеширующего DNS-сервера systemd-resolved
 resolvectl  (Resolve domain names, IPV4 and IPv6 addresses, DNS resource records, and services; introspect and reconfigure the DNS)
-resolvectl status
+resolvectl status  (тоже самое: systemd-resolve --status)
 systemctl status systemd-resolved
 sudo systemctl enable systemd-resolved.service --now
 cat /etc/systemd/resolved.conf

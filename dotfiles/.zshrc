@@ -1,4 +1,4 @@
-# Используем стандартный для Zsh файл истории
+# Используем стандартный для zsh файл истории
 HISTFILE=~/.zhistory
 HISTSIZE=20000
 SAVEHIST=20000
@@ -34,20 +34,23 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 autoload -Uz compinit
 compinit
 
-# Автодополнение для uv
-eval "$(uv generate-shell-completion zsh)"
-
+# export
 export wlan0='wlan0'
 export wlan1='wlan1'
+export eth0=$(nmcli -t -f TYPE,DEVICE,STATE device status | grep -E "ethernet:" | cut -d: -f2 | head -1)
 export TERMINAL="terminator"
+
+# export directory
 export GITHUB_DIRECTORY="${HOME}/PycharmProjects/github"
 export GITLAB_DIRECTORY="${HOME}/PycharmProjects/gitlab"
 export SCRIPTS_DIRECTORY="${GITHUB_DIRECTORY}/daily-current-affairs/scripts"
 export TRACKER_PARSER_DIRECTORY="${GITHUB_DIRECTORY}/tracker_parser"
-export SAMSUNG_DIRECTORY="/run/media/${USER}/Samsung-1TB"
-export DEXP_DIRECTORY="/run/media/${USER}/Dexp-2TB"
+export MEDIA='/run/media'
+export SAMSUNG_DIRECTORY="${MEDIA}/${USER}/Samsung-1TB"
+export DEXP_DIRECTORY="${MEDIA}/${USER}/Dexp-2TB"
 export PLAYLIST_DIRECTORY="${SAMSUNG_DIRECTORY}/Desktop/Radio"
-alias fs/='bash -c "/usr/bin/wine ${SAMSUNG_DIRECTORY}/../Samsung-500GB/FSViewer/FSViewer.exe >/dev/null 2>&1 &"'
+
+# game-terminal
 alias cm/='cmatrix -r'
 alias sl/=${SCRIPTS_DIRECTORY}'/sl.sh'
 alias mo/="$HOME/my_programs/Momoisay/./momoisay -f"  # https://github.com/Mon4sm/momoisay
@@ -57,72 +60,95 @@ alias po/='ponysay "Hello, Linux" 2> /dev/null'  # https://github.com/erkin/pony
 alias tux='cowsay -f tux LINUX - Good !!!'
 alias bsd='echo "\e[31m$(cowsay -f daemon Отдавай все свои биткоины !!!)"'
 alias dragon='echo "\e[35m$(cowsay -f dragon-and-cow Тебя поджарить\?)"'
+
+# audio
 alias mocp='mocp -T /usr/share/moc/themes/darkdot_theme'
 alias ph="${SCRIPTS_DIRECTORY}/phiola.sh"
 alias mpva='mpv --no-video --ytdl-format=worstaudio "$@"'
 alias rh/="ph http://retro.volna.top/Retro"
 alias 90/='ffplay "https://listen1.myradio24.com/5967" -nodisp -volume 3; clear'
 alias e+='ffplay http://ep256.hostingradio.ru:8052/europaplus256.mp3 -nodisp -volume 3'
+
+# security
 alias gpgd='gpg2 -d ${SAMSUNG_DIRECTORY}/mail.txt.gpg'
 alias gpgd/='gpgd | rg -A10 -B5 $1'
-alias pac='sudo pacman -S'
-alias pacs=${SCRIPTS_DIRECTORY}'/pacs.sh'
-alias gm/='gnome-maps -S'
-alias map=${SCRIPTS_DIRECTORY}'/map.sh'
-alias maps=${SCRIPTS_DIRECTORY}'/maps.sh'
-alias wf/='bash -c "cd ${GITHUB_DIRECTORY}/wifi && sudo ./start.sh"'
-alias myssh='bash -c "cd ${GITHUB_DIRECTORY}/remote_control && sudo ./start.sh"'
-alias mpeg='bash -c "cd ${GITHUB_DIRECTORY}/ffmpeg_gui && ./start_linux.sh"'
-alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'
-alias rgh/='cat $HISTFILE | rg $1'
-alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'
-alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'
-alias ti/='pushd && cd ${GITLAB_DIRECTORY}/tradingindex_to_html_sql_csv_json/ && uv run trading-index.py && popd'
-alias ts/=${SCRIPTS_DIRECTORY}'/../time/timestamp.sh'
-alias d/='tty-clock -csb -C 5'  # https://github.com/xorg62/tty-clock
-alias dt/='echo && date "+%X,%e %B %Yг, %A | %F" && echo && cal | grep -E "$(date '+%e')\b| "'
-alias ct/=${SCRIPTS_DIRECTORY}'/../time/current_time_area_google.sh'
-alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'
-alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'
-alias ipi/='(){ curl -s "ipinfo.io/$1" | jq }'
-alias c/='(){ [[ "$#" -eq 1 ]] && curl --max-time 10 cheat.sh/"$1" || echo -e "\033[33mОжидалось 1 параметр, а передано $#\033[0m" }'
-alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'
+
+# pacman
+alias pac='sudo pacman -S'  # установка программы
+alias pacs=${SCRIPTS_DIRECTORY}'/pacs.sh'  # поиск программы
+
+# map
+alias gm/='gnome-maps -S'  # gnome-карта конкретного региона
+alias map=${SCRIPTS_DIRECTORY}'/map.sh'  # карта конкретного региона
+alias maps=${SCRIPTS_DIRECTORY}'/maps.sh'  # ссылки на карты конкретного региона
+
+# time
+alias ts/=${SCRIPTS_DIRECTORY}'/../time/timestamp.sh'  # перевод даты в timestamp и обратно
+alias d/='tty-clock -csb -C 5'  # https://github.com/xorg62/tty-clock # часы в терминале
+alias dt/='echo && date "+%X,%e %B %Yг, %A | %F" && echo && cal | grep -E "$(date '+%e')\b| "'  # дата, месячный календарь
+alias ct/=${SCRIPTS_DIRECTORY}'/../time/current_time_area_google.sh'  # текущее время в конкретном регионе
+
+# ip
+alias ip/=${SCRIPTS_DIRECTORY}'/my-ip-addr.sh'  # мои ip-адреса
+alias ipa/=${SCRIPTS_DIRECTORY}'/dig_drill_ip.sh'  # информация по домену
+alias ipi/='(){ curl -s "ipinfo.io/$1" | jq }'  # вывод информации о конкретном ip-адресе
+
+# youtube
 alias yt/="${GITHUB_DIRECTORY}/youtube_latest_videos/youtu_latest_videos.sh $1"
 alias cre/='(){ curd=$(pwd); cd ${GITHUB_DIRECTORY}/youtube_latest_videos && python curl_re.py $@ && cd $curd }'
 alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'
-alias wr/=${SCRIPTS_DIRECTORY}'/weather.sh'
-alias os/=${SCRIPTS_DIRECTORY}'/os.sh'
-alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'
+
+# парсер валют / криптовалют
 alias usd=${SCRIPTS_DIRECTORY}'/usd-btc.sh'
 alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e'
 alias ex/='python <(curl -s 'https://gist.githubusercontent.com/extybr/89884ed4f333e86f25b6d32245862e07/raw/9a3576e42441201807fb83d04881cad4fd421bc3/rate')'
+
+# gui programs
+alias wf/='bash -c "cd ${GITHUB_DIRECTORY}/wifi && sudo ./start.sh"'
+alias myssh='bash -c "cd ${GITHUB_DIRECTORY}/remote_control && sudo ./start.sh"'
+alias mpeg='bash -c "cd ${GITHUB_DIRECTORY}/ffmpeg_gui && ./start_linux.sh"'
+
+# other scripts / utils
+alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'  # список скриптов для запуска по номеру
+alias c/='(){ [[ "$#" -eq 1 ]] && curl --max-time 10 cheat.sh/"$1" || echo -e "\033[33mОжидалось 1 параметр, а передано $#\033[0m" }'  # примеры команды
+alias w/=${SCRIPTS_DIRECTORY}'/which-program.sh'  # поиск команды по ключевому слову
+alias rgh/='cat $HISTFILE | rg $1'  # поиск в истории команд по ключевому слову
+alias ti/='pushd && cd ${GITLAB_DIRECTORY}/tradingindex_to_html_sql_csv_json/ && uv run trading-index.py && popd'  # tradingindex
+alias tg/=${SCRIPTS_DIRECTORY}'/tg_last_post.sh'  # посты telegram
+alias wr/=${SCRIPTS_DIRECTORY}'/weather.sh'  # погода
+alias os/=${SCRIPTS_DIRECTORY}'/os.sh'  # информация о системе
 alias serv/=${SCRIPTS_DIRECTORY}'/local_server_forward_serveo.sh'
-alias tel/='telnet mapscii.me'
-alias cd/="pushd ${SCRIPTS_DIRECTORY}"
-alias ll/='(){ if [[ "$#" -eq 1 ]]; then eza "$1" --tree --icons; else eza "$(pwd)" --tree --icons; fi }'
-alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../help/linux_command.txt"
-alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'
+# alias tel/='telnet mapscii.me'
+alias cd/="pushd ${SCRIPTS_DIRECTORY}"  # переход в папку со скриптами
+alias ll/='(){ if [[ "$#" -eq 1 ]]; then eza "$1" --tree --icons; else eza "$(pwd)" --tree --icons; fi }'  # аналог ls рекурсивный
+alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../help/linux_command.txt"  # открытие файла
 # alias sampler='sampler -c ~/my_programs/config.yml'
 alias pspy='~/my_programs/./pspy64'
-alias e/='exiftool $1'
-alias s/='shc -r -f $1'
+alias fs/='bash -c "/usr/bin/wine ${MEDIA}/Samsung-500GB/FSViewer/FSViewer.exe >/dev/null 2>&1 &"'
+alias qb/='xclip -o | xargs qbittorrent'  # запуск qbittorrent с magnet-ссылкой
+alias e/='exiftool $1'  # meta information in file
+alias s/='shc -r -f $1'  # generic shell script compiler
 alias el/='expr length'  # длина строки
-# alias fr/='xclip -o | xargs fragments'
-alias ch/='(){ [[ -n "$1" ]] && chmod u+x *.$1 || echo "Usage: ch/ <extension>" }'
-alias g/='git status -s'
-alias au/='sudo chmod 666 $(ls /dev/tty* | grep -E 'tty...0')'  # /dev/ttyUSB0
-alias num/=${SCRIPTS_DIRECTORY}'/convert_number.py $1'
-alias ls='ls --color=auto'
-alias ip='ip --color'
-alias grep='grep --color=auto'
-alias py=python3.14
-alias p/='(){ python3 -c "print(f\"{eval(\"$*\"):.10g}\")" }'
+alias ch/='(){ [[ -n "$1" ]] && chmod u+x *.$1 || echo "Usage: ch/ <extension>" }'  # сделать файлы по указанному расширению исполняемыми
+alias g/='git status -s'  # измененные файлы
+alias au/='sudo chmod 666 $(ls /dev/tty* | grep -E 'tty...0')'  # /dev/ttyUSB0 (для Arduino-IDE)
+alias num/=${SCRIPTS_DIRECTORY}'/convert_number.py $1'  # информация, конвертация числа
+alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'  # температура
+alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'  # мониторинг температуры
+
+# калькулятор в терминале
+alias pc/='(){ python3 -c "print(f\"{eval(\"$*\"):.10g}\")" }'
 alias gc/='(){ gnome-calculator -s "$*" }'
 alias q/='(){ qalc "$*" }'
-alias py/='(){ pydoc "$1" | bat -l py }'
 
-alias anti=${SCRIPTS_DIRECTORY}'/vpn/antizapret.sh'
-alias anti/=${SCRIPTS_DIRECTORY}'/vpn/./antidpi_check_upd.sh'
+# gnu-utils color
+alias ls='ls --color=auto --group-directories-first'
+alias ip='ip --color'
+alias grep='grep --color=auto'
+
+# vpn / antidpi
+alias anti=${SCRIPTS_DIRECTORY}'/vpn/antizapret.sh'  # получить ссылку антизапрета
+alias anti/=${SCRIPTS_DIRECTORY}'/vpn/./antidpi_check_upd.sh'  # проверить версии программ на github
 # alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/./Hiddify-Linux-x64.AppImage &; disown'
 # alias hiddify='__NV_PRIME_RENDER_OFFLOAD=1 $HOME/my_programs/hiddify-linux-appimage/./Hiddify.AppImage &; disown'
 # alias nd/='pushd $HOME/my_programs/nodpi && ./nodpi && popd'
@@ -130,6 +156,13 @@ alias anti/=${SCRIPTS_DIRECTORY}'/vpn/./antidpi_check_upd.sh'
 # alias rf/='$HOME/my_programs/poskomponos/./run'
 # kp/ nodpi && kp/ sing-box
 
+# python
+# alias py=python$(python -V | awk -F'[ .]' '{print $2"."$3}')  # запуск текущей версии python
+alias py=python3.14
+alias py/='(){ pydoc "$1" | bat -l py }'  # python документация
+eval "$(uv generate-shell-completion zsh)"  # автодополнение для uv
+
+# функции для zsh
 source ${SCRIPTS_DIRECTORY}/functions.sh
 
 # Переконфигурирование zsh (все остальные строки перед этим удалить или закомментировать)

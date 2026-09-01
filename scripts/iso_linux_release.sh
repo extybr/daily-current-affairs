@@ -1,6 +1,8 @@
 #!/bin/bash
 # iso linux release
 
+curl -s 'https://mirror.yandex.ru' | grep 'dir' -A 9 | grep -oP '(📁|date")[^<]+' | sed 'n;G ; s/date">//g'
+echo
 echo -n Kali
 curl -s --location 'https://www.kali.org/releases' | grep -m 1 -A 7 'content="Kali Linux Release History' | tail -5
 echo Arch
@@ -9,7 +11,5 @@ echo "$arch" | grep -A 2 'Current Release' | sed 's/ <li><strong>// ; s/<\/stron
 magnet=$(echo "$arch" | grep '<li><a href="magnet' | sed 's/<li><a href="// ; s/"//' | awk '{print $1}')
 echo -e "Magnet-url: $magnet\n"
 echo CachyOS
-curl -s --location 'https://cachyos.org/download' | grep -oP 'magnet:\?[^\]]+' | head -1
-echo
-curl -s 'https://mirror.yandex.ru' | grep '<a' | tail +3 | sed 's/\/">/ /g ; s/\/<\/a>//g' | awk '{print "\t\t",$3,"\t\t",$4}'
+curl -s --location 'https://cachyos.org/download' | grep -oP 'https:[^\]]+iso'
 

@@ -127,10 +127,10 @@ function y/ {
   fi
   ~/bin/yt-dlp -U
   if [ "$#" -eq 2 ] && [ "$2" = 'audio' ]; then
-    ~/bin/yt-dlp --retries infinite --no-playlist \
+    ~/bin/yt-dlp --js-runtimes node --retries infinite --no-playlist \
     --format bestaudio --extract-audio --audio-format mp3 --embed-thumbnail \
     --windows-filenames --force-overwrites --output '%(title)s.%(ext)s' "$1"  # audio.mp3 + thumbnail
-  else ~/bin/yt-dlp -S 'res:720,fps' "$1"                                     # video-720p
+  else ~/bin/yt-dlp --js-runtimes node -S 'res:720,fps' "$1"                                     # video-720p
   # else ~/bin/yt-dlp --proxy http://127.0.0.1:8881 -S 'res:720,fps' "$1"     # video-720p + proxy
     ${SCRIPTS_DIRECTORY}/yt-dlp-rename.py $(pwd)
   fi

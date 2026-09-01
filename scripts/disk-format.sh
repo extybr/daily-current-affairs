@@ -57,7 +57,7 @@ fi
 # выбор файловой системы
 echo -e "\n${CYAN}Выберите в какую файловую систему"\
         "отформатировать диск?${NORMAL}"
-type_fs="ext4\nntfs\nvfat"
+type_fs="ext4\nbtrfs\nf2fs\nxfs\nntfs\nvfat\nexfat"
 echo -e "${type_fs}" | nl
 echo -ne "${WHITE}Нажмите цифру:${NORMAL} "
 read number
