@@ -137,9 +137,14 @@ function y/ {
 }
 
 function fz/ {
-  printf '\033[H'  # аналог Ctrl+L
+  # printf '\033[H'  # аналог Ctrl+L
+  clear
   item=$(ls -1 -a | fzf --query "$1" --prompt=" $1 " --height=~100% --layout=reverse --border \
-                    --preview 'bat --style=numbers --color=always {}' --exit-0)
+                    --preview 'if file --mime-type -b {} 2>/dev/null | grep -q "^image/"; then
+                                 viu -b -- {} 2>/dev/null
+                               else
+                                 bat --style=numbers --color=always {} 2>/dev/null
+                               fi' --exit-0)
   if [[ -z "${item}" ]]; then
     echo "Nothing selected"
     return 0
@@ -151,7 +156,10 @@ function fz/ {
     elif [[ -f "${item}" ]] && ( [[ $(exiftool "${item}" | grep 'MIME Type' | grep -w text) ]] || [[ "${item#*.}" = 'json' ]] ); then
       bat "${item}"
     elif [[ -f "${item}" ]] && [[ "${item}" =~ ('jpg'|'png'|'bmp')$ ]]; then
-      exiftool "${item}" && xdg-open "${item}"
+      if pgrep ghostty; then
+        viu "${item}"
+      else exiftool "${item}" && xdg-open "${item}"
+      fi
     else 
       # echo "\e[36m${item}"
       # ls -lia "${item}" | rg "${item}" && file "${item}"

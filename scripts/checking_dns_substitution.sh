@@ -85,3 +85,18 @@ fi
 if [[ "$udp_ips" != "$tcp_ips" ]]; then
   echo -e "\033[33m⚠️  UDP and TCP responses differ (possible MITM or round-robin).\033[0m"
 fi
+
+echo
+
+if curl -s https://ipinfo.io/$(dig @$dns 'whoami.akamai.net' | grep '^whoami.akamai.net' | awk '{print $5}') | grep 'MSK-IX'  &>/dev/null; then
+  echo -e "whoami.akamai.net: \e[31mIt wasn't $dns that was servicing it, but the interceptor at TSPU\e[0m\n"
+fi
+
+# https://github.com/natesales/q
+q_path="$HOME/go/bin"
+if [ -f "$q_path/q" ]; then
+  $q_path/./q -v A $1 $dns
+elif command -v q; then
+  q -v A $1 @tls://$dns
+fi
+

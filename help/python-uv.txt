@@ -144,4 +144,8 @@ uvx это алиас для uv tool run, призванный упростит�
 Для обновления пакета, используйте команду run uv lock с флагом --upgrade-package:
     uv lock --upgrade-package requests
 
-
+Переход в папку с проектом и минимальная инициализация uv
+    cd my_project && uv init --bare --python 3.14 --pin-python
+        --bare Минимальная инициализация uv без лишних папок и файлов, только файл - pyproject.toml
+        --python 3.14 Чтобы задать версию Python при инициализации проекта
+        --pin-python С созданием файла .python-version и записью версии 3.14

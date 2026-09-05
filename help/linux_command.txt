@@ -570,6 +570,7 @@ pass  (Initalize password store using a gpg id)
 chmod  (Changes file or directory permissions)
 chown  (Changes file or directory ownership)
 chage  (Changes user password expiration information)
+pkexec  (Execute a command as another user)
 
 🐚 GNU Utilities & Shell Builtins
 
