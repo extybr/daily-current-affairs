@@ -28,11 +28,19 @@ POSIX-совместимый вариант:
 
 #############################
 
+Если строка, начинается с #EXTINF: , то заменяем все до последней запятой на -1,
+sed -E 's/^(#EXTINF:).*,([^,]*)$/\1-1,\2/' playlist.m3u
+
+Удаляем строки, который начинаются с #EXTVLCOPT:
+sed '/^#EXTVLCOPT:/d' playlist.m3u  
+
+#############################
+
 Удаляем всё после слова main или master (включая эти слова)
-    sed -i 's/\/\(main\|master\).*//' playlist.m3u
+    sed -i -E 's/(main|master).*//' playlist.m3u
     
 Если нужно сохранить слова main/master
-    sed -i 's/\/\(main\|master\).*//' playlist.m3u
+    sed -i -E 's/(main|master).*/\1/' playlist.m3u
 
 #############################
 

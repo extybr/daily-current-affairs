@@ -13,14 +13,14 @@ function ip_addr {
 
 if ip_addr "ifconfig.me" && [ "${response}" ]; then
   src="ifconfig.me"
-elif ip_addr "https://api.myip.com" ".ip" && [ "${response}" ]; then
+elif ip_addr "whatismyip.akamai.com" && [ "${response}" ]; then
   src="api.myip.com"
-elif ip_addr "http://ident.me" && [ "${response}" ]; then
-  src="ident.me"
 elif ip_addr "https://ipwho.is/?output=json" ".ip" && [ "${response}" ]; then
   src="ipwho.is"
 elif ip_addr "https://wtfismyip.com/text" && [ "${response}" ]; then
   src="wtfismyip.com"
+elif ip_addr "http://ident.me" && [ "${response}" ]; then
+  src="ident.me"
 fi
 printf "Your IP address: \e[31m%s\e[0m \e[37m > ${src}\e[0m\n" "${response}"
 

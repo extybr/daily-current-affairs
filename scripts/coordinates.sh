@@ -6,6 +6,7 @@
 # Координаты, указанного города/региона
 
 blue='\e[36m'
+red='\e[31m'
 normal='\e[0m'
 
 city=$(echo $(./url_coder.py "encoder" "$1") | sed "s/ /%20/g")
@@ -18,4 +19,12 @@ town=$(echo "${coordinates}" | jq -r '.[0].address.city')
 country=$(echo "${coordinates}" | jq -r '.[0].address.country')
 echo -e "Latitude (широта): ${blue}${lat}${normal}"
 echo -e "Longitude (долгота): ${blue}${lon}${normal}"
+
+if [[ -z "${lat}" ]] || [[ "${lat}" == 'null' ]]; then
+  echo -e "${red}Населенный пункт не найден${normal}" && exit 0
+fi
+
+timezone=$(curl -s "https://timeapi.io/api/TimeZone/coordinate?latitude=${lat}&longitude=${lon}" \
+           | jq -r '.timeZone')
+echo -e "timezone: ${blue}${timezone}${normal}"
 

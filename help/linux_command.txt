@@ -20,6 +20,7 @@ cmatrix  (command is a matrix program effect that displays green symbols on your
 genact  (A nonsense activity generator)
 strace  (trace system calls and signals)
 strace -e trace=process df -hT >/dev/null
+sudo strace -p $(pgrep htop)
 seahorse  (Passwords and Keys)
 virtualbox  (Oracle VM VirtualBox is open source virtualization software that allows users to run multiple operating system on a single device)
 	VBoxManage startvm "Win10_free" --type headless  (Запустить VirtualBox VM (использует /dev/vboxdrv))
@@ -63,7 +64,6 @@ notify-send 'Hello World !!!'
 notify-send "Topic" "my message" --icon=google-chrome --app-name="Google Chrome" -u critical
 snapshot  (Снимайте фото и видео)
 qvidcap  (A v4l2 video capture viewer)
-bwrap  (container setup utility)
 fluid  (the fast light user-interface designer)
 fragments  (Простой BitTorrent-клиент)
 gimp  (an image manipulation and paint program)
@@ -144,6 +144,9 @@ gnome-session  (Start the GNOME desktop environment)
 gnome-extensions  (Command line tool for managing GNOME extensions)
 gnome-usage
 gnome-system-monitor
+gnome-control-center  (Configure GNOME settings)
+gnome-control-center background
+gnome-control-center system 'about'
 gsettings  (GSettings configuration tool)
 gio  (GIO commandline tool)
 gio help copy
@@ -247,6 +250,7 @@ echo -n "Hello World" | base64
 echo $(echo "SGVsbG8gV29ybGQ=" | base64 -d)
 man ascii  (ASCII character set encoded in octal, decimal, and hexadecimal)
 openssl  (OpenSSL command line program)
+echo $GID | openssl md5
 echo | openssl s_client -connect youtube.com:443 2> /dev/null | awk '/-----BEGIN/,/END CERTIFICATE-----/' | openssl x509 -noout -enddate
 mkpasswd  (Overfeatured front end to crypt(3))
 mkpasswd -m yescrypt "mypassword"
@@ -414,6 +418,7 @@ sudo iftop -i enp4s0f1
 sudo iotop  (simple top-like I/O monitor / Displays real-time disk I/O usage by processes)
 iotop-c  (new version iotop)
 ioping  (Simple disk I/0 latency measuring tool)
+irqtop  (display kernel interrupt information)
 fio  (Scriptable I/O tool for storage benchmarks and drive testing)
 rmlint  (remove duplicates and other lint (without-gui))
 rmlint-shredder-git  (Graphical user interface for rmlint)
@@ -582,6 +587,10 @@ bindkey '^K' clear-screen  (Назначить Ctrl+K)
 	Чтобы узнать код любой клавиши: cat -v
 bindkey -l  (View keymaps)
 bindkey -M main  (View the hotkey in a keymap)
+showkey  (examine the codes sent by the keyboard)
+sudo showkey -k  (Display keycodes in decimal (default))
+sudo showkey -s  (Display scancodes in hexadecimal)
+sudo showkey -a  (Display keycodes in ASCII, decimal, and hexadecimal)
 let  (Evaluate arithmetic expressions in shell)
 let "result = 3 + 9" && echo "$result"
 startx  (initialize an X session)
@@ -894,6 +903,7 @@ truncate -s 16034824192 usb.img
 chvt  (change foreground virtual terminal)
 tty  (print the file name of the terminal connected to standard input)
 xterm  (terminal emulator for X)
+setterm  (set terminal attributes)
 link  (call the link function to create a link to a file)
 unlink  (call the unlink function to remove the specified file)
 unlink example.txt
@@ -989,6 +999,7 @@ fwupdmgr get-history
 sudo cat /dev/input/mouse1 | xxd -c 3 -g 1  (позиция мышки в xxd данных)
 setfont  (load EGA/VGA console screen font / ls /usr/share/kbd/consolefonts)
 setfont ter-c22n
+mkfifo  (make FIFOs (named pipes))
 
 mknod  (make block or character special files)
 mknod FILE c 1 5  (/dev/zero)
@@ -1097,8 +1108,14 @@ yum  (Installs, updates, or removes packages on Red Hat-based systems)
 ls /etc/xdg/autostart
 ls ~/.config/autostart
 crontab  (maintains crontab files for individual users / Manages cron jobs for automating tasks)
-crontab -l
-crontab -e
+crontab -l  (View a list of existing cron jobs for current user)
+crontab -e  (Edit the crontab file for the current user)
+	0 10 * * * command_to_execute  (пример записи crontab)
+	/var/spool/cron/contabs  (файлы crontab)
+	/etc/cron.d  (каталог пакетов)
+	/etc/cron.d{hourly,daily,weekly}/  (каталоги по расписанию)
+systemctl list-timers --all  (службы, работающие по расписанию)
+	/etc/systemd/system  (каталог)
 sleep  (delay for a specified amount of time)
 timeout  (run a command with a time limit)
 timeout 5s sleep 10
@@ -1304,6 +1321,12 @@ rtl_fm -f 106.3e6 -M fm -s 240k -A std -E deemp -r 48000 - | aplay -r 48000 -f S
 rtl_fm -f 4625000 -M usb -s 12000 -g 30 -E direct - | aplay -r 12000 -f S16_LE
 rtl_fm -f 88.5e6 -M fm -s 240k -A std -E deemp -g 50 -F 9 -r 48000 - | play -t raw -r 48000 -e signed -b 16 -c 1 -V1 - bass +3 treble -2
 rtl_fm -f 106.3e6 -M fm -s 240k -A std -E deemp -r 48000 - | play -t raw -r 48000 -e signed -b 16 -c 1 -V1 -  (sox The Swiss Army knife of sound processing tools)
+irrecord  (IR-codes recording tool for usage with LIRC)
+irrecord --list-namespace
+irsend  (basic LIRC program to send infra-red commands)
+ir-keytable  (a swiss-knife tool to handle Remote Controllers)
+ir-keytable -p nec -t
+irw  (Send data from Unix domain socket to stdout)
 ufw  (program for managing a netfilter firewall)
 sudo ufw status
 firewalld  (firewall management tools)
@@ -1454,6 +1477,7 @@ cat /etc/lsb-release
 lsb_release  (manual page for FSG lsb_release v2.0)
 lsb_release -r
 lsb_release -i
+lsb_release -si
 sudo dmesg | grep Linux
 init  (systemd system and service manager)
 systemd  (systemd system and service manager)
@@ -1543,3 +1567,5 @@ ls -l /proc/$$/ns
 arch-chroot  (доступна в live-среде arch-дистрибутивов)
 fakeroot  (run a command in an environment faking root privileges for file manipulation)
 fakeroot -s path/to/file -- command command_arguments
+bwrap  (container setup utility)
+bwrap --ro-bind / / /bin/bash  (Run a program in a read-only environment)

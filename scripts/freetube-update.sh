@@ -12,6 +12,11 @@ if [[ -z "${chkv}" || "${#chkv}" -gt 20 ]]; then
   echo "недостоверные данные (неверный запрос или нет сети)" && exit 1
 fi
 
+mychkv=$("$freetube_dir"/./freetube --version)
+if [[ $(echo "$mychkv" | awk '{print $1}') == $(echo "$chkv" | awk -F- '{print $1}') ]]; then
+  echo "Нет смысла обновлять, текущая версия - $mychkv, новая версия - $chkv" && exit 1
+fi
+
 link="https://github.com/FreeTubeApp/FreeTube/releases/download/${chkv}/freetube-${chkv#*v}-linux-x64-portable.zip"
 
 cd "$freetube_dir" && ( for file in $(ls ./); do rm -rf "$file"; done ) || ( echo "нет папки: $freetube_dir" && exit 1 )
