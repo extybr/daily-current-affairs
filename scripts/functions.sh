@@ -1,10 +1,12 @@
 #!/bin/zsh
 # HACK: для применения в файле .zshrc и текущей сессии терминала
 
+# просмотр всех функций
 function all/ {
   bat "$HOME/my_programs/function.txt"
 }
 
+# автосмена обоев
 function wl/ {
   if pgrep auto-wallpaper; then
     pkill -f auto-wallpaper
@@ -25,6 +27,7 @@ function wl/ {
   fi
 }
 
+# функция для git
 function gitup {
   if [ -z "$1" ]; then
         echo "❌ Usage: gitup \"commit message\""
@@ -36,6 +39,7 @@ function gitup {
   git add . && git commit -m "$1" && git push
 }
 
+# функция для veracrypt
 function v/ {
   if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
     echo "*** нужно 2 или 3 параметра ***" && return 1
@@ -43,12 +47,14 @@ function v/ {
   "${SCRIPTS_DIRECTORY}/veracrypt.sh" "$@"
 }
 
+# убить процессы по названию
 function kp/ {
   for pid in $(pgrep "$1"); do
     kill -9 "$pid"
   done
 }
 
+# htop с фильтром
 function h/ {
   if [ "$#" -eq 1 ]; then
     htop --filter="$1"
@@ -57,6 +63,7 @@ function h/ {
   fi
 }
 
+# баланс TTK
 function ttk {
   current_dir=$(pwd)
   cd "${GITHUB_DIRECTORY}"/internet_balance
@@ -64,6 +71,7 @@ function ttk {
   cd "${current_dir}"
 }
 
+# баланс RT
 function rt {
   current_dir=$(pwd)
   cd "${GITHUB_DIRECTORY}"/internet_balance
@@ -72,6 +80,7 @@ function rt {
   cd "${current_dir}"
 }
 
+# создание и открытие плейлиста alensat
 function al/ {
   current_dir=$(pwd)
   trap "echo ' Trapped Ctrl-C'; rm *.m3u && cd "${current_dir}" && return 0" SIGINT
@@ -81,6 +90,7 @@ function al/ {
   cd "${current_dir}"
 }
 
+# запуск ffplay с ссылкой
 function f/ {
   if (( "$#" == 2 )) && (( "$1" == 0 )); then
     ffplay "$2" -nodisp -volume 3
@@ -89,6 +99,7 @@ function f/ {
   fi
 }
 
+# запуск радио кантри
 function cy/ {
   current_dir=$(pwd)
   cd ${SCRIPTS_DIRECTORY}
@@ -99,6 +110,7 @@ function cy/ {
   cd "${current_dir}" 
 }
 
+# tracker parser
 function tt/ {
   current_dir=$(pwd)
   cd ${TRACKER_PARSER_DIRECTORY}
@@ -109,6 +121,7 @@ function tt/ {
   cd "${current_dir}"
 }
 
+# просмотр топа rutor.info
 function ri/ {
   current_dir=$(pwd)
   cd "${TRACKER_PARSER_DIRECTORY}"
@@ -116,10 +129,12 @@ function ri/ {
   cd "${current_dir}"
 }
 
+# название службы по порту
 function p/ {
   grep " $1/" /etc/services | cut -d " " -f1 | sort | uniq
 }
 
+# скачивание видео, аудио с ютуба или другого ресурса
 function y/ {
   if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
     echo -e "\e[37mНеобходимо передать url-адрес\e[0m"
@@ -136,6 +151,7 @@ function y/ {
   fi
 }
 
+# серфинг по папкам из терминала
 function fz/ {
   # printf '\033[H'  # аналог Ctrl+L
   clear
@@ -168,13 +184,15 @@ function fz/ {
   fi
 }
 
+# серфинг по файлу истории команд терминала
 function hi/ {
   printf '\033[H'  # аналог Ctrl+L
   item=$(cat "$HISTFILE" | tac | fzf --query "$1" --prompt=" history " --height=~70% --layout=reverse --border --exit-0)
   echo "${item#*;}"
 }
 
-btc () {
+# график, курс криптовалюты с rate.sx
+function btc {
   current_dir=$(pwd)
   cd ${SCRIPTS_DIRECTORY}/
   white='\033[1;37m'
@@ -188,6 +206,7 @@ btc () {
   cd "${current_dir}"
 }
 
+# запуск приложения
 function ctd/ {
   current_dir=$(pwd)
   cd ${GITHUB_DIRECTORY}/connect_to_databases
@@ -195,6 +214,7 @@ function ctd/ {
   cd "${current_dir}"
 }
 
+# проверка сертификата сайта
 function ssl/ {
   echo | openssl s_client -connect $1:443 | openssl x509 -noout -enddate | grep notAfter
   openssl s_client -connect $1:443 -servername $1 -verify_return_error &> /dev/null \

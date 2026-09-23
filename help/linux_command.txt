@@ -21,12 +21,15 @@ genact  (A nonsense activity generator)
 strace  (trace system calls and signals)
 strace -e trace=process df -hT >/dev/null
 sudo strace -p $(pgrep htop)
+strace -e openat firefox  (какие файлы открывает программа)
+strace -e openat -s 200 firefox 2>&1 | grep -v '= -1'
 seahorse  (Passwords and Keys)
 virtualbox  (Oracle VM VirtualBox is open source virtualization software that allows users to run multiple operating system on a single device)
 	VBoxManage startvm "Win10_free" --type headless  (Запустить VirtualBox VM (использует /dev/vboxdrv))
 qemu-img  (QEMU disk image utility)
 qemu-img create /media/username/MyDrive/myWindows.img 30G
 qemu-img info FLASH-16G.img
+qemu-system-x86_64 -enable-kvm -cpu host -smp 4 -m 4G -drive file=FLASH-16G.img,format=raw -display gtk
 qemu-img check /var/stuff/mine.qcow2
 qemu-system-x86_64  (QEMU User Documentation)
 qemu-system-x86_64 -m 2048 -drive file=FLASH-16G.img,format=raw
@@ -140,6 +143,7 @@ gnome-chess
 gnome-calculator
 gnome-firmware
 gnome-photos
+gnome-text-editor
 gnome-session  (Start the GNOME desktop environment)
 gnome-extensions  (Command line tool for managing GNOME extensions)
 gnome-usage
@@ -576,6 +580,7 @@ chmod  (Changes file or directory permissions)
 chown  (Changes file or directory ownership)
 chage  (Changes user password expiration information)
 pkexec  (Execute a command as another user)
+pkexec mousepad /root/path/file.conf
 
 🐚 GNU Utilities & Shell Builtins
 
@@ -730,7 +735,11 @@ mktemp -d tempsXXX
 mktemp temp.XXXtxt
 mkinitcpio  (Create an initial ramdisk environment)
 shuf  (generate random permutations / Shuffles lines of text in random order)
+shuf --random-source=/dev/urandom -i 0-9 -r -n "${1:-100}" | paste -sd ''
+shuf --random-source=/dev/urandom -i 0-1 -z -r
+while true; do shuf --random-source=/dev/urandom -i 0-1 -z; sleep 0.05; done
 echo $RANDOM
+echo $(( RANDOM % (MAX - MIN + 1) + MIN ))  (рамдомное число в заданном интервале)
 echo "BASH_SOURCE: ${BASH_SOURCE[0]}"
 factor  (Prints the prime factors of a given number / factor numbers)
 python -c "import random; print(random.randint(1, 100))"
@@ -1096,7 +1105,10 @@ pamac-manager  (менеджер пакетов Манджаро)
 pamac  (графический менеджер пакетов для Arch Linux и производных дистрибутивов, основанный на библиотеке libalpm)
 pamac search virtualbox
 pamac install base-devel git
-makepkg -si  (package build utility)
+makepkg  (package build utility)
+makepkg -si  (Make a package, install its dependencies then install it to the system)
+makepkg --skipchecksums  (Make a package, but skip checking the source's hashes)
+updpkgsums  (update checksums of a PKGBUILD file)
 __debian
 apt
 apt-get (Installs, updates, or removes packages on Debian-based systems)
@@ -1116,6 +1128,9 @@ crontab -e  (Edit the crontab file for the current user)
 	/etc/cron.d{hourly,daily,weekly}/  (каталоги по расписанию)
 systemctl list-timers --all  (службы, работающие по расписанию)
 	/etc/systemd/system  (каталог)
+systemd-run  (Run programs in transient scope units, service units, or path-, socket-, or timer-triggered service units)
+systemd-run --on-calendar=*:0/10 sh -c 'cd app && git pull'
+	/run/systemd/system  (каталог)
 sleep  (delay for a specified amount of time)
 timeout  (run a command with a time limit)
 timeout 5s sleep 10

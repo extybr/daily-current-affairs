@@ -13,7 +13,9 @@ if [ "$#" -ne 1 ]; then
 fi
 
 if grep --color -E "^alias $1=" ~/.zshrc
-  then echo
+  then true
+elif grep --color -E "^function $1" -B 1 "${SCRIPTS_DIRECTORY}/functions.sh"
+  then true
 fi
 
 cmd_type=$(type "$1" 2> /dev/null)

@@ -1,4 +1,4 @@
-# Используем стандартный для zsh файл истории
+# Используем стандартный для Zsh файл истории
 HISTFILE=~/.zhistory
 HISTSIZE=20000
 SAVEHIST=20000
@@ -74,6 +74,7 @@ alias gpgd='gpg2 -d ${SAMSUNG_DIRECTORY}/mail.txt.gpg'
 alias gpgd/='gpgd | rg -A10 -B5 $1'
 
 # pacman
+alias upd/='yes | sudo pacman -Syu'  # обновление системы
 alias pac='sudo pacman -S'  # установка программы
 alias pacs=${SCRIPTS_DIRECTORY}'/pacs.sh'  # поиск программы
 
@@ -97,6 +98,7 @@ alias ipi/='(){ curl -s "ipinfo.io/$1" | jq }'  # вывод информаци�
 alias yt/="${GITHUB_DIRECTORY}/youtube_latest_videos/youtu_latest_videos.sh $1"
 alias cre/='(){ curd=$(pwd); cd ${GITHUB_DIRECTORY}/youtube_latest_videos && python curl_re.py $@ && cd $curd }'
 alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'
+alias ft/='~/my_programs/freetube-linux-x64-portable/./freetube --new-window $1'
 
 # парсер валют / криптовалют
 alias usd=${SCRIPTS_DIRECTORY}'/usd-btc.sh'
@@ -123,9 +125,9 @@ alias cd/="pushd ${SCRIPTS_DIRECTORY}"  # переход в папку со ск
 alias ll/='(){ if [[ "$#" -eq 1 ]]; then eza "$1" --tree --icons; else eza "$(pwd)" --tree --icons; fi }'  # аналог ls рекурсивный
 alias lc/="mousepad ${SCRIPTS_DIRECTORY}/../help/linux_command.txt"  # открытие файла
 # alias sampler='sampler -c ~/my_programs/config.yml'
-alias pspy='~/my_programs/./pspy64'
+alias pspy='~/my_programs/./pspy64'  # https://github.com/DominicBreuker/pspy  # monitor linux processes without root permissions
 alias fs/='bash -c "/usr/bin/wine ${MEDIA}/Samsung-500GB/FSViewer/FSViewer.exe >/dev/null 2>&1 &"'
-alias qb/='xclip -o | xargs qbittorrent'  # запуск qbittorrent с magnet-ссылкой
+alias qb/='xclip -o | xargs qbittorrent &>/dev/null & disown'  # запуск qbittorrent с magnet-ссылкой
 alias e/='exiftool $1'  # meta information in file
 alias s/='shc -r -f $1'  # generic shell script compiler
 alias el/='expr length'  # длина строки
@@ -135,6 +137,8 @@ alias au/='sudo chmod 666 $(ls /dev/tty* | grep -E 'tty...0')'  # /dev/ttyUSB0 (
 alias num/=${SCRIPTS_DIRECTORY}'/convert_number.py $1'  # информация, конвертация числа
 alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'  # температура
 alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'  # мониторинг температуры
+alias sm/=${SCRIPTS_DIRECTORY}'/smplayer_config_proxy_on_off.sh'  # вкл/выкл proxy для smplayer
+alias hp/=${SCRIPTS_DIRECTORY}'/help.sh'  # help по командам терминала
 
 # калькулятор в терминале
 alias pc/='(){ python3 -c "print(f\"{eval(\"$*\"):.10g}\")" }'
