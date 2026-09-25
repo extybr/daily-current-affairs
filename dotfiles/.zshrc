@@ -97,8 +97,8 @@ alias ipi/='(){ curl -s "ipinfo.io/$1" | jq }'  # вывод информаци�
 # youtube
 alias yt/="${GITHUB_DIRECTORY}/youtube_latest_videos/youtu_latest_videos.sh $1"
 alias cre/='(){ curd=$(pwd); cd ${GITHUB_DIRECTORY}/youtube_latest_videos && python curl_re.py $@ && cd $curd }'
-alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'
-alias ft/='~/my_programs/freetube-linux-x64-portable/./freetube --new-window $1'
+alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'  # smplayer с ссылкой
+alias ft/='(){ ~/my_programs/freetube-linux-x64-portable/freetube --new-window "$1" &>/dev/null & disown }'  # freetube с ссылкой
 
 # парсер валют / криптовалют
 alias usd=${SCRIPTS_DIRECTORY}'/usd-btc.sh'
@@ -106,9 +106,9 @@ alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affai
 alias ex/='python <(curl -s 'https://gist.githubusercontent.com/extybr/89884ed4f333e86f25b6d32245862e07/raw/9a3576e42441201807fb83d04881cad4fd421bc3/rate')'
 
 # gui programs
-alias wf/='bash -c "cd ${GITHUB_DIRECTORY}/wifi && sudo ./start.sh"'
-alias myssh='bash -c "cd ${GITHUB_DIRECTORY}/remote_control && sudo ./start.sh"'
-alias mpeg='bash -c "cd ${GITHUB_DIRECTORY}/ffmpeg_gui && ./start_linux.sh"'
+alias wf/='bash -c "cd ${GITHUB_DIRECTORY}/wifi && sudo ./start.sh"'  # wifi_hack
+alias myssh='bash -c "cd ${GITHUB_DIRECTORY}/remote_control && sudo ./start.sh"'  # ssh remote_control
+alias mpeg='bash -c "cd ${GITHUB_DIRECTORY}/ffmpeg_gui && ./start_linux.sh"'  # ffmpeg_gui
 
 # other scripts / utils
 alias scr/=${SCRIPTS_DIRECTORY}'/script.sh'  # список скриптов для запуска по номеру
