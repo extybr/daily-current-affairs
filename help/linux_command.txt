@@ -480,12 +480,16 @@ dmesg | tail  (Displays recent kernel messages (useful for hardware or system er
 sudo cat /dev/kmsg  (Просмотр сообщений ядра в реальном времени)
 last  (show a listing of last logged in users)
 last -h  (last -a, last -i)  (show a listing of last logged in users)
+last -20  (последние успешные входы)
 lastb  (show a listing of last logged in users / Shows failed login attempts)
+lastb -10  (последние неудачные попытки из /var/log/btmp)
 lastlog  (reports the most recent login of all users or of a given user)
 logger  (enter messages into the system log)
 log  (View, export, and configure logging systems)
 logrotate  (Manages the automatic rotation and compression of log files)
 cat /dev/full > test.log  (Протестировать обработку ошибки "нет места")
+auditctl  (a utility to assist controlling the kernel's audit system)
+ausearch  (a tool to query audit daemon logs)
 
 📜 History & Real-time Monitoring
 

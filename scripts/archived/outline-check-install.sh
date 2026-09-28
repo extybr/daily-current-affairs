@@ -1,6 +1,7 @@
 #!/bin/bash
 # ./outline-check-install.sh
 # Проверка последней версии outline с возможностью установки
+# FIXME: https://github.com/Jigsaw-Code -> https://github.com/OutlineFoundation
 
 violet="\e[35m"
 blue="\e[36m"

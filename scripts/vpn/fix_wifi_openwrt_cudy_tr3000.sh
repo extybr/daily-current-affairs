@@ -1,7 +1,11 @@
 #!/bin/ash
 # Fix wifi-интерфейсов после заливки прошивки OpenWrt на Cudy-TR3000-256mb
 # Скрипт сразу целиком или частями запускать на роутере
+# Варианты запуска:
 # $> chmod +x fix_wifi_openwrt_cudy_tr3000.sh && ./fix_wifi_openwrt_cudy_tr3000.sh
+# или так
+# $> sh <(wget -O - https://raw.githubusercontent.com/extybr/daily-current-affairs/refs/heads/main/scripts/vpn/fix_wifi_openwrt_cudy_tr3000.sh)
+# $> curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/refs/heads/main/scripts/vpn/fix_wifi_openwrt_cudy_tr3000.sh | ash -e
 
 if ls /sys/class/ieee80211/ \
   && iw phy | grep -E '^Wiphy' | tr '\n' ' ' | awk '{print $2,$4}' \
