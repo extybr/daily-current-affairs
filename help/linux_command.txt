@@ -139,13 +139,16 @@ gnome-shell --version
 gnome-maps
 gnome-maps -S 'New York'
 gnome-weather
-gnome-chess
 gnome-calculator
-gnome-firmware
-gnome-photos
+gnome-software  (Install and update apps)
 gnome-text-editor
 gnome-session  (Start the GNOME desktop environment)
 gnome-extensions  (Command line tool for managing GNOME extensions)
+gnome-extensions list
+gnome-extensions list --enabled
+gnome-extensions list --disabled
+gnome-extensions enable dash-to-panel@jderose9.github.com
+gnome-extensions prefs dash-to-dock@micxgx.gmail.com
 gnome-usage
 gnome-system-monitor
 gnome-control-center  (Configure GNOME settings)
@@ -694,6 +697,7 @@ file  (determine file type / Determines file type based on content)
 file myfile.txt
 file my_directory
 file -ih mylink.txt
+debugfs  (ext2/ext3/ext4 file system debugger)
 ipcs  (show information on IPC facilities)
 readelf  (display information about ELF files)
 readelf -dh /bin/bash
@@ -1525,6 +1529,7 @@ cat /proc/softirqs
 cat /proc/interrupts
 cat /proc/net/softnet_stat
 cat /proc/net/udp
+man hier  (description of the filesystem hierarchy)
 
 📄 PDF Utilities
 

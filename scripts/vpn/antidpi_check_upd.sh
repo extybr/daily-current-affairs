@@ -30,7 +30,7 @@ request_v1() {
 request_v2() {
   for repo in "${repos[@]}"; do
     data=($(curl -s "https://api.github.com/repos/${repo}/releases" | jq -r '.[0] | .tag_name, .published_at'))
-    printf "\e]8;;https://github.com/$repo\e\\\\\e[35m%-14s\e[0m\e]8;;\e\\ | тэг: \e[36m%-18s\e[0m | дата: \e[36m%s\e[0m\n" \
+    printf "\e]8;;https://github.com/$repo\e\\\\\e[35m%-14s\e[0m\e]8;;\e\\ | тэг: \e[36m%-22s\e[0m | дата: \e[36m%s\e[0m\n" \
       "$(basename $repo)" "${data[0]}" "$(echo "${data[1]}" | sed 's/[TZ]/ /g')"
   done
 }
@@ -39,7 +39,7 @@ openwrt() {
   version=$(curl -s "https://downloads.openwrt.org/.versions.json" | jq -r '.stable_version')
   en_release_date=$(curl -s --location 'https://downloads.openwrt.org/releases' | grep "$version" | grep -oP '<td class="d">\K[^<]+')
   release_date=$(date -d "$en_release_date" +"%Y-%m-%d %H:%M:%S")
-  printf "\e]8;;https://downloads.openwrt.org/releases\e\\\\\e[35m%-14s\e[0m\e]8;;\e\\ | тэг: \e[36m%-18s\e[0m | дата: \e[36m%s\e[0m\n" \
+  printf "\e]8;;https://downloads.openwrt.org/releases\e\\\\\e[35m%-14s\e[0m\e]8;;\e\\ | тэг: \e[36m%-22s\e[0m | дата: \e[36m%s\e[0m\n" \
       "openwrt" "${version}" "$release_date"
 }
 

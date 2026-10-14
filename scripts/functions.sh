@@ -153,7 +153,6 @@ function y/ {
 
 # серфинг по папкам из терминала
 function fz/ {
-  # printf '\033[H'  # аналог Ctrl+L
   clear
   item=$(ls -1 -a | fzf --query "$1" --prompt=" $1 " --height=~100% --layout=reverse --border \
                     --preview 'if file --mime-type -b {} 2>/dev/null | grep -q "^image/"; then
@@ -182,6 +181,38 @@ function fz/ {
       exiftool "${item}"
     fi
   fi
+}
+
+# серфинг по папке help из терминала, поиск по ключевому слову
+function help/ {
+  printf '\033[H'  # аналог Ctrl+L
+  rm -f /tmp/fzf_help_pattern
+  cd "${GITHUB_DIRECTORY}/daily-current-affairs/help"
+  item=$(ls -1A \
+    | fzf --query "$1" \
+          --prompt=" $1 " \
+          --height=~100% \
+          --layout=reverse \
+          --preview-window 'right:80%' \
+          --border \
+          --bind 'ctrl-/:execute(
+              printf "🔍 Поиск: " >/dev/tty;
+              read pattern </dev/tty;
+              echo "$pattern" > /tmp/fzf_help_pattern
+          )+refresh-preview' \
+          --preview '
+              pattern=$(cat /tmp/fzf_help_pattern 2>/dev/null);
+              if [ -n "$pattern" ]; then
+                  grep -n --color=always -i -- "$pattern" {} || \
+                      printf "Не найдено: %s\n\n" "$pattern";
+                      bat --style=numbers --color=always {} -l sh
+              else
+                  bat --style=numbers --color=always {} -l sh
+              fi
+          ')
+  local s=$?
+  cd "$HOME"
+  [ $s -ne 0 ] && return 0
 }
 
 # серфинг по файлу истории команд терминала
