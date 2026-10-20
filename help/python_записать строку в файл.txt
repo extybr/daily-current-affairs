@@ -1,0 +1,94 @@
+Двенадцать способов записать строку в файл в Python
+
+########## 1
+
+with open("file.txt", "w") as f:
+    f.write("привеееет!")
+
+########## 2
+
+from pathlib import Path
+Path("file.txt").write_text("привеееет!")
+
+########## 3
+
+with open("file.txt", "w") as f:
+    print("привеееет!", file=f)
+
+########## 4
+
+from pathlib import Path
+Path("file.txt").write_bytes(
+    "привеееет!".encode("utf-8")
+)
+
+########## 5
+
+import sys
+sys.stdout = open("file.txt", "w")
+print("привеееет!")
+sys.stdout.close()
+
+########## 6
+
+import os
+fd = os.open(
+    "file.txt",
+    os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
+os.write(fd, "привеееет!".encode("utf-8"))
+os.close(fd)
+
+########## 7
+
+import io, shutil
+data = io.StringIO("привеееет!")
+with open("file.txt", "w") as f:
+    shutil.copyfileobj(data, f)
+
+########## 8
+
+from contextlib import redirect_stdout
+with open("file.txt", "w") as f:
+    with redirect_stdout(f):
+        print("привеееет!")
+
+########## 9
+
+import mmap
+line = "привеееет!".encode("utf-8")
+with open("file.txt", "w+b") as f:
+    f.write(b"\x00" * len(line))
+    f.flush()
+    with mmap.mmap(f.fileno(), 0) as mm:
+        mm[:len(line)] = line
+        mm.flush()
+
+########## 10
+
+import tempfile, os
+with tempfile.NamedTemporaryFile("w", delete=False) as f:
+    f.write("привеееет!")
+    name = f.name
+os.replace(name, "file.txt")
+
+########## 11
+
+import csv
+with open("file.txt", "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(["привеееет!"])
+
+########## 12
+
+import tarfile
+import io
+data = io.BytesIO("привеееет!".encode("utf-8"))
+with tarfile.open("archive.tar", "w") as tar:
+    info = tarfile.TarInfo("file.txt")
+    info.size = len(data.getvalue())
+    tar.addfile(info, data)
+with tarfile.open("archive.tar", "r") as tar:
+    tar.extractall(
+        path=".",
+        members=[tar.getmember("file.txt")], filter="data")
+

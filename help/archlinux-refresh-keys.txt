@@ -40,3 +40,7 @@
 	sudo pacman -S archlinux-keyring
 
 Рекомендую начать с первого варианта - это самое безопасное и правильное решение.
+
+Обновите список зеркал (Выбор самых быстрых серверов)
+    sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+

@@ -148,7 +148,8 @@ gnome-extensions list
 gnome-extensions list --enabled
 gnome-extensions list --disabled
 gnome-extensions enable dash-to-panel@jderose9.github.com
-gnome-extensions prefs dash-to-dock@micxgx.gmail.com
+gnome-extensions prefs dash-to-dock@micxgx.gmail.com  (настройки dash-to-dock # https://extensions.gnome.org/extension/307/dash-to-dock)
+gnome-extensions prefs Vitals@CoreCoding.com  (настройки Vitals # https://extensions.gnome.org/extension/1460/vitals)
 gnome-usage
 gnome-system-monitor
 gnome-control-center  (Configure GNOME settings)

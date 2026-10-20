@@ -1,5 +1,5 @@
 #!/bin/bash
-# Проверка доступности внешней сети (интернета) NetworkManager / Firefox
+# Проверка доступности внешней сети (интернета) NetworkManager
 
 # команда отключает проверку только до перезагрузки или перезапуска NetworkManager
 sudo nmcli networking connectivity check disable
@@ -13,6 +13,3 @@ uri=http://nmcheck.gnome.org/check_network_status.txt" > /etc/NetworkManager/con
 # отключает проверку
 # echo "[connectivity]
 # enabled=false" > /etc/NetworkManager/conf.d/20-connectivity.conf
-
-# Проверка доступности внешней сети (интернета) Firefox через curl
-curl -s detectportal.firefox.com || exit 1
