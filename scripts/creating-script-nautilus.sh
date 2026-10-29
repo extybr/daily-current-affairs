@@ -11,6 +11,7 @@ setup_nautilus_scripts() {
     nvim_terminator="terminator -g $HOME/.config/terminator/config --new-tab -e \"nvim \$1\""
     zip='zip archive_$(date "+%y-%m-%d_%H-%M-%S").zip "$@"'
     hashsum=''
+    file_path_abs='printf "%s" "$(pwd)/$1" | xclip -i\nprintf "%s" "$(pwd)/$1" | xclip -selection clipboard'
     bat="if pgrep terminator; then
   terminator -g $HOME/.config/terminator/config --new-tab -e \"bat \"\$1\"; zsh\"
 else terminator -g $HOME/.config/terminator/config -e \"bat \"\$1\"; zsh\"
@@ -56,6 +57,9 @@ sha384:\\\n\$sha384hash\\\n\\\nsha512:\\\n\$sha512hash\\\n\\\nblake2:\\\n\$b2has
 }
 
 hasher "$path"
+
+# Меняем в названии файлов '_' на '-' для удобства
+cd "$path" && for i in *; do mv -- "$i" "${i//_/-}"; done
 
 echo "Готово! Скрипты созданы в $path"
 

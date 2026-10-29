@@ -6,6 +6,11 @@ function all/ {
   bat "$HOME/my_programs/function.txt"
 }
 
+# запуск приложения в среде X11
+function x/ {
+  GDK_BACKEND=x11 "$1" &>/dev/null & disown
+}
+
 # автосмена обоев
 function wl/ {
   if pgrep auto-wallpaper; then

@@ -97,12 +97,12 @@ alias ipi/='(){ curl -s "ipinfo.io/$1" | jq }'  # вывод информаци�
 # youtube
 alias yt/="${GITHUB_DIRECTORY}/youtube_latest_videos/youtu_latest_videos.sh $1"
 alias cre/='(){ curd=$(pwd); cd ${GITHUB_DIRECTORY}/youtube_latest_videos && python curl_re.py $@ && cd $curd }'
-alias sy/=${SCRIPTS_DIRECTORY}'/../video/smplayer_youtube.sh $1'  # smplayer с ссылкой
-alias ft/='(){ ~/my_programs/freetube-linux-x64-portable/freetube --new-window "$1" &>/dev/null & disown }'  # freetube с ссылкой
+alias sy/='xclip -o | xargs "${SCRIPTS_DIRECTORY}"/../video/smplayer_youtube.sh'  # smplayer с ссылкой
+alias ft/='(){ xclip -o | xargs ~/my_programs/freetube-linux-x64-portable/freetube --new-window &>/dev/null & disown }'  # freetube с ссылкой
 
 # парсер валют / криптовалют
 alias usd=${SCRIPTS_DIRECTORY}'/usd-btc.sh'
-alias usd/='curl -s https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e'
+alias usd/='curl -fsSL https://raw.githubusercontent.com/extybr/daily-current-affairs/main/scripts/usd-btc.sh | bash -e'
 alias ex/='python <(curl -s 'https://gist.githubusercontent.com/extybr/89884ed4f333e86f25b6d32245862e07/raw/9a3576e42441201807fb83d04881cad4fd421bc3/rate')'
 
 # gui programs
@@ -139,6 +139,10 @@ alias t/=${SCRIPTS_DIRECTORY}'/temperature_color_ptop.sh'  # температу�
 alias temp='watch -n 1 ${SCRIPTS_DIRECTORY}/temperature_ptop.sh'  # мониторинг температуры
 alias sm/=${SCRIPTS_DIRECTORY}'/smplayer_config_proxy_on_off.sh'  # вкл/выкл proxy для smplayer
 alias hp/=${SCRIPTS_DIRECTORY}'/help.sh'  # help по командам терминала
+alias pl/=${GITHUB_DIRECTORY}'/playlist_check/github/./playlist-split-group.py $1'   # скачка group-title плейлиста
+alias ko/='sh <(curl -fsSL --max-time 5 https://gist.github.com/extybr/ba2396864a38738083cc1275d9f68ee5/raw/309d88ae4bf395a662523e3a28e93ad02e6d3c49/kodi_film.sh)'  # что воспроизводит kodi
+alias km/='sh <(curl -fsSL --max-time 5 https://gist.github.com/extybr/e0bd056fab3371d30349474fdcc734d9/raw/38c94a2ee04c2b77e443863607368bc334220c9f/playlist_open.sh) $1 $2'  # запуск плейлиста kodi
+alias cl/='fv=$(firefox --version | cut -d " " -f3) && curl -s --location --max-time 10 -A "Mozilla/5.0 (X11; Linux x86_64; rv:$fv) Gecko/20100101 Firefox/$fv" $1'  # запуск curl с готовыми параметрами
 
 # калькулятор в терминале
 alias pc/='(){ python3 -c "print(f\"{eval(\"$*\"):.10g}\")" }'
